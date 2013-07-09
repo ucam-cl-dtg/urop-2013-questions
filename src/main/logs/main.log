@@ -1,0 +1,1420 @@
+[2013-07-09 14:53:15] [DEBUG] RavenFilter:270 - Certificate will be loaded from: /home/mrozycki/UROP2013/MethodDemos/src/main/webapp/WEB-INF/raven/pubkey2.crt
+[2013-07-09 14:53:15] [DEBUG] RavenFilter:280 - Testing mode: null
+[2013-07-09 14:53:15] [DEBUG] RavenFilter:285 - Server url prefix: null
+[2013-07-09 14:53:15] [DEBUG] RavenFilter:294 - Granting access to all principals
+[2013-07-09 14:53:15] [DEBUG] HibernateSessionRequestFilter:34 - Initializing filter...
+[2013-07-09 14:53:15] [DEBUG] logging:184 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@e6f970
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@e6f970
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@e6f970
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@d0005e
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@12ee2a
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration yes_no -> org.hibernate.type.YesNoType@1445748
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@1bfeb82
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@1bfeb82
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@1bfeb82
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration character -> org.hibernate.type.CharacterType@1370ce9
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration char -> org.hibernate.type.CharacterType@1370ce9
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1370ce9
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@1c3a0c7
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@1c3a0c7
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@1c3a0c7
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration integer -> org.hibernate.type.IntegerType@13cba41
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration int -> org.hibernate.type.IntegerType@13cba41
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@13cba41
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@c0a150
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@c0a150
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@c0a150
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@fe04c6
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@fe04c6
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@fe04c6
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@b125bd
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@b125bd
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@b125bd
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@1a336d5
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@1a336d5
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@13eb2bc
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@13eb2bc
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration string -> org.hibernate.type.StringType@1be8bf1
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.String -> org.hibernate.type.StringType@1be8bf1
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@df39bc
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@1429498
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration url -> org.hibernate.type.UrlType@a00fd
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@a00fd
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration date -> org.hibernate.type.DateType@1dd1ed2
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@1dd1ed2
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration time -> org.hibernate.type.TimeType@1082d45
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@1082d45
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration timestamp -> org.hibernate.type.TimestampType@13803ba
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@13803ba
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@13803ba
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@74f160
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar -> org.hibernate.type.CalendarType@15d925b
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@15d925b
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@15d925b
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@5ac5f
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration locale -> org.hibernate.type.LocaleType@1a8ecf4
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@1a8ecf4
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration currency -> org.hibernate.type.CurrencyType@1d3e069
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@1d3e069
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@1e867d6
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@1e867d6
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration class -> org.hibernate.type.ClassType@b2db5b
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@b2db5b
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@ef9d00
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@ef9d00
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@186dd93
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@1f6ae4d
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration binary -> org.hibernate.type.BinaryType@d90254
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte[] -> org.hibernate.type.BinaryType@d90254
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration [B -> org.hibernate.type.BinaryType@d90254
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1c2e163
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1c2e163
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1c2e163
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration image -> org.hibernate.type.ImageType@19238ad
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration characters -> org.hibernate.type.CharArrayType@766ec3
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration char[] -> org.hibernate.type.CharArrayType@766ec3
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration [C -> org.hibernate.type.CharArrayType@766ec3
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@1ab3cda
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@1ab3cda
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@1ab3cda
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration text -> org.hibernate.type.TextType@5ef79f
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration ntext -> org.hibernate.type.NTextType@860315
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration blob -> org.hibernate.type.BlobType@1fd6f07
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@1fd6f07
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@882dfc
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration clob -> org.hibernate.type.ClobType@1e3e1b8
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@1e3e1b8
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration nclob -> org.hibernate.type.NClobType@1262bf4
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@1262bf4
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@1970991
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@14c4ac9
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration serializable -> org.hibernate.type.SerializableType@c27081
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration object -> org.hibernate.type.ObjectType@13ada
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@13ada
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@8398e7
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@1ab6c1c
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@146ac5a
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@dd7786
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@1d23e75
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@28bda
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@12b9f79
+[2013-07-09 14:53:15] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@f2db2d
+[2013-07-09 14:53:15] [INFO ] Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[2013-07-09 14:53:15] [INFO ] Version:41 - HHH000412: Hibernate Core {4.2.2.Final}
+[2013-07-09 14:53:15] [INFO ] Environment:239 - HHH000206: hibernate.properties not found
+[2013-07-09 14:53:15] [INFO ] Environment:342 - HHH000021: Bytecode provider name : javassist
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid2] -> [org.hibernate.id.UUIDGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [guid] -> [org.hibernate.id.GUIDGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [hilo] -> [org.hibernate.id.TableHiLoGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [assigned] -> [org.hibernate.id.Assigned]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [identity] -> [org.hibernate.id.IdentityGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [select] -> [org.hibernate.id.SelectGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence] -> [org.hibernate.id.SequenceGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [increment] -> [org.hibernate.id.IncrementGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [foreign] -> [org.hibernate.id.ForeignGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[2013-07-09 14:53:15] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+[2013-07-09 14:53:15] [INFO ] Configuration:1985 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+[2013-07-09 14:53:15] [INFO ] Configuration:2004 - HHH000040: Configuration resource: /hibernate.cfg.xml
+[2013-07-09 14:53:15] [DEBUG] DTDEntityResolver:68 - Trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+[2013-07-09 14:53:15] [DEBUG] DTDEntityResolver:70 - Recognized hibernate namespace; attempting to resolve on classpath under org/hibernate/
+[2013-07-09 14:53:15] [DEBUG] DTDEntityResolver:107 - Located [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd] in classpath
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - connection.driver_class=org.h2.Driver
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - connection.username=sa
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - connection.password=
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - connection.pool_size=1
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - dialect=org.hibernate.dialect.H2Dialect
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - show_sql=true
+[2013-07-09 14:53:15] [DEBUG] Configuration:1947 - hbm2ddl.auto=create
+[2013-07-09 14:53:15] [DEBUG] Configuration:2186 - Session-factory config [null] named class [uk.ac.cam.sup.models.DemoModel] for mapping
+[2013-07-09 14:53:15] [INFO ] Configuration:2126 - HHH000041: Configured SessionFactory: null
+[2013-07-09 14:53:15] [DEBUG] Configuration:2127 - Properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, hbm2ddl.auto=create, os.name=Linux, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/MethodDemos, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.show_sql=true, hibernate.connection.pool_size=1}
+[2013-07-09 14:53:15] [DEBUG] IntegratorServiceImpl:59 - Adding Integrator [org.hibernate.cfg.beanvalidation.BeanValidationIntegrator].
+[2013-07-09 14:53:15] [DEBUG] Configuration:1753 - Preparing to build session factory with filters : {}
+[2013-07-09 14:53:15] [INFO ] DriverManagerConnectionProviderImpl:98 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+[2013-07-09 14:53:15] [INFO ] DriverManagerConnectionProviderImpl:134 - HHH000115: Hibernate connection pool size: 1
+[2013-07-09 14:53:15] [INFO ] DriverManagerConnectionProviderImpl:137 - HHH000006: Autocommit mode: false
+[2013-07-09 14:53:15] [INFO ] DriverManagerConnectionProviderImpl:151 - HHH000401: using driver [org.h2.Driver] at URL [jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE]
+[2013-07-09 14:53:15] [INFO ] DriverManagerConnectionProviderImpl:154 - HHH000046: Connection properties: {user=sa, password=}
+[2013-07-09 14:53:15] [DEBUG] DriverManagerConnectionProviderImpl:196 - Opening new JDBC connection
+[2013-07-09 14:53:15] [DEBUG] DriverManagerConnectionProviderImpl:219 - Created connection to: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, Isolation Level: 2
+[2013-07-09 14:53:15] [DEBUG] JdbcServicesImpl:121 - Database ->
+       name : H2
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 14:53:15] [DEBUG] JdbcServicesImpl:127 - Driver ->
+       name : H2 JDBC Driver
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 14:53:15] [DEBUG] JdbcServicesImpl:133 - JDBC version : 3.0
+[2013-07-09 14:53:16] [INFO ] Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[2013-07-09 14:53:16] [INFO ] LobCreatorBuilder:94 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[2013-07-09 14:53:16] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 14:53:16] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 14:53:16] [DEBUG] AnnotationBinder:532 - Binding entity from annotated class: uk.ac.cam.sup.models.DemoModel
+[2013-07-09 14:53:16] [DEBUG] Ejb3Column:196 - Binding column: Ejb3DiscriminatorColumn{logicalColumnName'DTYPE', discriminatorTypeName='string'}
+[2013-07-09 14:53:16] [DEBUG] AnnotationBinder:990 - No value specified for 'javax.persistence.sharedCache.mode'; using UNSPECIFIED
+[2013-07-09 14:53:16] [DEBUG] EntityBinder:394 - Import with entity name DemoModel
+[2013-07-09 14:53:16] [DEBUG] EntityBinder:564 - Bind entity uk.ac.cam.sup.models.DemoModel on table DemoModels
+[2013-07-09 14:53:16] [DEBUG] Ejb3Column:196 - Binding column: Ejb3Column{table=org.hibernate.mapping.Table(DemoModels), mappingColumn=id, insertable=true, updatable=true, unique=false}
+[2013-07-09 14:53:16] [DEBUG] PropertyBinder:179 - MetadataSourceProcessor property id with lazy=false
+[2013-07-09 14:53:16] [DEBUG] SimpleValueBinder:331 - building SimpleValue for id
+[2013-07-09 14:53:16] [DEBUG] PropertyBinder:260 - Building property id
+[2013-07-09 14:53:16] [DEBUG] Ejb3Column:196 - Binding column: Ejb3Column{table=org.hibernate.mapping.Table(DemoModels), mappingColumn=name, insertable=true, updatable=true, unique=false}
+[2013-07-09 14:53:16] [DEBUG] PropertyBinder:179 - MetadataSourceProcessor property name with lazy=false
+[2013-07-09 14:53:16] [DEBUG] SimpleValueBinder:331 - building SimpleValue for name
+[2013-07-09 14:53:16] [DEBUG] PropertyBinder:260 - Building property name
+[2013-07-09 14:53:16] [DEBUG] SimpleValueBinder:369 - Setting SimpleValue typeName for id
+[2013-07-09 14:53:16] [DEBUG] SimpleValueBinder:369 - Setting SimpleValue typeName for name
+[2013-07-09 14:53:16] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 14:53:16] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 14:53:16] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 14:53:16] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:114 - Automatic flush during beforeCompletion(): disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:120 - Automatic session close at end of transaction: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:131 - JDBC batch size: 15
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:137 - JDBC batch updates for versioned data: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:147 - Scrollable result sets: enabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:153 - Wrap result sets: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:159 - JDBC3 getGeneratedKeys(): enabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:171 - multi-tenancy strategy : NONE
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:177 - Connection release mode: auto
+[2013-07-09 14:53:16] [INFO ] TransactionFactoryInitiator:68 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:199 - Using BatchFetchStyle : LEGACY
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:224 - Default batch fetch size: 1
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:230 - Generate SQL with comments: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:236 - Order SQL updates by primary key: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:242 - Order SQL inserts for batching: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:250 - Default null ordering: none
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:541 - Query translator: org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory
+[2013-07-09 14:53:16] [INFO ] ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:260 - Query language substitutions: {}
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:266 - JPA-QL strict compliance: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:274 - Second-level cache: enabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:280 - Query cache: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:481 - Cache region factory : org.hibernate.cache.internal.NoCachingRegionFactory
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:491 - org.hibernate.cache.internal.NoCachingRegionFactory did not provide constructor accepting java.util.Properties; attempting no-arg constructor.
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:295 - Optimize cache for minimal puts: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:310 - Structured second-level cache entries: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:320 - Second-level cache direct-reference entries: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:328 - Statistics: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:334 - Deleted entity synthetic identifier rollback: disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:358 - Default entity-mode: pojo
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:364 - Named query checking : enabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:370 - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:388 - Allow initialization of lazy state outside session : : disabled
+[2013-07-09 14:53:16] [DEBUG] SettingsFactory:398 - JTA Track by Thread: enabled
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:225 - Building session factory
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:277 - Session factory constructed with filter configurations : {}
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:278 - Instantiating session factory with properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, os.name=Linux, hbm2ddl.auto=create, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/MethodDemos, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.connection.pool_size=1, hibernate.show_sql=true}
+[2013-07-09 14:53:16] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3592 - Static SQL for entity: uk.ac.cam.sup.models.DemoModel
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3597 -  Version select: select id from DemoModels where id =?
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3600 -  Snapshot select: select demomodel_.id, demomodel_.name as name2_0_ from DemoModels demomodel_ where demomodel_.id=?
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3603 -  Insert 0: insert into DemoModels (name, id) values (?, ?)
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3604 -  Update 0: update DemoModels set name=? where id=?
+[2013-07-09 14:53:16] [DEBUG] AbstractEntityPersister:3605 -  Delete 0: delete from DemoModels where id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [NONE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [READ]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [UPGRADE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [UPGRADE_NOWAIT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [FORCE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_READ]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_WRITE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_FORCE_INCREMENT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [OPTIMISTIC]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [OPTIMISTIC_FORCE_INCREMENT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:56 - Static select for action ACTION_MERGE on entity uk.ac.cam.sup.models.DemoModel: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] Loader:56 - Static select for action ACTION_REFRESH on entity uk.ac.cam.sup.models.DemoModel: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryRegistry:62 - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@1f480e3
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryRegistry:75 - Registering SessionFactory: b6b7555c-aa60-43df-81f3-ed0743c2c95f (<unnamed>)
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryRegistry:82 - Not binding SessionFactory to JNDI, no JNDI name configured
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:488 - Instantiated session factory
+[2013-07-09 14:53:16] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 14:53:16] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 14:53:16] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 14:53:16] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 14:53:16] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 14:53:16] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 14:53:16] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 14:53:16] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 14:53:16] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 14:53:16] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 14:53:16] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 14:53:16] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 14:53:16] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 14:53:16] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 14:53:16] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 14:53:16] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 14:53:16] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 14:53:16] [INFO ] SchemaExport:343 - HHH000227: Running hbm2ddl schema export
+[2013-07-09 14:53:16] [DEBUG] SchemaExport:353 - Import file not found: /import.sql
+[2013-07-09 14:53:16] [DEBUG] SQL:104 - drop table DemoModels if exists
+[2013-07-09 14:53:16] [DEBUG] SQL:104 - create table DemoModels (id integer not null, name varchar(255), primary key (id))
+[2013-07-09 14:53:16] [INFO ] SchemaExport:405 - HHH000230: Schema export complete
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:1068 - Checking 0 named HQL queries
+[2013-07-09 14:53:16] [DEBUG] SessionFactoryImpl:1091 - Checking 0 named SQL queries
+[2013-07-09 14:53:16] [DEBUG] StatisticsInitiator:110 - Statistics initialized [enabled=false]
+[2013-07-09 14:53:16] [INFO ] ResteasyDeployment:82 - Deploying javax.ws.rs.core.Application: class uk.ac.cam.sup.MethodDemos
+[2013-07-09 14:53:37] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 14:53:37] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 14:53:37] [DEBUG] RavenFilter:409 - Stored raven request is null
+[2013-07-09 14:53:37] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 14:53:37] [DEBUG] RavenFilter:541 - Redirecting with url http://localhost/
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:400 - WLS-Response is 1!200!!20130709T153414Z!1373384053-15955-6!http://localhost/!mr595!!pwd!12377!!2!t696fl2WX7uS2rIrxoXvV9bkrSOEHxcPdsCu42zp71585sHh.eSRuNpov1ZEYQAjaVM5ZnlzysXdxxGqPLdAgU1HWJYaSZiieBY8iPtFhiSid9O8kfYPd0YRSxOLXWD1JOeT2wJinl6ztx4XzHJjxq8MDsYnX1nKEHH07ARkOc4_
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T135337Z, fail: 
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:466 - Validating received response with stored request
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:498 - Response validation failed - Response apparently issued in the future; issue time 2013-07-09 16:34:14.000 BST compared with 2013-07-09 14:53:38.894 BST
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T135337Z, fail: 
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 14:53:38] [DEBUG] RavenFilter:541 - Redirecting with url http://localhost/favicon.ico
+[2013-07-09 16:34:47] [DEBUG] RavenFilter:270 - Certificate will be loaded from: /home/mrozycki/UROP2013/MethodDemos/src/main/webapp/WEB-INF/raven/pubkey2.crt
+[2013-07-09 16:34:47] [DEBUG] RavenFilter:280 - Testing mode: null
+[2013-07-09 16:34:47] [DEBUG] RavenFilter:285 - Server url prefix: null
+[2013-07-09 16:34:47] [DEBUG] RavenFilter:294 - Granting access to all principals
+[2013-07-09 16:34:47] [DEBUG] HibernateSessionRequestFilter:34 - Initializing filter...
+[2013-07-09 16:34:47] [DEBUG] logging:184 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@aee320
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@17535b6
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration yes_no -> org.hibernate.type.YesNoType@935741
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration char -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration int -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:34:47] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration string -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.String -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@143ed74
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@12ce574
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration url -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@15ede11
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar -> org.hibernate.type.CalendarType@1e6743e
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@1e6743e
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@1e6743e
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@19f9c7a
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@d175ff
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@6212dd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration binary -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte[] -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration [B -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration image -> org.hibernate.type.ImageType@165547d
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration characters -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration char[] -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration [C -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration text -> org.hibernate.type.TextType@15fc606
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration ntext -> org.hibernate.type.NTextType@1959352
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@98b13b
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration nclob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@2250d5
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@9549af
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration serializable -> org.hibernate.type.SerializableType@3e574
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@161c9d1
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@108ea49
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@4d8d50
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@17892d5
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@eff545
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@1cfa965
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@7a4076
+[2013-07-09 16:34:48] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@1e064c
+[2013-07-09 16:34:48] [INFO ] Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[2013-07-09 16:34:48] [INFO ] Version:41 - HHH000412: Hibernate Core {4.2.2.Final}
+[2013-07-09 16:34:48] [INFO ] Environment:239 - HHH000206: hibernate.properties not found
+[2013-07-09 16:34:48] [INFO ] Environment:342 - HHH000021: Bytecode provider name : javassist
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid2] -> [org.hibernate.id.UUIDGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [guid] -> [org.hibernate.id.GUIDGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [hilo] -> [org.hibernate.id.TableHiLoGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [assigned] -> [org.hibernate.id.Assigned]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [identity] -> [org.hibernate.id.IdentityGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [select] -> [org.hibernate.id.SelectGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence] -> [org.hibernate.id.SequenceGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [increment] -> [org.hibernate.id.IncrementGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [foreign] -> [org.hibernate.id.ForeignGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[2013-07-09 16:34:48] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+[2013-07-09 16:34:48] [INFO ] Configuration:1985 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+[2013-07-09 16:34:48] [INFO ] Configuration:2004 - HHH000040: Configuration resource: /hibernate.cfg.xml
+[2013-07-09 16:34:48] [DEBUG] DTDEntityResolver:68 - Trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+[2013-07-09 16:34:48] [DEBUG] DTDEntityResolver:70 - Recognized hibernate namespace; attempting to resolve on classpath under org/hibernate/
+[2013-07-09 16:34:48] [DEBUG] DTDEntityResolver:107 - Located [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd] in classpath
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - connection.driver_class=org.h2.Driver
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - connection.username=sa
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - connection.password=
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - connection.pool_size=1
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - dialect=org.hibernate.dialect.H2Dialect
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - show_sql=true
+[2013-07-09 16:34:48] [DEBUG] Configuration:1947 - hbm2ddl.auto=create
+[2013-07-09 16:34:48] [DEBUG] Configuration:2186 - Session-factory config [null] named class [uk.ac.cam.sup.models.DemoModel] for mapping
+[2013-07-09 16:34:48] [INFO ] Configuration:2126 - HHH000041: Configured SessionFactory: null
+[2013-07-09 16:34:48] [DEBUG] Configuration:2127 - Properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, hbm2ddl.auto=create, os.name=Linux, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/MethodDemos, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.show_sql=true, hibernate.connection.pool_size=1}
+[2013-07-09 16:34:48] [DEBUG] IntegratorServiceImpl:59 - Adding Integrator [org.hibernate.cfg.beanvalidation.BeanValidationIntegrator].
+[2013-07-09 16:34:48] [DEBUG] Configuration:1753 - Preparing to build session factory with filters : {}
+[2013-07-09 16:34:48] [INFO ] DriverManagerConnectionProviderImpl:98 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+[2013-07-09 16:34:48] [INFO ] DriverManagerConnectionProviderImpl:134 - HHH000115: Hibernate connection pool size: 1
+[2013-07-09 16:34:48] [INFO ] DriverManagerConnectionProviderImpl:137 - HHH000006: Autocommit mode: false
+[2013-07-09 16:34:48] [INFO ] DriverManagerConnectionProviderImpl:151 - HHH000401: using driver [org.h2.Driver] at URL [jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE]
+[2013-07-09 16:34:48] [INFO ] DriverManagerConnectionProviderImpl:154 - HHH000046: Connection properties: {user=sa, password=}
+[2013-07-09 16:34:48] [DEBUG] DriverManagerConnectionProviderImpl:196 - Opening new JDBC connection
+[2013-07-09 16:34:48] [DEBUG] DriverManagerConnectionProviderImpl:219 - Created connection to: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, Isolation Level: 2
+[2013-07-09 16:34:48] [DEBUG] JdbcServicesImpl:121 - Database ->
+       name : H2
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:34:48] [DEBUG] JdbcServicesImpl:127 - Driver ->
+       name : H2 JDBC Driver
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:34:48] [DEBUG] JdbcServicesImpl:133 - JDBC version : 3.0
+[2013-07-09 16:34:48] [INFO ] Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[2013-07-09 16:34:48] [INFO ] LobCreatorBuilder:94 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[2013-07-09 16:34:48] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:34:48] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:34:48] [DEBUG] AnnotationBinder:532 - Binding entity from annotated class: uk.ac.cam.sup.models.DemoModel
+[2013-07-09 16:34:48] [DEBUG] Ejb3Column:196 - Binding column: Ejb3DiscriminatorColumn{logicalColumnName'DTYPE', discriminatorTypeName='string'}
+[2013-07-09 16:34:48] [DEBUG] AnnotationBinder:990 - No value specified for 'javax.persistence.sharedCache.mode'; using UNSPECIFIED
+[2013-07-09 16:34:48] [DEBUG] EntityBinder:394 - Import with entity name DemoModel
+[2013-07-09 16:34:48] [DEBUG] EntityBinder:564 - Bind entity uk.ac.cam.sup.models.DemoModel on table DemoModels
+[2013-07-09 16:34:48] [DEBUG] Ejb3Column:196 - Binding column: Ejb3Column{table=org.hibernate.mapping.Table(DemoModels), mappingColumn=id, insertable=true, updatable=true, unique=false}
+[2013-07-09 16:34:48] [DEBUG] PropertyBinder:179 - MetadataSourceProcessor property id with lazy=false
+[2013-07-09 16:34:48] [DEBUG] SimpleValueBinder:331 - building SimpleValue for id
+[2013-07-09 16:34:48] [DEBUG] PropertyBinder:260 - Building property id
+[2013-07-09 16:34:48] [DEBUG] Ejb3Column:196 - Binding column: Ejb3Column{table=org.hibernate.mapping.Table(DemoModels), mappingColumn=name, insertable=true, updatable=true, unique=false}
+[2013-07-09 16:34:48] [DEBUG] PropertyBinder:179 - MetadataSourceProcessor property name with lazy=false
+[2013-07-09 16:34:48] [DEBUG] SimpleValueBinder:331 - building SimpleValue for name
+[2013-07-09 16:34:48] [DEBUG] PropertyBinder:260 - Building property name
+[2013-07-09 16:34:48] [DEBUG] SimpleValueBinder:369 - Setting SimpleValue typeName for id
+[2013-07-09 16:34:48] [DEBUG] SimpleValueBinder:369 - Setting SimpleValue typeName for name
+[2013-07-09 16:34:48] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:34:48] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:34:48] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:34:48] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:34:48] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:34:48] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:34:48] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:34:48] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:114 - Automatic flush during beforeCompletion(): disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:120 - Automatic session close at end of transaction: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:131 - JDBC batch size: 15
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:137 - JDBC batch updates for versioned data: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:147 - Scrollable result sets: enabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:153 - Wrap result sets: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:159 - JDBC3 getGeneratedKeys(): enabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:171 - multi-tenancy strategy : NONE
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:177 - Connection release mode: auto
+[2013-07-09 16:34:48] [INFO ] TransactionFactoryInitiator:68 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:199 - Using BatchFetchStyle : LEGACY
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:224 - Default batch fetch size: 1
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:230 - Generate SQL with comments: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:236 - Order SQL updates by primary key: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:242 - Order SQL inserts for batching: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:250 - Default null ordering: none
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:541 - Query translator: org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory
+[2013-07-09 16:34:48] [INFO ] ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:260 - Query language substitutions: {}
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:266 - JPA-QL strict compliance: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:274 - Second-level cache: enabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:280 - Query cache: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:481 - Cache region factory : org.hibernate.cache.internal.NoCachingRegionFactory
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:491 - org.hibernate.cache.internal.NoCachingRegionFactory did not provide constructor accepting java.util.Properties; attempting no-arg constructor.
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:295 - Optimize cache for minimal puts: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:310 - Structured second-level cache entries: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:320 - Second-level cache direct-reference entries: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:328 - Statistics: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:334 - Deleted entity synthetic identifier rollback: disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:358 - Default entity-mode: pojo
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:364 - Named query checking : enabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:370 - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:388 - Allow initialization of lazy state outside session : : disabled
+[2013-07-09 16:34:48] [DEBUG] SettingsFactory:398 - JTA Track by Thread: enabled
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:225 - Building session factory
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:277 - Session factory constructed with filter configurations : {}
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:278 - Instantiating session factory with properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, os.name=Linux, hbm2ddl.auto=create, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/MethodDemos, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.connection.pool_size=1, hibernate.show_sql=true}
+[2013-07-09 16:34:49] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3592 - Static SQL for entity: uk.ac.cam.sup.models.DemoModel
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3597 -  Version select: select id from DemoModels where id =?
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3600 -  Snapshot select: select demomodel_.id, demomodel_.name as name2_0_ from DemoModels demomodel_ where demomodel_.id=?
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3603 -  Insert 0: insert into DemoModels (name, id) values (?, ?)
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3604 -  Update 0: update DemoModels set name=? where id=?
+[2013-07-09 16:34:49] [DEBUG] AbstractEntityPersister:3605 -  Delete 0: delete from DemoModels where id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [NONE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [READ]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [UPGRADE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [UPGRADE_NOWAIT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [FORCE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_READ]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_WRITE]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [PESSIMISTIC_FORCE_INCREMENT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=? for update
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [OPTIMISTIC]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:123 - Static select for entity uk.ac.cam.sup.models.DemoModel [OPTIMISTIC_FORCE_INCREMENT]: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:56 - Static select for action ACTION_MERGE on entity uk.ac.cam.sup.models.DemoModel: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] Loader:56 - Static select for action ACTION_REFRESH on entity uk.ac.cam.sup.models.DemoModel: select demomodel0_.id as id1_0_0_, demomodel0_.name as name2_0_0_ from DemoModels demomodel0_ where demomodel0_.id=?
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryRegistry:62 - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@3aabc1
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryRegistry:75 - Registering SessionFactory: 94b266d5-64bc-4def-b143-8c98feaed4f7 (<unnamed>)
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryRegistry:82 - Not binding SessionFactory to JNDI, no JNDI name configured
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:488 - Instantiated session factory
+[2013-07-09 16:34:49] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:34:49] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:34:49] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:34:49] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:34:49] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:34:49] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:34:49] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:34:49] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:34:49] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:34:49] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:34:49] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 16:34:49] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:34:49] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:34:49] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:34:49] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:34:49] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:34:49] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:34:49] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:34:49] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:34:49] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:34:49] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:34:49] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 16:34:49] [DEBUG] DefaultIdentifierGeneratorFactory:107 - Setting dialect [org.hibernate.dialect.H2Dialect]
+[2013-07-09 16:34:49] [INFO ] SchemaExport:343 - HHH000227: Running hbm2ddl schema export
+[2013-07-09 16:34:49] [DEBUG] SchemaExport:353 - Import file not found: /import.sql
+[2013-07-09 16:34:49] [DEBUG] SQL:104 - drop table DemoModels if exists
+[2013-07-09 16:34:49] [DEBUG] SQL:104 - create table DemoModels (id integer not null, name varchar(255), primary key (id))
+[2013-07-09 16:34:49] [INFO ] SchemaExport:405 - HHH000230: Schema export complete
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:1068 - Checking 0 named HQL queries
+[2013-07-09 16:34:49] [DEBUG] SessionFactoryImpl:1091 - Checking 0 named SQL queries
+[2013-07-09 16:34:49] [DEBUG] StatisticsInitiator:110 - Statistics initialized [enabled=false]
+[2013-07-09 16:34:49] [INFO ] ResteasyDeployment:82 - Deploying javax.ws.rs.core.Application: class uk.ac.cam.sup.MethodDemos
+[2013-07-09 16:34:51] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:34:51] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:34:51] [DEBUG] RavenFilter:409 - Stored raven request is null
+[2013-07-09 16:34:51] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 16:34:51] [DEBUG] RavenFilter:541 - Redirecting with url http://localhost/
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:400 - WLS-Response is 1!200!!20130709T153452Z!1373384091-15985-6!http://localhost/!mr595!!pwd!12339!!2!sO8IrVG8CsaLAOS5M.Js32nuPez.tauSDF2rh33voHa7ly5h2yxgeNjY3fX.-1r8XCiHCNysAuu2FhlmyXlXtU3AKo7y8T.3xhwV2ovtO3Jm.M38PQQsmLkFScRok1coYCvPY-Ano5k0ZsRV0NvnBxqFZVuL9A2YBIVMWcBYQfQ_
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T153451Z, fail: 
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:466 - Validating received response with stored request
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:484 - Storing new state  Status: 200 Issue: 20130709T153452Z Last: 1373384092932 Life: 12339 ID: 1373384091-15985-6 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T153451Z, fail: 
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T153452Z Last: 1373384092932 Life: 12339 ID: 1373384091-15985-6 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:34:52] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 16:34:52] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 16:34:53] [DEBUG] AbstractTransactionImpl:158 - begin
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:212 - Obtaining JDBC connection
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:218 - Obtained JDBC connection
+[2013-07-09 16:34:53] [DEBUG] JdbcTransaction:69 - initial autocommit status: false
+[2013-07-09 16:34:53] [DEBUG] IncrementGenerator:127 - Fetching initial value: select max(id) from DemoModels
+[2013-07-09 16:34:53] [DEBUG] SQL:104 - select max(id) from DemoModels
+[2013-07-09 16:34:53] [DEBUG] IncrementGenerator:138 - First free id: 1
+[2013-07-09 16:34:53] [DEBUG] AbstractSaveEventListener:130 - Generated identifier: 1, using strategy: org.hibernate.id.IncrementGenerator
+[2013-07-09 16:34:53] [DEBUG] AbstractSaveEventListener:130 - Generated identifier: 2, using strategy: org.hibernate.id.IncrementGenerator
+[2013-07-09 16:34:53] [DEBUG] AbstractSaveEventListener:130 - Generated identifier: 3, using strategy: org.hibernate.id.IncrementGenerator
+[2013-07-09 16:34:53] [DEBUG] AbstractTransactionImpl:173 - committing
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:144 - Processing flush-time cascades
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:185 - Dirty checking collections
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:118 - Flushed: 3 insertions, 0 updates, 0 deletions to 3 objects
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:125 - Flushed: 0 (re)creations, 0 updates, 0 removals to 0 collections
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:114 - Listing entities:
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=2, name=some name}
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=3, name=Bob :)}
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=1, name=model1}
+[2013-07-09 16:34:53] [DEBUG] SQL:104 - insert into DemoModels (name, id) values (?, ?)
+[2013-07-09 16:34:53] [DEBUG] SQL:104 - insert into DemoModels (name, id) values (?, ?)
+[2013-07-09 16:34:53] [DEBUG] SQL:104 - insert into DemoModels (name, id) values (?, ?)
+[2013-07-09 16:34:53] [DEBUG] JdbcTransaction:113 - committed JDBC Connection
+[2013-07-09 16:34:53] [DEBUG] JdbcCoordinatorImpl:173 - HHH000420: Closing un-released batch
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:232 - Releasing JDBC connection
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:250 - Released JDBC connection
+[2013-07-09 16:34:53] [DEBUG] AbstractTransactionImpl:158 - begin
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:212 - Obtaining JDBC connection
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:218 - Obtained JDBC connection
+[2013-07-09 16:34:53] [DEBUG] JdbcTransaction:69 - initial autocommit status: false
+[2013-07-09 16:34:53] [DEBUG] QueryTranslatorImpl:265 - parse() - HQL: from uk.ac.cam.sup.models.DemoModel
+[2013-07-09 16:34:53] [DEBUG] QueryTranslatorImpl:283 - --- HQL AST ---
+ \-[QUERY] Node: 'query'
+    \-[SELECT_FROM] Node: 'SELECT_FROM'
+       \-[FROM] Node: 'from'
+          \-[RANGE] Node: 'RANGE'
+             \-[DOT] Node: '.'
+                +-[DOT] Node: '.'
+                |  +-[DOT] Node: '.'
+                |  |  +-[DOT] Node: '.'
+                |  |  |  +-[DOT] Node: '.'
+                |  |  |  |  +-[IDENT] Node: 'uk'
+                |  |  |  |  \-[IDENT] Node: 'ac'
+                |  |  |  \-[IDENT] Node: 'cam'
+                |  |  \-[IDENT] Node: 'sup'
+                |  \-[IDENT] Node: 'models'
+                \-[IDENT] Node: 'DemoModel'
+
+[2013-07-09 16:34:53] [DEBUG] ErrorCounter:82 - throwQueryException() : no errors
+[2013-07-09 16:34:53] [DEBUG] HqlSqlBaseWalker:121 - select << begin [level=1, statement=select]
+[2013-07-09 16:34:53] [DEBUG] FromElement:157 - FromClause{level=1} : uk.ac.cam.sup.models.DemoModel (<no alias>) -> demomodel0_
+[2013-07-09 16:34:53] [DEBUG] HqlSqlBaseWalker:125 - select : finishing up [level=1, statement=select]
+[2013-07-09 16:34:53] [DEBUG] HqlSqlWalker:629 - processQuery() :  ( SELECT ( FromClause{level=1} DemoModels demomodel0_ ) )
+[2013-07-09 16:34:53] [DEBUG] HqlSqlWalker:869 - Derived SELECT clause created.
+[2013-07-09 16:34:53] [DEBUG] JoinProcessor:177 - Using FROM fragment [DemoModels demomodel0_]
+[2013-07-09 16:34:53] [DEBUG] HqlSqlBaseWalker:129 - select >> end [level=1, statement=select]
+[2013-07-09 16:34:53] [DEBUG] QueryTranslatorImpl:252 - --- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (DemoModels)
+    +-[SELECT_CLAUSE] SelectClause: '{derived select clause}'
+    |  +-[SELECT_EXPR] SelectExpressionImpl: 'demomodel0_.id as id1_0_' {FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=DemoModels,tableAlias=demomodel0_,origin=null,columns={,className=uk.ac.cam.sup.models.DemoModel}}}
+    |  \-[SQL_TOKEN] SqlFragment: 'demomodel0_.name as name2_0_'
+    \-[FROM] FromClause: 'from' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[], fromElementByTableAlias=[demomodel0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+       \-[FROM_FRAGMENT] FromElement: 'DemoModels demomodel0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=DemoModels,tableAlias=demomodel0_,origin=null,columns={,className=uk.ac.cam.sup.models.DemoModel}}
+
+[2013-07-09 16:34:53] [DEBUG] ErrorCounter:82 - throwQueryException() : no errors
+[2013-07-09 16:34:53] [DEBUG] QueryTranslatorImpl:235 - HQL: from uk.ac.cam.sup.models.DemoModel
+[2013-07-09 16:34:53] [DEBUG] QueryTranslatorImpl:236 - SQL: select demomodel0_.id as id1_0_, demomodel0_.name as name2_0_ from DemoModels demomodel0_
+[2013-07-09 16:34:53] [DEBUG] ErrorCounter:82 - throwQueryException() : no errors
+[2013-07-09 16:34:53] [DEBUG] SQL:104 - select demomodel0_.id as id1_0_, demomodel0_.name as name2_0_ from DemoModels demomodel0_
+[2013-07-09 16:34:53] [DEBUG] Loader:941 - Result set row: 0
+[2013-07-09 16:34:53] [DEBUG] Loader:1475 - Result row: EntityKey[uk.ac.cam.sup.models.DemoModel#1]
+[2013-07-09 16:34:53] [DEBUG] Loader:941 - Result set row: 1
+[2013-07-09 16:34:53] [DEBUG] Loader:1475 - Result row: EntityKey[uk.ac.cam.sup.models.DemoModel#2]
+[2013-07-09 16:34:53] [DEBUG] Loader:941 - Result set row: 2
+[2013-07-09 16:34:53] [DEBUG] Loader:1475 - Result row: EntityKey[uk.ac.cam.sup.models.DemoModel#3]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:158 - Resolving associations for [uk.ac.cam.sup.models.DemoModel#1]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:277 - Done materializing entity [uk.ac.cam.sup.models.DemoModel#1]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:158 - Resolving associations for [uk.ac.cam.sup.models.DemoModel#2]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:277 - Done materializing entity [uk.ac.cam.sup.models.DemoModel#2]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:158 - Resolving associations for [uk.ac.cam.sup.models.DemoModel#3]
+[2013-07-09 16:34:53] [DEBUG] TwoPhaseLoad:277 - Done materializing entity [uk.ac.cam.sup.models.DemoModel#3]
+[2013-07-09 16:34:53] [DEBUG] AbstractTransactionImpl:173 - committing
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:144 - Processing flush-time cascades
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:185 - Dirty checking collections
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:118 - Flushed: 0 insertions, 0 updates, 0 deletions to 3 objects
+[2013-07-09 16:34:53] [DEBUG] AbstractFlushingEventListener:125 - Flushed: 0 (re)creations, 0 updates, 0 removals to 0 collections
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:114 - Listing entities:
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=2, name=some name}
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=3, name=Bob :)}
+[2013-07-09 16:34:53] [DEBUG] EntityPrinter:121 - uk.ac.cam.sup.models.DemoModel{id=1, name=model1}
+[2013-07-09 16:34:53] [DEBUG] JdbcTransaction:113 - committed JDBC Connection
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:232 - Releasing JDBC connection
+[2013-07-09 16:34:53] [DEBUG] LogicalConnectionImpl:250 - Released JDBC connection
+[2013-07-09 16:34:53] [DEBUG] MainController:97 - This will print out a debug-message into the log
+[2013-07-09 16:34:53] [INFO ] MainController:98 - Use this for printing info-messages to the log
+[2013-07-09 16:34:53] [WARN ] MainController:99 - This one for warning...
+[2013-07-09 16:34:53] [ERROR] MainController:100 - You can see logging is easy...
+[2013-07-09 16:34:54] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 16:34:54] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:34:54] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T153451Z, fail: 
+[2013-07-09 16:34:54] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T153452Z Last: 1373384092932 Life: 12339 ID: 1373384091-15985-6 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:34:54] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 16:34:54] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 16:58:16] [DEBUG] RavenFilter:270 - Certificate will be loaded from: /home/mrozycki/UROP2013/urop-2013-questions/src/main/webapp/WEB-INF/raven/pubkey2.crt
+[2013-07-09 16:58:16] [DEBUG] RavenFilter:280 - Testing mode: null
+[2013-07-09 16:58:16] [DEBUG] RavenFilter:285 - Server url prefix: null
+[2013-07-09 16:58:16] [DEBUG] RavenFilter:294 - Granting access to all principals
+[2013-07-09 16:58:16] [DEBUG] HibernateSessionRequestFilter:34 - Initializing filter...
+[2013-07-09 16:58:16] [DEBUG] logging:184 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@aee320
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@17535b6
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration yes_no -> org.hibernate.type.YesNoType@935741
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration char -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration int -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration string -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.String -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@143ed74
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@12ce574
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration url -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@15ede11
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@19f9c7a
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@d175ff
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@6212dd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration binary -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte[] -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration [B -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration image -> org.hibernate.type.ImageType@165547d
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration characters -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration char[] -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration [C -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration text -> org.hibernate.type.TextType@15fc606
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration ntext -> org.hibernate.type.NTextType@1959352
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@98b13b
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration nclob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@2250d5
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@9549af
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration serializable -> org.hibernate.type.SerializableType@3e574
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@161c9d1
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@108ea49
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@4d8d50
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@17892d5
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@eff545
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@1cfa965
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@7a4076
+[2013-07-09 16:58:16] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@1e064c
+[2013-07-09 16:58:16] [INFO ] Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[2013-07-09 16:58:16] [INFO ] Version:41 - HHH000412: Hibernate Core {4.2.2.Final}
+[2013-07-09 16:58:16] [INFO ] Environment:239 - HHH000206: hibernate.properties not found
+[2013-07-09 16:58:16] [INFO ] Environment:342 - HHH000021: Bytecode provider name : javassist
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid2] -> [org.hibernate.id.UUIDGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [guid] -> [org.hibernate.id.GUIDGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [hilo] -> [org.hibernate.id.TableHiLoGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [assigned] -> [org.hibernate.id.Assigned]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [identity] -> [org.hibernate.id.IdentityGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [select] -> [org.hibernate.id.SelectGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence] -> [org.hibernate.id.SequenceGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [increment] -> [org.hibernate.id.IncrementGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [foreign] -> [org.hibernate.id.ForeignGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[2013-07-09 16:58:16] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+[2013-07-09 16:58:16] [INFO ] Configuration:1985 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+[2013-07-09 16:58:16] [INFO ] Configuration:2004 - HHH000040: Configuration resource: /hibernate.cfg.xml
+[2013-07-09 16:58:16] [DEBUG] DTDEntityResolver:68 - Trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+[2013-07-09 16:58:16] [DEBUG] DTDEntityResolver:70 - Recognized hibernate namespace; attempting to resolve on classpath under org/hibernate/
+[2013-07-09 16:58:16] [DEBUG] DTDEntityResolver:107 - Located [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd] in classpath
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - connection.driver_class=org.h2.Driver
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - connection.username=sa
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - connection.password=
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - connection.pool_size=1
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - dialect=org.hibernate.dialect.H2Dialect
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - show_sql=true
+[2013-07-09 16:58:16] [DEBUG] Configuration:1947 - hbm2ddl.auto=create
+[2013-07-09 16:58:16] [DEBUG] Configuration:2186 - Session-factory config [null] named class [uk.ac.cam.sup.models.DemoModel] for mapping
+[2013-07-09 16:59:19] [DEBUG] RavenFilter:270 - Certificate will be loaded from: /home/mrozycki/UROP2013/urop-2013-questions/src/main/webapp/WEB-INF/raven/pubkey2.crt
+[2013-07-09 16:59:19] [DEBUG] RavenFilter:280 - Testing mode: null
+[2013-07-09 16:59:19] [DEBUG] RavenFilter:285 - Server url prefix: null
+[2013-07-09 16:59:19] [DEBUG] RavenFilter:294 - Granting access to all principals
+[2013-07-09 16:59:19] [DEBUG] HibernateSessionRequestFilter:34 - Initializing filter...
+[2013-07-09 16:59:19] [DEBUG] logging:184 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@aee320
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@17535b6
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration yes_no -> org.hibernate.type.YesNoType@935741
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration char -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration int -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration string -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.String -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@143ed74
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@12ce574
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration url -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@15ede11
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@19f9c7a
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@d175ff
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@6212dd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration binary -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte[] -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration [B -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration image -> org.hibernate.type.ImageType@165547d
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration characters -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration char[] -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration [C -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration text -> org.hibernate.type.TextType@15fc606
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration ntext -> org.hibernate.type.NTextType@1959352
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@98b13b
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration nclob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@2250d5
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@9549af
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration serializable -> org.hibernate.type.SerializableType@3e574
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@161c9d1
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@108ea49
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@4d8d50
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@17892d5
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@eff545
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@1cfa965
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@7a4076
+[2013-07-09 16:59:19] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@1e064c
+[2013-07-09 16:59:19] [INFO ] Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[2013-07-09 16:59:19] [INFO ] Version:41 - HHH000412: Hibernate Core {4.2.2.Final}
+[2013-07-09 16:59:19] [INFO ] Environment:239 - HHH000206: hibernate.properties not found
+[2013-07-09 16:59:19] [INFO ] Environment:342 - HHH000021: Bytecode provider name : javassist
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid2] -> [org.hibernate.id.UUIDGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [guid] -> [org.hibernate.id.GUIDGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [hilo] -> [org.hibernate.id.TableHiLoGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [assigned] -> [org.hibernate.id.Assigned]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [identity] -> [org.hibernate.id.IdentityGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [select] -> [org.hibernate.id.SelectGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence] -> [org.hibernate.id.SequenceGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [increment] -> [org.hibernate.id.IncrementGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [foreign] -> [org.hibernate.id.ForeignGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[2013-07-09 16:59:19] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+[2013-07-09 16:59:19] [INFO ] Configuration:1985 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+[2013-07-09 16:59:19] [INFO ] Configuration:2004 - HHH000040: Configuration resource: /hibernate.cfg.xml
+[2013-07-09 16:59:19] [DEBUG] DTDEntityResolver:68 - Trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+[2013-07-09 16:59:19] [DEBUG] DTDEntityResolver:70 - Recognized hibernate namespace; attempting to resolve on classpath under org/hibernate/
+[2013-07-09 16:59:19] [DEBUG] DTDEntityResolver:107 - Located [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd] in classpath
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - connection.driver_class=org.h2.Driver
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - connection.username=sa
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - connection.password=
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - connection.pool_size=1
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - dialect=org.hibernate.dialect.H2Dialect
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - show_sql=true
+[2013-07-09 16:59:19] [DEBUG] Configuration:1947 - hbm2ddl.auto=create
+[2013-07-09 16:59:19] [INFO ] Configuration:2126 - HHH000041: Configured SessionFactory: null
+[2013-07-09 16:59:19] [DEBUG] Configuration:2127 - Properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, hbm2ddl.auto=create, os.name=Linux, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/urop-2013-questions, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.show_sql=true, hibernate.connection.pool_size=1}
+[2013-07-09 16:59:19] [DEBUG] IntegratorServiceImpl:59 - Adding Integrator [org.hibernate.cfg.beanvalidation.BeanValidationIntegrator].
+[2013-07-09 16:59:19] [DEBUG] Configuration:1753 - Preparing to build session factory with filters : {}
+[2013-07-09 16:59:19] [INFO ] DriverManagerConnectionProviderImpl:98 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+[2013-07-09 16:59:19] [INFO ] DriverManagerConnectionProviderImpl:134 - HHH000115: Hibernate connection pool size: 1
+[2013-07-09 16:59:19] [INFO ] DriverManagerConnectionProviderImpl:137 - HHH000006: Autocommit mode: false
+[2013-07-09 16:59:19] [INFO ] DriverManagerConnectionProviderImpl:151 - HHH000401: using driver [org.h2.Driver] at URL [jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE]
+[2013-07-09 16:59:19] [INFO ] DriverManagerConnectionProviderImpl:154 - HHH000046: Connection properties: {user=sa, password=}
+[2013-07-09 16:59:19] [DEBUG] DriverManagerConnectionProviderImpl:196 - Opening new JDBC connection
+[2013-07-09 16:59:19] [DEBUG] DriverManagerConnectionProviderImpl:219 - Created connection to: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, Isolation Level: 2
+[2013-07-09 16:59:19] [DEBUG] JdbcServicesImpl:121 - Database ->
+       name : H2
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:59:19] [DEBUG] JdbcServicesImpl:127 - Driver ->
+       name : H2 JDBC Driver
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:59:19] [DEBUG] JdbcServicesImpl:133 - JDBC version : 3.0
+[2013-07-09 16:59:19] [INFO ] Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[2013-07-09 16:59:19] [INFO ] LobCreatorBuilder:94 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[2013-07-09 16:59:19] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:19] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:19] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:19] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:19] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:19] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:19] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:19] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:19] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:19] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:114 - Automatic flush during beforeCompletion(): disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:120 - Automatic session close at end of transaction: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:131 - JDBC batch size: 15
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:137 - JDBC batch updates for versioned data: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:147 - Scrollable result sets: enabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:153 - Wrap result sets: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:159 - JDBC3 getGeneratedKeys(): enabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:171 - multi-tenancy strategy : NONE
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:177 - Connection release mode: auto
+[2013-07-09 16:59:20] [INFO ] TransactionFactoryInitiator:68 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:199 - Using BatchFetchStyle : LEGACY
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:224 - Default batch fetch size: 1
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:230 - Generate SQL with comments: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:236 - Order SQL updates by primary key: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:242 - Order SQL inserts for batching: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:250 - Default null ordering: none
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:541 - Query translator: org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory
+[2013-07-09 16:59:20] [INFO ] ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:260 - Query language substitutions: {}
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:266 - JPA-QL strict compliance: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:274 - Second-level cache: enabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:280 - Query cache: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:481 - Cache region factory : org.hibernate.cache.internal.NoCachingRegionFactory
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:491 - org.hibernate.cache.internal.NoCachingRegionFactory did not provide constructor accepting java.util.Properties; attempting no-arg constructor.
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:295 - Optimize cache for minimal puts: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:310 - Structured second-level cache entries: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:320 - Second-level cache direct-reference entries: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:328 - Statistics: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:334 - Deleted entity synthetic identifier rollback: disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:358 - Default entity-mode: pojo
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:364 - Named query checking : enabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:370 - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:388 - Allow initialization of lazy state outside session : : disabled
+[2013-07-09 16:59:20] [DEBUG] SettingsFactory:398 - JTA Track by Thread: enabled
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:225 - Building session factory
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:277 - Session factory constructed with filter configurations : {}
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:278 - Instantiating session factory with properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, os.name=Linux, hbm2ddl.auto=create, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/urop-2013-questions, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.connection.pool_size=1, hibernate.show_sql=true}
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryRegistry:62 - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@5ac5f
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryRegistry:75 - Registering SessionFactory: 39eed624-6be4-4ed0-a1ef-aee6101c0826 (<unnamed>)
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryRegistry:82 - Not binding SessionFactory to JNDI, no JNDI name configured
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:488 - Instantiated session factory
+[2013-07-09 16:59:20] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:20] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:20] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:20] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:20] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:20] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:20] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:20] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:20] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:20] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:20] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:20] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:20] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:20] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:20] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:20] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:20] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:20] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:20] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:20] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:20] [INFO ] SchemaExport:343 - HHH000227: Running hbm2ddl schema export
+[2013-07-09 16:59:20] [DEBUG] SchemaExport:353 - Import file not found: /import.sql
+[2013-07-09 16:59:20] [INFO ] SchemaExport:405 - HHH000230: Schema export complete
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:1068 - Checking 0 named HQL queries
+[2013-07-09 16:59:20] [DEBUG] SessionFactoryImpl:1091 - Checking 0 named SQL queries
+[2013-07-09 16:59:20] [DEBUG] StatisticsInitiator:110 - Statistics initialized [enabled=false]
+[2013-07-09 16:59:20] [INFO ] ResteasyDeployment:82 - Deploying javax.ws.rs.core.Application: class uk.ac.cam.sup.QuestionsApp
+[2013-07-09 16:59:22] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:59:22] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:59:22] [DEBUG] RavenFilter:409 - Stored raven request is null
+[2013-07-09 16:59:22] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 16:59:22] [DEBUG] RavenFilter:541 - Redirecting with url http://localhost/
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:400 - WLS-Response is 1!200!!20130709T155926Z!1373385562-16654-7!http://localhost/!mr595!!pwd!10868!!2!MJ9CRgwYjAljmGKc564LIt5WT.mRQga-7NpuW4L7LocKaTEoqF3akmYrDxMG29JvBHeH4c0KiAEQMPYP4V9wCCp1gpnjEcUpQUEU1wS9WVCZgFUJi2colzOACHDrRw3JVt6e2idPOfqKzdaCvLGB7vPt9PDm4OQKPQ1kynF5a1w_
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T155922Z, fail: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:466 - Validating received response with stored request
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:484 - Storing new state  Status: 200 Issue: 20130709T155926Z Last: 1373385566758 Life: 10868 ID: 1373385562-16654-7 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T155922Z, fail: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T155926Z Last: 1373385566758 Life: 10868 ID: 1373385562-16654-7 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 16:59:26] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:389 - RavenFilter running for: /jetty-dir.css
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T155922Z, fail: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T155926Z Last: 1373385566758 Life: 10868 ID: 1373385562-16654-7 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 16:59:26] [DEBUG] SynchronousDispatcher:60 - PathInfo: /jetty-dir.css
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T155922Z, fail: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T155926Z Last: 1373385566758 Life: 10868 ID: 1373385562-16654-7 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 16:59:26] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 16:59:26] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 16:59:56] [DEBUG] RavenFilter:270 - Certificate will be loaded from: /home/mrozycki/UROP2013/urop-2013-questions/src/main/webapp/WEB-INF/raven/pubkey2.crt
+[2013-07-09 16:59:56] [DEBUG] RavenFilter:280 - Testing mode: null
+[2013-07-09 16:59:56] [DEBUG] RavenFilter:285 - Server url prefix: null
+[2013-07-09 16:59:56] [DEBUG] RavenFilter:294 - Granting access to all principals
+[2013-07-09 16:59:56] [DEBUG] HibernateSessionRequestFilter:34 - Initializing filter...
+[2013-07-09 16:59:56] [DEBUG] logging:184 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@151fe8a
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@aee320
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@17535b6
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration yes_no -> org.hibernate.type.YesNoType@935741
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@94b146
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration char -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@1bc59aa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@148083b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration int -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@167acf2
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@dea768
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@2f7cfe
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@12bbe6b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@1bb9533
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@657c7b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration string -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.String -> org.hibernate.type.StringType@10c276
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@143ed74
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@12ce574
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration url -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@146ee9c
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@ac576f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@6c9f0f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@5dc268
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@15ede11
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@1ceebfa
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@19f9c7a
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@cd927d
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@3d511e
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@64dd79
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@11f2158
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@1098594
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@d175ff
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@6212dd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration binary -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration byte[] -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration [B -> org.hibernate.type.BinaryType@1ad6884
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@1e35ecd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration image -> org.hibernate.type.ImageType@165547d
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration characters -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration char[] -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration [C -> org.hibernate.type.CharArrayType@19478c7
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@c8ccb1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration text -> org.hibernate.type.TextType@15fc606
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration ntext -> org.hibernate.type.NTextType@1959352
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@147a16f
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@98b13b
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@b53b32
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration nclob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@16954e1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@2250d5
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@9549af
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration serializable -> org.hibernate.type.SerializableType@3e574
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@bed1fd
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@161c9d1
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@108ea49
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@4d8d50
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@17892d5
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@eff545
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@1cfa965
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@7a4076
+[2013-07-09 16:59:56] [DEBUG] BasicTypeRegistry:148 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@1e064c
+[2013-07-09 16:59:56] [INFO ] Version:37 - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[2013-07-09 16:59:56] [INFO ] Version:41 - HHH000412: Hibernate Core {4.2.2.Final}
+[2013-07-09 16:59:56] [INFO ] Environment:239 - HHH000206: hibernate.properties not found
+[2013-07-09 16:59:56] [INFO ] Environment:342 - HHH000021: Bytecode provider name : javassist
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid2] -> [org.hibernate.id.UUIDGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [guid] -> [org.hibernate.id.GUIDGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [hilo] -> [org.hibernate.id.TableHiLoGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [assigned] -> [org.hibernate.id.Assigned]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [identity] -> [org.hibernate.id.IdentityGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [select] -> [org.hibernate.id.SelectGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence] -> [org.hibernate.id.SequenceGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [increment] -> [org.hibernate.id.IncrementGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [foreign] -> [org.hibernate.id.ForeignGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[2013-07-09 16:59:56] [DEBUG] DefaultIdentifierGeneratorFactory:93 - Registering IdentifierGenerator strategy [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+[2013-07-09 16:59:56] [INFO ] Configuration:1985 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+[2013-07-09 16:59:56] [INFO ] Configuration:2004 - HHH000040: Configuration resource: /hibernate.cfg.xml
+[2013-07-09 16:59:56] [DEBUG] DTDEntityResolver:68 - Trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+[2013-07-09 16:59:56] [DEBUG] DTDEntityResolver:70 - Recognized hibernate namespace; attempting to resolve on classpath under org/hibernate/
+[2013-07-09 16:59:56] [DEBUG] DTDEntityResolver:107 - Located [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd] in classpath
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - connection.driver_class=org.h2.Driver
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - connection.username=sa
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - connection.password=
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - connection.pool_size=1
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - dialect=org.hibernate.dialect.H2Dialect
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - cache.provider_class=org.hibernate.cache.internal.NoCacheProvider
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - show_sql=true
+[2013-07-09 16:59:56] [DEBUG] Configuration:1947 - hbm2ddl.auto=create
+[2013-07-09 16:59:56] [INFO ] Configuration:2126 - HHH000041: Configured SessionFactory: null
+[2013-07-09 16:59:56] [DEBUG] Configuration:2127 - Properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, hbm2ddl.auto=create, os.name=Linux, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/urop-2013-questions, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.show_sql=true, hibernate.connection.pool_size=1}
+[2013-07-09 16:59:56] [DEBUG] IntegratorServiceImpl:59 - Adding Integrator [org.hibernate.cfg.beanvalidation.BeanValidationIntegrator].
+[2013-07-09 16:59:56] [DEBUG] Configuration:1753 - Preparing to build session factory with filters : {}
+[2013-07-09 16:59:56] [INFO ] DriverManagerConnectionProviderImpl:98 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+[2013-07-09 16:59:56] [INFO ] DriverManagerConnectionProviderImpl:134 - HHH000115: Hibernate connection pool size: 1
+[2013-07-09 16:59:56] [INFO ] DriverManagerConnectionProviderImpl:137 - HHH000006: Autocommit mode: false
+[2013-07-09 16:59:56] [INFO ] DriverManagerConnectionProviderImpl:151 - HHH000401: using driver [org.h2.Driver] at URL [jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE]
+[2013-07-09 16:59:56] [INFO ] DriverManagerConnectionProviderImpl:154 - HHH000046: Connection properties: {user=sa, password=}
+[2013-07-09 16:59:56] [DEBUG] DriverManagerConnectionProviderImpl:196 - Opening new JDBC connection
+[2013-07-09 16:59:56] [DEBUG] DriverManagerConnectionProviderImpl:219 - Created connection to: jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, Isolation Level: 2
+[2013-07-09 16:59:56] [DEBUG] JdbcServicesImpl:121 - Database ->
+       name : H2
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:59:56] [DEBUG] JdbcServicesImpl:127 - Driver ->
+       name : H2 JDBC Driver
+    version : 1.2.145 (2010-11-02)
+      major : 1
+      minor : 2
+[2013-07-09 16:59:57] [DEBUG] JdbcServicesImpl:133 - JDBC version : 3.0
+[2013-07-09 16:59:57] [INFO ] Dialect:130 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[2013-07-09 16:59:57] [INFO ] LobCreatorBuilder:94 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[2013-07-09 16:59:57] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:57] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:57] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:57] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:57] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:57] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:114 - Automatic flush during beforeCompletion(): disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:120 - Automatic session close at end of transaction: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:131 - JDBC batch size: 15
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:137 - JDBC batch updates for versioned data: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:147 - Scrollable result sets: enabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:153 - Wrap result sets: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:159 - JDBC3 getGeneratedKeys(): enabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:171 - multi-tenancy strategy : NONE
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:177 - Connection release mode: auto
+[2013-07-09 16:59:57] [INFO ] TransactionFactoryInitiator:68 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:199 - Using BatchFetchStyle : LEGACY
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:224 - Default batch fetch size: 1
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:230 - Generate SQL with comments: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:236 - Order SQL updates by primary key: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:242 - Order SQL inserts for batching: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:250 - Default null ordering: none
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:541 - Query translator: org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory
+[2013-07-09 16:59:57] [INFO ] ASTQueryTranslatorFactory:48 - HHH000397: Using ASTQueryTranslatorFactory
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:260 - Query language substitutions: {}
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:266 - JPA-QL strict compliance: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:274 - Second-level cache: enabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:280 - Query cache: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:481 - Cache region factory : org.hibernate.cache.internal.NoCachingRegionFactory
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:491 - org.hibernate.cache.internal.NoCachingRegionFactory did not provide constructor accepting java.util.Properties; attempting no-arg constructor.
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:295 - Optimize cache for minimal puts: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:310 - Structured second-level cache entries: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:320 - Second-level cache direct-reference entries: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:328 - Statistics: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:334 - Deleted entity synthetic identifier rollback: disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:358 - Default entity-mode: pojo
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:364 - Named query checking : enabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:370 - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:388 - Allow initialization of lazy state outside session : : disabled
+[2013-07-09 16:59:57] [DEBUG] SettingsFactory:398 - JTA Track by Thread: enabled
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:225 - Building session factory
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:277 - Session factory constructed with filter configurations : {}
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:278 - Instantiating session factory with properties: {java.vendor=Sun Microsystems Inc., show_sql=true, sun.java.launcher=SUN_STANDARD, hibernate.connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, sun.management.compiler=HotSpot Client Compiler, os.name=Linux, hbm2ddl.auto=create, sun.boot.class.path=/opt/icedtea-bin-6.1.12.2/jre/lib/resources.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rt.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/sunrsasign.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jsse.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/jce.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/charsets.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/netx.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/plugin.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/rhino.jar:/opt/icedtea-bin-6.1.12.2/jre/lib/modules/jdk.boot.jar:/opt/icedtea-bin-6.1.12.2/jre/classes, java.vm.specification.vendor=Sun Microsystems Inc., java.runtime.version=1.6.0_27-b27, hibernate.cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, user.name=mrozycki, guice.disable.misplaced.annotation.check=true, connection.driver_class=org.h2.Driver, user.language=en, sun.boot.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386, classworlds.conf=/usr/share/maven-bin-3.0/bin/m2.conf, dialect=org.hibernate.dialect.H2Dialect, java.version=1.6.0_27, user.timezone=Europe/London, sun.arch.data.model=32, java.endorsed.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/endorsed, sun.cpu.isalist=, sun.jnu.encoding=ANSI_X3.4-1968, file.encoding.pkg=sun.io, file.separator=/, java.specification.name=Java Platform API Specification, java.class.version=50.0, user.country=US, securerandom.source=file:/dev/./urandom, connection.url=jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE, java.home=/opt/icedtea-bin-6.1.12.2/jre, java.vm.info=mixed mode, os.version=3.7.10-gentoo, path.separator=:, connection.password=, java.vm.version=20.0-b12, hibernate.connection.password=, java.awt.printerjob=sun.print.PSPrinterJob, sun.io.unicode.encoding=UnicodeLittle, hibernate.connection.username=sa, user.home=/home/mrozycki, java.specification.vendor=Sun Microsystems Inc., hibernate.hbm2ddl.auto=create, java.library.path=/opt/icedtea-bin-6.1.12.2/jre/lib/i386/client:/opt/icedtea-bin-6.1.12.2/jre/lib/i386:/opt/icedtea-bin-6.1.12.2/jre/../lib/i386:/usr/java/packages/lib/i386:/lib:/usr/lib, java.vendor.url=http://java.sun.com/, hibernate.connection.driver_class=org.h2.Driver, connection.username=sa, java.vm.vendor=Sun Microsystems Inc., hibernate.dialect=org.hibernate.dialect.H2Dialect, maven.home=/usr/share/maven-bin-3.0, java.runtime.name=OpenJDK Runtime Environment, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher jetty:run, java.class.path=/usr/share/maven-bin-3.0/boot/plexus-classworlds-2.4.jar, hibernate.bytecode.use_reflection_optimizer=false, java.vm.specification.name=Java Virtual Machine Specification, java.vm.specification.version=1.0, sun.cpu.endian=little, sun.os.patch.level=unknown, connection.pool_size=1, java.io.tmpdir=/tmp, java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi, os.arch=i386, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, java.ext.dirs=/opt/icedtea-bin-6.1.12.2/jre/lib/ext:/usr/java/packages/lib/ext, user.dir=/home/mrozycki/UROP2013/urop-2013-questions, line.separator=
+, java.vm.name=OpenJDK Client VM, cache.provider_class=org.hibernate.cache.internal.NoCacheProvider, file.encoding=ANSI_X3.4-1968, java.specification.version=1.6, hibernate.connection.pool_size=1, hibernate.show_sql=true}
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryRegistry:62 - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@5ac5f
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryRegistry:75 - Registering SessionFactory: d2870aed-d8c7-4536-94f1-d7c3323a669c (<unnamed>)
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryRegistry:82 - Not binding SessionFactory to JNDI, no JNDI name configured
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:488 - Instantiated session factory
+[2013-07-09 16:59:57] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:57] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:57] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:57] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:57] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:57] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:57] [DEBUG] Configuration:3472 - Processing hbm.xml files
+[2013-07-09 16:59:57] [DEBUG] Configuration:3502 - Process annotated classes
+[2013-07-09 16:59:57] [DEBUG] Configuration:1420 - Processing fk mappings (*ToOne and JoinedSubclass)
+[2013-07-09 16:59:57] [DEBUG] Configuration:1603 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1661 - Processing extends queue
+[2013-07-09 16:59:57] [DEBUG] Configuration:1606 - Processing collection mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1616 - Processing native query and ResultSetMapping mappings
+[2013-07-09 16:59:57] [DEBUG] Configuration:1624 - Processing association property references
+[2013-07-09 16:59:57] [DEBUG] Configuration:1646 - Creating tables' unique integer identifiers
+[2013-07-09 16:59:57] [DEBUG] Configuration:1647 - Processing foreign key constraints
+[2013-07-09 16:59:57] [INFO ] SchemaExport:343 - HHH000227: Running hbm2ddl schema export
+[2013-07-09 16:59:57] [DEBUG] SchemaExport:353 - Import file not found: /import.sql
+[2013-07-09 16:59:57] [INFO ] SchemaExport:405 - HHH000230: Schema export complete
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:1068 - Checking 0 named HQL queries
+[2013-07-09 16:59:57] [DEBUG] SessionFactoryImpl:1091 - Checking 0 named SQL queries
+[2013-07-09 16:59:57] [DEBUG] StatisticsInitiator:110 - Statistics initialized [enabled=false]
+[2013-07-09 16:59:57] [INFO ] ResteasyDeployment:82 - Deploying javax.ws.rs.core.Application: class uk.ac.cam.sup.QuestionsApp
+[2013-07-09 17:00:09] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:00:09] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:00:09] [DEBUG] RavenFilter:409 - Stored raven request is null
+[2013-07-09 17:00:09] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 17:00:09] [DEBUG] RavenFilter:541 - Redirecting with url http://localhost/
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:400 - WLS-Response is 1!200!!20130709T160010Z!1373385609-16706-12!http://localhost/!mr595!!pwd!10821!!2!H9YuGehQoIEg.qSbUWRHNST2wU2ucnmcDa31pS37YCiG7jQlnP8p9MQieyEF9E5EVOO2ZnJKB4ve4fnTzZl7yiIz1XWvGm6at.JdLhkswK8xbqOKrE7p8AVGWCeQXlLUXUESzx4-VbslbxY7bJcuuXORmXP0AubHfFKbfHhqFrg_
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:412 - Stored state is null
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:466 - Validating received response with stored request
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:484 - Storing new state  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:00:11] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:00:11] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:00:12] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:00:12] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:00:12] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:00:12] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:00:12] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:00:12] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:19] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:19] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:20] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:20] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:389 - RavenFilter running for: /
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:20] [DEBUG] SynchronousDispatcher:60 - PathInfo: /
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:389 - RavenFilter running for: /favicon.ico
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:400 - WLS-Response is null
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:409 - Stored raven request is Webauth request: ver: 1, url: http://localhost/, desc: , aauth: , iact: , msg: , params: , date: 20130709T160009Z, fail: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:412 - Stored state is  Status: 200 Issue: 20130709T160010Z Last: 1373385611169 Life: 10821 ID: 1373385609-16706-12 Principal: RavenPrincipal--mr595 AAuth:  SSO: pwd Params: 
+[2013-07-09 17:13:20] [DEBUG] RavenFilter:440 - Accepting stored session
+[2013-07-09 17:13:20] [DEBUG] SynchronousDispatcher:60 - PathInfo: /favicon.ico
