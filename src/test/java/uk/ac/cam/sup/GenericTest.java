@@ -14,7 +14,7 @@ public abstract class GenericTest {
 
 	@Before
 	public void setUp() throws Exception {
-		session = HibernateUtil.getSF().openSession();
+		session = HibernateUtil.getSession();
 		session.beginTransaction();
 	}
 	
