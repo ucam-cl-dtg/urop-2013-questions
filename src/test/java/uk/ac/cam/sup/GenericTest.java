@@ -10,11 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 
 public abstract class GenericTest {
-	Session session;
+	protected Session session;
 
 	@Before
 	public void setUp() throws Exception {
-		session = HibernateUtil.getTransaction();
+		session = HibernateUtil.getSF().openSession();
+		session.beginTransaction();
 	}
 	
 	@After
