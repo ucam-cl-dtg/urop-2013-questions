@@ -57,6 +57,7 @@
         <mapping class="uk.ac.cam.sup.models.User" />
         <mapping class="uk.ac.cam.sup.models.Question" />
         <mapping class="uk.ac.cam.sup.models.Tag" />
+        <mapping class="uk.ac.cam.sup.models.QuestionSet" />
 
     </session-factory>
 

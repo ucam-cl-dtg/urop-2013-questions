@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import uk.ac.cam.sup.models.Question;
-import uk.ac.cam.sup.models.User;
 
 public class QuestionModelTest extends GenericTest {
 	@Test
