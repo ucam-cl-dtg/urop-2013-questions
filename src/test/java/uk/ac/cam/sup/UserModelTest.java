@@ -28,6 +28,8 @@ public class UserModelTest {
 				.buildSessionFactory(serviceRegistry);
 		session = sessionFactory.openSession();
 		session.beginTransaction();
+		
+		
 	}
 
 	@After
@@ -36,15 +38,24 @@ public class UserModelTest {
 	}
 
 	@Test
-	public void databaseShouldBeEmpty() {
-		assertEquals(0, session.createQuery("from User").list().size());
+	public void databaseQueryDoesNotCauseExceptions() {
+		session.createQuery("from User");
+		session.getTransaction().commit();
 	}
 	
 	@Test
-	public void savingAUserToDatabase() {
-		session.save(new User("mr595"));
+	public void savingAUserToDatabaseIncreasesCount() {
+		User m = (User) session.createQuery("from User where id = ?")
+				.setString(0, "mr595")
+				.uniqueResult();
+		if (m != null) {
+			session.delete(m);
+		}
+		
+		int size = session.createQuery("from User").list().size();
+		session.save(m);
 		session.getTransaction().commit();
-		assertEquals(1, session.createQuery("from User").list().size());
+		assertEquals(size+1, session.createQuery("from User").list().size());
 	}
 
 }
