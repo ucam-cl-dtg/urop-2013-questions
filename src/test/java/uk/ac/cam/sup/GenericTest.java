@@ -10,19 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 
 public abstract class GenericTest {
-	Session session;
+	protected Session session;
 
 	@Before
 	public void setUp() throws Exception {
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		configuration.setNamingStrategy(new DefaultComponentSafeNamingStrategy());
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-				.applySettings(configuration.getProperties())
-				.buildServiceRegistry();
-		SessionFactory sessionFactory = configuration
-				.buildSessionFactory(serviceRegistry);
-		session = sessionFactory.openSession();
+		session = HibernateUtil.getSF().openSession();
 		session.beginTransaction();
 	}
 	
