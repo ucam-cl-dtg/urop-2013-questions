@@ -22,18 +22,25 @@ public class Question {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
 	private int id;
+	
 	private boolean isStarred = false;
 	private int usageCount = 0;
 	private Date timeStamp;
+	
 	@ManyToOne
 	private Question parent;
+	
 	@ManyToMany
 	private Set<Tag> tags = new HashSet<Tag>();
+	
 	@ManyToOne
 	private User owner;
+	
 	private int expectedDuration = 0;
+	
 	@Embedded @Column(nullable=false)
 	private Data content = new Data();
+	
 	@Embedded @Column(nullable=false)
 	private Data notes = new Data();
 	
@@ -74,6 +81,13 @@ public class Question {
 	}
 	public void removeTag(Tag t){
 		//TODO
+	}
+	public Set<String> getTagsAsString() {
+		Set<String> result = new HashSet<String>();
+		for(Tag t : tags){
+			result.add(t.getName());
+		}
+		return result;
 	}
 	
 }

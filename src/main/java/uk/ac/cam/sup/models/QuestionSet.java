@@ -21,15 +21,20 @@ public class QuestionSet {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
 	private int id;
+	
 	private String name;
+	private boolean isStarred = false;
+	
 	@ManyToOne
 	private User owner;
-	private boolean isStarred = false;
+	
 	@Embedded
 	@Column(nullable=false)
 	private Data plan = new Data();
+	
 	@ManyToMany
 	private Set<Tag> tags = new HashSet<Tag>();
+	
 	@ManyToMany
 	private Set<Question> questions = new HashSet<Question>();
 	
