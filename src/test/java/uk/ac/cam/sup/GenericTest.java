@@ -14,16 +14,7 @@ public abstract class GenericTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		configuration.setNamingStrategy(new DefaultComponentSafeNamingStrategy());
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-				.applySettings(configuration.getProperties())
-				.buildServiceRegistry();
-		SessionFactory sessionFactory = configuration
-				.buildSessionFactory(serviceRegistry);
-		session = sessionFactory.openSession();
-		session.beginTransaction();
+		session = HibernateUtil.getTransaction();
 	}
 	
 	@After
