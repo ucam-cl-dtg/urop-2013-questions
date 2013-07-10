@@ -13,29 +13,7 @@ import org.junit.Test;
 
 import uk.ac.cam.sup.models.User;
 
-public class UserModelTest {
-	
-	Session session;
-
-	@Before
-	public void setUp() throws Exception {
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-				.applySettings(configuration.getProperties())
-				.buildServiceRegistry();
-		SessionFactory sessionFactory = configuration
-				.buildSessionFactory(serviceRegistry);
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		session.close();
-	}
+public class UserModelTest extends GenericTest {
 
 	@Test
 	public void databaseQueryDoesNotCauseExceptions() {

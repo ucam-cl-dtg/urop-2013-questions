@@ -1,17 +1,21 @@
 package uk.ac.cam.sup;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.DefaultComponentSafeNamingStrategy;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
     private static SessionFactory sf=configureSessionFactory();
+    
     private static SessionFactory configureSessionFactory()
             throws HibernateException {
         Configuration configuration = new Configuration();
         configuration.configure();
+		configuration.setNamingStrategy(new DefaultComponentSafeNamingStrategy());
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .buildServiceRegistry();
@@ -19,7 +23,18 @@ public class HibernateUtil {
                 .buildSessionFactory(serviceRegistry);
         return sessionFactory;
     }
+    
     public static SessionFactory getSF() {
         return sf;
+    }
+    
+    public static Session getSession() {
+        return sf.getCurrentSession();
+    }
+
+    public static Session getTransaction() {
+        Session session = sf.getCurrentSession();
+        session.beginTransaction();
+        return session;
     }
 }

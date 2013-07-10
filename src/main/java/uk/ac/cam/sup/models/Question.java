@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -32,14 +32,14 @@ public class Question {
 	@ManyToOne private User owner;
 	private int expectedDuration = 0;
 	
-	@Embedded @Column(nullable=false)
+	@Embedded @JoinColumn(name="content", nullable=false)
 	private Data content = new Data();
-	@Embedded @Column(nullable=false)
+	@Embedded @JoinColumn(name="notes", nullable=false)
 	private Data notes = new Data();
 	
 	public Question() {}
 	public Question(User owner){
-		//this.owner = owner;
+		this.owner = owner;
 	}
 	
 	/*public int getId(){return id;}

@@ -10,4 +10,8 @@ public class Tag {
 	@Id String name;
 	
 	public Tag(){}
+	
+	public Tag(String name) {
+		
+	}
 }

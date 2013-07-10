@@ -14,17 +14,10 @@ public class QuestionModelTest extends GenericTest {
 	}
 	
 	@Test
-	public void databaseShouldBeEmpty() {
-		//assertEquals(0, session.createQuery("from User").list().size());
-		assertEquals(0, session.createQuery("from Question").list().size());
-	}
-	
-	@Test
-	public void savingAUserToDatabase() {
-		User u = new User("abc123");
-		session.save(u);
-		session.save(new Question(u));
+	public void savingAQuestionToDatabase() {
+		int size = session.createQuery("from Question").list().size();
+		session.save(new Question());
 		session.getTransaction().commit();
-		assertEquals(1, session.createQuery("from Question").list().size());
+		assertEquals(size+1, session.createQuery("from Question").list().size());
 	}
 }

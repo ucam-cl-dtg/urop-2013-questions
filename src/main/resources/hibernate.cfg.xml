@@ -54,14 +54,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
 
-
-
         <mapping class="uk.ac.cam.sup.models.User" />
         <mapping class="uk.ac.cam.sup.models.Question" />
         <mapping class="uk.ac.cam.sup.models.Tag" />
 
-
-		
     </session-factory>
 
 </hibernate-configuration>
