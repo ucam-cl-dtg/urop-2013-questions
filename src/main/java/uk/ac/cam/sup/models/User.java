@@ -12,9 +12,14 @@ public class User {
 	
 	public User() {}
 	
-	public User(boolean s, String i) {
-		supervisor = s;
+	public User(String i) {
+		supervisor = false;
 		id = i;
+	}
+	
+	public User(String i, boolean s) {
+		id = i;
+		supervisor = s;
 	}
 	
 	@Id
