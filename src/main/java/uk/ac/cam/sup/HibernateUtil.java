@@ -29,11 +29,17 @@ public class HibernateUtil {
     }
     
     public static Session getSession() {
-        return sf.getCurrentSession();
+    	Session session = sf.getCurrentSession();
+    	
+    	if (session.isOpen()) {
+    		session = sf.openSession();
+    	}
+    	
+        return session;
     }
 
     public static Session getTransaction() {
-        Session session = sf.getCurrentSession();
+        Session session = getSession();
         session.beginTransaction();
         return session;
     }
