@@ -14,7 +14,7 @@ public abstract class GenericTest {
 	public void setUp() throws Exception {
 		session = HibernateUtil.getSession();
 		session.saveOrUpdate(new User("abc123"));
-		session.saveOrUpdate(Tag.fromString("abc"));
+		session.saveOrUpdate(new Tag("abc"));
 	}
 	
 	@After

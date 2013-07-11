@@ -32,7 +32,7 @@ public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void afterAddingATagItIsAnElementOfTagSet () {
 		QuestionSet q = new QuestionSet(new User("abc123"));
-		Tag t = Tag.fromString("a");
+		Tag t = new Tag("abc");
 		q.addTag(t);
 		assertTrue(q.getTags().contains(t));
 	}
@@ -40,9 +40,9 @@ public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void afterRemovingATagItIsNoLongerAnElementOfTagSet () {
 		QuestionSet q = new QuestionSet(new User("abc123"));
-		Tag t = Tag.fromString("a");
+		Tag t = new Tag("abc");
 		q.addTag(t);
-		q.removeTag(Tag.fromString("a"));
+		q.removeTag(new Tag("abc"));
 		assertFalse(q.getTags().contains(t));
 	}
 	
