@@ -90,7 +90,7 @@ public class Question {
 	
 	@Override
 	public boolean equals(Object x){
-		if (x == null || !(x instanceof Set)) {
+		if (x == null || !(x instanceof Question)) {
 			return false;
 		}
 		return ((Question)x).getId() == getId();

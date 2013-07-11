@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Table( name = "users" )
 public class User {
 	private boolean supervisor;
-	private String id;
+	@Id private String id;
 	
 	public User() {}
 	
@@ -22,11 +22,23 @@ public class User {
 		supervisor = s;
 	}
 	
-	@Id
 	public String getId() {return id;}
 	
 	public boolean getSupervisor() {return supervisor;}
 
 	public void setId(String i) {id = i;}
 	public void setSupervisor(boolean s) {supervisor = s;}
+	
+	@Override
+	public boolean equals(Object user){
+		if (user == null || !(user instanceof User)) {
+			return false;
+		}
+		return getId().equals(((User)user).getId());
+	}
+	
+	@Override
+	public int hashCode(){
+		return 0;
+	}
 }
