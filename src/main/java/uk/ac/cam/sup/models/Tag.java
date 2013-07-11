@@ -23,7 +23,7 @@ public class Tag {
 	public Tag(String name) {
 		this.name = name;
 	}
-	
+
 	public static Tag fromString(String name) {
 		Session session = HibernateUtil.getTransaction();
 		Tag t = (Tag) session.createQuery("from Tag where name = ?")
