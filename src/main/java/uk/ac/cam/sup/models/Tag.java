@@ -22,21 +22,6 @@ public class Tag {
 	public Tag(String name) {
 		this.name = name;
 	}
-
-	public static Tag fromString(String name) {
-		Session session = HibernateUtil.getTransaction();
-		Tag t = (Tag) session.createQuery("from Tag where name = ?")
-			.setString(0, name)
-			.uniqueResult();
-		
-		if (t == null) {
-			t = new Tag(name);
-			session.save(t);
-			session.getTransaction().commit();
-		}
-		
-		return t;
-	}
 	
 	public boolean equals (Object t) {
 		if (!(t instanceof Tag)) {
