@@ -6,13 +6,20 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
+
+import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
 @Table(name="QuestionSets")
@@ -45,7 +52,6 @@ public class QuestionSet {
 		this.owner = owner;
 	}
 	
-	
 	public int getId(){return id;}
 	
 	public String getName(){return name;}
@@ -60,7 +66,9 @@ public class QuestionSet {
 	public void setPlan(Data plan){this.plan = plan;}
 	
 	public void setTags(Set<Tag> tags){this.tags = tags;}
-	public Set<Tag> getTags(){return tags;}
+	public Set<Tag> getTags() {
+		return tags;
+	}
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
 	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
@@ -83,7 +91,7 @@ public class QuestionSet {
 		if (x == null || !(x instanceof QuestionSet)) {
 			return false;
 		}
-		return ((Question)x).getId() == getId();
+		return ((QuestionSet)x).getId() == getId();
 	}
 	
 	@Override
