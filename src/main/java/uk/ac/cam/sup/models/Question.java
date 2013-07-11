@@ -90,4 +90,16 @@ public class Question {
 		return result;
 	}
 	
+	@Override
+	public boolean equals(Object x){
+		if (x == null || !(x instanceof Object)) {
+			return false;
+		}
+		return ((Question)x).getId() == getId();
+	}
+	
+	@Override
+	public int hashCode(){
+		return getId() % 13;
+	}
 }

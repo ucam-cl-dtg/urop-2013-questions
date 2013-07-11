@@ -38,9 +38,36 @@ public class QuestionSet {
 	@ManyToMany
 	private Set<Question> questions = new HashSet<Question>();
 	
-	public QuestionSet() {}
+	
+	@SuppressWarnings("unused")
+	private QuestionSet() {}
 	public QuestionSet(User owner){
 		this.owner = owner;
 	}
+	
+	
+	public int getId(){return id;}
+	
+	public String getName(){return name;}
+	public void setName(String name){this.name = name;}
+	
+	public boolean isStarred(){return isStarred;}
+	public void setStarred(boolean s){isStarred = s;}
+	
+	public User getOwner(){return owner;}
+	
+	public Data getPlan(){return plan;}
+	public void setPlan(Data plan){this.plan = plan;}
+	
+	public void setTags(Set<Tag> tags){this.tags = tags;}
+	public Set<Tag> getTags(){return tags;}
+	public void addTag(Tag tag){tags.add(tag);}
+	public void removeTag(Tag tag){tags.remove(tag);}
+	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	
+	public void setQuestions(Set<Question> questions){this.questions = questions;}
+	public Set<Question> getQuestions(){return questions;}
+	public void addQuestion(Question question){questions.add(question);}
+	public void removeQuestion(Question question){questions.remove(question);}
 	
 }
