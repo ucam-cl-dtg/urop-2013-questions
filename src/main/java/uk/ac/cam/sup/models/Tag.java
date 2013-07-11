@@ -11,14 +11,13 @@ import uk.ac.cam.sup.HibernateUtil;
 @Entity
 @Table(name="Tags")
 public class Tag {
-	private String name;
+	@Id private String name;
 	
-	@Id
 	public String getName() {
 		return this.name;
 	}
 	
-	public Tag(){}
+	private Tag(){}
 	
 	public Tag(String name) {
 		this.name = name;
@@ -39,7 +38,15 @@ public class Tag {
 		return t;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public boolean equals (Object t) {
+		if (!(t instanceof Tag)) {
+			return false;
+		} else { 
+			return ((Tag)t).name.equals(this.name);
+		}
+	}
+	
+	public int hashCode () {
+		return name.hashCode();
 	}
 }

@@ -13,4 +13,9 @@ public class TagModelTest extends GenericTest {
 			Tag t = Tag.fromString("asdf");
 			assertEquals("asdf", t.getName());
 		}
+		
+		@Test
+		public void twoTagsWithSameNameAreEqual() {
+			assertEquals(true, (new Tag("a").equals(new Tag("a"))));
+		}
 }
