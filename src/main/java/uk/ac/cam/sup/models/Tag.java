@@ -4,10 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
-
-import uk.ac.cam.sup.HibernateUtil;
-
 @Entity
 @Table(name="Tags")
 public class Tag {
@@ -17,8 +13,8 @@ public class Tag {
 		return this.name;
 	}
 	
+	@SuppressWarnings("unused")
 	private Tag(){}
-	
 	public Tag(String name) {
 		this.name = name;
 	}

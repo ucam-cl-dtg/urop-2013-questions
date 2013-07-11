@@ -2,13 +2,6 @@ package uk.ac.cam.sup;
 
 import static org.junit.Assert.assertEquals;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.cam.sup.models.User;

@@ -44,6 +44,7 @@ public class Question {
 	@Embedded @Column(nullable=false)
 	private Data notes = new Data();
 	
+	@SuppressWarnings("unused")
 	private Question() {}
 	public Question(User owner){
 		this.owner = owner;
