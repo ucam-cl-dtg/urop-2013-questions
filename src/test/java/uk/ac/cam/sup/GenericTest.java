@@ -23,5 +23,4 @@ public abstract class GenericTest {
 		session.close();
 	}
 	
-	
 }

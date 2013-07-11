@@ -77,10 +77,10 @@ public class Question {
 	public void setNotes(Data n){notes = n;}
 	
 	public void addTag(Tag t){
-		//TODO
+		tags.add(t);
 	}
 	public void removeTag(Tag t){
-		//TODO
+		tags.remove(t);
 	}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
