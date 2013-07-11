@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import uk.ac.cam.sup.controllers.MainController;
+import uk.ac.cam.sup.controllers.QuestionSetController;
 
 import com.googlecode.htmleasy.HtmleasyProviders;
 
@@ -14,6 +15,7 @@ public class QuestionsApp extends Application {
 		Set<Class<?>> myServices = new HashSet<Class<?>>();
 		
 		myServices.add(MainController.class);
+		myServices.add(QuestionSetController.class);
 		
 		// Add Htmleasy Providers
 		myServices.addAll(HtmleasyProviders.getClasses());
