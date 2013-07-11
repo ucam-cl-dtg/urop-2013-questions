@@ -64,10 +64,30 @@ public class QuestionSet {
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
 	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	public Set<String> getTagsAsString() {
+		Set<String> result = new HashSet<String>();
+		for(Tag t : tags){
+			result.add(t.getName());
+		}
+		return result;
+	}
 	
 	public void setQuestions(Set<Question> questions){this.questions = questions;}
 	public Set<Question> getQuestions(){return questions;}
 	public void addQuestion(Question question){questions.add(question);}
 	public void removeQuestion(Question question){questions.remove(question);}
 	
+	
+	@Override
+	public boolean equals(Object x){
+		if (x == null || !(x instanceof QuestionSet)) {
+			return false;
+		}
+		return ((Question)x).getId() == getId();
+	}
+	
+	@Override
+	public int hashCode(){
+		return getId() % 13;
+	}
 }

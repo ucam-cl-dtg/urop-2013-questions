@@ -17,12 +17,14 @@ public class UserModelTest extends GenericTest {
 
 	@Test
 	public void databaseQueryDoesNotCauseExceptions() {
+		session.beginTransaction();
 		session.createQuery("from User");
 		session.getTransaction().commit();
 	}
 	
 	@Test
 	public void savingAUserToDatabaseIncreasesCount() {
+		session.beginTransaction();
 		User m = (User) session.createQuery("from User where id = ?")
 				.setString(0, "mr595")
 				.uniqueResult();

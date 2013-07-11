@@ -44,7 +44,7 @@ public class Question {
 	@Embedded @Column(nullable=false)
 	private Data notes = new Data();
 	
-	public Question() {}
+	private Question() {}
 	public Question(User owner){
 		this.owner = owner;
 	}
@@ -63,8 +63,6 @@ public class Question {
 	public Question getParent(){return parent;}
 	public void setParent(Question p){parent = p;}
 	
-	public Set<Tag> getTags(){return tags;}
-	
 	public User getOwner(){return owner;}
 	
 	public int getExpectedDuration(){return expectedDuration;}
@@ -76,12 +74,11 @@ public class Question {
 	public Data getNotes(){return notes;}
 	public void setNotes(Data n){notes = n;}
 	
-	public void addTag(Tag t){
-		tags.add(t);
-	}
-	public void removeTag(Tag t){
-		tags.remove(t);
-	}
+	public void setTags(Set<Tag> tags){this.tags = tags;}
+	public Set<Tag> getTags(){return tags;}
+	public void addTag(Tag tag){tags.add(tag);}
+	public void removeTag(Tag tag){tags.remove(tag);}
+	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
 		for(Tag t : tags){
@@ -92,7 +89,7 @@ public class Question {
 	
 	@Override
 	public boolean equals(Object x){
-		if (x == null || !(x instanceof Object)) {
+		if (x == null || !(x instanceof Set)) {
 			return false;
 		}
 		return ((Question)x).getId() == getId();
