@@ -19,7 +19,7 @@ public class UserModelTest extends GenericTest {
 	public void savingAUserToDatabaseIncreasesCount() {
 		session.beginTransaction();
 		User m = (User) session.createQuery("from User where id = ?")
-				.setString(0, "mr595")
+				.setString(0, "abc123")
 				.uniqueResult();
 		if (m != null) {
 			session.delete(m);
