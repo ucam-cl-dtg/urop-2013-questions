@@ -10,12 +10,12 @@ public class TagModelTest extends GenericTest {
 
 		@Test
 		public void tagCreatedFromStringHasProperName() {
-			Tag t = Tag.fromString("asdf");
-			assertEquals("asdf", t.getName());
+			Tag t = new Tag("abc");
+			assertEquals("abc", t.getName());
 		}
 		
 		@Test
 		public void twoTagsWithSameNameAreEqual() {
-			assertEquals(true, (new Tag(new String("a")).equals(new Tag(new String("a")))));
+			assertEquals(true, (new Tag(new String("abc")).equals(new Tag(new String("abc")))));
 		}
 }

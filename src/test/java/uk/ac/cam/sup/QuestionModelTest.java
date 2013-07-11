@@ -25,7 +25,7 @@ public class QuestionModelTest extends GenericTest {
 	@Test
 	public void afterAddingATagItIsAnElementOfTagSet () {
 		Question q = new Question();
-		Tag t = Tag.fromString("a");
+		Tag t = new Tag("abc");
 		q.addTag(t);
 		assertTrue(q.getTags().contains(t));
 	}
@@ -33,9 +33,9 @@ public class QuestionModelTest extends GenericTest {
 	@Test
 	public void afterRemovingATagItIsNoLongerAnElementOfTagSet () {
 		Question q = new Question();
-		Tag t = Tag.fromString("a");
+		Tag t = new Tag("abc");
 		q.addTag(t);
-		q.removeTag(Tag.fromString("a"));
+		q.removeTag(new Tag("abc"));
 		assertFalse(q.getTags().contains(t));
 	}
 
