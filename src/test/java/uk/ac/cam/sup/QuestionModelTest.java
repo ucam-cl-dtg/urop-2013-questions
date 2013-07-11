@@ -48,8 +48,10 @@ public class QuestionModelTest extends GenericTest {
 	
 	@Test
 	public void twoDifferentQuestionsAreNotEqual(){
-		Question q = new Question(new User("abc123"));
-		Question r = new Question(new User("abc123"));
+		session.beginTransaction();
+		Question q = (Question)session.createQuery("from Question where id = ?").setInteger(0, 1).uniqueResult();
+		Question r = (Question)session.createQuery("from Question where id = ?").setInteger(0, 2).uniqueResult();
+		session.getTransaction().commit();
 		assertFalse(q.equals(r));
 	}
 	
