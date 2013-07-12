@@ -23,6 +23,7 @@ public class QuestionSetQuery {
 		return new QuestionSetQuery (
 				HibernateUtil.getSession()
 					.createCriteria(QuestionSet.class)
+					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
 		);
 	}
@@ -53,18 +54,24 @@ public class QuestionSetQuery {
 	}
 	
 	public QuestionSetQuery bySupervisor() {
+		criteria
+			.add(Restrictions.eq("o.supervisor", true));
 		return this;
 	}
 	
 	public QuestionSetQuery byStudent() {
+		criteria
+		.add(Restrictions.eq("o.supervisor", false));
 		return this;
 	}
 	
 	public QuestionSetQuery after(Date date) {
+		criteria.add(Restrictions.gt("timeStamp", date));
 		return this;
 	}
 	
 	public QuestionSetQuery before(Date date) {
+		criteria.add(Restrictions.lt("timeStamp", date));
 		return this;
 	}
 	

@@ -1,10 +1,12 @@
 package uk.ac.cam.sup;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +50,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	}
 	
 	@Test
-	public void noElementsAreOmmitedByWithTagsFilter () {
+	public void noElementsAreOmittedByWithTagsFilter () {
 		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(new Tag("Algorithms"));
 		tags.add(new Tag("Discrete Mathematics"));
@@ -58,7 +60,7 @@ public class QuestionSetQueryTest extends GenericTest {
 			Set qtags = ((QuestionSet)q).getTags();
 			for (Tag t: tags) {
 				if (qtags.contains(t) && !result.contains(q)) {
-					fail (((QuestionSet)q).getName()+" was ommited");
+					fail (((QuestionSet)q).getName()+" was omitted");
 				}
 			}
 		}
@@ -85,7 +87,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	}
 	
 	@Test
-	public void noElementsAreOmmitedByWithUsersFilter () {
+	public void noElementsAreOmittedByWithUsersFilter () {
 		List<User> user = new ArrayList<User>();
 		user.add(new User("mr595"));
 		user.add(new User("as123"));
@@ -95,7 +97,7 @@ public class QuestionSetQueryTest extends GenericTest {
 			User owner = ((QuestionSet)q).getOwner();
 			for (User u: user) {
 				if (owner.getId().equals(u.getId()) && !result.contains(q)) {
-					fail (((QuestionSet)q).getName()+" was ommited");
+					fail (((QuestionSet)q).getName()+" was ommitted");
 				}
 			}
 		}
@@ -110,12 +112,102 @@ public class QuestionSetQueryTest extends GenericTest {
 	}
 	
 	@Test
-	public void noElementsAreOmmittedByWithStarFilter() {
+	public void noElementsAreOmittedByWithStarFilter() {
 		List result = QuestionSetQuery.all().withStar().list();
 		List all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			if (((QuestionSet)o).isStarred() && !result.contains(o)) {
+				fail (((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedBySupervisorFilterHaveAStar() {
+		List result = QuestionSetQuery.all().bySupervisor().list();
+		for (Object o: result) {
+			assertTrue(((QuestionSet)o).getOwner().getSupervisor());
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedBySupervisorFilter() {
+		List result = QuestionSetQuery.all().bySupervisor().list();
+		List all = QuestionSetQuery.all().list();
+		
+		for (Object o: all) {
+			if (((QuestionSet)o).getOwner().getSupervisor() && !result.contains(o)) {
+				fail (((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedByStudentFilterHaveAStar() {
+		List result = QuestionSetQuery.all().byStudent().list();
+		for (Object o: result) {
+			assertFalse(((QuestionSet)o).getOwner().getSupervisor());
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByStudentFilter() {
+		List result = QuestionSetQuery.all().byStudent().list();
+		List all = QuestionSetQuery.all().list();
+		
+		for (Object o: all) {
+			if (!((QuestionSet)o).getOwner().getSupervisor() && !result.contains(o)) {
+				fail (((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedByAfterFilterHaveAppropriateTimestamp () {
+		Date d = new Date(1373497200000L);
+		List result = QuestionSetQuery.all().after(d).list();
+		for (Object o: result) {
+			if (!((QuestionSet)o).getTimeStamp().after(d)) {
+				fail (((QuestionSet)o).getName() + " is wrong");
+			}
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByAfterFilter () {
+		Date d = new Date(1373497200000L);
+		List result = QuestionSetQuery.all().after(d).list();
+		List all = QuestionSetQuery.all().list();
+		
+		for (Object o: all) {
+			Date ts = ((QuestionSet)o).getTimeStamp();
+			if (ts.after(d)	&& !result.contains(o)) {
+				fail (((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedByBeforeFilterHaveAppropriateTimestamp () {
+		Date d = new Date(1373497200000L);
+		List result = QuestionSetQuery.all().before(d).list();
+		for (Object o: result) {
+			if (!((QuestionSet)o).getTimeStamp().before(d)) {
+				fail (((QuestionSet)o).getName() + " is wrong");
+			}
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByBeforeFilter () {
+		Date d = new Date(1373497200000L);
+		List result = QuestionSetQuery.all().before(d).list();
+		List all = QuestionSetQuery.all().list();
+		
+		for (Object o: all) {
+			Date ts = ((QuestionSet)o).getTimeStamp();
+			if (ts.before(d)	&& !result.contains(o)) {
 				fail (((QuestionSet)o).getName() + " was omitted");
 			}
 		}

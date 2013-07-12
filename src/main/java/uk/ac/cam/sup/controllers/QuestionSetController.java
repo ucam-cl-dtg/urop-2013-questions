@@ -1,8 +1,8 @@
 package uk.ac.cam.sup.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,9 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
-
-import com.google.common.collect.ImmutableMap;
 
 @Path("/sets")
 public class QuestionSetController {
@@ -21,7 +20,12 @@ public class QuestionSetController {
 	@Path("/json")
 	@Produces("application/json")
 	public List produceFilteredJSON (
-			@QueryParam("tags") String tags
+			@QueryParam("tags") String tags,
+			@QueryParam("users") String users,
+			@QueryParam("star") boolean star,
+			@QueryParam("supervisor") Boolean supervisor,
+			@QueryParam("after") Long after,
+			@QueryParam("before") Long before
 	) {
 		QuestionSetQuery query = QuestionSetQuery.all();
 		
@@ -33,6 +37,24 @@ public class QuestionSetController {
 			}
 			query.withTags(tagset);
 		}
+		
+		if (users != null) {
+			String[] userstrings = users.split(",");
+			List<User> userset = new ArrayList<User>();
+			for (String u: userstrings) {
+				userset.add(new User(u));
+			}
+			query.withUsers(userset);
+		}
+		
+		if (star) {	query.withStar(); }
+		if (supervisor != null) {
+			if (supervisor) { query.bySupervisor(); }
+			else { query.byStudent(); }
+		}
+		
+		if (after != null) { query.after(new Date(after)); }
+		if (before != null) { query.before(new Date(before)); }
 		
 		return query.list();
 	}
