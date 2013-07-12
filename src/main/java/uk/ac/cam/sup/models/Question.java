@@ -12,12 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name="Questions")
 public class Question {
+	@Transient
+	private static Logger log = LoggerFactory.getLogger(Question.class);
+	
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
@@ -52,8 +58,8 @@ public class Question {
 	
 	public int getId(){return id;}
 	
-	public boolean getStarred(){return isStarred;}
-	public void setStarred(boolean s){isStarred = s;}
+	public boolean isStarred(){return isStarred;}
+	public void star(boolean s){isStarred = s;}
 	
 	public int getUsageCount(){return usageCount;}
 	public void setUsageCount(int c){usageCount = c;}
@@ -71,10 +77,10 @@ public class Question {
 	public void setExpectedDuration(int expDuration){expectedDuration = expDuration;}
 	
 	public Data getContent(){return content;}
-	public void setContent(Data c){content = c;}
+	//private void setContent(Data c){content = c;}
 	
 	public Data getNotes(){return notes;}
-	public void setNotes(Data n){notes = n;}
+	//private void setNotes(Data n){notes = n;}
 	
 	public void setTags(Set<Tag> tags){this.tags = tags;}
 	public Set<Tag> getTags(){return tags;}
@@ -101,4 +107,59 @@ public class Question {
 	public int hashCode(){
 		return getId() % 13;
 	}
+	
+	private Question fork(){
+		Question result = new Question(this.owner);
+		result.isStarred = isStarred;
+		result.timeStamp = new Date();
+		result.parent = this;
+		result.tags = new HashSet<Tag>(tags);
+		result.expectedDuration = expectedDuration;
+		result.content = new Data(content);
+		result.notes = new Data(notes);
+		return result;
+	}
+	private Question forkOnDemand(User editor){
+		Question result;
+		if(usageCount > 1){
+			result = this.fork();
+			this.usageCount--;
+			result.usageCount = 1;
+			result.owner = editor;
+		} else {
+			result = this;
+		}
+		return result;
+	}
+	public Question editContent(Data content, User editor) {
+		if(notes == null) {
+			log.error("The content passed as argument was null. Creating dummy content.");
+			content = new Data(true, "Error: no content was passed to method while editing");
+		}
+		Question result = forkOnDemand(editor);
+		result.content = content;
+		return result;
+	}
+	public Question editNotes(Data notes, User editor) {
+		if(notes == null) {
+			log.error("The notes passed as argument were null. Creating dummy set of notes.");
+			notes = new Data(true, "Error: no notes were passed to the method while editing.");
+		}
+		Question result = forkOnDemand(editor);
+		result.notes = notes;
+		return result;
+	}
+	
+	public Question use() {
+		usageCount++;
+		return this;
+	}
+	public Question disuse() {
+		usageCount--;
+		return this;
+	}
+	
+	
+	
+	
 }

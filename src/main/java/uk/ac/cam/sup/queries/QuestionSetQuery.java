@@ -85,8 +85,9 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
-	public List list() {
-		List l = criteria.list();
+	public List<QuestionSet> list() {
+		@SuppressWarnings("unchecked")
+		List<QuestionSet> l = criteria.list();
 		return l;
 	}
 }

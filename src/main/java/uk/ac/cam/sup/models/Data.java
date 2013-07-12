@@ -12,6 +12,11 @@ public class Data {
 		this.isString = isString;
 		this.data = data;
 	}
+	// Copy constructor 
+	public Data(Data old) {
+		this.isString = old.isString;
+		this.data = old.data;
+	}
 	
 	
 	public boolean isString() {return isString;}

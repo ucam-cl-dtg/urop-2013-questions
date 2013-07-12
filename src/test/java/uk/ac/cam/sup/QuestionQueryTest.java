@@ -33,8 +33,8 @@ public class QuestionQueryTest extends GenericTest {
 		r.addTag(new Tag("Sorting"));
 		s.addTag(new Tag("Dynamic Programming"));
 
-		q.setStarred(true);
-		r.setStarred(true);
+		q.star(true);
+		r.star(true);
 		p.setTimeStamp(new Date(6000));
 		q.setTimeStamp(new Date(2000));
 		r.setTimeStamp(new Date(9999));
@@ -153,7 +153,7 @@ public class QuestionQueryTest extends GenericTest {
 		List<Question> l = qq.list();
 		boolean star = true;
 		for (Question x : l) {
-			if (!x.getStarred())
+			if (!x.isStarred())
 				star = false;
 		}
 
@@ -162,7 +162,7 @@ public class QuestionQueryTest extends GenericTest {
 		l = qq.list();
 		boolean nostar = true;
 		for (Question x : l) {
-			if (x.getStarred())
+			if (x.isStarred())
 				nostar = false;
 		}
 
