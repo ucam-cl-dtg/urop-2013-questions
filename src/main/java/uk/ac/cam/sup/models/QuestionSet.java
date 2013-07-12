@@ -1,25 +1,19 @@
 package uk.ac.cam.sup.models;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
-
-import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
 @Table(name="QuestionSets")
@@ -31,6 +25,7 @@ public class QuestionSet {
 	
 	private String name;
 	private boolean isStarred = false;
+	private Date timeStamp;
 	
 	@ManyToOne
 	private User owner;
@@ -85,6 +80,8 @@ public class QuestionSet {
 	public void addQuestion(Question question){questions.add(question);}
 	public void removeQuestion(Question question){questions.remove(question);}
 	
+	public Date getTimeStamp() { return this.timeStamp; }
+	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
 	
 	@Override
 	public boolean equals(Object x){

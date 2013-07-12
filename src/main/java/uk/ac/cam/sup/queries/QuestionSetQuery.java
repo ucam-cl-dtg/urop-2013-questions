@@ -53,18 +53,24 @@ public class QuestionSetQuery {
 	}
 	
 	public QuestionSetQuery bySupervisor() {
+		criteria.createAlias("owner", "o")
+			.add(Restrictions.eq("o.supervisor", true));
 		return this;
 	}
 	
 	public QuestionSetQuery byStudent() {
+		criteria.createAlias("owner", "o")
+		.add(Restrictions.eq("o.supervisor", false));
 		return this;
 	}
 	
 	public QuestionSetQuery after(Date date) {
+		criteria.add(Restrictions.gt("timeStamp", date));
 		return this;
 	}
 	
 	public QuestionSetQuery before(Date date) {
+		criteria.add(Restrictions.lt("timeStamp", date));
 		return this;
 	}
 	
