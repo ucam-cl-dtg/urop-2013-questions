@@ -23,6 +23,7 @@ public class QuestionSetQuery {
 		return new QuestionSetQuery (
 				HibernateUtil.getSession()
 					.createCriteria(QuestionSet.class)
+					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
 		);
 	}
@@ -53,13 +54,13 @@ public class QuestionSetQuery {
 	}
 	
 	public QuestionSetQuery bySupervisor() {
-		criteria.createAlias("owner", "o")
+		criteria
 			.add(Restrictions.eq("o.supervisor", true));
 		return this;
 	}
 	
 	public QuestionSetQuery byStudent() {
-		criteria.createAlias("owner", "o")
+		criteria
 		.add(Restrictions.eq("o.supervisor", false));
 		return this;
 	}
