@@ -88,10 +88,10 @@ public class QuestionSet {
 		return result;
 	}
 	
-	public void setQuestions(Set<Question> questions){this.questions = questions;}
+	//public void setQuestions(Set<Question> questions){this.questions = questions;}
 	public Set<Question> getQuestions(){return questions;}
-	public void addQuestion(Question question){questions.add(question);}
-	public void removeQuestion(Question question){questions.remove(question);}
+	public void addQuestion(Question question){questions.add(question.use());}
+	public void removeQuestion(Question question){questions.remove(question.disuse());}
 	
 	public Date getTimeStamp() { return this.timeStamp; }
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
