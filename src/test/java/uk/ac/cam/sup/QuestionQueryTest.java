@@ -203,7 +203,7 @@ public class QuestionQueryTest extends GenericTest {
 		List<User> users = new LinkedList<User>();
 		users.add(new User("u1"));
 		users.add(new User("u3"));
-		qq.withUsers(users);
+		qq.withOwners(users);
 
 		List<Question> l = qq.list();
 
@@ -289,7 +289,7 @@ public class QuestionQueryTest extends GenericTest {
 		fillDB();
 
 		QuestionQuery qq = QuestionQuery.all();
-		qq.moreUsersThan(30).lessUsersThan(80);
+		qq.minUsages(30).maxUsages(80);
 
 		List<Question> l = qq.list();
 
@@ -311,7 +311,7 @@ public class QuestionQueryTest extends GenericTest {
 		fillDB();
 
 		QuestionQuery qq = QuestionQuery.all();
-		qq.withParent(p);
+		qq.withParent(p.getId());
 		List<Question> l = qq.list();
 
 		boolean works = true;
@@ -330,8 +330,8 @@ public class QuestionQueryTest extends GenericTest {
 		fillDB();
 		
 		QuestionQuery qq = QuestionQuery.all();
-		qq.shorterDurationThan(60);
-		qq.longerDurationThan(30);
+		qq.maxDuration(60);
+		qq.minDuration(30);
 		List<Question> l = qq.list();
 		
 		boolean works = true;
