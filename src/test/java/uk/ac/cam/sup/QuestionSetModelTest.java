@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Set;
+
 import org.junit.Test;
 
 import uk.ac.cam.sup.models.Question;
@@ -61,5 +63,21 @@ public class QuestionSetModelTest extends GenericTest {
 		qs.addQuestion(q);
 		qs.removeQuestion(q);
 		assertFalse(qs.getQuestions().contains(q));
+	}
+	
+	@Test
+	public void expectedDurationIsSumOfQuestionsExpectedDurations () {
+		session.beginTransaction();
+		QuestionSet s = (QuestionSet) session
+				.createQuery("from QuestionSet where id=1")
+				.uniqueResult();
+		Set<Question> qs = s.getQuestions();
+		int sum = 0;
+		for (Question q: qs) {
+			sum += q.getExpectedDuration();
+		}
+		session.getTransaction().commit();
+		
+		assertEquals (sum, s.getExpectedDuration());
 	}
 }

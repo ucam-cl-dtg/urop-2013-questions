@@ -75,6 +75,16 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
+	public QuestionSetQuery maxDuration(int mins) {
+		criteria.add(Restrictions.le("expectedDuration", mins));
+		return this;
+	}
+	
+	public QuestionSetQuery minDuration(int mins) {
+		criteria.add(Restrictions.ge("expectedDuration", mins));
+		return this;
+	}
+	
 	public List list() {
 		List l = criteria.list();
 		return l;

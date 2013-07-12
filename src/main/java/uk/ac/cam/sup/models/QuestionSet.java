@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -26,6 +27,18 @@ public class QuestionSet {
 	private String name;
 	private boolean isStarred = false;
 	private Date timeStamp;
+	
+	@Formula("(" +
+			"select" +
+			"	case" +
+			"		when sum(q.expectedDuration) is null then 0" +
+			"		else sum(q.expectedDuration)" +
+			"	end " +
+			"from questionsets_questions qq, questions q, questionsets s " +
+			"where qq.questions_id = q.id" +
+			"	and qq.questionsets_id = s.id" +
+			"	and s.id = id)")
+	private int expectedDuration;
 	
 	@ManyToOne
 	private User owner;
@@ -82,6 +95,9 @@ public class QuestionSet {
 	
 	public Date getTimeStamp() { return this.timeStamp; }
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
+	
+	public int getExpectedDuration() { return this.expectedDuration; }
+	private void setExpectedDuration(int d) { this.expectedDuration = d; }
 	
 	@Override
 	public boolean equals(Object x){

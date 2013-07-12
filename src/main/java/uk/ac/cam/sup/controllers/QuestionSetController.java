@@ -21,11 +21,13 @@ public class QuestionSetController {
 	@Produces("application/json")
 	public List produceFilteredJSON (
 			@QueryParam("tags") String tags,
-			@QueryParam("users") String users,
+			@QueryParam("owners") String users,
 			@QueryParam("star") boolean star,
 			@QueryParam("supervisor") Boolean supervisor,
 			@QueryParam("after") Long after,
-			@QueryParam("before") Long before
+			@QueryParam("before") Long before,
+			@QueryParam("minduration") Integer minduration,
+			@QueryParam("maxduration") Integer maxduration
 	) {
 		QuestionSetQuery query = QuestionSetQuery.all();
 		
@@ -55,6 +57,9 @@ public class QuestionSetController {
 		
 		if (after != null) { query.after(new Date(after)); }
 		if (before != null) { query.before(new Date(before)); }
+		
+		if (minduration != null) { query.minDuration(minduration); }
+		if (maxduration != null) { query.maxDuration(maxduration); }
 		
 		return query.list();
 	}
