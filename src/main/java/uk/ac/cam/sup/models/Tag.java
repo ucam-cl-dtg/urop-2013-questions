@@ -23,11 +23,11 @@ public class Tag {
 		if (!(t instanceof Tag)) {
 			return false;
 		} else { 
-			return ((Tag)t).name.equals(this.name);
+			return ((Tag)t).name.toLowerCase().equals(this.name.toLowerCase());
 		}
 	}
 	
 	public int hashCode () {
-		return name.hashCode();
+		return name.toLowerCase().hashCode();
 	}
 }
