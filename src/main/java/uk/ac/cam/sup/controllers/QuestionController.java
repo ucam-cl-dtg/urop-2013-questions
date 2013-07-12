@@ -1,17 +1,21 @@
 package uk.ac.cam.sup.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
@@ -22,7 +26,7 @@ public class QuestionController {
 	@GET
 	@Path("/json")
 	@Produces("application/json")
-	public List<Question> produceFilteredJSON(
+	public List<?> produceFilteredJSON(
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
@@ -73,5 +77,55 @@ public class QuestionController {
 		if(durMin != null) { qq.minDuration(durMin); }
 			
 		return qq.list();
+	}
+
+	private Question getQuestion(int id) {
+		Session session = HibernateUtil.getTransaction();
+		
+		Question r = (Question) session
+				.createQuery("from Question where id = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		
+		session.getTransaction().commit();
+		return r;
+	}
+	
+	@GET
+	@Path("/{id}/json")
+	@Produces("application/json")
+	public Question produceSingleQuestionJSON(@PathParam("id") int id) {
+		return getQuestion(id);
+	}
+	
+	@GET
+	@Path("/{id}/history/json")
+	public List<?> produceHistoryJSON(@PathParam("id") int id) {
+		List<Question> history = new ArrayList<Question>();
+		
+		for (Question q = getQuestion(id); q != null; q = q.getParent()) {
+			history.add(q);
+		}
+		
+		return history;
+	}
+	
+	@GET
+	@Path("/{id}/forks/json")
+	public List<?> produceForksJSON(@PathParam("id") int id) {
+		Session session = HibernateUtil.getTransaction();
+		Question q = (Question) session
+			.createQuery("from Question where id = :id")
+			.setParameter("id", id)
+			.uniqueResult();
+		
+		List<?> result = session
+			.createQuery("from Question where parent.id = :id")
+			.setParameter("id", id)
+			.list();
+		
+		session.getTransaction().commit();
+		
+		return result;
 	}
 }
