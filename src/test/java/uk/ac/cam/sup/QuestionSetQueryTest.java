@@ -207,8 +207,54 @@ public class QuestionSetQueryTest extends GenericTest {
 		
 		for (Object o: all) {
 			Date ts = ((QuestionSet)o).getTimeStamp();
-			if (ts.before(d)	&& !result.contains(o)) {
+			if (ts.before(d) && !result.contains(o)) {
 				fail (((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedByMaxDurationFilterHaveAppropriateLength() {
+		List result = QuestionSetQuery.all().maxDuration(10).list();
+		for (Object o: result) {
+			if (((QuestionSet)o).getExpectedDuration() > 10) {
+				fail(((QuestionSet)o).getName() + " is too long");
+			}
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByMaxDurationFilter() {
+		List result = QuestionSetQuery.all().maxDuration(10).list();
+		List all = QuestionSetQuery.all().list();
+
+		for (Object o: all) {
+			if (((QuestionSet)o).getExpectedDuration() <= 10
+					&& !result.contains(o)) {
+				fail(((QuestionSet)o).getName() + "(" + ((QuestionSet)o).getExpectedDuration()+") was omitted");
+			}
+		}
+	}
+	
+	@Test
+	public void allElementsReturnedByMinDurationFilterHaveAppropriateLength() {
+		List result = QuestionSetQuery.all().minDuration(10).list();
+		for (Object o: result) {
+			if (((QuestionSet)o).getExpectedDuration() < 10) {
+				fail(((QuestionSet)o).getName() + " is too long");
+			}
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByMinDurationFilter() {
+		List result = QuestionSetQuery.all().minDuration(10).list();
+		List all = QuestionSetQuery.all().list();
+
+		for (Object o: all) {
+			if (((QuestionSet)o).getExpectedDuration() >= 10
+					&& !result.contains(o)) {
+				fail(((QuestionSet)o).getName() + " was omitted");
 			}
 		}
 	}
