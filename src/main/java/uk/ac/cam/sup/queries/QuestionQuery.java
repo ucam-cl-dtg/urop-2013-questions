@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
@@ -22,7 +21,7 @@ public class QuestionQuery {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Question> results(){
+	public List<Question> list(){
 		return criteria.list();
 	}
 	
@@ -68,11 +67,11 @@ public class QuestionQuery {
 	}
 	
 	public QuestionQuery bySupervisor(){
-		criteria.add(Restrictions.eq("owner.supervisor", true));
+		criteria.createAlias("owner", "o_sup").add(Restrictions.eq("o_sup.supervisor", true));
 		return this;
 	}
 	public QuestionQuery byStudent(){
-		criteria.add(Restrictions.eq("owner.supervisor", false));
+		criteria.createAlias("owner", "o_stu").add(Restrictions.eq("o_stu.supervisor", false));
 		return this;
 	}
 	
@@ -81,9 +80,30 @@ public class QuestionQuery {
 		return this;
 	}
 	public QuestionQuery before(Date date){
-		criteria.add(Restrictions.le("timestamp", date));
+		criteria.add(Restrictions.le("timeStamp", date));
 		return this;
 	}
 	
-	//TODO: list method, more filter methods.
+	public QuestionQuery moreUsersThan(int uCount){
+		criteria.add(Restrictions.ge("usageCount", uCount));
+		return this;
+	}
+	public QuestionQuery lessUsersThan(int uCount){
+		criteria.add(Restrictions.le("usageCount", uCount));
+		return this;
+	}
+	
+	public QuestionQuery withParent(Question p) {
+		criteria.add(Restrictions.eq("parent.id", p.getId()));
+		return this;
+	}
+	
+	public QuestionQuery longerDurationThan(int minutes){
+		criteria.add(Restrictions.ge("expectedDuration", minutes));
+		return this;
+	}
+	public QuestionQuery shorterDurationThan(int minutes){
+		criteria.add(Restrictions.le("expectedDuration", minutes));
+		return this;
+	}
 }
