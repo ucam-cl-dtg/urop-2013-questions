@@ -1,8 +1,8 @@
 package uk.ac.cam.sup;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +35,24 @@ public class QuestionQueryTest extends GenericTest {
 
 		q.setStarred(true);
 		r.setStarred(true);
+		p.setTimeStamp(new Date(6000));
+		q.setTimeStamp(new Date(2000));
+		r.setTimeStamp(new Date(9999));
+		s.setTimeStamp(new Date(10000));
+
+		p.setUsageCount(123);
+		q.setUsageCount(50);
+		r.setUsageCount(75);
+		s.setUsageCount(4);
+
+		q.setParent(p);
+		s.setParent(p);
+		r.setParent(s);
+
+		p.setExpectedDuration(90);
+		q.setExpectedDuration(5);
+		r.setExpectedDuration(45);
+		s.setExpectedDuration(50);
 		
 		session.beginTransaction();
 		session.saveOrUpdate(a);
@@ -60,51 +78,57 @@ public class QuestionQueryTest extends GenericTest {
 		session.getTransaction().commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void cleanDB() {
-		session.beginTransaction();
+		List<Question> qList = null;
+		List<Question> childList = null;
 		try {
-			for (Object o : session
-					.createQuery("from Question where owner_id = ?")
-					.setString(0, "u1").list()) {
-				session.delete(o);
-			}
-			for (Object o : session
-					.createQuery("from Question where owner_id = ?")
-					.setString(0, "u2").list()) {
-				session.delete(o);
-			}
-			for (Object o : session
-					.createQuery("from Question where owner_id = ?")
-					.setString(0, "u3").list()) {
-				session.delete(o);
-			}
+			session.beginTransaction();
+			for (int i = 1; i <= 3; i++) {
+				// session.beginTransaction();
+				qList = session.createQuery("from Question where owner_id = ?")
+						.setString(0, "u" + i).list();
+				// session.getTransaction().commit();
+				for (Question x : qList) {
+					// session.beginTransaction();
+					childList = session
+							.createQuery("from Question where parent_id = ?")
+							.setInteger(0, x.getId()).list();
+					for (Question y : childList) {
+						y.setParent(null);
+						session.update(y);
+					}
+					// session.getTransaction().commit();
+					// session.beginTransaction();
+					session.delete(x);
+					// session.getTransaction().commit();
+				}
 
-			session.delete(session.createQuery("from User where id = ?")
-					.setString(0, "u1").uniqueResult());
-			session.delete(session.createQuery("from User where id = ?")
-					.setString(0, "u2").uniqueResult());
-			session.delete(session.createQuery("from User where id = ?")
-					.setString(0, "u3").uniqueResult());
+				// session.beginTransaction();
+				session.delete(session.createQuery("from User where id = ?")
+						.setString(0, "u" + i).uniqueResult());
+				// session.getTransaction().commit();
+			}
+			session.getTransaction().commit();
 		} catch (Exception e) {
-
+			session.getTransaction().commit();
 		}
-		session.getTransaction().commit();
+
 	}
 
 	@Test
 	public void dontFilter() {
-		cleanDB();
+		// cleanDB();
 		fillDB();
 
 		QuestionQuery qq = QuestionQuery.all();
-		List<Question> l = qq.results();
+		List<Question> l = qq.list();
 
 		boolean pExists = false;
 		boolean qExists = false;
 		boolean rExists = false;
 		boolean sExists = false;
 		for (Question x : l) {
-			System.out.println(";alsdkfj");
 			if (p.getId() == x.getId())
 				pExists = true;
 			if (q.getId() == x.getId())
@@ -126,29 +150,30 @@ public class QuestionQueryTest extends GenericTest {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.withStar();
-		List<Question> l = qq.results();
+		List<Question> l = qq.list();
 		boolean star = true;
-		for(Question x : l){
-			if(!x.getStarred()) star = false;
+		for (Question x : l) {
+			if (!x.getStarred())
+				star = false;
 		}
-		
+
 		qq = QuestionQuery.all();
 		qq.withoutStar();
-		l = qq.results();
+		l = qq.list();
 		boolean nostar = true;
-		for(Question x : l) {
-			if(x.getStarred()) nostar = false;
+		for (Question x : l) {
+			if (x.getStarred())
+				nostar = false;
 		}
-		
-		
+
 		assertTrue(star && nostar);
 		cleanDB();
 	}
-	
+
 	@Test
 	public void filterByTag() {
 		fillDB();
-		
+
 		QuestionQuery qq = QuestionQuery.all();
 		List<Tag> tags = new LinkedList<Tag>();
 		Tag tag1 = new Tag("Algorithms");
@@ -156,87 +181,168 @@ public class QuestionQueryTest extends GenericTest {
 		tags.add(tag1);
 		tags.add(tag2);
 		qq.withTags(tags);
-		List<Question> l = qq.results();
-		
+		List<Question> l = qq.list();
+
 		boolean works = true;
-		for(Question x : l) {
-			if(!(x.getTags().contains(tag1) ||
-					x.getTags().contains(tag2))) {
+		for (Question x : l) {
+			if (!(x.getTags().contains(tag1) || x.getTags().contains(tag2))) {
 				works = false;
 			}
 		}
-		
-		System.out.println("#####################  " + l.size());
+
 		assertTrue(works);
-		
+
 		cleanDB();
 	}
-	
+
 	@Test
 	public void filterByUser() {
 		fillDB();
-		
+
 		QuestionQuery qq = QuestionQuery.all();
 		List<User> users = new LinkedList<User>();
 		users.add(new User("u1"));
 		users.add(new User("u3"));
 		qq.withUsers(users);
-		
-		List<Question> l = qq.results();
-		
+
+		List<Question> l = qq.list();
+
 		boolean works = true;
-		for(Question x : l) {
-			if(!(x.getOwner().equals(new User("u1"))) 
-					&& !(x.getOwner().equals(new User("u3")))) 
+		for (Question x : l) {
+			if (!(x.getOwner().equals(new User("u1")))
+					&& !(x.getOwner().equals(new User("u3"))))
 				works = false;
 		}
-		
+
 		assertTrue(works);
-		
+
 		cleanDB();
 	}
-	
+
 	@Test
-	public void filterByStudent(){
-		fillDB();
-		
-		QuestionQuery qq = QuestionQuery.all();
-		qq.byStudent();
-		
-		List<Question> l = qq.results();
-		
-		boolean works = true;
-		for(Question x : l) {
-			if (x.getOwner().getSupervisor()) works = false;
-		}
-		
-		assertTrue(works);
-		
-		cleanDB();
-	}
-	@Test
-	public void filterBySupervisor(){
+	public void filterByStudent() {
 		fillDB();
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.byStudent();
-		
-		List<Question> l = qq.results();
-		
+
+		List<Question> l = qq.list();
+
 		boolean works = true;
-		for(Question x : l) {
-			if (!x.getOwner().getSupervisor()) works = false;
+		for (Question x : l) {
+			if (x.getOwner().getSupervisor())
+				works = false;
 		}
-		
+
 		assertTrue(works);
-		
+
+		cleanDB();
+	}
+
+	@Test
+	public void filterBySupervisor() {
+		fillDB();
+
+		QuestionQuery qq = QuestionQuery.all();
+		qq.bySupervisor();
+
+		List<Question> l = qq.list();
+
+		boolean works = true;
+		for (Question x : l) {
+			if (!x.getOwner().getSupervisor())
+				works = false;
+		}
+
+		assertTrue(works);
+
+		cleanDB();
+	}
+
+	@Test
+	public void filterByDate() {
+		fillDB();
+
+		Date begin = new Date(5000L);
+		Date end = new Date(10000L);
+
+		QuestionQuery qq = QuestionQuery.all();
+		qq.after(begin).before(end);
+
+		List<Question> l = qq.list();
+
+		boolean works = true;
+		for (Question x : l) {
+			if (x.getTimeStamp().before(new Date(5000L)))
+				works = false;
+			if (x.getTimeStamp().after(new Date(10000L)))
+				works = false;
+		}
+
+		assertTrue(works);
+
+		cleanDB();
+	}
+
+	@Test
+	public void filterByUsageCount() {
+		fillDB();
+
+		QuestionQuery qq = QuestionQuery.all();
+		qq.moreUsersThan(30).lessUsersThan(80);
+
+		List<Question> l = qq.list();
+
+		boolean works = true;
+		for (Question x : l) {
+			if (x.getUsageCount() < 30)
+				works = false;
+			if (x.getUsageCount() > 80)
+				works = false;
+		}
+
+		assertTrue(works);
+
+		cleanDB();
+	}
+
+	@Test
+	public void filterByParent() {
+		fillDB();
+
+		QuestionQuery qq = QuestionQuery.all();
+		qq.withParent(p);
+		List<Question> l = qq.list();
+
+		boolean works = true;
+		for (Question x : l) {
+			if (!x.getParent().equals(p))
+				works = false;
+		}
+
+		assertTrue(works);
+
 		cleanDB();
 	}
 	
 	@Test
-	public void filterByDate(){
+	public void filterByDuration(){
 		fillDB();
+		
+		QuestionQuery qq = QuestionQuery.all();
+		qq.shorterDurationThan(60);
+		qq.longerDurationThan(30);
+		List<Question> l = qq.list();
+		
+		boolean works = true;
+		for (Question x : l) {
+			if (x.getExpectedDuration() > 60 || x.getExpectedDuration() < 30)
+				works = false;
+		}
+
+		assertTrue(works);
 		
 		cleanDB();
 	}
+
 }

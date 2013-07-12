@@ -66,6 +66,7 @@ public class Question {
 	
 	public User getOwner(){return owner;}
 	
+	// Duration in minutes
 	public int getExpectedDuration(){return expectedDuration;}
 	public void setExpectedDuration(int expDuration){expectedDuration = expDuration;}
 	
