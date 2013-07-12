@@ -26,8 +26,8 @@ public class QuestionSetController {
 			@QueryParam("supervisor") Boolean supervisor,
 			@QueryParam("after") Long after,
 			@QueryParam("before") Long before,
-			@QueryParam("minduration") Integer minduration,
-			@QueryParam("maxduration") Integer maxduration
+			@QueryParam("durmin") Integer minduration,
+			@QueryParam("durmax") Integer maxduration
 	) {
 		QuestionSetQuery query = QuestionSetQuery.all();
 		
