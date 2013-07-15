@@ -12,14 +12,14 @@ import uk.ac.cam.sup.util.WorldStrings;
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.ViewWith;
 
-@Path("/")
+@Path(WorldStrings.URL_PREFIX + "/")
 public class MainController {
 	
 	@Context
 	HttpServletRequest request;
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/")
+	@Path("/")
 	@ViewWith("/soy/main.index")
 	public Map<String,?> indexPage() {
 		return ImmutableMap.of();

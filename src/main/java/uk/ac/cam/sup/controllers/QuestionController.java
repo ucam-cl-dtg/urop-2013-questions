@@ -23,12 +23,12 @@ import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
 
-@Path("/q")
+@Path(WorldStrings.URL_PREFIX + "/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/json")
+	@Path("/json")
 	@Produces("application/json")
 	public List<?> produceFilteredJSON(
 			@QueryParam("tags") String tags,
@@ -96,14 +96,14 @@ public class QuestionController {
 	}
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/{id}/json")
+	@Path("/{id}/json")
 	@Produces("application/json")
 	public Question produceSingleQuestionJSON(@PathParam("id") int id) {
 		return getQuestion(id);
 	}
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/{id}/history/json")
+	@Path("/{id}/history/json")
 	@Produces("application/json")
 	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
 		List<Question> history = new ArrayList<Question>();
@@ -116,7 +116,7 @@ public class QuestionController {
 	}
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/{id}/forks/json")
+	@Path("/{id}/forks/json")
 	@Produces("application/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
 		return QuestionQuery.all().withParent(id).list();

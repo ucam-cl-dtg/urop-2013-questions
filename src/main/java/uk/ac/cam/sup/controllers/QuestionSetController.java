@@ -15,11 +15,11 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
-@Path("/sets")
+@Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
 	
 	@GET
-	@Path(WorldStrings.URL_PREFIX + "/json")
+	@Path("/json")
 	@Produces("application/json")
 	public List<QuestionSet> produceFilteredJSON (
 			@QueryParam("tags") String tags,
