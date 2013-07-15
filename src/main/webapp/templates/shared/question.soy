@@ -2,12 +2,12 @@
 /**
  * Displays a single question
  * @param id
- * @param content String holding content of the question.
+ * @param content Data object holding content of the question.
  * @param owner
  */
 {template .single}
 <article>
-	<p class="questioncontent">{$content}</p>
+	<p class="questioncontent">{$content.data}</p>
 	<p class="questionauthor">
 	<a href="/question/{$id}">#{$id}</a>,&thinsp;
 	{if $owner == null}

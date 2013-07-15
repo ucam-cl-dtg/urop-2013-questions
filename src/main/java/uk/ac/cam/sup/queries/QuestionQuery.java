@@ -69,11 +69,11 @@ public class QuestionQuery {
 	}
 	public QuestionQuery withTagNames(List<String> tagNames) {
 		log.debug("Filtering withTagNames...");
-		if (tagNames == null || !(tagNames.size() > 0) ) return this;
+		if (tagNames == null || !(tagNames.size() > 0)) return this;
 		
 		Disjunction oredTagList = Restrictions.disjunction();
 		for(String tag : tagNames){
-			oredTagList.add(Restrictions.like("t.name", tag));
+			oredTagList.add(Restrictions.like("t.name", tag).ignoreCase());
 		}
 		criteria.createAlias("tags", "t");
 		criteria.add(oredTagList);
@@ -93,7 +93,7 @@ public class QuestionQuery {
 		log.debug("Filtering witUserIDs...");
 		Disjunction oredUserList = Restrictions.disjunction();
 		for(String owner : ownerIDs){
-			oredUserList.add(Restrictions.like("owner.id", owner));
+			oredUserList.add(Restrictions.like("owner.id", owner).ignoreCase());
 		}
 		if (ownerIDs.size() > 0) criteria.add(oredUserList);
 		return this;

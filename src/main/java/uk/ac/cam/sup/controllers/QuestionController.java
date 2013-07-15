@@ -81,13 +81,13 @@ public class QuestionController {
 		QuestionQuery qq = QuestionQuery.all();
 		
 		log.debug("Filtering for tags");
-		if(st.getTags() != null){
+		if(st.getTags() != null && !st.getTags().equals("")){
 			List<String> lTags = Arrays.asList(st.getTags().split(","));
 			qq.withTagNames(lTags);
 		}
 		
 		log.debug("Filtering for owners");
-		if(st.getOwners() != null){
+		if(st.getOwners() != null && !st.getOwners().equals("")){
 			List<String> lUsers = Arrays.asList(st.getOwners().split(","));
 			qq.withUserIDs(lUsers);
 		}

@@ -54,7 +54,7 @@ public class QuestionSetQuery {
 	public QuestionSetQuery withTags(List<Tag> taglist) {
 		Disjunction d = Restrictions.disjunction();
 		for (Tag t: taglist) {
-			d.add(Restrictions.eq("t.name", t.getName()));
+			d.add(Restrictions.eq("t.name", t.getName()).ignoreCase());
 		}
 		criteria.createAlias("tags", "t").add(d);
 			
@@ -64,7 +64,7 @@ public class QuestionSetQuery {
 	public QuestionSetQuery withUsers(List<User> userlist) {
 		Disjunction d = Restrictions.disjunction();
 		for (User u: userlist) {
-			d.add(Restrictions.eq("owner.id", u.getId()));
+			d.add(Restrictions.eq("owner.id", u.getId()).ignoreCase());
 		}
 		criteria.add(d);
 		
