@@ -9,7 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -21,7 +20,7 @@ public class QuestionSetController {
 	@GET
 	@Path("/json")
 	@Produces("application/json")
-	public List<QuestionSet> produceFilteredJSON (
+	public List<?> produceFilteredJSON (
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String users,
 			@QueryParam("star") boolean star,
@@ -63,7 +62,7 @@ public class QuestionSetController {
 		if (minduration != null) { query.minDuration(minduration); }
 		if (maxduration != null) { query.maxDuration(maxduration); }
 		
-		return query.list();
+		return query.maplist(false);
 	}
 	
 }

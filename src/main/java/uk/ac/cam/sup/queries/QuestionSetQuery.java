@@ -1,7 +1,9 @@
 package uk.ac.cam.sup.queries;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -26,6 +28,27 @@ public class QuestionSetQuery {
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
 		);
+	}
+	
+	public List<QuestionSet> list() {
+		@SuppressWarnings("unchecked")
+		List<QuestionSet> l = criteria.list();
+		return l;
+	}
+	
+	public List<Map<String,Object>> maplist(boolean shadow) {
+		List<Map<String,Object>> l = new ArrayList<Map<String,Object>>();
+		List<QuestionSet> all = list();
+		
+		for (QuestionSet qs: all) {
+			l.add(qs.toMap(shadow));
+		}
+		
+		return l;
+	}
+	
+	public List<Map<String,Object>> maplist() {
+		return maplist(true);
 	}
 	
 	public QuestionSetQuery withTags(List<Tag> taglist) {
@@ -85,9 +108,5 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
-	public List<QuestionSet> list() {
-		@SuppressWarnings("unchecked")
-		List<QuestionSet> l = criteria.list();
-		return l;
-	}
+	
 }

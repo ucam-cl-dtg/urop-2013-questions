@@ -1,7 +1,9 @@
 package uk.ac.cam.sup.models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -90,6 +92,18 @@ public class QuestionSet {
 	
 	//public void setQuestions(Set<Question> questions){this.questions = questions;}
 	public Set<Question> getQuestions(){return questions;}
+	public Set<Map<String,Object>> getQuestionsAsMaps(boolean shadow) {
+		Set<Map<String,Object>> r = new HashSet<Map<String,Object>>();
+		
+		for (Question q: questions) {
+			r.add(q.toMap(shadow));
+		}
+		
+		return r;
+	}
+	public Set<Map<String,Object>> getQuestionsAsMaps() {
+		return getQuestionsAsMaps(true);
+	}
 	public void addQuestion(Question question){questions.add(question.use());}
 	public void removeQuestion(Question question){questions.remove(question.disuse());}
 	
@@ -110,6 +124,26 @@ public class QuestionSet {
 	
 	@Override
 	public int hashCode(){
-		return getId() % 13;
+		return id;
+	}
+	
+	public Map<String,Object> toMap(boolean shadow) {
+		Map<String,Object> r = new HashMap<String,Object>();
+		
+		r.put("id", this.id);
+		r.put("name", this.name);
+		r.put("owner", this.owner);
+		r.put("timeStamp", this.timeStamp);
+		r.put("parentid", null); // TODO: implement parent
+		r.put("starred", this.isStarred);
+		r.put("tags", this.tags);
+		r.put("questions", this.getQuestionsAsMaps());
+		r.put("plan", (shadow ? null : this.plan));
+		
+		return r;
+	}
+	
+	public Map<String,Object> toMap() {
+		return toMap(true);
 	}
 }

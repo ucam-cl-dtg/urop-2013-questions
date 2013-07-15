@@ -20,8 +20,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableMap;
-
 @Entity
 @Table(name="Questions")
 public class Question implements Cloneable {
