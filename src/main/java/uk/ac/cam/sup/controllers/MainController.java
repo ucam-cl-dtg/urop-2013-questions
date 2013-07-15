@@ -7,6 +7,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
+import uk.ac.cam.sup.util.WorldStrings;
+
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.ViewWith;
 
@@ -17,7 +19,7 @@ public class MainController {
 	HttpServletRequest request;
 	
 	@GET
-	@Path("/")
+	@Path(WorldStrings.URL_PREFIX + "/")
 	@ViewWith("/soy/main.index")
 	public Map<String,?> indexPage() {
 		return ImmutableMap.of();

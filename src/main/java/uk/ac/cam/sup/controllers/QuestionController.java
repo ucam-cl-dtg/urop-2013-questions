@@ -18,13 +18,14 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.util.WorldStrings;
 
 @Path("/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
 	@GET
-	@Path("/json")
+	@Path(WorldStrings.URL_PREFIX + "/json")
 	@Produces("application/json")
 	public List<?> produceFilteredJSON(
 			@QueryParam("tags") String tags,
@@ -92,14 +93,14 @@ public class QuestionController {
 	}
 	
 	@GET
-	@Path("/{id}/json")
+	@Path(WorldStrings.URL_PREFIX + "/{id}/json")
 	@Produces("application/json")
 	public Question produceSingleQuestionJSON(@PathParam("id") int id) {
 		return getQuestion(id);
 	}
 	
 	@GET
-	@Path("/{id}/history/json")
+	@Path(WorldStrings.URL_PREFIX + "/{id}/history/json")
 	public List<?> produceHistoryJSON(@PathParam("id") int id) {
 		List<Question> history = new ArrayList<Question>();
 		
@@ -111,14 +112,10 @@ public class QuestionController {
 	}
 	
 	@GET
-	@Path("/{id}/forks/json")
+	@Path(WorldStrings.URL_PREFIX + "/{id}/forks/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
 		Session session = HibernateUtil.getTransaction();
-		Question q = (Question) session
-			.createQuery("from Question where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
-		
+				
 		List<?> result = session
 			.createQuery("from Question where parent.id = :id")
 			.setParameter("id", id)
@@ -128,4 +125,6 @@ public class QuestionController {
 		
 		return result;
 	}
+	
+	
 }
