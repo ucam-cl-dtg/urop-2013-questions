@@ -31,7 +31,8 @@ public class QuestionController {
 	
 	@GET
 	@Path("/search")
-	@ViewWith("/soy/search.main")
+	//@ViewWith("/soy/search.main")
+	@Produces("application/json")
 	public Map<String, ?> searchQuestionsView(
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
