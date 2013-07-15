@@ -13,8 +13,9 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.util.WorldStrings;
 
-@Path("/sets")
+@Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
 	
 	@GET

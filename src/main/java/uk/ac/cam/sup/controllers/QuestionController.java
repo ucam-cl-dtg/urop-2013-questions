@@ -19,10 +19,11 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
 
-@Path("/q")
+@Path(WorldStrings.URL_PREFIX + "/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
@@ -120,4 +121,6 @@ public class QuestionController {
 	public List<?> produceForksJSON(@PathParam("id") int id) {
 		return QuestionQuery.all().withParent(id).list();
 	}
+	
+	
 }
