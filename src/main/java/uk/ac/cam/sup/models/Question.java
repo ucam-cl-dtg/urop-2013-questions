@@ -132,7 +132,7 @@ public class Question {
 		return result;
 	}
 	public Question editContent(Data content, User editor) {
-		if(notes == null) {
+		if(content == null) {
 			log.error("The content passed as argument was null. Creating dummy content.");
 			content = new Data(true, "Error: no content was passed to method while editing");
 		}

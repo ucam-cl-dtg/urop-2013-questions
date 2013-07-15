@@ -21,7 +21,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allReturnsAllQuestionSets() {
-		List result = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().list();
 		assertEquals(
 				session.createQuery("from QuestionSet").list().size(),
 				result.size()
@@ -34,7 +34,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		tags.add(new Tag("Algorithms"));
 		tags.add(new Tag("Sorting"));
 		tags.add(new Tag("Discrete Mathematics"));
-		List result = QuestionSetQuery.all().withTags(tags).list();
+		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: result) {
 			boolean contains = false;
 			for (Tag t: tags) {
@@ -54,10 +54,10 @@ public class QuestionSetQueryTest extends GenericTest {
 		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(new Tag("Algorithms"));
 		tags.add(new Tag("Discrete Mathematics"));
-		List all = QuestionSetQuery.all().list();
-		List result = QuestionSetQuery.all().withTags(tags).list();
+		List<?> all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: all) {
-			Set qtags = ((QuestionSet)q).getTags();
+			Set<?> qtags = ((QuestionSet)q).getTags();
 			for (Tag t: tags) {
 				if (qtags.contains(t) && !result.contains(q)) {
 					fail (((QuestionSet)q).getName()+" was omitted");
@@ -71,7 +71,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		List<User> users = new ArrayList<User>();
 		users.add(new User("mr595"));
 		users.add(new User("as123"));
-		List result = QuestionSetQuery.all().withUsers(users).list();
+		List<?> result = QuestionSetQuery.all().withUsers(users).list();
 		for (Object q: result) {
 			boolean contains = false;
 			for (User u: users) {
@@ -91,8 +91,8 @@ public class QuestionSetQueryTest extends GenericTest {
 		List<User> user = new ArrayList<User>();
 		user.add(new User("mr595"));
 		user.add(new User("as123"));
-		List all = QuestionSetQuery.all().list();
-		List result = QuestionSetQuery.all().withUsers(user).list();
+		List<?> all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().withUsers(user).list();
 		for (Object q: all) {
 			User owner = ((QuestionSet)q).getOwner();
 			for (User u: user) {
@@ -105,7 +105,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allElementsReturnedByWithStarHaveAStar() {
-		List result = QuestionSetQuery.all().withStar().list();
+		List<?> result = QuestionSetQuery.all().withStar().list();
 		for (Object o: result) {
 			assertTrue(((QuestionSet)o).isStarred());
 		}
@@ -113,8 +113,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void noElementsAreOmittedByWithStarFilter() {
-		List result = QuestionSetQuery.all().withStar().list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().withStar().list();
+		List<?> all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			if (((QuestionSet)o).isStarred() && !result.contains(o)) {
@@ -125,7 +125,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allElementsReturnedBySupervisorFilterHaveAStar() {
-		List result = QuestionSetQuery.all().bySupervisor().list();
+		List<?> result = QuestionSetQuery.all().bySupervisor().list();
 		for (Object o: result) {
 			assertTrue(((QuestionSet)o).getOwner().getSupervisor());
 		}
@@ -133,8 +133,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void noElementsAreOmittedBySupervisorFilter() {
-		List result = QuestionSetQuery.all().bySupervisor().list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().bySupervisor().list();
+		List<?> all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			if (((QuestionSet)o).getOwner().getSupervisor() && !result.contains(o)) {
@@ -145,7 +145,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allElementsReturnedByStudentFilterHaveAStar() {
-		List result = QuestionSetQuery.all().byStudent().list();
+		List<?> result = QuestionSetQuery.all().byStudent().list();
 		for (Object o: result) {
 			assertFalse(((QuestionSet)o).getOwner().getSupervisor());
 		}
@@ -153,8 +153,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void noElementsAreOmittedByStudentFilter() {
-		List result = QuestionSetQuery.all().byStudent().list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().byStudent().list();
+		List<?> all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			if (!((QuestionSet)o).getOwner().getSupervisor() && !result.contains(o)) {
@@ -166,7 +166,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void allElementsReturnedByAfterFilterHaveAppropriateTimestamp () {
 		Date d = new Date(1373497200000L);
-		List result = QuestionSetQuery.all().after(d).list();
+		List<?> result = QuestionSetQuery.all().after(d).list();
 		for (Object o: result) {
 			if (!((QuestionSet)o).getTimeStamp().after(d)) {
 				fail (((QuestionSet)o).getName() + " is wrong");
@@ -177,8 +177,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void noElementsAreOmittedByAfterFilter () {
 		Date d = new Date(1373497200000L);
-		List result = QuestionSetQuery.all().after(d).list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().after(d).list();
+		List<?> all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			Date ts = ((QuestionSet)o).getTimeStamp();
@@ -191,7 +191,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void allElementsReturnedByBeforeFilterHaveAppropriateTimestamp () {
 		Date d = new Date(1373497200000L);
-		List result = QuestionSetQuery.all().before(d).list();
+		List<?> result = QuestionSetQuery.all().before(d).list();
 		for (Object o: result) {
 			if (!((QuestionSet)o).getTimeStamp().before(d)) {
 				fail (((QuestionSet)o).getName() + " is wrong");
@@ -202,8 +202,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void noElementsAreOmittedByBeforeFilter () {
 		Date d = new Date(1373497200000L);
-		List result = QuestionSetQuery.all().before(d).list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().before(d).list();
+		List<?> all = QuestionSetQuery.all().list();
 		
 		for (Object o: all) {
 			Date ts = ((QuestionSet)o).getTimeStamp();
@@ -215,7 +215,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allElementsReturnedByMaxDurationFilterHaveAppropriateLength() {
-		List result = QuestionSetQuery.all().maxDuration(10).list();
+		List<?> result = QuestionSetQuery.all().maxDuration(10).list();
 		for (Object o: result) {
 			if (((QuestionSet)o).getExpectedDuration() > 10) {
 				fail(((QuestionSet)o).getName() + " is too long");
@@ -225,8 +225,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void noElementsAreOmittedByMaxDurationFilter() {
-		List result = QuestionSetQuery.all().maxDuration(10).list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().maxDuration(10).list();
+		List<?> all = QuestionSetQuery.all().list();
 
 		for (Object o: all) {
 			if (((QuestionSet)o).getExpectedDuration() <= 10
@@ -238,7 +238,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void allElementsReturnedByMinDurationFilterHaveAppropriateLength() {
-		List result = QuestionSetQuery.all().minDuration(10).list();
+		List<?> result = QuestionSetQuery.all().minDuration(10).list();
 		for (Object o: result) {
 			if (((QuestionSet)o).getExpectedDuration() < 10) {
 				fail(((QuestionSet)o).getName() + " is too long");
@@ -248,8 +248,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void noElementsAreOmittedByMinDurationFilter() {
-		List result = QuestionSetQuery.all().minDuration(10).list();
-		List all = QuestionSetQuery.all().list();
+		List<?> result = QuestionSetQuery.all().minDuration(10).list();
+		List<?> all = QuestionSetQuery.all().list();
 
 		for (Object o: all) {
 			if (((QuestionSet)o).getExpectedDuration() >= 10

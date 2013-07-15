@@ -97,6 +97,7 @@ public class QuestionSet {
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
 	
 	public int getExpectedDuration() { return this.expectedDuration; }
+	@SuppressWarnings("unused")
 	private void setExpectedDuration(int d) { this.expectedDuration = d; }
 	
 	@Override

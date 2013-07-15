@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,6 +20,8 @@ import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.util.WorldStrings;
+
+import com.google.common.collect.ImmutableMap;
 
 @Path("/q")
 public class QuestionController {
@@ -101,29 +104,22 @@ public class QuestionController {
 	
 	@GET
 	@Path(WorldStrings.URL_PREFIX + "/{id}/history/json")
-	public List<?> produceHistoryJSON(@PathParam("id") int id) {
+	@Produces("application/json")
+	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
 		List<Question> history = new ArrayList<Question>();
 		
 		for (Question q = getQuestion(id); q != null; q = q.getParent()) {
 			history.add(q);
 		}
 		
-		return history;
+		return ImmutableMap.of("history",history);
 	}
 	
 	@GET
 	@Path(WorldStrings.URL_PREFIX + "/{id}/forks/json")
+	@Produces("application/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
-		Session session = HibernateUtil.getTransaction();
-				
-		List<?> result = session
-			.createQuery("from Question where parent.id = :id")
-			.setParameter("id", id)
-			.list();
-		
-		session.getTransaction().commit();
-		
-		return result;
+		return QuestionQuery.all().withParent(id).list();
 	}
 	
 	
