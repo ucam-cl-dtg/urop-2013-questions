@@ -79,8 +79,10 @@ public class QuestionController {
 		log.debug("Filtering for duration");
 		if(durMax != null) { qq.maxDuration(durMax); }
 		if(durMin != null) { qq.minDuration(durMin); }
-			
-		return qq.list();
+		
+		// TODO: check whether current user is a supervisor
+		// 		 and shadow the data appropriately
+		return qq.maplist(false);
 	}
 
 	private Question getQuestion(int id) {

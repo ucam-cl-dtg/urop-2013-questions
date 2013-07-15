@@ -3,6 +3,7 @@ package uk.ac.cam.sup.queries;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -29,6 +30,21 @@ public class QuestionQuery {
 	public List<Question> list(){
 		log.debug("Returning list of results");
 		return criteria.list();
+	}
+	
+	public List<Map<String,Object>> maplist(boolean shadowed) {
+		List<Question> ql = this.list();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		
+		for (Question q: ql) {
+			result.add(q.toMap(shadowed));
+		}
+		
+		return result;
+	}
+	
+	public List<Map<String,Object>> maplist() {
+		return this.maplist(true);
 	}
 	
 	public static QuestionQuery all(){
