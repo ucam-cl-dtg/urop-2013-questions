@@ -8,6 +8,7 @@ import javax.ws.rs.core.Application;
 import uk.ac.cam.sup.controllers.MainController;
 import uk.ac.cam.sup.controllers.QuestionController;
 import uk.ac.cam.sup.controllers.QuestionSetController;
+import uk.ac.cam.sup.controllers.TagController;
 
 import com.googlecode.htmleasy.HtmleasyProviders;
 
@@ -18,6 +19,7 @@ public class QuestionsApp extends Application {
 		myServices.add(MainController.class);
 		myServices.add(QuestionSetController.class);
 		myServices.add(QuestionController.class);
+		myServices.add(TagController.class);
 		
 		// Add Htmleasy Providers
 		myServices.addAll(HtmleasyProviders.getClasses());

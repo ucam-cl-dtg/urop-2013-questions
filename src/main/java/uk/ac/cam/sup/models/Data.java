@@ -3,7 +3,7 @@ package uk.ac.cam.sup.models;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Data {
+public class Data implements Cloneable {
 	private Boolean isString = true;
 	private String data = "";
 	
@@ -12,12 +12,11 @@ public class Data {
 		this.isString = isString;
 		this.data = data;
 	}
-	// Copy constructor 
+	
 	public Data(Data old) {
 		this.isString = old.isString;
 		this.data = old.data;
 	}
-	
 	
 	public boolean isString() {return isString;}
 	
@@ -28,6 +27,15 @@ public class Data {
 	public void setData(boolean isString, String data) {
 		this.isString = isString;
 		this.data = data;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Data d = (Data) super.clone();
+		if (this.data != null) {
+			d.data = new String(this.data);
+		}
+		
+		return d;
 	}
 	
 }

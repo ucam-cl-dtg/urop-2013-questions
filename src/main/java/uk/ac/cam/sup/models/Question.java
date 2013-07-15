@@ -1,7 +1,9 @@
 package uk.ac.cam.sup.models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name="Questions")
-public class Question {
+public class Question implements Cloneable {
 	@Transient
 	private static Logger log = LoggerFactory.getLogger(Question.class);
 	
@@ -159,7 +161,38 @@ public class Question {
 		return this;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+		Question q = (Question) super.clone();
+		q.content = (Data) this.content.clone();
+		if (this.notes != null) {
+			q.notes = (Data) this.notes.clone();
+		}
+		
+		return q;
+	}
 	
+	public void shadow() {
+		this.notes = null;
+	}
 	
+	public Map<String,Object> toMap(boolean shadowed) {
+		Map<String,Object> r =	new HashMap<String,Object>();
+		r.put("id", this.id);
+		r.put("parentid", (parent == null ? null : this.parent.getId()));
+		//r.put("timeStamp", this.timeStamp);
+		r.put("soyTimeStamp", timeStamp.toString());
+		r.put("owner", this.owner);
+		r.put("content", this.content);
+		r.put("starred", this.isStarred);
+		r.put("expectedDuration", this.expectedDuration);
+		r.put("tags", this.tags);
+		r.put("notes", (shadowed ? null : this.notes));
+		
+		return r;
+	}
+	
+	public Map<String,Object> toMap() {
+		return toMap(true);
+	}
 	
 }

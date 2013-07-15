@@ -47,16 +47,16 @@ public class QuestionController {
 		
 		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after, 
 				before, usageMin, usageMax, parentId, durMax, durMin);
-		List<Question> filteredQuestions = getFilteredQuestions(st);
+		List<?> filteredQuestions = getFilteredQuestions(st);
 		
-		return ImmutableMap.of("questions", filteredQuestions, "searchTerms", st);
+		return ImmutableMap.of("questions", filteredQuestions, "st", st);
 		//return ImmutableMap.of("st", st);
 	}
 	
 	@GET
 	@Path("/json")
 	@Produces("application/json")
-	public List<Question> produceFilteredJSON(
+	public List<?> produceFilteredJSON(
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
@@ -76,7 +76,7 @@ public class QuestionController {
 		return getFilteredQuestions(st);
 	}
 	
-	private List<Question> getFilteredQuestions(SearchTerm st){
+	private List<?> getFilteredQuestions(SearchTerm st){
 		log.debug("Getting new QuestionQuery");
 		QuestionQuery qq = QuestionQuery.all();
 		
@@ -112,8 +112,10 @@ public class QuestionController {
 		log.debug("Filtering for duration");
 		if(st.getDurMax() != null) { qq.maxDuration(st.getDurMax()); }
 		if(st.getDurMin() != null) { qq.minDuration(st.getDurMin()); }
-			
-		return qq.list();
+				
+		// TODO: check whether current user is a supervisor
+		// 		 and shadow the data appropriately
+		return qq.maplist(false);
 	}
 
 	private Question getQuestion(int id) {
