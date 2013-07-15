@@ -19,18 +19,44 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.util.SearchTerm;
 import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
+import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
 	@GET
+	@Path("/search")
+	@ViewWith("/soy/search.main")
+	public Map<String, ?> searchQuestionsView(
+			@QueryParam("tags") String tags,
+			@QueryParam("owners") String owners,
+			@QueryParam("star") Boolean star,
+			@QueryParam("supervisor") Boolean supervisor,
+			@QueryParam("after") Long after,
+			@QueryParam("before") Long before,
+			@QueryParam("usagemin") Integer usageMin,
+			@QueryParam("usagemax") Integer usageMax,
+			@QueryParam("parent") Integer parentId,
+			@QueryParam("durmax") Integer durMax,
+			@QueryParam("durmin") Integer durMin){
+		
+		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after, 
+				before, usageMin, usageMax, parentId, durMax, durMin);
+		List<Question> filteredQuestions = getFilteredQuestions(st);
+		
+		return ImmutableMap.of("questions", filteredQuestions, "searchTerms", st);
+		//return ImmutableMap.of("st", st);
+	}
+	
+	@GET
 	@Path("/json")
 	@Produces("application/json")
-	public List<?> produceFilteredJSON(
+	public List<Question> produceFilteredJSON(
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
@@ -44,41 +70,48 @@ public class QuestionController {
 			@QueryParam("durmin") Integer durMin
 			){
 		
+		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after, 
+				before, usageMin, usageMax, parentId, durMax, durMin);
+		
+		return getFilteredQuestions(st);
+	}
+	
+	private List<Question> getFilteredQuestions(SearchTerm st){
 		log.debug("Getting new QuestionQuery");
 		QuestionQuery qq = QuestionQuery.all();
 		
 		log.debug("Filtering for tags");
-		if(tags != null){
-			List<String> lTags = Arrays.asList(tags.split(","));
+		if(st.getTags() != null){
+			List<String> lTags = Arrays.asList(st.getTags().split(","));
 			qq.withTagNames(lTags);
 		}
 		
 		log.debug("Filtering for owners");
-		if(owners != null){
-			List<String> lUsers = Arrays.asList(owners.split(","));
+		if(st.getOwners() != null){
+			List<String> lUsers = Arrays.asList(st.getOwners().split(","));
 			qq.withUserIDs(lUsers);
 		}
 		
 		log.debug("Filtering for star, role...");
-		if(star != null && star) { qq.withStar(); }
-		if(star != null && !star) { qq.withoutStar(); }
-		if(supervisor != null && supervisor) { qq.bySupervisor(); }
-		if(supervisor != null && !supervisor) { qq.byStudent(); }
+		if(st.getStar() != null && st.getStar()) { qq.withStar(); }
+		if(st.getStar() != null && !st.getStar()) { qq.withoutStar(); }
+		if(st.getSupervisor() != null && st.getSupervisor()) { qq.bySupervisor(); }
+		if(st.getSupervisor() != null && !st.getSupervisor()) { qq.byStudent(); }
 		
 		log.debug("Filtering for date...");
-		if(after != null) { qq.after(new Date(after)); }
-		if(before != null) { qq.before(new Date(before)); }
+		if(st.getAfter() != null) { qq.after(new Date(st.getAfter())); }
+		if(st.getBefore() != null) { qq.before(new Date(st.getBefore())); }
 		
 		log.debug("Filtering for usages");
-		if(usageMin != null) { qq.minUsages(usageMin); }
-		if(usageMax != null) { qq.maxUsages(usageMax); }
+		if(st.getUsageMin() != null) { qq.minUsages(st.getUsageMin()); }
+		if(st.getUsageMax() != null) { qq.maxUsages(st.getUsageMax()); }
 		
 		log.debug("Fileting for parentID");
-		if(parentId != null) { qq.withParent(parentId); }
+		if(st.getParentId() != null) { qq.withParent(st.getParentId()); }
 		
 		log.debug("Filtering for duration");
-		if(durMax != null) { qq.maxDuration(durMax); }
-		if(durMin != null) { qq.minDuration(durMin); }
+		if(st.getDurMax() != null) { qq.maxDuration(st.getDurMax()); }
+		if(st.getDurMin() != null) { qq.minDuration(st.getDurMin()); }
 			
 		return qq.list();
 	}

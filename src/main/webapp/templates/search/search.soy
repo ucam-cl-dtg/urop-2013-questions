@@ -1,0 +1,42 @@
+{namespace search}
+
+/**
+ * This shows the main search screen of questions
+ * @param st The search terms
+ * @param questions
+ */
+{template .main}
+	//{call shared.header /}
+	
+	<div id="searchbar">
+		<form method="get" action="/q/search">
+			{call .searchInput}
+				{param value: $st.tags /}
+				{param name: $st.tagsName /}
+				{param title: $st.tagsTitle /}
+			{/call}
+			<input type="submit" />
+		</form>
+	</div>
+	<div id="questionlist">
+		{call shared.question.multiple}
+			{param questions: $questions /}
+		{/call}
+	</div>
+	
+	//{call shared.footer /}
+{/template}
+
+/**
+ * Will render a single input for the search
+ * @param name
+ * @param title
+ * @param value
+ */
+{template .searchInput}
+	{if not $value}
+		{$title}: <input type="text" name="{$name}" value="" /><br>
+	{else}
+		{$title}: <input type="text" name="{$name}" value="{$value}" /><br>
+	{/if}
+{/template}
