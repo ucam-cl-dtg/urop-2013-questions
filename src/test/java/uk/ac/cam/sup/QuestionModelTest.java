@@ -3,6 +3,7 @@ package uk.ac.cam.sup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -13,18 +14,18 @@ import uk.ac.cam.sup.models.User;
 public class QuestionModelTest extends GenericTest {
 	@Test
 	public void databaseQueryShouldNotThrowExceptions () {
-		session.beginTransaction();
-		session.createQuery("from Question");
-		session.getTransaction().commit();
+		try {
+			session.createQuery("from Question");
+		} catch (Exception e) {
+			fail("Exception was thrown");
+		}
 	}
 	
 	@Test
 	public void savingAQuestionToDatabase() {
-		session.beginTransaction();
 		int size = session.createQuery("from Question").list().size();
 		Question x = new Question(new User("abc123"));
 		session.save(x);
-		session.getTransaction().commit();
 		assertEquals(size+1, session.createQuery("from Question").list().size());
 	}
 	
@@ -48,10 +49,8 @@ public class QuestionModelTest extends GenericTest {
 	
 	@Test
 	public void twoDifferentQuestionsAreNotEqual(){
-		session.beginTransaction();
 		Question q = (Question)session.createQuery("from Question where id = ?").setInteger(0, 1).uniqueResult();
 		Question r = (Question)session.createQuery("from Question where id = ?").setInteger(0, 2).uniqueResult();
-		session.getTransaction().commit();
 		assertFalse(q.equals(r));
 	}
 	

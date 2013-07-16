@@ -38,15 +38,13 @@ public class QuestionSetQuery {
 	}
 	
 	public static QuestionSet get(int id) {
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
-		
+		Session session = HibernateUtil.getTransaction();
+
 		QuestionSet qs = (QuestionSet) session
 				.createQuery("from QuestionSet where id = :id")
 				.setParameter("id", id)
 				.uniqueResult();
 		
-		session.close();
 		return qs;
 	}
 	

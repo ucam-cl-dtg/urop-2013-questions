@@ -4,12 +4,13 @@
  * @param id
  * @param content Data object holding content of the question.
  * @param owner
+ * @param? setid
  */
 {template .single}
 <article>
 	<p class="questioncontent">{$content.data}</p>
 	<p class="questionauthor">
-	<a href="/question/{$id}">#{$id}</a>,&thinsp;
+	<a href="/q/{$id}">#{$id}</a>,&thinsp;
 	{if $owner == null}
 		author unknown
 	{else}
@@ -17,20 +18,24 @@
 	{/if}
 	,&ensp;
 	
-	
-	
-	
-	<a href="/question/{$id}/edit">edit</a>,&ensp;
-	<a href="/question/{$id}/fork">fork</a></p>
+	{if $setid}
+		<a href="/q/{$id}/{$setid}/edit">edit</a>
+	{/if}
 </article>
 {/template}
 
 /**
  * Displays a list of questions
  * @param questions
+ * @param? setid
  */
 {template .multiple}
 	{foreach $question in $questions}
-		{call .single data="$question" /}
+		{call .single}
+			{param id: $question.id /}
+			{param content: $question.content /}
+			{param owner: $question.owner /}
+			{param setid: $setid /}
+		{/call}
 	{/foreach}
 {/template}

@@ -16,11 +16,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.Session;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Entity
+import uk.ac.cam.sup.HibernateUtil;
+
+@Entity()
 @Table(name="Questions")
 public class Question implements Cloneable {
 	@Transient
@@ -29,16 +34,18 @@ public class Question implements Cloneable {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
-	private int id;
+	private Integer id;
 	
 	private boolean isStarred = false;
 	private int usageCount = 0;
 	private Date timeStamp;
 	
 	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Question parent;
 	
 	@ManyToMany
+	@Cascade(CascadeType.MERGE)
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@ManyToOne
@@ -58,7 +65,9 @@ public class Question implements Cloneable {
 		this.owner = owner;
 	}
 	
-	public int getId(){return id;}
+	public Integer getId(){
+		return this.id;
+	}
 	
 	public boolean isStarred(){return isStarred;}
 	public void star(boolean s){isStarred = s;}
@@ -101,18 +110,20 @@ public class Question implements Cloneable {
 	public boolean equals(Object x){
 		if (x == null || !(x instanceof Question)) {
 			return false;
+		} if (this.id == null || ((Question)x).id == null) {
+			return false;
 		}
-		return ((Question)x).getId() == getId();
+		return ((Question)x).id == this.id;
 	}
 	
 	@Override
 	public int hashCode(){
-		return getId();
+		return (this.id == null ? 0 : this.id);
 	}
 	
-	private Question fork(){
+	private Question fork(QuestionSet qs){
 		Question result = new Question(this.owner);
-		result.id = 0;
+		
 		result.isStarred = isStarred;
 		result.timeStamp = new Date();
 		result.parent = this;
@@ -120,33 +131,43 @@ public class Question implements Cloneable {
 		result.expectedDuration = expectedDuration;
 		result.content = new Data(content);
 		result.notes = new Data(notes);
-		result.use();
-		this.disuse();
+		qs.removeQuestion(this);
+		qs.addQuestion(result);
+		
+		result.save();
+		qs.update();
+		
 		return result;
 	}
 	
 	private Question inPlaceEdit(Data content, Data notes) {
 		this.content = content;
 		this.notes = notes;
+		
+		this.update();
+		
 		return this;
 	}
 	
-	private Question forkAndEdit(User editor, Data content, Data notes) {
-		Question q = this.fork();
+	private Question forkAndEdit(User editor, QuestionSet set, Data content, Data notes) {
+		Question q = this.fork(set);
 		q.owner = editor;
 		q.content = content;
 		q.notes = notes;
+		
+		q.update();
+		
 		return q;
 	}
 	
-	public Question edit(User editor, Data content, Data notes, boolean minor) {
+	public Question edit(User editor, QuestionSet set, Data content, Data notes, boolean minor) {
 		boolean inPlace = (editor.equals(owner))
-				&& (minor || this.usageCount <= 1);
+				&& (minor || (this.usageCount <= 1));
 		
 		if (inPlace) {
 			return this.inPlaceEdit(content, notes);
 		} else {
-			return this.forkAndEdit(editor, content, notes);
+			return this.forkAndEdit(editor, set, content, notes);
 		}
 	}
 	
@@ -187,6 +208,18 @@ public class Question implements Cloneable {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public void save() {
+		Session session = HibernateUtil.getTransaction();
+		session.save(this);
+		session.getTransaction().commit();
+	}
+	
+	public void update() {
+		Session session = HibernateUtil.getTransaction();
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 }

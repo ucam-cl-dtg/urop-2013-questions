@@ -1,0 +1,15 @@
+{namespace shared.set}
+
+/**
+ * Displays a questionset
+ * @param name
+ * @param id
+ * @param questions
+ */
+{template .single}
+<h1>{$name}</h1>
+{call shared.question.multiple}
+	{param questions: $questions /}
+	{param setid: $id /}
+{/call}
+{/template}

@@ -21,7 +21,7 @@ public class QuestionEdit {
 	@FormParam("minor")
 	private Boolean isMinor;
 	
-	@FormParam("setid")
+	@FormParam("setId")
 	private Integer setId;
 	
 	public Data getContent() throws RuntimeException {
@@ -45,8 +45,15 @@ public class QuestionEdit {
 		return this.id;
 	}
 	
+	public Integer getSetId() throws RuntimeException {
+		if(this.dnotes == null) {
+			throw new RuntimeException("Form was not yet validated");
+		}
+		return this.setId;
+	}
+	
 	public Boolean isMinor() {
-		return isMinor;
+		return this.isMinor;
 	}
 	
 	public QuestionEdit validate() throws Exception {

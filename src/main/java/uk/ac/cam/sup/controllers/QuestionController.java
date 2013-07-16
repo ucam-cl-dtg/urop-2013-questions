@@ -26,6 +26,7 @@ import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 import uk.ac.cam.sup.util.WorldStrings;
 
@@ -128,16 +129,12 @@ public class QuestionController {
 		// 		 and shadow the data appropriately
 		return qq.maplist(false);
 	}
-
-	private Question getQuestion(int id) {
-		return QuestionQuery.get(id);
-	}
 	
 	@GET
 	@Path("/{id}/json")
 	@Produces("application/json")
-	public Question produceSingleQuestionJSON(@PathParam("id") int id) {
-		return getQuestion(id);
+	public Map<String,Object> produceSingleQuestionJSON(@PathParam("id") int id) {
+		return QuestionQuery.get(id).toMap(false);
 	}
 	
 	@GET
@@ -146,7 +143,7 @@ public class QuestionController {
 	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
 		List<Question> history = new ArrayList<Question>();
 		
-		for (Question q = getQuestion(id); q != null; q = q.getParent()) {
+		for (Question q = QuestionQuery.get(id); q != null; q = q.getParent()) {
 			history.add(q);
 		}
 		
@@ -174,27 +171,25 @@ public class QuestionController {
 		}
 		
 		Question q = QuestionQuery.get(qe.getId());
-		q.edit(editor, qe.getContent(), qe.getNotes(), qe.isMinor());
+		q = q.edit(editor, QuestionSetQuery.get(qe.getSetId()), qe.getContent(), qe.getNotes(), qe.isMinor());
 		
-		Session session = HibernateUtil.getTransaction();
-		session.saveOrUpdate(q);
-		session.getTransaction().commit();
-		session.close();
-		
-		throw new RedirectException(WorldStrings.URL_PREFIX+"/q/json"+q.getId());
+		throw new RedirectException(WorldStrings.URL_PREFIX+"/q/"+q.getId()+"/json");
 	}
 	
 	@GET
-	@Path("/{id}/edit")
+	@Path("/{id}/{setid}/edit")
 	@ViewWith("/soy/form.question.edit")
-	public Map<?,?> showEditForm(@PathParam("id") int id) {
+	public Map<?,?> showEditForm(
+			@PathParam("id") int id,
+			@PathParam("setid") int setId
+	) {
 		Question q = QuestionQuery.get(id);
 		
 		Map<String,Object> r = new HashMap<String,Object>();
 		r.put("id", q.getId());
 		r.put("content", q.getContent().getData());
 		r.put("notes", q.getNotes().getData());
-		r.put("setId", 0);
+		r.put("setId", setId);
 		
 		return r;
 	}

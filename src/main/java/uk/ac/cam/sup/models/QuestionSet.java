@@ -15,8 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.Session;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
+
+import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
 @Table(name="QuestionSets")
@@ -50,6 +55,7 @@ public class QuestionSet {
 	private Data plan = new Data();
 	
 	@ManyToMany
+	@Cascade(CascadeType.MERGE)
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@ManyToMany
@@ -104,7 +110,10 @@ public class QuestionSet {
 	public Set<Map<String,Object>> getQuestionsAsMaps() {
 		return getQuestionsAsMaps(true);
 	}
-	public void addQuestion(Question question){questions.add(question.use());}
+	public void addQuestion(Question question){
+		question.use();
+		this.questions.add(question);
+	}
 	public void removeQuestion(Question question){questions.remove(question.disuse());}
 	
 	public Date getTimeStamp() { return this.timeStamp; }
@@ -146,5 +155,17 @@ public class QuestionSet {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public void save() {
+		Session session = HibernateUtil.getTransaction();
+		session.save(this);
+		session.getTransaction().commit();
+	}
+	
+	public void update() {
+		Session session = HibernateUtil.getTransaction();
+		session.update(this);
+		session.getTransaction().commit();
 	}
 }

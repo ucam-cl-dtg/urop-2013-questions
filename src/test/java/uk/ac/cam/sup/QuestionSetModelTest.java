@@ -3,6 +3,7 @@ package uk.ac.cam.sup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Set;
 
@@ -16,18 +17,14 @@ import uk.ac.cam.sup.models.User;
 public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void databaseQueryShouldNotThrowExceptions () {
-		session.beginTransaction();
 		session.createQuery("from QuestionSet");
-		session.getTransaction().commit();
 	}
 	
 	@Test
 	public void savingAQuestionToDatabase() {
-		session.beginTransaction();
 		int size = session.createQuery("from QuestionSet").list().size();
 		User a = new User("abc123");
 		session.save(new QuestionSet(a));
-		session.getTransaction().commit();
 		assertEquals(size+1, session.createQuery("from QuestionSet").list().size());
 	}
 	
@@ -67,7 +64,6 @@ public class QuestionSetModelTest extends GenericTest {
 	
 	@Test
 	public void expectedDurationIsSumOfQuestionsExpectedDurations () {
-		session.beginTransaction();
 		QuestionSet s = (QuestionSet) session
 				.createQuery("from QuestionSet where id=1")
 				.uniqueResult();
@@ -76,7 +72,6 @@ public class QuestionSetModelTest extends GenericTest {
 		for (Question q: qs) {
 			sum += q.getExpectedDuration();
 		}
-		session.getTransaction().commit();
 		
 		assertEquals (sum, s.getExpectedDuration());
 	}

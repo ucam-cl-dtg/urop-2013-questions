@@ -49,15 +49,12 @@ public class QuestionQuery {
 	}
 	
 	public static Question get(int id) {
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
+		Session session = HibernateUtil.getTransaction();
 		
 		Question q = (Question) session
 				.createQuery("from Question where id = :id")
 				.setParameter("id", id)
 				.uniqueResult();
-		
-		session.close();
 		
 		return q;
 	}
