@@ -24,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.form.QuestionEdit;
+import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 @Entity()
 @Table(name="Questions")
@@ -88,10 +90,10 @@ public class Question implements Cloneable {
 	public void setExpectedDuration(int expDuration){expectedDuration = expDuration;}
 	
 	public Data getContent(){return content;}
-	//private void setContent(Data c){content = c;}
+	public void setContent(Data c){content = c;}
 	
 	public Data getNotes(){return notes;}
-	//private void setNotes(Data n){notes = n;}
+	public void setNotes(Data n){notes = n;}
 	
 	public void setTags(Set<Tag> tags){this.tags = tags;}
 	public Set<Tag> getTags(){return tags;}
@@ -140,34 +142,31 @@ public class Question implements Cloneable {
 		return result;
 	}
 	
-	private Question inPlaceEdit(Data content, Data notes) {
-		this.content = content;
-		this.notes = notes;
-		
+	private Question inPlaceEdit(QuestionEdit qe) {
+		qe.store(this);
 		this.update();
 		
 		return this;
 	}
 	
-	private Question forkAndEdit(User editor, QuestionSet set, Data content, Data notes) {
-		Question q = this.fork(set);
+	private Question forkAndEdit(User editor, QuestionEdit qe) {
+		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()));
 		q.owner = editor;
-		q.content = content;
-		q.notes = notes;
 		
+		qe.store(q);
 		q.update();
 		
 		return q;
 	}
 	
-	public Question edit(User editor, QuestionSet set, Data content, Data notes, boolean minor) {
+	public Question edit(User editor, QuestionEdit qe) {
 		boolean inPlace = (editor.equals(owner))
-				&& (minor || (this.usageCount <= 1));
+				&& (qe.isMinor() || (this.usageCount <= 1));
 		
 		if (inPlace) {
-			return this.inPlaceEdit(content, notes);
+			return this.inPlaceEdit(qe);
 		} else {
-			return this.forkAndEdit(editor, set, content, notes);
+			return this.forkAndEdit(editor, qe);
 		}
 	}
 	

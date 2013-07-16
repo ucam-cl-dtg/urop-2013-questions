@@ -3,10 +3,13 @@ package uk.ac.cam.sup.form;
 import javax.ws.rs.FormParam;
 
 import uk.ac.cam.sup.models.Data;
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class QuestionEdit {
+	private boolean validated = false;
+	
 	@FormParam("id")
 	private Integer id;
 	
@@ -24,36 +27,49 @@ public class QuestionEdit {
 	@FormParam("setId")
 	private Integer setId;
 	
+	@FormParam("expectedDuration")
+	private Integer expectedDuration;
+	
 	public Data getContent() throws RuntimeException {
-		if (this.dcontent == null) {
+		if (!validated) {
 			throw new RuntimeException("Form was not yet validated");
 		}
 		return this.dcontent;
 	}
 	
 	public Data getNotes() throws RuntimeException {
-		if (this.dnotes == null) {
+		if (!validated) {
 			throw new RuntimeException("Form was not yet validated");
 		}
 		return this.dnotes;
 	}
 	
 	public Integer getId() throws RuntimeException {
-		if(this.dnotes == null) {
+		if(!validated) {
 			throw new RuntimeException("Form was not yet validated");
 		}
 		return this.id;
 	}
 	
 	public Integer getSetId() throws RuntimeException {
-		if(this.dnotes == null) {
+		if(!validated) {
 			throw new RuntimeException("Form was not yet validated");
 		}
 		return this.setId;
 	}
 	
-	public Boolean isMinor() {
+	public boolean isMinor() throws RuntimeException {
+		if (!validated) {
+			throw new RuntimeException("Form was not yet validated");
+		}
 		return this.isMinor;
+	}
+	
+	public int getExpectedDuration() throws RuntimeException {
+		if (!validated) {
+			throw new RuntimeException("Form was not yet validated");
+		}
+		return this.expectedDuration;
 	}
 	
 	public QuestionEdit validate() throws Exception {
@@ -77,10 +93,24 @@ public class QuestionEdit {
 			dnotes = new Data(true, notes);
 		}
 		
+		if (expectedDuration == null) {
+			expectedDuration = 0;
+		}
+		
 		if (isMinor == null) {
 			isMinor = false;
 		}
 		
+		validated = true;
+		
 		return this;
+	}
+	
+	public Question store(Question q) {
+		q.setContent(dcontent);
+		q.setNotes(dnotes);
+		q.setExpectedDuration(expectedDuration);
+		
+		return q;
 	}
 }

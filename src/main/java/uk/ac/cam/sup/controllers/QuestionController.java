@@ -16,17 +16,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
-import org.hibernate.Session;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
-import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 import uk.ac.cam.sup.util.WorldStrings;
 
@@ -168,13 +165,13 @@ public class QuestionController {
 		try {
 			qe.validate();
 		} catch (Exception e) {
-			throw new RedirectException(WorldStrings.URL_PREFIX+"/q/error/?msg="+e.getMessage());
+			throw new RedirectException("/q/error/?msg="+e.getMessage());
 		}
 		
 		Question q = QuestionQuery.get(qe.getId());
-		q = q.edit(editor, QuestionSetQuery.get(qe.getSetId()), qe.getContent(), qe.getNotes(), qe.isMinor());
+		q = q.edit(editor, qe);
 		
-		throw new RedirectException(WorldStrings.URL_PREFIX+"/q/"+q.getId()+"/json");
+		throw new RedirectException("/sets/"+qe.getSetId());
 	}
 	
 	@GET
@@ -191,6 +188,7 @@ public class QuestionController {
 		r.put("content", q.getContent().getData());
 		r.put("notes", q.getNotes().getData());
 		r.put("setId", setId);
+		r.put("expectedDuration", q.getExpectedDuration());
 		
 		return r;
 	}
