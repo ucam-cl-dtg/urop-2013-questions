@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
@@ -34,6 +35,19 @@ public class QuestionSetQuery {
 		@SuppressWarnings("unchecked")
 		List<QuestionSet> l = criteria.list();
 		return l;
+	}
+	
+	public static QuestionSet get(int id) {
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		QuestionSet qs = (QuestionSet) session
+				.createQuery("from QuestionSet where id = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		
+		session.close();
+		return qs;
 	}
 	
 	public List<Map<String,Object>> maplist(boolean shadow) {

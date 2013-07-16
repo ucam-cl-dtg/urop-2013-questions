@@ -1,5 +1,8 @@
 package uk.ac.cam.sup.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +20,17 @@ public class Tag {
 	private Tag(){}
 	public Tag(String name) {
 		this.name = name;
+	}
+	
+	public static Set<Tag> parseTagString(String taglist) {
+		Set<Tag> r = new HashSet<Tag>();
+		String[] tagarray = taglist.split(",");
+		
+		for (String s: tagarray) {
+			r.add(new Tag(s.trim()));
+		}
+		
+		return r;
 	}
 	
 	public boolean equals (Object t) {

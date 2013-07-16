@@ -133,7 +133,8 @@ public class QuestionSet {
 		r.put("id", this.id);
 		r.put("name", this.name);
 		r.put("owner", this.owner);
-		r.put("timeStamp", this.timeStamp);
+		//r.put("timeStamp", this.timeStamp); // for direct soy access use soyTimeStamp
+		r.put("soyTimeStamp", this.timeStamp.toString());
 		r.put("parentid", null); // TODO: implement parent
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);

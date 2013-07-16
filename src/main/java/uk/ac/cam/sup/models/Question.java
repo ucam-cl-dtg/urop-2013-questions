@@ -107,11 +107,12 @@ public class Question implements Cloneable {
 	
 	@Override
 	public int hashCode(){
-		return getId() % 13;
+		return getId();
 	}
 	
 	private Question fork(){
 		Question result = new Question(this.owner);
+		result.id = 0;
 		result.isStarred = isStarred;
 		result.timeStamp = new Date();
 		result.parent = this;
@@ -119,37 +120,34 @@ public class Question implements Cloneable {
 		result.expectedDuration = expectedDuration;
 		result.content = new Data(content);
 		result.notes = new Data(notes);
+		result.use();
+		this.disuse();
 		return result;
 	}
-	private Question forkOnDemand(User editor){
-		Question result;
-		if(usageCount > 1){
-			result = this.fork();
-			this.usageCount--;
-			result.usageCount = 1;
-			result.owner = editor;
+	
+	private Question inPlaceEdit(Data content, Data notes) {
+		this.content = content;
+		this.notes = notes;
+		return this;
+	}
+	
+	private Question forkAndEdit(User editor, Data content, Data notes) {
+		Question q = this.fork();
+		q.owner = editor;
+		q.content = content;
+		q.notes = notes;
+		return q;
+	}
+	
+	public Question edit(User editor, Data content, Data notes, boolean minor) {
+		boolean inPlace = (editor.equals(owner))
+				&& (minor || this.usageCount <= 1);
+		
+		if (inPlace) {
+			return this.inPlaceEdit(content, notes);
 		} else {
-			result = this;
+			return this.forkAndEdit(editor, content, notes);
 		}
-		return result;
-	}
-	public Question editContent(Data content, User editor) {
-		if(content == null) {
-			log.error("The content passed as argument was null. Creating dummy content.");
-			content = new Data(true, "Error: no content was passed to method while editing");
-		}
-		Question result = forkOnDemand(editor);
-		result.content = content;
-		return result;
-	}
-	public Question editNotes(Data notes, User editor) {
-		if(notes == null) {
-			log.error("The notes passed as argument were null. Creating dummy set of notes.");
-			notes = new Data(true, "Error: no notes were passed to the method while editing.");
-		}
-		Question result = forkOnDemand(editor);
-		result.notes = notes;
-		return result;
 	}
 	
 	public Question use() {
@@ -169,10 +167,6 @@ public class Question implements Cloneable {
 		}
 		
 		return q;
-	}
-	
-	public void shadow() {
-		this.notes = null;
 	}
 	
 	public Map<String,Object> toMap(boolean shadowed) {

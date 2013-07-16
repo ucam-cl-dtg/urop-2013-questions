@@ -1,0 +1,19 @@
+{namespace form.question}
+
+/**
+ * Edit question form
+ * @param id
+ * @param content
+ * @param notes
+ * @param setId
+ */
+{template .edit}
+<form method="POST" action="/q/save">
+	<input type="hidden" name="id" value="{$id}" />
+	<textarea name="content"> {$content} </textarea>
+	<textarea name="notes"> {$notes} </textarea>
+	<input type="hidden" name="setId" value="{$setId}" />
+	<input type="checkbox" name="vehicle" value="true">This is a minor update</input>
+	<input type="submit" value="Submit" />	
+</form>
+{/template}

@@ -3,31 +3,42 @@ package uk.ac.cam.sup.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 
 import org.hibernate.Session;
+import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
+import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
+import com.googlecode.htmleasy.RedirectException;
 import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
+	
+	@Context
+	private HttpServletRequest request;
 	
 	@GET
 	@Path("/search")
@@ -119,15 +130,7 @@ public class QuestionController {
 	}
 
 	private Question getQuestion(int id) {
-		Session session = HibernateUtil.getTransaction();
-		
-		Question r = (Question) session
-				.createQuery("from Question where id = :id")
-				.setParameter("id", id)
-				.uniqueResult();
-		
-		session.getTransaction().commit();
-		return r;
+		return QuestionQuery.get(id);
 	}
 	
 	@GET
@@ -157,5 +160,43 @@ public class QuestionController {
 		return QuestionQuery.all().withParent(id).list();
 	}
 	
+	@POST
+	@Path("/save")
+	public void editQuestion(@Form QuestionEdit qe) {
+		User editor = new User(
+				(String) request.getSession().getAttribute("RavenRemoteUser")
+		);
+		
+		try {
+			qe.validate();
+		} catch (Exception e) {
+			throw new RedirectException(WorldStrings.URL_PREFIX+"/q/error/?msg="+e.getMessage());
+		}
+		
+		Question q = QuestionQuery.get(qe.getId());
+		q.edit(editor, qe.getContent(), qe.getNotes(), qe.isMinor());
+		
+		Session session = HibernateUtil.getTransaction();
+		session.saveOrUpdate(q);
+		session.getTransaction().commit();
+		session.close();
+		
+		throw new RedirectException(WorldStrings.URL_PREFIX+"/q/json"+q.getId());
+	}
+	
+	@GET
+	@Path("/{id}/edit")
+	@ViewWith("/soy/form.question.edit")
+	public Map<?,?> showEditForm(@PathParam("id") int id) {
+		Question q = QuestionQuery.get(id);
+		
+		Map<String,Object> r = new HashMap<String,Object>();
+		r.put("id", q.getId());
+		r.put("content", q.getContent().getData());
+		r.put("notes", q.getNotes().getData());
+		r.put("setId", 0);
+		
+		return r;
+	}
 	
 }
