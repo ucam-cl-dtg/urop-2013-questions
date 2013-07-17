@@ -56,10 +56,10 @@ public class Question implements Cloneable {
 	private int expectedDuration = 0;
 	
 	@Embedded @Column(nullable=false)
-	private Data content = new Data();
+	private Data content = new Data(false, null);
 	
 	@Embedded @Column(nullable=false)
-	private Data notes = new Data();
+	private Data notes = new Data(false, null);
 	
 	@SuppressWarnings("unused")
 	private Question() {}
@@ -132,7 +132,13 @@ public class Question implements Cloneable {
 		result.tags = new HashSet<Tag>(tags);
 		result.expectedDuration = expectedDuration;
 		result.content = new Data(content);
-		result.notes = new Data(notes);
+		
+		if (this.getOwner().getSupervisor() && !qs.getOwner().getSupervisor()) {
+			result.notes = new Data(false, null);
+		} else {
+			result.notes = new Data(notes);
+		}
+		
 		qs.removeQuestion(this);
 		qs.addQuestion(result);
 		
