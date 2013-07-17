@@ -3,6 +3,7 @@ $(document).ready(function() {
 	$(".main").on("click", ".toggle-question", function() {
 		//alert(document.URL);
 		alert($(this).attr('foobar'));
+		return false;
 	});
 	$(".main").on('submit', "#questions-searchform", function(){
 		var qlist = $("#questionList");

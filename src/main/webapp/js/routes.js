@@ -5,6 +5,7 @@ The second term must be either a string representing the template name or
 a function that returns the template name. The function will receive the json returned
 by the request as the first parameter.
 */
+
 $(document).ready(function() {
 	router = Router({
         /* "test(/:id)": "main.test",
@@ -15,6 +16,7 @@ $(document).ready(function() {
         "*undefined": "errors.notfound"*/
     	"q/search(?:params)" : "search.main"
     });
+	
 });
 
 
