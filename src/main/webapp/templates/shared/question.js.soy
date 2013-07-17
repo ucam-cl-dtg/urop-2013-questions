@@ -8,6 +8,7 @@
  */
 {template .single}
 <article>
+	<a class="toggle-question" foobar="woo woo woo">+</a>
 	<p class="questioncontent">{$content.data}</p>
 	<p class="questionauthor">
 	<a href="/q/{$id}">#{$id}</a>,&thinsp;
@@ -18,9 +19,13 @@
 	{/if}
 	,&ensp;
 	
+	//<a href="/question/{$id}/edit">edit</a>,&ensp;
+	//<a href="/question/{$id}/fork">fork</a></p>
+
 	{if $setid}
 		<a href="/q/{$id}/{$setid}/edit">edit</a>
 	{/if}
+	
 </article>
 {/template}
 

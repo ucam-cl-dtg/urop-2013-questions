@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +65,10 @@ public class QuestionQuery {
 		// which, for ex., contain 2 or more of the tags searched for. (Otherwise you would get
 		// back 1 instance of the same object with every of the different tags specified).
 		log.debug("New QuestionQuery required. Constructing & returning");
-		QuestionQuery qq = new QuestionQuery(HibernateUtil.getSession()
+		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransaction()
 				.createCriteria(Question.class)	
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
+		qq.criteria.addOrder(Order.desc("timeStamp"));
 		log.debug("Successfully created, now returning");
 		return qq;
 	}

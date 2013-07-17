@@ -6,25 +6,25 @@
  * @param questions
  */
 {template .main}
-	//{call shared.header /}
-	
 	<div id="searchbar">
-		<form method="get" action="/q/search">
+		<form method="get" action="/q/search" id="questions-searchform">
 			{call .searchInput}
 				{param value: $st.tags /}
 				{param name: $st.tagsName /}
 				{param title: $st.tagsTitle /}
 			{/call}
-			<input type="submit" />
+			<input type="submit" id="foobar" />
 		</form>
 	</div>
-	<div id="questionlist">
-		{call shared.question.multiple}
-			{param questions: $questions /}
-		{/call}
+	<div id="questionList">
+		<div>
+			{call shared.question.multiple}
+				{param questions: $questions /}
+			{/call}
+		</div>
 	</div>
 	
-	//{call shared.footer /}
+	
 {/template}
 
 /**
@@ -35,8 +35,19 @@
  */
 {template .searchInput}
 	{if not $value}
-		{$title}: <input type="text" name="{$name}" value="" /><br>
+		{$title}: <input type="text" id="{$name}" value="" /><br>
 	{else}
-		{$title}: <input type="text" name="{$name}" value="{$value}" /><br>
+		{$title}: <input type="text" id="{$name}" value="{$value}" /><br>
 	{/if}
+{/template}
+
+/**
+ * @param questions
+ * @param permalink
+ */
+{template .results}
+	<aside class="plink"><a href="{$permalink}">permalink</a></aside>
+	{call shared.question.multiple}
+		{param questions: $questions /}
+	{/call}
 {/template}

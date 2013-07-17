@@ -64,7 +64,7 @@ public class SearchTerm {
 		if(level == SanitizationMode.NO_SPACES){
 			return in.replace(" ", "");
 		}else{
-			return in.replaceAll(", +", ",");
+			return (in.replaceAll(", +", ",")).replaceAll(" +,", ",");
 		}
 	}
 	
