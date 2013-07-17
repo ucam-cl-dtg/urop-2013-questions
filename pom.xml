@@ -136,7 +136,6 @@
 							<outputDirectory>${basedir}/src/main/webapp/app</outputDirectory>
 							<resources>
 								<resource>
-									<!-- <directory>~/github/sup_frontend/</directory> -->
 									<directory>${basedir}/../sup_frontend</directory>
 									<filtering>true</filtering>
 								</resource>
