@@ -10,6 +10,7 @@ public class PPDLoader {
 			QuestionLoader ql = new QuestionLoader(t);
 			for (Question q: ql.getResults()) {
 				System.out.print(q.getContent().getData()+" - ");
+				System.out.print(q.getTimeStamp().toString()+" - ");
 				System.out.print(q.getTagsAsString().toArray(new String[0])[0]);
 				if (q.getNotes().getData() != null) {
 					System.out.print(" - " + q.getNotes().getData());
