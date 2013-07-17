@@ -26,7 +26,7 @@ public class Data implements Cloneable {
 	
 	public void setData(boolean isString, String data) {
 		this.isString = isString;
-		this.data = data;
+		this.data = (data == null ? null : data.trim());
 	}
 	
 	public Object clone() throws CloneNotSupportedException {

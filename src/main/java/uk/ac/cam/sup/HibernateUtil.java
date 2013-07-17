@@ -31,7 +31,7 @@ public class HibernateUtil {
     public static Session getSession() {
     	Session session = sf.getCurrentSession();
     	
-    	if (session.isOpen()) {
+    	if (!session.isOpen()) {
     		session = sf.openSession();
     	}
     	
@@ -40,7 +40,9 @@ public class HibernateUtil {
 
     public static Session getTransaction() {
         Session session = getSession();
-        session.beginTransaction();
+        if (!session.getTransaction().isActive()) {
+        	session.beginTransaction();
+        }
         return session;
     }
 }

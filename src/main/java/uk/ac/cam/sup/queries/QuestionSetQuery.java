@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -34,6 +36,17 @@ public class QuestionSetQuery {
 		@SuppressWarnings("unchecked")
 		List<QuestionSet> l = criteria.list();
 		return l;
+	}
+	
+	public static QuestionSet get(int id) {
+		Session session = HibernateUtil.getTransaction();
+
+		QuestionSet qs = (QuestionSet) session
+				.createQuery("from QuestionSet where id = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		
+		return qs;
 	}
 	
 	public List<Map<String,Object>> maplist(boolean shadow) {
@@ -108,5 +121,11 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
+	public QuestionSetQuery have(Question q) {
+		criteria
+			.createAlias("questions", "q")
+			.add(Restrictions.eq("q.id", q.getId()));
+		return this;
+	}
 	
 }

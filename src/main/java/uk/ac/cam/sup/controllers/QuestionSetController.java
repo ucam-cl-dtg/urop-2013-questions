@@ -3,9 +3,11 @@ package uk.ac.cam.sup.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
@@ -13,6 +15,8 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
+
+import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
@@ -63,6 +67,20 @@ public class QuestionSetController {
 		if (maxduration != null) { query.maxDuration(maxduration); }
 		
 		return query.maplist(false);
+	}
+	
+	@GET
+	@Path("/{id}")
+	@ViewWith("/soy/view.set")
+	public Map<String,Object> showSingleSet(@PathParam("id") int id) {
+		return QuestionSetQuery.get(id).toMap(false);
+	}
+	
+	@GET
+	@Path("/{id}/json")
+	@Produces("application/json")
+	public Map<String,Object> produceSingleSetJSON(@PathParam("id") int id) {
+		return QuestionSetQuery.get(id).toMap(false);
 	}
 	
 }

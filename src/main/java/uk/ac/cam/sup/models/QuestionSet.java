@@ -15,8 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Formula;
+import org.hibernate.Session;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+
+import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
 @Table(name="QuestionSets")
@@ -30,17 +34,8 @@ public class QuestionSet {
 	private boolean isStarred = false;
 	private Date timeStamp;
 	
-	@Formula("(" +
-			"select" +
-			"	case" +
-			"		when sum(q.expectedDuration) is null then 0" +
-			"		else sum(q.expectedDuration)" +
-			"	end " +
-			"from questionsets_questions qq, questions q, questionsets s " +
-			"where qq.questions_id = q.id" +
-			"	and qq.questionsets_id = s.id" +
-			"	and s.id = id)")
-	private int expectedDuration;
+	@SuppressWarnings("unused")
+	private Integer expectedDuration;
 	
 	@ManyToOne
 	private User owner;
@@ -50,11 +45,11 @@ public class QuestionSet {
 	private Data plan = new Data();
 	
 	@ManyToMany
+	@Cascade(CascadeType.MERGE)
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@ManyToMany
 	private Set<Question> questions = new HashSet<Question>();
-	
 	
 	@SuppressWarnings("unused")
 	private QuestionSet() {}
@@ -104,15 +99,28 @@ public class QuestionSet {
 	public Set<Map<String,Object>> getQuestionsAsMaps() {
 		return getQuestionsAsMaps(true);
 	}
-	public void addQuestion(Question question){questions.add(question.use());}
-	public void removeQuestion(Question question){questions.remove(question.disuse());}
+	public void addQuestion(Question question) {
+		question.use();
+		questions.add(question);
+	}
+	public void removeQuestion(Question question) {
+		question.unuse();
+		questions.remove(question);
+	}
 	
 	public Date getTimeStamp() { return this.timeStamp; }
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
 	
-	public int getExpectedDuration() { return this.expectedDuration; }
-	@SuppressWarnings("unused")
-	private void setExpectedDuration(int d) { this.expectedDuration = d; }
+	public int getExpectedDuration() {
+		int r = 0;
+		
+		for (Question q: questions) {
+			r += q.getExpectedDuration();
+		}
+		this.expectedDuration = r;
+		
+		return r;
+	}
 	
 	@Override
 	public boolean equals(Object x){
@@ -133,7 +141,9 @@ public class QuestionSet {
 		r.put("id", this.id);
 		r.put("name", this.name);
 		r.put("owner", this.owner);
-		r.put("timeStamp", this.timeStamp);
+		//r.put("timeStamp", this.timeStamp); // for direct soy access use soyTimeStamp
+		r.put("soyTimeStamp", this.timeStamp.toString());
+		r.put("expectedDuration", this.getExpectedDuration());
 		r.put("parentid", null); // TODO: implement parent
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);
@@ -145,5 +155,17 @@ public class QuestionSet {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public void save() {
+		Session session = HibernateUtil.getTransaction();
+		session.save(this);
+		session.getTransaction().commit();
+	}
+	
+	public void update() {
+		Session session = HibernateUtil.getTransaction();
+		session.update(this);
+		session.getTransaction().commit();
 	}
 }

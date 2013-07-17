@@ -54,7 +54,6 @@ public class QuestionQueryTest extends GenericTest {
 		r.setExpectedDuration(45);
 		s.setExpectedDuration(50);
 		
-		session.beginTransaction();
 		session.saveOrUpdate(a);
 		session.saveOrUpdate(b);
 		session.saveOrUpdate(c);
@@ -63,19 +62,17 @@ public class QuestionQueryTest extends GenericTest {
 		session.saveOrUpdate(r);
 		session.saveOrUpdate(s);
 
-		session.getTransaction().commit();
-		session.beginTransaction();
-
 		p = (Question) session.createQuery("from Question where owner_id = ?")
 				.setString(0, "u1").list().get(0);
 		q = (Question) session.createQuery("from Question where owner_id = ?")
 				.setString(0, "u1").list().get(1);
 		r = (Question) session.createQuery("from Question where owner_id = ?")
-				.setString(0, "u2").uniqueResult();
+				.setString(0, "u2").list().get(0);
 		s = (Question) session.createQuery("from Question where owner_id = ?")
-				.setString(0, "u3").uniqueResult();
+				.setString(0, "u3").list().get(0);
 
 		session.getTransaction().commit();
+		session = HibernateUtil.getTransaction();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -83,7 +80,7 @@ public class QuestionQueryTest extends GenericTest {
 		List<Question> qList = null;
 		List<Question> childList = null;
 		try {
-			session.beginTransaction();
+			session = HibernateUtil.getTransaction();
 			for (int i = 1; i <= 3; i++) {
 				// session.beginTransaction();
 				qList = session.createQuery("from Question where owner_id = ?")

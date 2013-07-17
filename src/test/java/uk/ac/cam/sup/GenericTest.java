@@ -12,20 +12,24 @@ public abstract class GenericTest {
 
 	@Before
 	public void setUp() throws Exception {
-		session = HibernateUtil.getSession();
+		session = HibernateUtil.getTransaction();
 		session.saveOrUpdate(new User("abc123"));
 		session.saveOrUpdate(new Tag("abc"));
+		session.getTransaction().commit();
+		session = HibernateUtil.getTransaction();
 	}
 	
 	@After
 	public void tearDown() throws Exception {
 		cleanup();
-		session.close();
+		if (session.isOpen()) {
+			session.close();
+		}
 	}
 	
 	
 	private void cleanup(){
-		session.beginTransaction();
+		session = HibernateUtil.getTransaction();
 		for(Object o : session.createQuery("from Question where owner_id = ?")
 				.setString(0, "abc123").list()){
 			session.delete(o);

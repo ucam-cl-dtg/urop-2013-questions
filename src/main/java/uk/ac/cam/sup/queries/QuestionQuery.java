@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
@@ -46,6 +47,17 @@ public class QuestionQuery {
 	
 	public List<Map<String,Object>> maplist() {
 		return this.maplist(true);
+	}
+	
+	public static Question get(int id) {
+		Session session = HibernateUtil.getTransaction();
+		
+		Question q = (Question) session
+				.createQuery("from Question where id = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		
+		return q;
 	}
 	
 	public static QuestionQuery all(){

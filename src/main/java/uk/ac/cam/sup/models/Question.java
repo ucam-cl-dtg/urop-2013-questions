@@ -16,11 +16,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.Session;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Entity
+import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.form.QuestionEdit;
+import uk.ac.cam.sup.queries.QuestionSetQuery;
+
+@Entity()
 @Table(name="Questions")
 public class Question implements Cloneable {
 	@Transient
@@ -29,16 +36,18 @@ public class Question implements Cloneable {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
-	private int id;
+	private Integer id;
 	
 	private boolean isStarred = false;
 	private int usageCount = 0;
 	private Date timeStamp;
 	
 	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Question parent;
 	
 	@ManyToMany
+	@Cascade(CascadeType.MERGE)
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@ManyToOne
@@ -58,12 +67,14 @@ public class Question implements Cloneable {
 		this.owner = owner;
 	}
 	
-	public int getId(){return id;}
+	public Integer getId(){
+		return this.id;
+	}
 	
 	public boolean isStarred(){return isStarred;}
 	public void star(boolean s){isStarred = s;}
 	
-	public int getUsageCount(){return usageCount;}
+	public int getUsageCount(){	return this.usageCount; }
 	public void setUsageCount(int c){usageCount = c;}
 	
 	public Date getTimeStamp(){return timeStamp;}
@@ -79,10 +90,10 @@ public class Question implements Cloneable {
 	public void setExpectedDuration(int expDuration){expectedDuration = expDuration;}
 	
 	public Data getContent(){return content;}
-	//private void setContent(Data c){content = c;}
+	public void setContent(Data c){content = c;}
 	
 	public Data getNotes(){return notes;}
-	//private void setNotes(Data n){notes = n;}
+	public void setNotes(Data n){notes = n;}
 	
 	public void setTags(Set<Tag> tags){this.tags = tags;}
 	public Set<Tag> getTags(){return tags;}
@@ -101,17 +112,20 @@ public class Question implements Cloneable {
 	public boolean equals(Object x){
 		if (x == null || !(x instanceof Question)) {
 			return false;
+		} if (this.id == null || ((Question)x).id == null) {
+			return false;
 		}
-		return ((Question)x).getId() == getId();
+		return ((Question)x).id == this.id;
 	}
 	
 	@Override
 	public int hashCode(){
-		return getId() % 13;
+		return (this.id == null ? 0 : this.id);
 	}
 	
-	private Question fork(){
+	private Question fork(QuestionSet qs){
 		Question result = new Question(this.owner);
+		
 		result.isStarred = isStarred;
 		result.timeStamp = new Date();
 		result.parent = this;
@@ -119,46 +133,41 @@ public class Question implements Cloneable {
 		result.expectedDuration = expectedDuration;
 		result.content = new Data(content);
 		result.notes = new Data(notes);
-		return result;
-	}
-	private Question forkOnDemand(User editor){
-		Question result;
-		if(usageCount > 1){
-			result = this.fork();
-			this.usageCount--;
-			result.usageCount = 1;
-			result.owner = editor;
-		} else {
-			result = this;
-		}
-		return result;
-	}
-	public Question editContent(Data content, User editor) {
-		if(content == null) {
-			log.error("The content passed as argument was null. Creating dummy content.");
-			content = new Data(true, "Error: no content was passed to method while editing");
-		}
-		Question result = forkOnDemand(editor);
-		result.content = content;
-		return result;
-	}
-	public Question editNotes(Data notes, User editor) {
-		if(notes == null) {
-			log.error("The notes passed as argument were null. Creating dummy set of notes.");
-			notes = new Data(true, "Error: no notes were passed to the method while editing.");
-		}
-		Question result = forkOnDemand(editor);
-		result.notes = notes;
+		qs.removeQuestion(this);
+		qs.addQuestion(result);
+		
+		result.save();
+		qs.update();
+		
 		return result;
 	}
 	
-	public Question use() {
-		usageCount++;
+	private Question inPlaceEdit(QuestionEdit qe) {
+		qe.store(this);
+		this.update();
+		
 		return this;
 	}
-	public Question disuse() {
-		usageCount--;
-		return this;
+	
+	private Question forkAndEdit(User editor, QuestionEdit qe) {
+		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()));
+		q.owner = editor;
+		
+		qe.store(q);
+		q.update();
+		
+		return q;
+	}
+	
+	public Question edit(User editor, QuestionEdit qe) {
+		boolean inPlace = (editor.equals(owner))
+				&& (qe.isMinor() || (this.usageCount <= 1));
+		
+		if (inPlace) {
+			return this.inPlaceEdit(qe);
+		} else {
+			return this.forkAndEdit(editor, qe);
+		}
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
@@ -169,10 +178,6 @@ public class Question implements Cloneable {
 		}
 		
 		return q;
-	}
-	
-	public void shadow() {
-		this.notes = null;
 	}
 	
 	public Map<String,Object> toMap(boolean shadowed) {
@@ -193,6 +198,26 @@ public class Question implements Cloneable {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public void save() {
+		Session session = HibernateUtil.getTransaction();
+		session.save(this);
+		session.getTransaction().commit();
+	}
+	
+	public void update() {
+		Session session = HibernateUtil.getTransaction();
+		session.update(this);
+		session.getTransaction().commit();
+	}
+	
+	void use() {
+		this.usageCount++;
+	}
+	
+	void unuse() {
+		this.usageCount--;
 	}
 	
 }
