@@ -12,9 +12,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class QuestionSetQueryTest extends GenericTest {
@@ -259,4 +261,29 @@ public class QuestionSetQueryTest extends GenericTest {
 		}
 	}
 	
+	@Test
+	public void allElementsReturnedByHaveFilterHaveGivenQuestion() {
+		Question q = QuestionQuery.get(2);
+		List<?> result = QuestionSetQuery.all().have(q).list();
+		
+		for(Object o: result) {
+			if (!((QuestionSet)o).getQuestions().contains(q)) {
+				fail(((QuestionSet)o).getName() + " doesn't have given question");
+			}
+		}
+	}
+	
+	@Test
+	public void noElementsAreOmittedByHaveFilter() {
+		Question q = QuestionQuery.get(2);
+		List<?> result = QuestionSetQuery.all().have(q).list();
+		List<?> all = QuestionSetQuery.all().list();
+		
+		for(Object o: all) {
+			if (((QuestionSet)o).getQuestions().contains(q)
+					&& !result.contains(o)) {
+				fail(((QuestionSet)o).getName() + " was omitted");
+			}
+		}
+	}
 }

@@ -12,6 +12,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -120,5 +121,11 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
+	public QuestionSetQuery have(Question q) {
+		criteria
+			.createAlias("questions", "q")
+			.add(Restrictions.eq("q.id", q.getId()));
+		return this;
+	}
 	
 }

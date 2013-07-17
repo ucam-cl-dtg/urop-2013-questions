@@ -99,11 +99,14 @@ public class QuestionSet {
 	public Set<Map<String,Object>> getQuestionsAsMaps() {
 		return getQuestionsAsMaps(true);
 	}
-	public void addQuestion(Question question){
+	public void addQuestion(Question question) {
 		question.use();
-		this.questions.add(question);
+		questions.add(question);
 	}
-	public void removeQuestion(Question question){questions.remove(question.disuse());}
+	public void removeQuestion(Question question) {
+		question.unuse();
+		questions.remove(question);
+	}
 	
 	public Date getTimeStamp() { return this.timeStamp; }
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
@@ -118,8 +121,6 @@ public class QuestionSet {
 		
 		return r;
 	}
-	@SuppressWarnings("unused")
-	private void setExpectedDuration(int d) { this.expectedDuration = d; }
 	
 	@Override
 	public boolean equals(Object x){

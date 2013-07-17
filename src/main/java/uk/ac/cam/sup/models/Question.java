@@ -74,7 +74,7 @@ public class Question implements Cloneable {
 	public boolean isStarred(){return isStarred;}
 	public void star(boolean s){isStarred = s;}
 	
-	public int getUsageCount(){return usageCount;}
+	public int getUsageCount(){	return this.usageCount; }
 	public void setUsageCount(int c){usageCount = c;}
 	
 	public Date getTimeStamp(){return timeStamp;}
@@ -170,15 +170,6 @@ public class Question implements Cloneable {
 		}
 	}
 	
-	public Question use() {
-		usageCount++;
-		return this;
-	}
-	public Question disuse() {
-		usageCount--;
-		return this;
-	}
-	
 	public Object clone() throws CloneNotSupportedException {
 		Question q = (Question) super.clone();
 		q.content = (Data) this.content.clone();
@@ -219,6 +210,14 @@ public class Question implements Cloneable {
 		Session session = HibernateUtil.getTransaction();
 		session.update(this);
 		session.getTransaction().commit();
+	}
+	
+	void use() {
+		this.usageCount++;
+	}
+	
+	void unuse() {
+		this.usageCount--;
 	}
 	
 }
