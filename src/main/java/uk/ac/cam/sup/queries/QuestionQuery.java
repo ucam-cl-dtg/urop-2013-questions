@@ -65,7 +65,7 @@ public class QuestionQuery {
 		// which, for ex., contain 2 or more of the tags searched for. (Otherwise you would get
 		// back 1 instance of the same object with every of the different tags specified).
 		log.debug("New QuestionQuery required. Constructing & returning");
-		QuestionQuery qq = new QuestionQuery(HibernateUtil.getSession()
+		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransaction()
 				.createCriteria(Question.class)	
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
 		qq.criteria.addOrder(Order.desc("timeStamp"));

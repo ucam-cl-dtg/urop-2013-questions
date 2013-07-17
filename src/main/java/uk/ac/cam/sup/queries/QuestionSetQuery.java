@@ -25,7 +25,7 @@ public class QuestionSetQuery {
 	
 	public static QuestionSetQuery all() {
 		return new QuestionSetQuery (
-				HibernateUtil.getSession()
+				HibernateUtil.getTransaction()
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
