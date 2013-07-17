@@ -7,6 +7,7 @@
  */
 {template .single}
 <article>
+	<a class="toggle-question" foobar="woo woo woo">+</a>
 	<p class="questioncontent">{$content.data}</p>
 	<p class="questionauthor">
 	<a href="/question/{$id}">#{$id}</a>,&thinsp;
@@ -16,9 +17,6 @@
 		author: <a href="/user/{$owner.id}">{$owner.id}</a>
 	{/if}
 	,&ensp;
-	
-	
-	
 	
 	<a href="/question/{$id}/edit">edit</a>,&ensp;
 	<a href="/question/{$id}/fork">fork</a></p>

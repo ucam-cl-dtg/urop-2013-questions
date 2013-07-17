@@ -8,6 +8,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,7 @@ public class QuestionQuery {
 		QuestionQuery qq = new QuestionQuery(HibernateUtil.getSession()
 				.createCriteria(Question.class)	
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
+		qq.criteria.addOrder(Order.desc("timeStamp"));
 		log.debug("Successfully created, now returning");
 		return qq;
 	}
