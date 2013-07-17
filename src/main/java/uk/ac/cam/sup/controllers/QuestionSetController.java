@@ -5,21 +5,27 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
+import com.google.common.net.MediaType;
 import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
+	
+	@Context
+	private HttpServletRequest request;
 	
 	@GET
 	@Path("/json")
@@ -83,4 +89,13 @@ public class QuestionSetController {
 		return QuestionSetQuery.get(id).toMap(false);
 	}
 	
+	@GET
+	@Path("/mysets")
+	@Produces("application/json")
+	public Map<String,Object> produceMySets(){
+		String userID = (String)request.getSession().getAttribute("RavenRemoteUser");
+		//TODO: get the list of setes of a user.
+		//List<QuestionSet> sets = QuestionSetQuery.all().withUsers(new List<User>().add(u))
+		return null;
+	}
 }
