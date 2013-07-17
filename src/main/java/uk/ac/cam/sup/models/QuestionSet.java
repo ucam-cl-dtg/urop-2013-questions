@@ -160,12 +160,10 @@ public class QuestionSet {
 	public void save() {
 		Session session = HibernateUtil.getTransaction();
 		session.save(this);
-		session.getTransaction().commit();
 	}
 	
 	public void update() {
 		Session session = HibernateUtil.getTransaction();
 		session.update(this);
-		session.getTransaction().commit();
 	}
 }
