@@ -207,15 +207,13 @@ public class Question implements Cloneable {
 	}
 	
 	public void save() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.save(this);
-		session.getTransaction().commit();
 	}
 	
 	public void update() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.update(this);
-		session.getTransaction().commit();
 	}
 	
 	void use() {

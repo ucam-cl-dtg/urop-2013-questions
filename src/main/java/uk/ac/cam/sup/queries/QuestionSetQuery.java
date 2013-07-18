@@ -25,7 +25,7 @@ public class QuestionSetQuery {
 	
 	public static QuestionSetQuery all() {
 		return new QuestionSetQuery (
-				HibernateUtil.getTransaction()
+				HibernateUtil.getTransactionSession()
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
@@ -39,7 +39,7 @@ public class QuestionSetQuery {
 	}
 	
 	public static QuestionSet get(int id) {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 
 		QuestionSet qs = (QuestionSet) session
 				.createQuery("from QuestionSet where id = :id")

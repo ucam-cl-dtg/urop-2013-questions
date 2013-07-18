@@ -53,12 +53,17 @@ public class QuestionPlacement implements Comparable<QuestionPlacement> {
 	}
 	
 	public void update() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.update(this);
 	}
 	
+	public void save() {
+		Session session = HibernateUtil.getTransactionSession();
+		session.save(this);
+	}
+	
 	public void delete() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.delete(this);
 	}
 	

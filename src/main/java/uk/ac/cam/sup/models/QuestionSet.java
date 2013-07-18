@@ -38,7 +38,9 @@ public class QuestionSet {
 	
 	private String name;
 	private boolean isStarred = false;
-	private Date timeStamp;
+	
+	@Column(nullable=false, columnDefinition = "date default sysdate")
+	private Date timeStamp = new Date();
 	
 	@SuppressWarnings("unused")
 	private Integer expectedDuration;
@@ -122,7 +124,10 @@ public class QuestionSet {
 	
 	public void add(Question question) {
 		question.use();
-		questions.add(new QuestionPlacement(question, questions.size()));
+		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
+		question.save();
+		qp.save();
+		questions.add(qp);
 	}
 	
 	public void remove(Question question) {
@@ -136,11 +141,11 @@ public class QuestionSet {
 	
 	public void remove(int place) {
 		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
-		qarray[place].getQuestion().unuse();
-		qarray[place].delete();
-		questions.remove(qarray[place]);
+		qarray[place-1].getQuestion().unuse();
+		qarray[place-1].delete();
+		questions.remove(qarray[place-1]);
 		
-		for (int i = place+1; i < qarray.length; i++) {
+		for (int i = place; i < qarray.length; i++) {
 			qarray[i].setPlace(i-1);
 			qarray[i].update();
 		}
@@ -163,7 +168,7 @@ public class QuestionSet {
 		}
 	}
 	
-	public Date getTimeStamp() { return this.timeStamp; }
+	public Date getTimeStamp() { return (this.timeStamp == null ? new Date(0) : this.timeStamp); }
 	public void setTimeStamp(Date timeStamp) { this.timeStamp = timeStamp; }
 	
 	public int getExpectedDuration() {
@@ -213,12 +218,12 @@ public class QuestionSet {
 	}
 	
 	public void save() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.save(this);
 	}
 	
 	public void update() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.update(this);
 	}
 }

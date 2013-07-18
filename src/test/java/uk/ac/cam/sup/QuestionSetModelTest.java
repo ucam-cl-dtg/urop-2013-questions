@@ -24,8 +24,9 @@ public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void savingAQuestionToDatabase() {
 		int size = session.createQuery("from QuestionSet").list().size();
-		User a = new User("abc123");
-		session.save(new QuestionSet(a));
+		User u = (User) session.createQuery("from User").list().get(0);
+		QuestionSet qs = new QuestionSet(u);
+		qs.save();
 		assertEquals(size+1, session.createQuery("from QuestionSet").list().size());
 	}
 	

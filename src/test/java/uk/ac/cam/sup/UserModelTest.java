@@ -15,15 +15,8 @@ public class UserModelTest extends GenericTest {
 	
 	@Test
 	public void savingAUserToDatabaseIncreasesCount() {
-		User m = (User) session.createQuery("from User where id = ?")
-				.setString(0, "abc123")
-				.uniqueResult();
-		if (m != null) {
-			session.delete(m);
-		}
-		
 		int size = session.createQuery("from User").list().size();
-		session.save(m);
+		session.save(new User("mr595"));
 		assertEquals(size+1, session.createQuery("from User").list().size());
 	}
 
