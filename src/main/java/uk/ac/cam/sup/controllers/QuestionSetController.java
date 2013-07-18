@@ -18,7 +18,7 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
-import com.google.common.net.MediaType;
+import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/sets")
@@ -92,10 +92,12 @@ public class QuestionSetController {
 	@GET
 	@Path("/mysets")
 	@Produces("application/json")
-	public Map<String,Object> produceMySets(){
+	public Map<?,?> produceMySets(){
 		String userID = (String)request.getSession().getAttribute("RavenRemoteUser");
-		//TODO: get the list of setes of a user.
-		//List<QuestionSet> sets = QuestionSetQuery.all().withUsers(new List<User>().add(u))
-		return null;
+		List<User> userlist = new ArrayList<User>();
+		userlist.add(new User(userID));
+		return ImmutableMap.of("sets", QuestionSetQuery.all()
+				.withUsers(userlist)
+				.list());
 	}
 }
