@@ -1,10 +1,13 @@
 package uk.ac.cam.sup.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.Session;
@@ -48,8 +52,8 @@ public class QuestionSet {
 	@Cascade(CascadeType.MERGE)
 	private Set<Tag> tags = new HashSet<Tag>();
 	
-	@ManyToMany
-	private Set<Question> questions = new HashSet<Question>();
+	@OneToMany
+	private Set<QuestionPlacement> questions = new TreeSet<QuestionPlacement>();
 	
 	@SuppressWarnings("unused")
 	private QuestionSet() {}
@@ -86,26 +90,50 @@ public class QuestionSet {
 	}
 	
 	//public void setQuestions(Set<Question> questions){this.questions = questions;}
-	public Set<Question> getQuestions(){return questions;}
-	public Set<Map<String,Object>> getQuestionsAsMaps(boolean shadow) {
-		Set<Map<String,Object>> r = new HashSet<Map<String,Object>>();
-		
-		for (Question q: questions) {
-			r.add(q.toMap(shadow));
+	public List<Question> getQuestions(){
+		List<Question> result = new ArrayList<Question>();
+		while (result.size() < questions.size()) { result.add(null); }
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + result.size() + " " + questions.size());
+		for(QuestionPlacement q: questions) {
+			result.set(q.getPlace()-1, q.getQuestion());
 		}
-		
-		return r;
+		return result;
 	}
-	public Set<Map<String,Object>> getQuestionsAsMaps() {
+	public List<Map<String,Object>> getQuestionsAsMaps(boolean shadow) {
+		List<Question> questions = getQuestions();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		for (Question q: questions) {
+			result.add(q.toMap());
+		}
+		return result;
+	}
+	public List<Map<String,Object>> getQuestionsAsMaps() {
 		return getQuestionsAsMaps(true);
 	}
-	public void addQuestion(Question question) {
+	public void add(Question question) {
 		question.use();
-		questions.add(question);
+		questions.add(new QuestionPlacement(question, questions.size()));
 	}
-	public void removeQuestion(Question question) {
-		question.unuse();
-		questions.remove(question);
+	
+	public void remove(Question question) {
+		for (QuestionPlacement qp: questions) {
+			if (qp.getQuestion().equals(question)) {
+				this.remove(qp.getPlace());
+				break;
+			}
+		}
+	}
+	
+	public void remove(int question) {
+		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
+		qarray[question].getQuestion().unuse();
+		qarray[question].delete();
+		questions.remove(qarray[question]);
+		
+		for (int i = question+1; i < qarray.length; i++) {
+			qarray[i].setPlace(i-1);
+			qarray[i].update();
+		}
 	}
 	
 	public Date getTimeStamp() { return this.timeStamp; }
@@ -114,8 +142,8 @@ public class QuestionSet {
 	public int getExpectedDuration() {
 		int r = 0;
 		
-		for (Question q: questions) {
-			r += q.getExpectedDuration();
+		for (QuestionPlacement q: questions) {
+			r += q.getQuestion().getExpectedDuration();
 		}
 		this.expectedDuration = r;
 		

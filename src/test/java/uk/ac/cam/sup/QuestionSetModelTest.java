@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
 import uk.ac.cam.sup.models.Question;
+import uk.ac.cam.sup.models.QuestionPlacement;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -45,20 +47,22 @@ public class QuestionSetModelTest extends GenericTest {
 	}
 	
 	@Test
-	public void afterAddingAQuestionItIsElementOfSet(){
+	public void afterAddingAQuestionItIsAnElementOfSet(){
 		QuestionSet qs = new QuestionSet(new User("abc123"));
 		Question q = new Question(new User("abc123"));
-		qs.addQuestion(q);
-		assertTrue(qs.getQuestions().contains(q));
+		qs.add(q);
+		List<Question> questions = qs.getQuestions();
+		assertTrue(questions.contains(q));
 	}
 	
 	@Test
-	public void afterRemovingAQuestionItIsElementOfSet(){
+	public void afterRemovingAQuestionItIsNotAnElementOfSet(){
 		QuestionSet qs = new QuestionSet(new User("abc123"));
 		Question q = new Question(new User("abc123"));
-		qs.addQuestion(q);
-		qs.removeQuestion(q);
-		assertFalse(qs.getQuestions().contains(q));
+		qs.add(q);
+		qs.remove(q);
+		List<Question> questions = qs.getQuestions();
+		assertFalse(questions.contains(q));
 	}
 	
 	@Test
@@ -66,7 +70,7 @@ public class QuestionSetModelTest extends GenericTest {
 		QuestionSet s = (QuestionSet) session
 				.createQuery("from QuestionSet where id=1")
 				.uniqueResult();
-		Set<Question> qs = s.getQuestions();
+		List<Question> qs = s.getQuestions();
 		int sum = 0;
 		for (Question q: qs) {
 			sum += q.getExpectedDuration();

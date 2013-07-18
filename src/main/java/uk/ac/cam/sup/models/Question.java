@@ -112,7 +112,7 @@ public class Question implements Cloneable {
 	public boolean equals(Object x){
 		if (x == null || !(x instanceof Question)) {
 			return false;
-		} if (this.id == null || ((Question)x).id == null) {
+		} if ((this.id == null) ^ (((Question)x).id == null)) {
 			return false;
 		}
 		return ((Question)x).id == this.id;
@@ -139,8 +139,8 @@ public class Question implements Cloneable {
 			result.notes = new Data(notes);
 		}
 		
-		qs.removeQuestion(this);
-		qs.addQuestion(result);
+		qs.remove(this);
+		qs.add(result);
 		
 		result.save();
 		qs.update();
