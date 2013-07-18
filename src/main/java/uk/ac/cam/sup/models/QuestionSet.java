@@ -24,6 +24,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.google.inject.OutOfScopeException;
+
 import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
@@ -89,11 +91,9 @@ public class QuestionSet {
 		return result;
 	}
 	
-	//public void setQuestions(Set<Question> questions){this.questions = questions;}
 	public List<Question> getQuestions(){
 		List<Question> result = new ArrayList<Question>();
 		while (result.size() < questions.size()) { result.add(null); }
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + result.size() + " " + questions.size());
 		for(QuestionPlacement q: questions) {
 			result.set(q.getPlace()-1, q.getQuestion());
 		}
@@ -110,6 +110,16 @@ public class QuestionSet {
 	public List<Map<String,Object>> getQuestionsAsMaps() {
 		return getQuestionsAsMaps(true);
 	}
+	
+	public Question getQuestion(int place) {
+		for (QuestionPlacement qp: questions) {
+			if (qp.getPlace() == place) {
+				return qp.getQuestion();
+			}
+		}
+		throw new OutOfScopeException("index: " + place + " size: " + questions.size());
+	}
+	
 	public void add(Question question) {
 		question.use();
 		questions.add(new QuestionPlacement(question, questions.size()));
@@ -124,15 +134,32 @@ public class QuestionSet {
 		}
 	}
 	
-	public void remove(int question) {
+	public void remove(int place) {
 		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
-		qarray[question].getQuestion().unuse();
-		qarray[question].delete();
-		questions.remove(qarray[question]);
+		qarray[place].getQuestion().unuse();
+		qarray[place].delete();
+		questions.remove(qarray[place]);
 		
-		for (int i = question+1; i < qarray.length; i++) {
+		for (int i = place+1; i < qarray.length; i++) {
 			qarray[i].setPlace(i-1);
 			qarray[i].update();
+		}
+	}
+	
+	public void addBefore(int place, Question q) {
+		q.use();
+		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
+		for (int i = place; i < qarray.length; i++) {
+			qarray[place].setPlace(qarray[place].getPlace()+1);
+			qarray[place].update();
+		}
+	}
+	
+	public void addAfter(int place, Question q) {
+		if (place < questions.size()-1) {
+			addBefore(place+1, q);
+		} else {
+			add(q);
 		}
 	}
 	
