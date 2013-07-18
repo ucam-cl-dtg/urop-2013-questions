@@ -38,7 +38,7 @@ public class HibernateUtil {
         return session;
     }
 
-    public static Session getTransaction() {
+    public static Session getTransactionSession() {
         Session session = getSession();
         if (!session.getTransaction().isActive()) {
         	session.beginTransaction();

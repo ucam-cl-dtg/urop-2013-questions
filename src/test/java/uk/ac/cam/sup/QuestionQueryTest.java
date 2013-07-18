@@ -72,7 +72,7 @@ public class QuestionQueryTest extends GenericTest {
 				.setString(0, "u3").list().get(0);
 
 		session.getTransaction().commit();
-		session = HibernateUtil.getTransaction();
+		session = HibernateUtil.getTransactionSession();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -80,7 +80,7 @@ public class QuestionQueryTest extends GenericTest {
 		List<Question> qList = null;
 		List<Question> childList = null;
 		try {
-			session = HibernateUtil.getTransaction();
+			session = HibernateUtil.getTransactionSession();
 			for (int i = 1; i <= 3; i++) {
 				// session.beginTransaction();
 				qList = session.createQuery("from Question where owner_id = ?")

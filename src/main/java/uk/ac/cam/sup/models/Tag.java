@@ -50,7 +50,7 @@ public class Tag {
 	}
 	
 	public void saveOrUpdate() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.saveOrUpdate(this);
 	}
 }

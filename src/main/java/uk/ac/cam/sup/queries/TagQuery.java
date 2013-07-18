@@ -22,7 +22,7 @@ public class TagQuery {
 	
 	public static TagQuery all() {
 		return new TagQuery (
-				HibernateUtil.getTransaction()
+				HibernateUtil.getTransactionSession()
 					.createCriteria(Tag.class)
 		);
 	}

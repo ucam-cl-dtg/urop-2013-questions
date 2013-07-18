@@ -12,11 +12,11 @@ public abstract class GenericTest {
 
 	@Before
 	public void setUp() throws Exception {
-		session = HibernateUtil.getTransaction();
+		session = HibernateUtil.getTransactionSession();
 		session.saveOrUpdate(new User("abc123"));
 		session.saveOrUpdate(new Tag("abc"));
 		session.getTransaction().commit();
-		session = HibernateUtil.getTransaction();
+		session = HibernateUtil.getTransactionSession();
 	}
 	
 	@After
@@ -29,7 +29,7 @@ public abstract class GenericTest {
 	
 	
 	private void cleanup(){
-		session = HibernateUtil.getTransaction();
+		session = HibernateUtil.getTransactionSession();
 		for(Object o : session.createQuery("from Question where owner_id = ?")
 				.setString(0, "abc123").list()){
 			session.delete(o);

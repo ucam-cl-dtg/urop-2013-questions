@@ -158,12 +158,12 @@ public class QuestionSet {
 	}
 	
 	public void save() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.save(this);
 	}
 	
 	public void update() {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		session.update(this);
 	}
 }

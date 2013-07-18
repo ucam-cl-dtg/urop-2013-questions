@@ -50,7 +50,7 @@ public class QuestionQuery {
 	}
 	
 	public static Question get(int id) {
-		Session session = HibernateUtil.getTransaction();
+		Session session = HibernateUtil.getTransactionSession();
 		
 		Question q = (Question) session
 				.createQuery("from Question where id = :id")
@@ -65,7 +65,7 @@ public class QuestionQuery {
 		// which, for ex., contain 2 or more of the tags searched for. (Otherwise you would get
 		// back 1 instance of the same object with every of the different tags specified).
 		log.debug("New QuestionQuery required. Constructing & returning");
-		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransaction()
+		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransactionSession()
 				.createCriteria(Question.class)	
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
 		qq.criteria.addOrder(Order.desc("timeStamp"));
