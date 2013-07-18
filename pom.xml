@@ -10,6 +10,17 @@
 
 	<properties>
 		<jettyVersion>7.2.0.v20101020</jettyVersion>
+		<custom_scripts>
+			<![CDATA[
+				<script src="/js/search.js"></script>
+				<script src="/js/question.js"></script>
+			]]>
+		</custom_scripts>
+		<custom_templates>
+			<![CDATA[
+				<script src="/soy/js/1/search.js"></script>
+			]]>
+		</custom_templates>
 	</properties>
 
 	<repositories>
@@ -139,10 +150,8 @@
 									<directory>${basedir}/../sup_frontend</directory>
 									<filtering>true</filtering>
 								</resource>
-								<resource>
-									<directory>${basedir}/src/config</directory>
-									<filtering>true</filtering>
-								</resource>
+								<!-- <resource> <directory>${basedir}/src/config</directory> <filtering>true</filtering> 
+									</resource> -->
 							</resources>
 						</configuration>
 					</execution>
