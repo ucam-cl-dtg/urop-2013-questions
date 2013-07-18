@@ -51,7 +51,7 @@ public class QuestionSetModelTest extends GenericTest {
 	public void afterAddingAQuestionItIsAnElementOfSet(){
 		QuestionSet qs = new QuestionSet(new User("abc123"));
 		Question q = new Question(new User("abc123"));
-		qs.add(q);
+		qs.addQuestion(q);
 		List<Question> questions = qs.getQuestions();
 		assertTrue(questions.contains(q));
 	}
@@ -60,8 +60,8 @@ public class QuestionSetModelTest extends GenericTest {
 	public void afterRemovingAQuestionItIsNotAnElementOfSet(){
 		QuestionSet qs = new QuestionSet(new User("abc123"));
 		Question q = new Question(new User("abc123"));
-		qs.add(q);
-		qs.remove(q);
+		qs.addQuestion(q);
+		qs.removeQuestion(q);
 		List<Question> questions = qs.getQuestions();
 		assertFalse(questions.contains(q));
 	}

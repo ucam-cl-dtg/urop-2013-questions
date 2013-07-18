@@ -139,8 +139,8 @@ public class Question implements Cloneable {
 			result.notes = new Data(notes);
 		}
 		
-		qs.remove(this);
-		qs.add(result);
+		qs.removeQuestion(this);
+		qs.addQuestion(result);
 		
 		result.save();
 		qs.update();

@@ -122,7 +122,7 @@ public class QuestionSet {
 		throw new OutOfScopeException("index: " + place + " size: " + questions.size());
 	}
 	
-	public void add(Question question) {
+	public void addQuestion(Question question) {
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
 		question.save();
@@ -130,16 +130,16 @@ public class QuestionSet {
 		questions.add(qp);
 	}
 	
-	public void remove(Question question) {
+	public void removeQuestion(Question question) {
 		for (QuestionPlacement qp: questions) {
 			if (qp.getQuestion().equals(question)) {
-				this.remove(qp.getPlace());
+				this.removeQuestion(qp.getPlace());
 				break;
 			}
 		}
 	}
 	
-	public void remove(int place) {
+	public void removeQuestion(int place) {
 		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
 		qarray[place-1].getQuestion().unuse();
 		qarray[place-1].delete();
@@ -164,7 +164,7 @@ public class QuestionSet {
 		if (place < questions.size()-1) {
 			addBefore(place+1, q);
 		} else {
-			add(q);
+			addQuestion(q);
 		}
 	}
 	

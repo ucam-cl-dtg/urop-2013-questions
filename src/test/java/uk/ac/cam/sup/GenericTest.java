@@ -39,13 +39,13 @@ public abstract class GenericTest {
 		Tag w = new Tag("Dynamic programming");
 		
 		QuestionSet pq = new QuestionSet(a);
-		pq.add(p);
-		pq.add(q);
+		pq.addQuestion(p);
+		pq.addQuestion(q);
 		pq.setName("Set p,q");
 		
 		QuestionSet rs = new QuestionSet(a);
-		rs.add(r);
-		rs.add(s);
+		rs.addQuestion(r);
+		rs.addQuestion(s);
 		rs.setName("Set r,s");
 
 		b.setSupervisor(true);
