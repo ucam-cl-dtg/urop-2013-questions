@@ -56,11 +56,11 @@
 		{foreach $map in $maplist}
 			<tr>
 				{if $map.containsQuestion == true}	
-					<td style="background-color:#CCFF66">
+					<td style="background-color:#B4FF9C"
 				{else}
-					<td style="background-color:#D8D8D8">
+					<td style="background-color:#D8D8D8"
 				{/if}
-					<a class="select-set" sid={$map.set.id} href="TODO">{$map.set.name}</a>
+					class="select-set"><a sid={$map.set.id} href="TODO">{$map.set.name}</a>
 					
 				</td>
 			</tr>

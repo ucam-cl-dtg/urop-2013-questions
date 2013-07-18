@@ -21,4 +21,8 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$(".main").on("click", "select-set", function() {
+		
+	});
+	
 });
