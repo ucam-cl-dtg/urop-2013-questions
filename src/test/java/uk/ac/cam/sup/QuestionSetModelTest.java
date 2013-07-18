@@ -5,12 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
 import uk.ac.cam.sup.models.Question;
-import uk.ac.cam.sup.models.QuestionPlacement;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;

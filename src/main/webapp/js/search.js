@@ -12,9 +12,12 @@ $(document).ready(function() {
 		
 		var searchTerms = "?";
 		searchTerms = searchTerms + "tags=" + $("#tags").val();
-		var permalink = window.location.hash.substring(0, window.location.hash.indexOf("?"));
+		var permalink = window.location.hash;
+		if(permalink.indexOf("?") > 0) {
+			permalink = permalink.substring(0, window.location.hash.indexOf("?"));
+		}
 		permalink = permalink + searchTerms; 
-		//alert(permalink);
+		//alert(window.location.hash.indexOf("?"));
 		
 		$.getJSON("/q/search" + searchTerms, function(data) {
 			soy.renderElement(newList, search.results, 

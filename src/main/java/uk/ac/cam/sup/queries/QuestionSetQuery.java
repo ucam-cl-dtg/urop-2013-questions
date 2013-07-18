@@ -88,6 +88,10 @@ public class QuestionSetQuery {
 		criteria.add(Restrictions.eq("isStarred", true));
 		return this;
 	}
+	public QuestionSetQuery withoutStar() {
+		criteria.add(Restrictions.eq("isStarred", false));
+		return this;
+	}
 	
 	public QuestionSetQuery bySupervisor() {
 		criteria
@@ -126,6 +130,16 @@ public class QuestionSetQuery {
 			.createAlias("questions", "q")
 			.add(Restrictions.eq("q.id", q.getId()));
 		return this;
+	}
+	public QuestionSetQuery have(int qID) {
+		criteria
+			.createAlias("questions", "q")
+			.add(Restrictions.eq("q.id", qID));
+		return this;
+	}
+	
+	public Criteria getCriteria(){
+		return criteria;
 	}
 	
 }

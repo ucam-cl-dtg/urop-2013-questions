@@ -103,7 +103,6 @@ public abstract class GenericTest {
 		s = (Question) session.createQuery("from Question where owner_id = ?")
 				.setString(0, "u3").list().get(0);
 
-
 	}
 	
 	private static void cleanDB() {
@@ -127,5 +126,4 @@ public abstract class GenericTest {
 			session.close();
 		}
 	}
-	
 }

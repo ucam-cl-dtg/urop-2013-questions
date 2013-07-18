@@ -10,7 +10,7 @@
 <article>
 	//<a class="toggle-question" foobar="woo woo woo" href="google.com">+</a>
 	<p class="questioncontent">{$content.data}</p>
-	<p class="questionauthor">
+	<p class="questionoptions">
 	ID: <a href="/app/#q/{$id}">{$id}</a> | &thinsp;
 	{if $owner == null}
 		Author unknown
@@ -27,7 +27,7 @@
 	{/if}
 	
 	&thinsp;| <a class="use-question" qid="{$id}" href="/app/#q/">Use...</a>
-	
+	</p>
 </article>
 {/template}
 
@@ -45,4 +45,25 @@
 			{param setid: $setid /}
 		{/call}
 	{/foreach}
+{/template}
+
+/**
+ * @param maplist
+ */
+{template .useDialog}
+	<div style="max-height: 100px; max-width: 600px; overflow: auto; display: inline-block">
+	<table style="min-width: 300px">
+		{foreach $map in $maplist}
+			<tr>
+				{if $map.containsQuestion == true}	
+					<td style="background-color:#B4FF9C"
+				{else}
+					<td style="background-color:#D8D8D8"
+				{/if}
+					class="select-set"><a sid={$map.set.id} href="TODO">{$map.set.name}</a>
+					
+				</td>
+			</tr>
+		{/foreach}
+	</table></div>
 {/template}

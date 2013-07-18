@@ -13,6 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
+import org.hibernate.criterion.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -26,6 +31,8 @@ public class QuestionSetController {
 	
 	@Context
 	private HttpServletRequest request;
+	
+	private static Logger log = LoggerFactory.getLogger(QuestionSetController.class);
 	
 	@GET
 	@Path("/json")
@@ -92,12 +99,31 @@ public class QuestionSetController {
 	@GET
 	@Path("/mysets")
 	@Produces("application/json")
-	public Map<?,?> produceMySets(){
+	public Map<?,?> produceMySets(@QueryParam("contains") Integer questionID){
 		String userID = (String)request.getSession().getAttribute("RavenRemoteUser");
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(new User(userID));
-		return ImmutableMap.of("sets", QuestionSetQuery.all()
-				.withUsers(userlist)
-				.list());
+		
+		QuestionSetQuery starredList = QuestionSetQuery.all().withUsers(userlist).withStar();
+		QuestionSetQuery nostarList = QuestionSetQuery.all().withUsers(userlist).withoutStar();
+		starredList.getCriteria().addOrder(Order.asc("name"));
+		nostarList.getCriteria().addOrder(Order.asc("name"));
+		
+		List<QuestionSet> resultSets = new ArrayList<QuestionSet>();
+		resultSets.addAll(starredList.list());
+		resultSets.addAll(nostarList.list());
+		
+		if(questionID == null) {
+			return ImmutableMap.of("sets", resultSets);
+		} else {
+			List<Map<String,?>> maplist = new ArrayList<Map<String,?>>();
+			log.debug("Trying to get all questionSets with those specially marked containing question " + questionID);
+			List<QuestionSet> haveQuestion = QuestionSetQuery.all().have(questionID).list();
+			
+			for(QuestionSet set : resultSets) {
+				maplist.add(ImmutableMap.of("set", set, "containsQuestion", haveQuestion.contains(set)));
+			}
+			return ImmutableMap.of("maplist", maplist);
+		}
 	}
 }
