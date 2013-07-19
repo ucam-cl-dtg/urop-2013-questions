@@ -24,4 +24,5 @@ public class Model {
 		Session session = HibernateUtil.getTransactionSession();
 		session.delete(this);
 	}
+	
 }

@@ -34,20 +34,29 @@ public class QuestionPlacement extends Model
 	public Question getQuestion() {
 		return this.question;
 	}
-	@SuppressWarnings("unused")
-	private void setQuestion(Question q) {
+
+	public void setQuestion(Question q) {
 		this.question = q;
 	}
 	
 	public int getPlace() {
 		return this.place;
 	}
-	public void setPlace(int p) {
+	@SuppressWarnings("unused")
+	private void setPlace(int p) {
 		this.place = p;
 	}
 	
 	public int compareTo(QuestionPlacement q) {
 		return this.place - q.place;
+	}
+	
+	public void moveUp() {
+		this.place --;
+	}
+	
+	public void moveDown() {
+		this.place ++;
 	}
 	
 }

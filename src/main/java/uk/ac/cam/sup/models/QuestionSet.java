@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,6 +55,7 @@ public class QuestionSet extends Model {
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@OneToMany
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Set<QuestionPlacement> questions = new TreeSet<QuestionPlacement>();
 	
 	@SuppressWarnings("unused")
@@ -122,8 +124,6 @@ public class QuestionSet extends Model {
 	public void addQuestion(Question question) {
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
-		question.save();
-		qp.save();
 		questions.add(qp);
 	}
 	
@@ -137,24 +137,36 @@ public class QuestionSet extends Model {
 	}
 	
 	public void removeQuestion(int place) {
-		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
-		qarray[place-1].getQuestion().unuse();
-		qarray[place-1].delete();
-		questions.remove(qarray[place-1]);
+		Iterator<QuestionPlacement> i = questions.iterator();
 		
-		for (int i = place; i < qarray.length; i++) {
-			qarray[i].setPlace(i-1);
-			qarray[i].update();
+		while (i.hasNext()) {
+			QuestionPlacement qp = i.next();
+			if (qp.getPlace() < place) {
+				continue;
+			} else if (qp.getPlace() == place) {
+				qp.getQuestion().unuse();
+				i.remove();
+				qp.delete();
+			} else {
+				qp.moveUp();
+				qp.update();
+			}
 		}
 	}
 	
 	public void addBefore(int place, Question q) {
-		q.use();
-		QuestionPlacement[] qarray = questions.toArray(new QuestionPlacement[0]);
-		for (int i = place; i < qarray.length; i++) {
-			qarray[place].setPlace(qarray[place].getPlace()+1);
-			qarray[place].update();
+		Iterator<QuestionPlacement> i = questions.iterator();
+		
+		while (i.hasNext()) {
+			QuestionPlacement qp = i.next();
+			if (qp.getPlace() > place) {
+				qp.moveDown();
+				qp.update();
+			}
 		}
+		
+		q.use();
+		questions.add(new QuestionPlacement(q, place));
 	}
 	
 	public void addAfter(int place, Question q) {
@@ -162,6 +174,34 @@ public class QuestionSet extends Model {
 			addBefore(place+1, q);
 		} else {
 			addQuestion(q);
+		}
+	}
+	
+	public void swapFor(int place, Question q) {
+		Iterator<QuestionPlacement> i = questions.iterator();
+		while (i.hasNext()) {
+			QuestionPlacement qp = i.next();
+			if (qp.getPlace() == place) {
+				qp.getQuestion().unuse();
+				qp.setQuestion(q);
+				q.use();
+				qp.save();
+				break;
+			}
+		}
+	}
+	
+	public void swapFor(Question old, Question q) {
+		Iterator<QuestionPlacement> i = questions.iterator();
+		while (i.hasNext()) {
+			QuestionPlacement qp = i.next();
+			if (qp.getQuestion().equals(old)) {
+				old.unuse();
+				qp.setQuestion(q);
+				q.use();
+				qp.save();
+				break;
+			}
 		}
 	}
 	

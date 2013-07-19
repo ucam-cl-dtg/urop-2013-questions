@@ -137,8 +137,7 @@ public class Question extends Model implements Cloneable {
 			result.notes = new Data(notes);
 		}
 		
-		qs.removeQuestion(this);
-		qs.addQuestion(result);
+		qs.swapFor(this, result);
 		
 		result.save();
 		qs.update();
