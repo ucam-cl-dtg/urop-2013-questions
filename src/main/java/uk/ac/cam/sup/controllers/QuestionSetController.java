@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
@@ -100,6 +101,7 @@ public class QuestionSetController {
 	@Path("/mysets")
 	@Produces("application/json")
 	public Map<?,?> produceMySets(@QueryParam("contains") Integer questionID){
+		
 		String userID = (String)request.getSession().getAttribute("RavenRemoteUser");
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(new User(userID));
@@ -119,11 +121,38 @@ public class QuestionSetController {
 			List<Map<String,?>> maplist = new ArrayList<Map<String,?>>();
 			log.debug("Trying to get all questionSets with those specially marked containing question " + questionID);
 			List<QuestionSet> haveQuestion = QuestionSetQuery.all().have(questionID).list();
-			
 			for(QuestionSet set : resultSets) {
 				maplist.add(ImmutableMap.of("set", set, "containsQuestion", haveQuestion.contains(set)));
 			}
 			return ImmutableMap.of("maplist", maplist);
 		}
+	}
+	
+	@GET
+	@Path("/remove")
+	@Produces("application/json")
+	public boolean removeQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
+		 try{
+			 QuestionSet qs = QuestionSetQuery.get(sid);
+			 qs.removeQuestion(QuestionQuery.get(qid));
+			 qs.update();
+		 } catch(Exception e) {
+			 return false;
+		 }
+		 return true;
+	}
+	
+	@GET
+	@Path("/add")
+	@Produces("application/json")
+	public boolean addQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
+		try{
+			 QuestionSet qs = QuestionSetQuery.get(sid);
+			 qs.addQuestion(QuestionQuery.get(qid));
+			 qs.update();
+		 } catch(Exception e) {
+			 return false;
+		 }
+		 return true;
 	}
 }
