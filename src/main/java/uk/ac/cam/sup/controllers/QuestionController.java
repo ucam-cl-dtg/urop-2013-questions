@@ -31,7 +31,6 @@ import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.RedirectException;
-import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/q")
 public class QuestionController {
@@ -174,12 +173,12 @@ public class QuestionController {
 		Question q = QuestionQuery.get(qe.getId());
 		q = q.edit(editor, qe);
 		
-		throw new RedirectException("/sets/"+qe.getSetId());
+		throw new RedirectException("/app/#sets/"+qe.getSetId());
 	}
 	
 	@GET
-	@Path("/{id}/{setid}/edit")
-	@ViewWith("/soy/form.question.edit")
+	@Path("/{id}/edit/{setid}")
+	@Produces("application/json")
 	public Map<?,?> showEditForm(
 			@PathParam("id") int id,
 			@PathParam("setid") int setId

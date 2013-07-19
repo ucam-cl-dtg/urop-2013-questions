@@ -240,6 +240,7 @@ public class QuestionSet extends Model {
 		r.put("owner", this.owner);
 		//r.put("timeStamp", this.timeStamp); // for direct soy access use soyTimeStamp
 		r.put("soyTimeStamp", this.timeStamp.toString());
+		r.put("plan", this.plan);
 		r.put("expectedDuration", this.getExpectedDuration());
 		r.put("parentid", null); // TODO: implement parent
 		r.put("starred", this.isStarred);

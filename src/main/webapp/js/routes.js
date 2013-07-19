@@ -14,9 +14,9 @@ $(document).ready(function() {
         "tester": function(json) { return json['isSupervisor'] ? "a" : "b";}
         // Use the last line to redirect unmatched routes to an error page
         "*undefined": "errors.notfound"*/
-    	"q/search(?:params)" : "search.main"
+    	"q/search(?:params)" : "search.main",
+    	"q/:id/edit/:setid" : "form.question.edit",
+    	"sets/:id" : "view.set"
     });
 	
 });
-
-

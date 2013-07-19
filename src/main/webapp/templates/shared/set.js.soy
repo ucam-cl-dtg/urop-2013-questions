@@ -1,0 +1,65 @@
+{namespace shared.set}
+
+/**
+ * Displays a questionset
+ * @param name
+ * @param plan
+ * @param expectedDuration
+ * @param questions
+ */
+{template .single}
+<div class="row">
+	<div class="columns large-12 small-12">
+		<h3><span class="websymbols-icon fixed-width-icon star-question-button">&#82;</span>{$name}</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="columns large-12 small-12">
+		<div class="section-container tabs" data-section="tabs">
+			<section>
+				<p class="title" data-section-title><a href="#">Content</a></p>
+				<div class="content" data-section-content>
+					<h4>Plan</h4>
+					{$plan.data}
+				</div>
+			</section>
+			<section>
+				<p class="title" data-section-title><a href="#">Questions</a></p>
+				<div class="content" data-section-content>
+					<div class="row">
+						<ul class="panels">
+							<li class="columns large-12">
+								<div class="row">
+									<div class="columns large-6 small-6">
+										<h5>Estimated time - {$expectedDuration} mins</h5>
+									</div>
+									<div class="columns large-6 small-6 text-right">
+										<h5>No. questions - {$questions.length}</h5>
+									</div>
+								</div>
+							</li>
+							{foreach $question in $questions}
+							<li class="panel-wrapper columns large-12">
+								<div class="list-panel">
+									<div class="row list-inner-panel">
+										<div class="columns large-7 small-7">
+											{$question.content.data}
+										</div>
+										<div class="columns large-5 small-5 text-right">
+											<div class="icon-button-wrapper">
+												<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="setting-work/specific-question">&#88;</a>
+												<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							{/foreach}
+						</ul>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+{/template}

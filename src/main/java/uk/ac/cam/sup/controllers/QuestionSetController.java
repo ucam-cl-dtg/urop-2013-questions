@@ -84,7 +84,7 @@ public class QuestionSetController {
 	
 	@GET
 	@Path("/{id}")
-	@ViewWith("/soy/view.set")
+	@Produces("application/json")
 	public Map<String,Object> showSingleSet(@PathParam("id") int id) {
 		return QuestionSetQuery.get(id).toMap(false);
 	}
