@@ -110,8 +110,10 @@ public class Question extends Model implements Cloneable {
 	public boolean equals(Object x){
 		if (x == null || !(x instanceof Question)) {
 			return false;
-		} if ((this.id == null) ^ (((Question)x).id == null)) {
+		} else if ((this.id == null) ^ (((Question)x).id == null)) {
 			return false;
+		} else if ((this.id == null) && (((Question)x).id == null)) {
+			return ((Question)x) == this;
 		}
 		return ((Question)x).id == this.id;
 	}
