@@ -137,6 +137,14 @@ public class QuestionController {
 	}
 	
 	@GET
+	@Path("/{id}")
+	@Produces("application/json")
+	public Map<String,Map<String,Object>> produceSingleQuestionJSONAsSingleObject(@PathParam("id") int id) {
+		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
+	}
+	
+	
+	@GET
 	@Path("/{id}/history/json")
 	@Produces("application/json")
 	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
