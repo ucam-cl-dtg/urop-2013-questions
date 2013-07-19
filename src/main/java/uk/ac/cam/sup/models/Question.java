@@ -16,20 +16,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 @Entity()
 @Table(name="Questions")
-public class Question implements Cloneable {
+public class Question extends Model implements Cloneable {
 	@Transient
 	private static Logger log = LoggerFactory.getLogger(Question.class);
 	
@@ -204,16 +202,6 @@ public class Question implements Cloneable {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
-	}
-	
-	public void save() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.save(this);
-	}
-	
-	public void update() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.update(this);
 	}
 	
 	void use() {

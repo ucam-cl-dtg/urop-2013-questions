@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table( name = "users" )
-public class User {
+public class User extends Model {
 	private boolean supervisor;
 	@Id private String id;
 	

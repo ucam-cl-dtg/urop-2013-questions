@@ -6,14 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
 import org.hibernate.annotations.GenericGenerator;
-
-import uk.ac.cam.sup.HibernateUtil;
 
 @Entity
 @Table(name="Placement")
-public class QuestionPlacement implements Comparable<QuestionPlacement> {
+public class QuestionPlacement extends Model 
+		implements Comparable<QuestionPlacement> {
 	
 	@Id
 	@GeneratedValue(generator="increment")
@@ -50,21 +48,6 @@ public class QuestionPlacement implements Comparable<QuestionPlacement> {
 	
 	public int compareTo(QuestionPlacement q) {
 		return this.place - q.place;
-	}
-	
-	public void update() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.update(this);
-	}
-	
-	public void save() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.save(this);
-	}
-	
-	public void delete() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.delete(this);
 	}
 	
 }

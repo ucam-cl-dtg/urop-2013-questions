@@ -7,13 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
-
-import uk.ac.cam.sup.HibernateUtil;
-
 @Entity
 @Table(name="Tags")
-public class Tag {
+public class Tag extends Model {
 	@Id private String name;
 	
 	public String getName() {
@@ -47,10 +43,5 @@ public class Tag {
 	
 	public int hashCode () {
 		return name.toLowerCase().hashCode();
-	}
-	
-	public void saveOrUpdate() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.saveOrUpdate(this);
 	}
 }

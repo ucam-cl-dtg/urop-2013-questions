@@ -19,18 +19,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.google.inject.OutOfScopeException;
 
-import uk.ac.cam.sup.HibernateUtil;
-
 @Entity
 @Table(name="QuestionSets")
-public class QuestionSet {
+public class QuestionSet extends Model {
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
@@ -215,15 +212,5 @@ public class QuestionSet {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
-	}
-	
-	public void save() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.save(this);
-	}
-	
-	public void update() {
-		Session session = HibernateUtil.getTransactionSession();
-		session.update(this);
 	}
 }
