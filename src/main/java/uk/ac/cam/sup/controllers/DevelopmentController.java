@@ -55,8 +55,8 @@ public class DevelopmentController {
 		z.addQuestion(c);
 		z.addQuestion(a);
 		
-		session.save(a);
-		session.save(b);
+		session.saveOrUpdate(a);
+		session.saveOrUpdate(b);
 		session.saveOrUpdate(x);
 		session.saveOrUpdate(y);
 		session.saveOrUpdate(z);
