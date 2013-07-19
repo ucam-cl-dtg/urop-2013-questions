@@ -126,14 +126,13 @@ public class QuestionSetQuery {
 	}
 	
 	public QuestionSetQuery have(Question q) {
-		criteria
-			.createAlias("questions", "q")
-			.add(Restrictions.eq("q.id", q.getId()));
+		this.have(q.getId());
 		return this;
 	}
 	public QuestionSetQuery have(int qID) {
 		criteria
-			.createAlias("questions", "q")
+			.createAlias("questions", "qp")
+			.createAlias("qp.question", "q")
 			.add(Restrictions.eq("q.id", qID));
 		return this;
 	}

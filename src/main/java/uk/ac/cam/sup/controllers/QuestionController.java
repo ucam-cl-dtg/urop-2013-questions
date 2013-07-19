@@ -141,10 +141,10 @@ public class QuestionController {
 	@Path("/{id}/history/json")
 	@Produces("application/json")
 	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
-		List<Question> history = new ArrayList<Question>();
+		List<Map<?,?>> history = new ArrayList<Map<?,?>>();
 		
 		for (Question q = QuestionQuery.get(id); q != null; q = q.getParent()) {
-			history.add(q);
+			history.add(q.toMap());
 		}
 		
 		return ImmutableMap.of("history",history);
@@ -154,6 +154,7 @@ public class QuestionController {
 	@Path("/{id}/forks/json")
 	@Produces("application/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
+		// TODO: change to maps
 		return QuestionQuery.all().withParent(id).list();
 	}
 	
