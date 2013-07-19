@@ -54,16 +54,20 @@
 	<div style="max-height: 200px; max-width: 600px; y-overflow: auto; x-overflow: none; display: inline-block">
 	<table style="min-width: 300px">
 		{foreach $map in $maplist}
-			<tr>
-				{if $map.containsQuestion == true}	
-					<td style="background-color:#B4FF9C" contains="true"
-				{else}
-					<td style="background-color:#D8D8D8" contains="false"
-				{/if}
+			{if $map.containsQuestion == true}	
+				<tr style="background-color:#B4FF9C">
+					<td contains="true"
+			{else}
+				<tr style="background-color:#D8D8D8">
+					<td contains="false"
+			{/if}
 					class="select-set" sid={$map.set.id}><a href="TODO">{$map.set.name}</a>
 					
-				</td>
-			</tr>
+					</td>
+					<td>
+						<a href="/app/#sets/{$map.set.id}">&gt;</a>
+					</td>
+				</tr>
 		{/foreach}
 	</table></div>
 {/template}

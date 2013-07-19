@@ -29,13 +29,13 @@ $(document).ready(function() {
 		function toggleComplete(type, successful){
 			if(!successful){
 				alert("Error while trying to " + type + " a question.");
-				$(this).css('background-color', '#FF9900');
+				$(this).parent().css('background-color', '#FF9900');
 			}
 		}
 		
 		if($(this).attr('contains') == "true"){
 			
-			$(this).css('background-color', '#D8D8D8');
+			$(this).parent().css('background-color', '#D8D8D8');
 			$(this).attr('contains', 'false');
 			
 			$.getJSON("/sets/remove?sid=" + sid + "&qid=" + qid, function(successful) {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 			
 		} else {
 			
-			$(this).css('background-color', '#B4FF9C');
+			$(this).parent().css('background-color', '#B4FF9C');
 			$(this).attr('contains', 'true');
 			
 			$.getJSON("/sets/add?sid=" + sid + "&qid=" + qid, function(successful) {
