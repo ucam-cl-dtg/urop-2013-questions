@@ -13,7 +13,8 @@
 		<custom_scripts>
 			<![CDATA[
 				<script src="/js/search.js"></script>
-				<script src="/js/question.js"></script>
+				<script src="/js/questionFull.js"></script>
+				<script src="/js/questionShort.js"></script>
 			]]>
 		</custom_scripts>
 		<custom_templates>
