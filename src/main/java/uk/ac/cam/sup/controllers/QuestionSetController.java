@@ -25,7 +25,6 @@ import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
-import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
