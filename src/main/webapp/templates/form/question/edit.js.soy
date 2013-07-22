@@ -9,7 +9,7 @@
  * @param expectedDuration
  */
 {template .edit}
-<form method="POST" action="/q/save">
+<form method="POST" action="/q/update">
 	<input type="hidden" name="id" value="{$id}" />
 	<textarea name="content">{if $content}{$content}{/if}</textarea>
 	<textarea name="notes">{if $notes}{$notes}{/if}</textarea>

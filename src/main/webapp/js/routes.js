@@ -17,6 +17,7 @@ $(document).ready(function() {
 		"q/:id" : "view.questionFull",
 		"q/search(?:params)" : "search.main",
     	"q/:id/edit/:setid" : "form.question.edit",
+    	"q/add/:setid" : "form.question.add",
     	"sets/:id" : "view.set"
     	
     });

@@ -1,0 +1,15 @@
+{namespace form.question}
+
+/**
+ * Add question form
+ * @param setId
+ */
+{template .add}
+<form method="POST" action="/q/save">
+	<textarea name="content"></textarea>
+	<textarea name="notes"></textarea>
+	<input type="number" name="expectedDuration" value="0" />
+	<input type="hidden" name="setId" value="{$setId}" />
+	<input type="submit" value="Submit" />	
+</form>
+{/template}

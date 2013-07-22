@@ -21,18 +21,20 @@ import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
+import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.ppdloader.PPDLoader;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.SearchTerm;
-import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.RedirectException;
 
-@Path(WorldStrings.URL_PREFIX + "/q")
+@Path("/q")
 public class QuestionController {
 	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
@@ -166,7 +168,7 @@ public class QuestionController {
 	}
 	
 	@POST
-	@Path("/save")
+	@Path("/update")
 	public void editQuestion(@Form QuestionEdit qe) {
 		User editor = new User(
 				(String) request.getSession().getAttribute("RavenRemoteUser")
@@ -184,6 +186,31 @@ public class QuestionController {
 		throw new RedirectException("/app/#sets/"+qe.getSetId());
 	}
 	
+	@POST
+	@Path("/save")
+	public void addQuestion(@Form QuestionAdd qa) {
+		User author = new User(
+				(String) request.getSession().getAttribute("RavenRemoteUser")
+		);
+		
+		try {
+			qa.validate();
+		} catch (Exception e) {
+			throw new RedirectException("/q/error/?msg="+e.getMessage());
+		}
+		
+		Question q = new Question(author);
+		q.setContent(qa.getContent());
+		q.setNotes(qa.getNotes());
+		q.setExpectedDuration(qa.getExpectedDuration());
+		q.save();
+		QuestionSet qs = QuestionSetQuery.get(qa.getSetId());
+		qs.addQuestion(q);
+		qs.update();
+		
+		throw new RedirectException("/app/#sets/"+qa.getSetId());
+	}
+	
 	@GET
 	@Path("/{id}/edit/{setid}")
 	@Produces("application/json")
@@ -199,6 +226,18 @@ public class QuestionController {
 		r.put("notes", q.getNotes().getData());
 		r.put("setId", setId);
 		r.put("expectedDuration", q.getExpectedDuration());
+		
+		return r;
+	}
+	
+	@GET
+	@Path("/add/{setid}")
+	@Produces("application/json")
+	public Map<?,?> showAddForm (
+			@PathParam("setid") int setId
+	) {
+		Map<String,Object> r = new HashMap<String,Object>();
+		r.put("setId", setId);
 		
 		return r;
 	}

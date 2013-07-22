@@ -6,7 +6,7 @@ import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
-public class QuestionForm {
+public abstract class QuestionForm {
 private boolean validated = false;
 	
 	@FormParam("content")

@@ -34,7 +34,11 @@
 							<li class="columns large-12">
 								<div class="row">
 									<div class="columns large-6 small-6">
-										<h5>Estimated time - {$expectedDuration} mins</h5>
+										<h5>Estimated time -{' '}
+											{call shared.utils.estimatedDuration}
+												{param mins: $expectedDuration /}
+											{/call}
+										</h5>
 									</div>
 									<div class="columns large-6 small-6 text-right">
 										<h5>No. questions - {$questions.length}</h5>
@@ -58,66 +62,27 @@
 					<h4>Select questions...</h4>
 					<div class="row">
 						<ul class="panels">
+							{foreach $question in $questions}
 							<li class="panel-wrapper columns large-12 question-to-add-to-set">
 								<div class="list-panel">
 									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 1</div>
+										<div class="columns large-7 small-7">{$question.content.data}</div>
 										<div class="columns large-5 small-5 text-right"></div>
 									</div>
 								</div>
 							</li>
-							<li class="panel-wrapper columns large-12 question-to-add-to-set">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 2</div>
-										<div class="columns large-5 small-5 text-right"></div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12 question-to-add-to-set">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 3</div>
-										<div class="columns large-5 small-5 text-right"></div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12 question-to-add-to-set">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 4</div>
-										<div class="columns large-5 small-5 text-right"></div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12 question-to-add-to-set">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 5</div>
-										<div class="columns large-5 small-5 text-right"></div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12 question-to-add-to-set">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question 6</div>
-										<div class="columns large-5 small-5 text-right"></div>
-									</div>
-								</div>
-							</li>
+							{/foreach}
+							
 						</ul>
 					</div>
 					<h4>Select set...</h4>
-					<form class="custom">
-						<select>
-							<option>Question set 1</option>
-							<option>Question set 2</option>
-							<option>Question set 3</option>
-							<option>Question set 4</option>
-							<option>Question set 5</option>
-						</select>
-						<input type="submit" value="Add to set" />
+					<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
+						<div class="async-loader" data-path="sets/mysets" template-name="shared.set.options">
+						</div>
+						
+						<input type="hidden" name="sourceSetId" value="{$id}" />
+						<input type="hidden" name="questions" value="" />
+						<input type="submit" value="Add to set" id="add-questions-to-set-button" />
 					</form>
 				</div>
 			</section>
@@ -153,10 +118,61 @@
 					</div>
 				</div>
 			</section>
+			<section>
+				<p class="title" data-section-title><a href="#">Create question</a></p>
+				<div class="content" data-section-content>
+					<form method="POST" action="/q/save">
+						<h4>Content</h4>
+						<div>
+							<textarea name="content"></textarea>
+						</div>
+						<h4>Solution notes</h4>
+						<div>
+							<textarea name="notes"></textarea>
+						</div>
+						<h4>Estimated duration</h4>
+						<div>
+							<input type="number" name="expectedDuration" value="10" />
+						</div>
+						<div class="text-right">
+							<input type="hidden" name="setId" value="{$id}" />
+							<input type="submit" value="Submit" />
+						</div>
+					</form>
+				</div>
+			</section>
 			
 		</div>
 	</div>
 </div>
+{literal}
+	<script>	
+		$("#add-questions-to-set-button").on("click", function(e) {
+			e.preventDefault();
+			
+			var selected = [];
+			$(".list-panel.success").each(function() {
+				selected.push($(this).parent().index());
+			});
+			
+			$("input[name=questions]").prop("value", selected);
+			
+			$(this).parent().submit();
+		});
+	</script>
+{/literal}
+
+{/template}
+
+/**
+ * @param sets
+ */
+{template .options}
+	<select name="targetSetId">
+	{foreach $set in $sets}
+		<option value="{$set.id}">{$set.name}</option>
+	{/foreach}
+	</select>
 {/template}
 
 /**
@@ -174,7 +190,7 @@
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
 					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="setting-work/specific-question"><i class="icon-arrow_doubled_right icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
 				</div>
 			</div>

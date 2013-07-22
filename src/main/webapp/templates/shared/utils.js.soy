@@ -1,0 +1,31 @@
+{namespace shared.utils}
+
+/**
+ * Converts estimated time from minutes to years, days, hours, minutes form
+ * @param mins
+ */
+{template .estimatedDuration}
+{if $mins / (60*24*365) >= 2}
+	{floor($mins/(60*24*365))} years,{' '}
+{elseif $mins / (60*24*365) >= 1}
+	1 year,{' '}
+{/if}
+
+{if $mins % (60*24*365) / (60*24) >= 2}
+	{floor($mins % (60*24*365) / (60*24))} days,{' '}
+{elseif $mins % (60*24*365) / (60*24) >= 1}
+	1 day,{' '}
+{/if}
+
+{if $mins % (60*24) / (60) >= 2}
+	{floor($mins % (60*24) / (60))} hours,{' '}
+{elseif $mins % (60*24) / (60) >= 1}
+	1 hour,{' '}
+{/if}
+
+{if floor($mins % 60) == 1}
+	1 minute
+{else}
+	{floor($mins % 60)} minutes
+{/if}
+{/template}
