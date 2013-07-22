@@ -5,7 +5,8 @@ moduleScripts['questions'] = {
 	    ],
 		'set': [
 				configureRemoveQuestion,
-				configureSelectQuestion
+				configureSelectQuestion,
+				configureUseTabSubmitButton,
 		]
 
 	},
@@ -23,12 +24,27 @@ moduleScripts['questions'] = {
 
 function configureRemoveQuestion () {
 	$(document).on('click', '.remove-question-from-set', function() {
-		alert('adsf');
+		
 	});
 }
 
 function configureSelectQuestion () {
 	$(document).on('click', '.question-to-add-to-set', function() {
 		$(this).children('.list-panel').toggleClass('success');
+	});
+}
+
+function configureUseTabSubmitButton() {
+	$("#add-questions-to-set-button").on("click", function(e) {
+		e.preventDefault();
+		
+		var selected = [];
+		$(".list-panel.success").each(function() {
+			selected.push($(this).parent().index());
+		});
+		
+		$("input[name=questions]").prop("value", selected);
+		
+		$(this).parent().submit();
 	});
 }

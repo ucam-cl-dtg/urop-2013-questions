@@ -45,32 +45,4 @@
 		</div>
 	</div>
 </div>
-{literal}
-	<script>	
-		$("#add-questions-to-set-button").on("click", function(e) {
-			e.preventDefault();
-			
-			var selected = [];
-			$(".list-panel.success").each(function() {
-				selected.push($(this).parent().index());
-			});
-			
-			$("input[name=questions]").prop("value", selected);
-			
-			$(this).parent().submit();
-		});
-	</script>
-{/literal}
-
-{/template}
-
-/**
- * @param sets
- */
-{template .options}
-<select>
-	{foreach $set in $sets}
-		<option value="{$set.id}">{$set.name}</option>
-	{/foreach}
-</select>
 {/template}

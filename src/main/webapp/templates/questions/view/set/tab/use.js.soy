@@ -22,7 +22,7 @@
 		</div>
 		<h4>Select set...</h4>
 		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.options"></div>
+			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
 			
 			<input type="hidden" name="sourceSetId" value="{$id}" />
 			<input type="hidden" name="questions" value="" />
@@ -44,4 +44,15 @@
 		</div>
 	</div>
 </li>
+{/template}
+
+/**
+ * @param sets
+ */
+{template .options}
+<select name="targetSetId">
+	{foreach $set in $sets}
+		<option value="{$set.id}">{$set.name}</option>
+	{/foreach}
+</select>
 {/template}
