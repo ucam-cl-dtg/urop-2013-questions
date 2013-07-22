@@ -23,8 +23,8 @@
 				<script src="/soy/js/1/questions.view.js"></script>
 				<script src="/soy/js/1/questions.form.question.js"></script>
 
-				<!--<script src="/soy/js/1/form.question.js"></script>
-				<script src="/soy/js/1/view.set.tab.js"></script>-->
+				<script src="/soy/js/1/questions.form.question.js"></script>
+				<script src="/soy/js/1/questions.view.set.tab.js"></script>
 			]]>
 		</custom_templates>
 	</properties>
