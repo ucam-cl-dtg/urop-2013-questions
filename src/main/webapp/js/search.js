@@ -1,13 +1,8 @@
-$(document).ready(function() {
+function searchSetup() {
 	//alert("reload");
-	$(".main").on("click", ".toggle-question", function() {
-		//alert(document.URL);
-		alert($(this).attr('foobar'));
-		return false;
-	});
 	$(".main").on('submit', "#questions-searchform", function(){
-		var qlist = $("#questionList");
-		qlist.empty();
+		var $qlist = $("#questionList");
+		$qlist.empty();
 		var newList = document.createElement("div");
 		
 		var searchTerms = "?";
@@ -33,9 +28,9 @@ $(document).ready(function() {
 		
 		//window.location.search = searchTerms;
 		
-		qlist.append(newList);
+		$qlist.append(newList);
 		return false;
 	});
 	
 	
-});
+}

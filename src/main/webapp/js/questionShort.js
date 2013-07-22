@@ -1,8 +1,9 @@
-$(document).ready(function() {
+function questionShortSetup() {
 	
 	$(".main").on("click", ".use-question", function() {
 		//alert(document.URL);
 		//console.log($(this).siblings());
+		
 		if($(this).siblings().hasClass('use-dialog')) {
 			$(this).siblings('.use-dialog').slideToggle();
 		} else {
@@ -10,11 +11,17 @@ $(document).ready(function() {
 			$(newDialog).hide().addClass("use-dialog");
 			$(this).parent().append(newDialog);
 			
-			$.getJSON("/sets/mysets?contains=" + $(this).attr('data-qid'), function(data) {
+			/*$.getJSON("/sets/mysets?contains=" + $(this).attr('data-qid'), function(data) {
 				console.log(data);
 				soy.renderElement(newDialog, shared.question.useDialog,data);
-				$(newDialog).slideToggle()
+				$(newDialog).slideToggle();
+			});*/
+			
+			loadModule($(newDialog), "sets/mysets?contains=" + $(this).attr('data-qid'),
+					"shared.question.useDialog", function(){
+				$(newDialog).slideToggle();
 			});
+			
 		}
 		
 		//alert($(this).attr('qid'));
@@ -55,4 +62,4 @@ $(document).ready(function() {
 		return false;
 	});
 	
-});
+}

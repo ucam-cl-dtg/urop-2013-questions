@@ -6,12 +6,8 @@ moduleScripts['questions'] = {
 	},
     'search' : {
     	'main': [
-	        function() {
-	            alert("It works");
-	        },
-	        function() {
-	            confirm("Are you sure it works");
-	        }
+	        searchSetup,
+	        questionShortSetup,
 	    ]
 	}
 }
