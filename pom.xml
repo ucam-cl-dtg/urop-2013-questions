@@ -19,9 +19,9 @@
 		</custom_scripts>
 		<custom_templates>
 			<![CDATA[
-				<script src="/soy/js/1/search.js"></script>
-				<script src="/soy/js/1/view.js"></script>
-				<script src="/soy/js/1/form.question.js"></script>
+				<script src="/soy/js/1/questions.search.js"></script>
+				<script src="/soy/js/1/questions.view.js"></script>
+				<script src="/soy/js/1/questions.form.question.js"></script>
 			]]>
 		</custom_templates>
 	</properties>
