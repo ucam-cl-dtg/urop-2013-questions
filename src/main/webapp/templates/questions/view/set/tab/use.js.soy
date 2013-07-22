@@ -1,0 +1,58 @@
+{namespace questions.view.set.tab.use}
+
+/**
+ * Use tab
+ * @param id
+ * @param questions
+ */
+{template .full}
+<section>
+	<p class="title" data-section-title><a href="#">Use</a></p>
+	<div class="content" data-section-content>
+		<h4>Select questions...</h4>
+		<div class="row">
+			<ul class="panels">
+				{foreach $question in $questions}
+					{call .question}
+						{param content: $question.content /}
+					{/call}
+				{/foreach}
+				
+			</ul>
+		</div>
+		<h4>Select set...</h4>
+		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
+			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+			
+			<input type="hidden" name="sourceSetId" value="{$id}" />
+			<input type="hidden" name="questions" value="" />
+			<input type="submit" value="Add to set" id="add-questions-to-set-button" />
+		</form>
+	</div>
+</section>
+{/template}
+
+/**
+ * @param content
+ */
+{template .question}
+<li class="panel-wrapper columns large-12 question-to-add-to-set">
+	<div class="list-panel">
+		<div class="row list-inner-panel">
+			<div class="columns large-7 small-7">{$content.data}</div>
+			<div class="columns large-5 small-5 text-right"></div>
+		</div>
+	</div>
+</li>
+{/template}
+
+/**
+ * @param sets
+ */
+{template .options}
+<select name="targetSetId">
+	{foreach $set in $sets}
+		<option value="{$set.id}">{$set.name}</option>
+	{/foreach}
+</select>
+{/template}

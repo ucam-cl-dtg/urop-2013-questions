@@ -1,13 +1,48 @@
 {namespace questions.view}
 
 /**
- * Single set view
+ * Displays a questionset
  * @param name
- * @param questions
  * @param plan
  * @param expectedDuration
+ * @param questions
  * @param id
  */
 {template .set}
-	{call shared.set.single data="all" /}
+<div class="row">
+	<div class="columns large-12 small-12">
+		<h3><span class="websymbols-icon fixed-width-icon star-question-button">&#82;</span>{$name}</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="columns large-12 small-12">
+		<div class="section-container tabs" data-section="tabs">
+			{call questions.view.set.tab.plan.full}
+				{param plan: $plan /}
+			{/call}
+			
+			{call questions.view.set.tab.questions.full}
+				{param id: $id /}
+				{param questions: $questions /}
+				{param expectedDuration: $expectedDuration /}
+			{/call}
+			
+			{call questions.view.set.tab.use.full}
+				{param id: $id /}
+				{param questions: $questions /}
+			{/call}
+			
+			{call questions.view.set.tab.edit.full}
+				{param id: $id /}
+				{param plan: $plan.data /}
+				{param name: $name /}
+				{param questions: $questions /}
+			{/call}
+			
+			{call questions.view.set.tab.createquestion.full}
+				{param id: $id /}
+			{/call}
+		</div>
+	</div>
+</div>
 {/template}
