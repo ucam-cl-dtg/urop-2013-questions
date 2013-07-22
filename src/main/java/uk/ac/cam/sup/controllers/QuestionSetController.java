@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -14,9 +15,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import org.hibernate.criterion.Order;
+import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionSetFork;
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -25,6 +29,7 @@ import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
+import com.googlecode.htmleasy.RedirectException;
 
 @Path(WorldStrings.URL_PREFIX + "/sets")
 public class QuestionSetController {
@@ -153,5 +158,16 @@ public class QuestionSetController {
 			 return false;
 		 }
 		 return true;
+	}
+	
+	@POST
+	@Path("/fork")
+	public void forkSet(@Form QuestionSetFork form) throws Exception {
+		form.validate().parse();
+		for (Question q: form.getQuestions()) {
+			form.getTarget().addQuestion(q);
+		}
+		form.getTarget().update();
+		throw new RedirectException("/app/#sets/"+form.getTarget().getId());
 	}
 }

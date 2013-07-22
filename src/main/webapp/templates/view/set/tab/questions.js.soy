@@ -1,0 +1,64 @@
+{namespace view.set.tab.questions}
+
+/**
+ * Questions tab
+ * @param expectedDuration
+ * @param questions
+ * @param id
+ */
+{template .full}
+<section>
+	<p class="title" data-section-title><a href="#">Questions</a></p>
+	<div class="content" data-section-content>
+		<div class="row">
+			<ul class="panels">
+				<li class="columns large-12">
+					<div class="row">
+						<div class="columns large-6 small-6">
+							<h5>Estimated time -{' '}
+								{call shared.utils.estimatedDuration}
+									{param mins: $expectedDuration /}
+								{/call}
+							</h5>
+						</div>
+						<div class="columns large-6 small-6 text-right">
+							<h5>No. questions - {$questions.length}</h5>
+						</div>
+					</div>
+				</li>
+				{foreach $question in $questions}
+					{call .question}
+						{param content: $question.content /}
+						{param id: $question.id /}
+						{param setid: $id /}
+					{/call}
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+</section>
+{/template}
+
+/**
+ * @param content
+ * @param id
+ * @param setid
+ */
+{template .question}
+<li class="panel-wrapper columns large-12">
+	<div class="list-panel">
+		<div class="row list-inner-panel">
+			<div class="columns large-7 small-7">
+				{$content.data}
+			</div>
+			<div class="columns large-5 small-5 text-right">
+				<div class="icon-button-wrapper">
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</li>
+{/template}

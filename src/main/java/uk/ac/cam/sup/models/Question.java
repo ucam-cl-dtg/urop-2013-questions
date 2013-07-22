@@ -64,6 +64,7 @@ public class Question extends Model implements Cloneable {
 	private Question() {}
 	public Question(User owner){
 		this.owner = owner;
+		this.timeStamp = new Date();
 	}
 	
 	public Integer getId(){
