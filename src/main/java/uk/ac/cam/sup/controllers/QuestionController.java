@@ -23,9 +23,11 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
+import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.ppdloader.PPDLoader;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 import uk.ac.cam.sup.util.WorldStrings;
 
@@ -210,4 +212,28 @@ public class QuestionController {
 		return PPDLoader.loadAllQuestions();
 	}
 	
+	@POST
+	@Path("/tagsnotin")
+	@Produces("application/json")
+	public List<Map<String,String>> getTagsNotInQuestion(String strInput) {
+		int equPos = strInput.indexOf("=");
+		int qid = Integer.parseInt(strInput.substring(0, equPos));
+		String strTagPart = strInput
+				.substring(equPos + 1)
+				.replace("+", " ");
+		
+		log.debug("Trying to get all tags containing " + strTagPart + " which are NOT in question " + qid);
+		
+		List<Tag> tags = TagQuery.all()
+				.notContainedIn(QuestionQuery.get(qid))
+				.contains(strTagPart)
+				.list();
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		
+		for(Tag tag : tags) {
+			results.add(ImmutableMap.of("name", tag.getName()));
+		}
+		
+		return results;
+	}
 }

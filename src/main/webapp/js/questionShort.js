@@ -10,7 +10,7 @@ $(document).ready(function() {
 			$(newDialog).hide().addClass("use-dialog");
 			$(this).parent().append(newDialog);
 			
-			$.getJSON("/sets/mysets?contains=" + $(this).attr('qid'), function(data) {
+			$.getJSON("/sets/mysets?contains=" + $(this).attr('data-qid'), function(data) {
 				console.log(data);
 				soy.renderElement(newDialog, shared.question.useDialog,data);
 				$(newDialog).slideToggle()
@@ -23,8 +23,8 @@ $(document).ready(function() {
 	
 	$(".main").on("click", ".select-set", function() {
 		//alert($(this).attr('contains'));
-		var qid = $(this.parentNode.parentNode.parentNode.parentNode.parentNode).siblings('.use-question').attr('qid');
-		var sid = $(this).attr('sid');
+		var qid = $(this.parentNode.parentNode.parentNode.parentNode.parentNode).siblings('.use-question').attr('data-qid');
+		var sid = $(this).attr('data-sid');
 		
 		function toggleComplete(type, successful){
 			if(!successful){

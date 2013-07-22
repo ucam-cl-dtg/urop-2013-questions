@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.form.QuestionEdit;
+import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 @Entity()
@@ -167,7 +168,11 @@ public class Question extends Model implements Cloneable {
 	public Question edit(User editor, QuestionEdit qe) {
 		boolean inPlace = (editor.equals(owner))
 				&& (qe.isMinor() || (this.usageCount <= 1));
-		
+		if(inPlace){
+			if(QuestionQuery.all().withParent(qe.getId()).list().size() < 1) {
+				inPlace = false;
+			}
+		}
 		if (inPlace) {
 			return this.inPlaceEdit(qe);
 		} else {

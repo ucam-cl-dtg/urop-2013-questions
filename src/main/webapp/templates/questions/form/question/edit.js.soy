@@ -1,0 +1,21 @@
+{namespace questions.form.question}
+
+/**
+ * Edit question form
+ * @param id
+ * @param content
+ * @param notes
+ * @param setId
+ * @param expectedDuration
+ */
+{template .edit}
+<form method="POST" action="/q/save">
+	<input type="hidden" name="id" value="{$id}" />
+	<textarea name="content">{if $content}{$content}{/if}</textarea>
+	<textarea name="notes">{if $notes}{$notes}{/if}</textarea>
+	<input type="number" name="expectedDuration" value="{$expectedDuration}" />
+	<input type="hidden" name="setId" value="{$setId}" />
+	<input type="checkbox" name="minor" value="true">This is a minor update</input>
+	<input type="submit" value="Submit" />	
+</form>
+{/template}

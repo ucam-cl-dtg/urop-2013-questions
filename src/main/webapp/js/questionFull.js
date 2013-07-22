@@ -1,12 +1,18 @@
-$(document).ready(function() {
-	/*$(".main").tokenInput("/signapp/groups/queryCRSID", {
-    	method: "post",
-        tokenValue: "crsid",
-        propertyToSearch: "crsid",
+function configureInputField() {
+	var $inputField = $(".main").find("#tags-input");
+	$inputField.tokenInput("/q/tagsnotin", {
+		method: "post",
+        queryParam: $inputField.attr("data-qid"),
+        tokenValue: "name",
+        propertyToSearch: "name",
         theme: "facebook",
-        minChars: 3,
+        minChars: 2,
+        hintText: "Begin typing tags to add here!",
+        noResultsText: "No tags found.",
+        resultsLimit: 10,
+        preventDuplicates: true,
         
-        resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + " (" + item.crsid + ")</div><div class='email'>" + item.crsid + "@cam.ac.uk</div></div></li>" },
-        tokenFormatter: function(item) { return "<li><p>" + item.name + " (" + item.crsid + ")</p></li>" },                           
-	});*/
-});
+        resultsFormatter: function(item){ return "<li><div style='display: inline-block; padding-left: 10px;'><div class='tag_name'>" + item.name + "</div></li>"; },
+        tokenFormatter: function(item) { return "<li>" + item.name + "</li>"; }         
+	});
+}

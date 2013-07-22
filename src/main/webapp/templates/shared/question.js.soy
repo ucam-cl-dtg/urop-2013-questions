@@ -7,7 +7,26 @@
  * @param? setid
  */
 {template .singleShort}
-<article>
+<li class="panel-wrapper columns large-12">
+	<div class="list-panel">
+		<div class="row list-inner-panel">
+			<div class="columns large-7 small-7">
+				{$content.data}
+			</div>
+			<div class="columns large-2 small-2 text-right"><i>{$owner.id}</i></div>
+			<div class="columns large-3 small-3 text-right">
+				<div class="icon-button-wrapper">
+					{if $setid}
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
+					{/if}
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
+				</div>
+			</div>		
+		</div>
+	</div>
+</li>
+/*<article>
 	//<a class="toggle-question" foobar="woo woo woo" href="google.com">+</a>
 	<p class="questioncontent">{$content.data}</p>
 	<p class="questionoptions">
@@ -26,9 +45,9 @@
 		&thinsp;| <a href="/app/#q/{$id}/edit/{$setid}">edit</a>
 	{/if}
 	
-	&thinsp;| <a class="use-question" qid="{$id}" href="/app/#q/">Use...</a>
+	&thinsp;| <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a>
 	</p>
-</article>
+</article>*/
 {/template}
 
 /**
@@ -37,6 +56,7 @@
  * @param? setid
  */
 {template .multiple}
+	<ul class="panels">
 	{foreach $question in $questions}
 		{call .singleShort}
 			{param id: $question.id /}
@@ -45,6 +65,7 @@
 			{param setid: $setid /}
 		{/call}
 	{/foreach}
+	</ul>
 {/template}
 
 /**
@@ -61,7 +82,7 @@
 				<tr style="background-color:#D8D8D8">
 					<td contains="false"
 			{/if}
-					class="select-set" sid={$map.set.id}><a href="TODO">{$map.set.name}</a>
+					class="select-set" data-sid={$map.set.id}><a href="TODO">{$map.set.name}</a>
 					
 					</td>
 					<td>
@@ -110,26 +131,7 @@
 				<p class="title" data-section-title><a href="#">Tags</a></p>
 				<div class="content" data-section-content>
 					<div class="tag-search-panel">
-						Add new tags:<input type="text" id="tags-input" />
-						
-					
-					{literal}
-                    <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("#tags-input").tokenInput("/signapp/groups/queryCRSID", {
-                            method: "post",
-                            tokenValue: "crsid",
-                            propertyToSearch: "crsid",
-                            theme: "facebook",
-                            minChars: 2,
-                            
-                            resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + " (" + item.crsid + ")</div><div class='email'>" + item.crsid + "@cam.ac.uk</div></div></li>" },
-                            tokenFormatter: function(item) { return "<li><p>" + item.name + " (" + item.crsid + ")</p></li>" },                           
-                        });
-                    });
-                    </script>
-                    {/literal}
-					
+						<input type="text" id="tags-input" data-qid="{$question.id}" />
 					</div>
 					<ul class="tags text-center">
 						{foreach $tag in $question.tags}

@@ -14,10 +14,10 @@ $(document).ready(function() {
         "tester": function(json) { return json['isSupervisor'] ? "a" : "b";}
         // Use the last line to redirect unmatched routes to an error page
         "*undefined": "errors.notfound"*/
-		"q/:id" : "view.questionFull",
-		"q/search(?:params)" : "search.main",
-    	"q/:id/edit/:setid" : "form.question.edit",
-    	"sets/:id" : "view.set"
+		"q/:id" : "questions.view.questionFull",
+		"q/search(?:params)" : "questions.search.main",
+    	"q/:id/edit/:setid" : "questions.form.question.edit",
+    	"sets/:id" : "questions.view.set"
     	
     });
 	
