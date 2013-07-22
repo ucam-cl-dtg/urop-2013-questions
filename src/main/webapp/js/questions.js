@@ -2,7 +2,12 @@ moduleScripts['questions'] = {
     'view' : {
     	'questionFull': [
 		configureInputField,
-	    ]
+	    ],
+		'set': [
+				configureRemoveQuestion,
+				configureSelectQuestion
+		]
+
 	},
     'search' : {
     	'main': [
@@ -16,4 +21,14 @@ moduleScripts['questions'] = {
 	}
 }
 
+function configureRemoveQuestion () {
+	$(document).on('click', '.remove-question-from-set', function() {
+		alert('adsf');
+	});
+}
 
+function configureSelectQuestion () {
+	$(document).on('click', '.question-to-add-to-set', function() {
+		$(this).children('.list-panel').toggleClass('success');
+	});
+}
