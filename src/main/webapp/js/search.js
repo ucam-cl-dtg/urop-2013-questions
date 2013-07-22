@@ -18,13 +18,16 @@ $(document).ready(function() {
 		}
 		permalink = permalink + searchTerms; 
 		//alert(window.location.hash.indexOf("?"));
-		
+		/*
 		$.getJSON("/q/search" + searchTerms, function(data) {
 			soy.renderElement(newList, search.results, 
 				{questions: data.questions, permalink: "/app/" + permalink}
 			);
+		});*/
+		loadModule($(newList), "q/search" + searchTerms, function(json){
+			json.permalink = permalink;	
+			return "questions.search.results"
 		});
-		
 		//window.location.hash = permalink;
 		
 		
