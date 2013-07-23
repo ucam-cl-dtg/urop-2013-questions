@@ -1,13 +1,13 @@
 moduleScripts['questions'] = {
     'view' : {
     	'questionFull': [
-    	        configureInputField,
+			configureInputField,
 	    ],
 		'set': [
-				configureRemoveQuestion,
-				configureSelectQuestion,
-				configureUseTabSubmitButton,
-				configureEditQuestion
+			configureRemoveQuestion,
+			configureSelectQuestion,
+			configureUseTabSubmitButton,
+			configureEditQuestion
 		]
 
 	},

@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import uk.ac.cam.sup.HibernateUtil;
+
 @Entity
 @Table(name="Tags")
-public class Tag extends Model {
+public class Tag extends Model implements Comparable<Tag>{
 	@Id private String name;
 	
 	public String getName() {
@@ -20,6 +22,10 @@ public class Tag extends Model {
 	private Tag(){}
 	public Tag(String name) {
 		this.name = name;
+	}
+	
+	public int compareTo(Tag tag){
+		return this.getName().compareTo(tag.getName());
 	}
 	
 	public static Set<Tag> parseTagString(String taglist) {
