@@ -7,7 +7,7 @@ moduleScripts['questions'] = {
 			configureRemoveQuestion,
 			configureSelectQuestion,
 			configureUseTabSubmitButton,
-			configureEditQuestion
+			configureStarToggler
 		]
 
 	},
@@ -85,9 +85,14 @@ function configureUseTabSubmitButton() {
 	});
 }
 
-function configureEditQuestion() {
-	$('.expand-sub-panel').on('click', function() {
-		$(this).closest('sub-panel').slideToggle();
+function configureStarToggler() {
+	$('.star-question-button').on('click', function() {
+		var setId = $(this).attr('data-set-id');
+		var $star = $(this);
+		$.get('/sets/'+setId+'/togglestar', function() {
+			$star.find('i')
+				.toggleClass('icon-star')
+				.toggleClass('icon-star_empty');
+		});
 	});
-	
 }

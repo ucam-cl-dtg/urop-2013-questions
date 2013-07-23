@@ -174,5 +174,5 @@ public class QuestionQuery {
 		criteria.add(Restrictions.le("expectedDuration", minutes));
 		return this;
 	}
-	
+
 }
