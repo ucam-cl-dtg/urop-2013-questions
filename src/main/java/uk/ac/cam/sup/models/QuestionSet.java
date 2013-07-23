@@ -124,6 +124,7 @@ public class QuestionSet extends Model {
 	}
 	
 	public void addQuestion(Question question) {
+		if (getQuestions().contains(question)) { return; }
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
 		questions.add(qp);
