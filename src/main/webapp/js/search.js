@@ -20,8 +20,9 @@ function searchSetup() {
 			);
 		});*/
 		loadModule($(newList), "q/search" + searchTerms, function(json){
+			console.log(json);
 			json.permalink = permalink;	
-			return "questions.search.results"
+			return "questions.search.results";
 		});
 		//window.location.hash = permalink;
 		

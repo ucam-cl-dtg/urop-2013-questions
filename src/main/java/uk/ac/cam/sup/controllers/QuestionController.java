@@ -2,6 +2,7 @@ package uk.ac.cam.sup.controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,14 +25,13 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.models.Question;
-
-import uk.ac.cam.sup.models.Tag;
-import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.models.QuestionSet;
+import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.ppdloader.PPDLoader;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
@@ -39,129 +39,147 @@ import com.googlecode.htmleasy.RedirectException;
 
 @Path("/q")
 public class QuestionController {
-	private static Logger log = LoggerFactory.getLogger(QuestionController.class);
-	
+	private static Logger log = LoggerFactory
+			.getLogger(QuestionController.class);
+
 	@Context
 	private HttpServletRequest request;
-	
+
 	@GET
 	@Path("/search")
-	//@ViewWith("/soy/search.main")
+	// @ViewWith("/soy/search.main")
 	@Produces("application/json")
-	public Map<String, ?> searchQuestionsView(
-			@QueryParam("tags") String tags,
+	public Map<String, ?> searchQuestionsView(@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
 			@QueryParam("supervisor") Boolean supervisor,
-			@QueryParam("after") Long after,
-			@QueryParam("before") Long before,
+			@QueryParam("after") Long after, @QueryParam("before") Long before,
 			@QueryParam("usagemin") Integer usageMin,
 			@QueryParam("usagemax") Integer usageMax,
 			@QueryParam("parent") Integer parentId,
 			@QueryParam("durmax") Integer durMax,
-			@QueryParam("durmin") Integer durMin){
-		
-		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after, 
+			@QueryParam("durmin") Integer durMin) {
+
+		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
 				before, usageMin, usageMax, parentId, durMax, durMin);
 		List<?> filteredQuestions = getFilteredQuestions(st);
-		
+
 		return ImmutableMap.of("questions", filteredQuestions, "st", st);
-		//return ImmutableMap.of("st", st);
+		// return ImmutableMap.of("st", st);
 	}
-	
+
 	@GET
 	@Path("/json")
 	@Produces("application/json")
-	public List<?> produceFilteredJSON(
-			@QueryParam("tags") String tags,
+	public List<?> produceFilteredJSON(@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
 			@QueryParam("supervisor") Boolean supervisor,
-			@QueryParam("after") Long after,
-			@QueryParam("before") Long before,
+			@QueryParam("after") Long after, @QueryParam("before") Long before,
 			@QueryParam("usagemin") Integer usageMin,
 			@QueryParam("usagemax") Integer usageMax,
 			@QueryParam("parent") Integer parentId,
 			@QueryParam("durmax") Integer durMax,
-			@QueryParam("durmin") Integer durMin
-			){
-		
-		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after, 
+			@QueryParam("durmin") Integer durMin) {
+
+		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
 				before, usageMin, usageMax, parentId, durMax, durMin);
-		
+
 		return getFilteredQuestions(st);
 	}
-	
-	private List<?> getFilteredQuestions(SearchTerm st){
+
+	private List<?> getFilteredQuestions(SearchTerm st) {
 		log.debug("Getting new QuestionQuery");
 		QuestionQuery qq = QuestionQuery.all();
-		
+
 		log.debug("Filtering for tags");
-		if(st.getTags() != null && !st.getTags().equals("")){
+		if (st.getTags() != null && !st.getTags().equals("")) {
 			List<String> lTags = Arrays.asList(st.getTags().split(","));
 			qq.withTagNames(lTags);
 		}
-		
+
 		log.debug("Filtering for owners");
-		if(st.getOwners() != null && !st.getOwners().equals("")){
+		if (st.getOwners() != null && !st.getOwners().equals("")) {
 			List<String> lUsers = Arrays.asList(st.getOwners().split(","));
 			qq.withUserIDs(lUsers);
 		}
-		
+
 		log.debug("Filtering for star, role...");
-		if(st.getStar() != null && st.getStar()) { qq.withStar(); }
-		if(st.getStar() != null && !st.getStar()) { qq.withoutStar(); }
-		if(st.getSupervisor() != null && st.getSupervisor()) { qq.bySupervisor(); }
-		if(st.getSupervisor() != null && !st.getSupervisor()) { qq.byStudent(); }
-		
+		if (st.getStar() != null && st.getStar()) {
+			qq.withStar();
+		}
+		if (st.getStar() != null && !st.getStar()) {
+			qq.withoutStar();
+		}
+		if (st.getSupervisor() != null && st.getSupervisor()) {
+			qq.bySupervisor();
+		}
+		if (st.getSupervisor() != null && !st.getSupervisor()) {
+			qq.byStudent();
+		}
+
 		log.debug("Filtering for date...");
-		if(st.getAfter() != null) { qq.after(new Date(st.getAfter())); }
-		if(st.getBefore() != null) { qq.before(new Date(st.getBefore())); }
-		
+		if (st.getAfter() != null) {
+			qq.after(new Date(st.getAfter()));
+		}
+		if (st.getBefore() != null) {
+			qq.before(new Date(st.getBefore()));
+		}
+
 		log.debug("Filtering for usages");
-		if(st.getUsageMin() != null) { qq.minUsages(st.getUsageMin()); }
-		if(st.getUsageMax() != null) { qq.maxUsages(st.getUsageMax()); }
-		
+		if (st.getUsageMin() != null) {
+			qq.minUsages(st.getUsageMin());
+		}
+		if (st.getUsageMax() != null) {
+			qq.maxUsages(st.getUsageMax());
+		}
+
 		log.debug("Fileting for parentID");
-		if(st.getParentId() != null) { qq.withParent(st.getParentId()); }
-		
+		if (st.getParentId() != null) {
+			qq.withParent(st.getParentId());
+		}
+
 		log.debug("Filtering for duration");
-		if(st.getDurMax() != null) { qq.maxDuration(st.getDurMax()); }
-		if(st.getDurMin() != null) { qq.minDuration(st.getDurMin()); }
-				
+		if (st.getDurMax() != null) {
+			qq.maxDuration(st.getDurMax());
+		}
+		if (st.getDurMin() != null) {
+			qq.minDuration(st.getDurMin());
+		}
+
 		// TODO: check whether current user is a supervisor
-		// 		 and shadow the data appropriately
+		// and shadow the data appropriately
 		return qq.maplist(false);
 	}
-	
+
 	@GET
 	@Path("/{id}/json")
 	@Produces("application/json")
-	public Map<String,Object> produceSingleQuestionJSON(@PathParam("id") int id) {
+	public Map<String, Object> produceSingleQuestionJSON(@PathParam("id") int id) {
 		return QuestionQuery.get(id).toMap(false);
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Map<String,Map<String,Object>> produceSingleQuestionJSONAsSingleObject(@PathParam("id") int id) {
+	public Map<String, Map<String, Object>> produceSingleQuestionJSONAsSingleObject(
+			@PathParam("id") int id) {
 		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
 	}
-	
-	
+
 	@GET
 	@Path("/{id}/history/json")
 	@Produces("application/json")
-	public Map<String,?> produceHistoryJSON(@PathParam("id") int id) {
-		List<Map<?,?>> history = new ArrayList<Map<?,?>>();
-		
+	public Map<String, ?> produceHistoryJSON(@PathParam("id") int id) {
+		List<Map<?, ?>> history = new ArrayList<Map<?, ?>>();
+
 		for (Question q = QuestionQuery.get(id); q != null; q = q.getParent()) {
 			history.add(q.toMap());
 		}
-		
-		return ImmutableMap.of("history",history);
+
+		return ImmutableMap.of("history", history);
 	}
-	
+
 	@GET
 	@Path("/{id}/forks/json")
 	@Produces("application/json")
@@ -169,39 +187,37 @@ public class QuestionController {
 		// TODO: change to maps
 		return QuestionQuery.all().withParent(id).list();
 	}
-	
+
 	@POST
 	@Path("/update")
 	public void editQuestion(@Form QuestionEdit qe) {
-		User editor = new User(
-				(String) request.getSession().getAttribute("RavenRemoteUser")
-		);
-		
+		User editor = new User((String) request.getSession().getAttribute(
+				"RavenRemoteUser"));
+
 		try {
 			qe.validate();
 		} catch (Exception e) {
-			throw new RedirectException("/q/error/?msg="+e.getMessage());
+			throw new RedirectException("/q/error/?msg=" + e.getMessage());
 		}
-		
+
 		Question q = QuestionQuery.get(qe.getId());
 		q = q.edit(editor, qe);
-		
-		throw new RedirectException("/app/#sets/"+qe.getSetId());
+
+		throw new RedirectException("/app/#sets/" + qe.getSetId());
 	}
-	
+
 	@POST
 	@Path("/save")
 	public void addQuestion(@Form QuestionAdd qa) {
-		User author = new User(
-				(String) request.getSession().getAttribute("RavenRemoteUser")
-		);
-		
+		User author = new User((String) request.getSession().getAttribute(
+				"RavenRemoteUser"));
+
 		try {
 			qa.validate();
 		} catch (Exception e) {
-			throw new RedirectException("/q/error/?msg="+e.getMessage());
+			throw new RedirectException("/q/error/?msg=" + e.getMessage());
 		}
-		
+
 		Question q = new Question(author);
 		q.setContent(qa.getContent());
 		q.setNotes(qa.getNotes());
@@ -210,70 +226,113 @@ public class QuestionController {
 		QuestionSet qs = QuestionSetQuery.get(qa.getSetId());
 		qs.addQuestion(q);
 		qs.update();
-		
-		throw new RedirectException("/app/#sets/"+qa.getSetId());
+
+		throw new RedirectException("/app/#sets/" + qa.getSetId());
 	}
-	
+
 	@GET
 	@Path("/{id}/edit/{setid}")
 	@Produces("application/json")
-	public Map<?,?> showEditForm(
-			@PathParam("id") int id,
-			@PathParam("setid") int setId
-	) {
+	public Map<?, ?> showEditForm(@PathParam("id") int id,
+			@PathParam("setid") int setId) {
 		Question q = QuestionQuery.get(id);
-		
-		Map<String,Object> r = new HashMap<String,Object>();
+
+		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("id", q.getId());
 		r.put("content", q.getContent().getData());
 		r.put("notes", q.getNotes().getData());
 		r.put("setId", setId);
 		r.put("expectedDuration", q.getExpectedDuration());
-		
+
 		return r;
 	}
-	
+
 	@GET
 	@Path("/add/{setid}")
 	@Produces("application/json")
-	public Map<?,?> showAddForm (
-			@PathParam("setid") int setId
-	) {
-		Map<String,Object> r = new HashMap<String,Object>();
+	public Map<?, ?> showAddForm(@PathParam("setid") int setId) {
+		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("setId", setId);
-		
+
 		return r;
 	}
-	
+
 	@GET
 	@Path("/pastpapers")
 	@Produces("application/json")
 	public Set<Question> producePastPapers() throws Exception {
 		return PPDLoader.loadAllQuestions();
 	}
-	
+
 	@POST
 	@Path("/tagsnotin")
 	@Produces("application/json")
-	public List<Map<String,String>> getTagsNotInQuestion(String strInput) {
+	public List<Map<String, String>> getTagsNotInQuestion(String strInput) {
 		int equPos = strInput.indexOf("=");
 		int qid = Integer.parseInt(strInput.substring(0, equPos));
-		String strTagPart = strInput
-				.substring(equPos + 1)
-				.replace("+", " ");
-		
-		log.debug("Trying to get all tags containing " + strTagPart + " which are NOT in question " + qid);
-		
-		List<Tag> tags = TagQuery.all()
-				.notContainedIn(QuestionQuery.get(qid))
-				.contains(strTagPart)
-				.list();
-		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
-		
-		for(Tag tag : tags) {
+		String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
+
+		log.debug("Trying to get all tags containing " + strTagPart
+				+ " which are NOT in question " + qid);
+
+		List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
+				.contains(strTagPart).list();
+		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
+
+		for (Tag tag : tags) {
 			results.add(ImmutableMap.of("name", tag.getName()));
 		}
-		
+
 		return results;
 	}
+
+	@GET
+	@Path("/addtags")
+	@Produces("application/json")
+	public Map<String,List<Tag>> addTags(@QueryParam("newtags") String newTags, @QueryParam("qid") int qid) {
+		// returns the tags added
+		if (newTags != null && newTags != "") {
+			
+			Question question = QuestionQuery.get(qid);
+			String[] newTagsArray = newTags.split(",");
+			List<Tag> result = new ArrayList<Tag>();
+			Set<Tag> existingTags = question.getTags();
+			Tag tmp;
+			
+			for (int i = 0; i < newTagsArray.length; i++) {
+				tmp = new Tag(newTagsArray[i]);
+				
+				if(!existingTags.contains(tmp) && tmp.getName() != null && tmp.getName() != "") {
+					result.add(tmp);
+				}
+				
+				log.debug("Trying to add tag " + tmp.getName() + " to question " + qid + "...");
+				question.addTag(tmp);
+			}
+			
+			log.debug("Trying to update question in data base...");
+			question.update();
+			
+			return ImmutableMap.of("tags", result);
+		}
+
+		return null;
+	}
+	
+	@GET
+	@Path("/deltag")
+	@Produces("application/json")
+	public boolean delTag(@QueryParam("tag") String tag, @QueryParam("qid") int qid){
+		try{
+			log.debug("Deleting tag '" + tag + "' from question " + qid);
+			Question question = QuestionQuery.get(qid);
+			question.removeTagByString(tag);
+			question.update();
+			return true;
+		} catch(Exception e){
+			return false;
+		}
+		
+	}
+	
 }

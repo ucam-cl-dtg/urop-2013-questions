@@ -51,12 +51,12 @@ public class QuestionQuery {
 	
 	public static Question get(int id) {
 		Session session = HibernateUtil.getTransactionSession();
-		
+		log.debug("Trying to get question with id " + id);
 		Question q = (Question) session
 				.createQuery("from Question where id = :id")
 				.setParameter("id", id)
 				.uniqueResult();
-		
+		log.debug("Returning question with id " + id);
 		return q;
 	}
 	
