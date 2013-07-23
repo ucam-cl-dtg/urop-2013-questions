@@ -55,90 +55,31 @@
 				<p class="title" data-section-title><a href="#">History</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
-						<ul class="panels">
+						<ul class="panels" id="history-list" data-qid={$question.id}>
 							<li class="columns large-12">
 								<h4>Previous versions</h4>
 							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 12:54 - Jack Dent</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 09:11 - Mistral Constantin</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 18:27 - Andrew Rice</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
+							/*{let $curQuest: $question.parent /}
+							{$question.parent.id}
+							{for $i in range(0, 5, 1)}
+								{if $curQuest}
+									{$curQuest.id}<br>
+									{let $curQuest: $curQuest.parent /}
+								{/if}
+								
+								//{call shared.questions.singleShort}
+							{/for}*/
+								
+							
 						</ul>
 						<div class="columns large-12">
-							<a class="large button expand">Show more</a>
+							<a class="large button expand" id="show-more-history">Show more</a>
 						</div>
 						<ul class="panels">
 							<li class="columns large-12">
 								<h4>Forks</h4>
 							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 12:54 - Jack Dent</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 09:11 - Mistral Constantin</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">31/02/12 - 18:27 - Andrew Rice</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#88;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
+							
 						</ul>
 						<div class="columns large-12">
 							<a class="large button expand">Show more</a>

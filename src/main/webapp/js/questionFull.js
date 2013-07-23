@@ -36,4 +36,30 @@ function configureInputField() {
 		$(this).parent().remove();
 		return false;
 	});
+	
+	$(".main").on("click", "#show-more-history", function(){
+		loadMoreHistory(5);
+		return false;
+	});
+	loadMoreHistory(5);
+}
+
+function loadMoreHistory(depth){
+	var $historyList = $(".main").find("#history-list");
+	var $newQuestions = $("<div></div>");
+	
+	loadModule($newQuestions,
+			"q/parents?qid=" + $historyList.attr("data-qid") + "&depth=" + depth,
+			function(json) {
+				
+				if(json.exhausted) {
+					$(".main").find("#show-more-history").remove();
+				}
+				$historyList.attr("data-qid", json.last);
+				return "shared.question.multiple";
+			}, 
+			function() {
+				$historyList.append($newQuestions.find(".panels").children());
+			});
+	 
 }

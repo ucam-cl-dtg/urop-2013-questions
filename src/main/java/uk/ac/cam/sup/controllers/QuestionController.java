@@ -335,4 +335,33 @@ public class QuestionController {
 		
 	}
 	
+	@GET
+	@Path("/parents")
+	@Produces("application/json")
+	public Map<String,?> getParents(@QueryParam("qid") int qid, @QueryParam("depth") int depth) {
+		boolean exhausted = false;
+		List<Question> historyList = new ArrayList<Question>();
+		Question curChild = QuestionQuery.get(qid);
+		Question curParent = null;
+		
+		for(; depth > 0; depth--) {
+			
+			curParent = curChild.getParent();
+			
+			if(curParent == null){
+				exhausted = true;
+				break;
+			}
+			
+			historyList.add(curParent);
+			curChild = curParent;
+		}
+		
+		if(curParent != null && curParent.getParent() == null) {exhausted = true;}
+		 
+		int lastID = curChild.getId(); 
+		
+		return ImmutableMap.of("questions", historyList, "exhausted", exhausted, "last", lastID);
+	}
+	
 }
