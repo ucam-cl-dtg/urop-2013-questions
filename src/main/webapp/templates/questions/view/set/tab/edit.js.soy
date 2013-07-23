@@ -11,19 +11,21 @@
 <section>
 	<p class="title" data-section-title><a href="#">Edit</a></p>
 	<div class="content" data-section-content>
+		<form method="POST" action="/sets/update">
 		<h4>Basic information</h4>
 		<div>
-			<input type="text" placeholder="Name" value="{$name}" />
+			<input type="text" placeholder="Name" value="{$name}" name="name" />
 		</div>
 		<div>
-			<textarea placeholder="Supervision plan">{if $plan}{$plan}{/if}</textarea>
+			<textarea name="plan" placeholder="Supervision plan">{if $plan}{$plan}{/if}</textarea>
 		</div>
 		
 		<h4>Questions</h4>
 		<div class="row">
-			<ul class="panels">
+			<ul class="panels sortable">
 				{foreach $question in $questions}
 					{call .question}
+						{param id: $question.id /}
 						{param content: $question.content /}
 					{/call}
 				{/foreach}
@@ -34,20 +36,24 @@
 			<a href="#" class="button">Add questions</a>
 		</div>
 		<div class="text-right">
-			<form>
+			
 				<input type="hidden" value="{$id}" name="setid" />
-				<input type="submit" value="Submit revisions" />
-			</form>
+				<input type="hidden" value="" name="delete" />
+				<input type="hidden" value="" name="neworder" />
+				<input type="submit" value="Submit revisions" id="edit-set-submit-button" />
+			
 		</div>
+		</form>
 	</div>
 </section>
 {/template}
 
 /**
+ * @param id
  * @param content
  */
 {template .question}
- <li class="panel-wrapper columns large-12">
+ <li class="panel-wrapper columns large-12" data-question-id="{$id}">
 	<div class="list-panel">
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">{$content.data}</div>

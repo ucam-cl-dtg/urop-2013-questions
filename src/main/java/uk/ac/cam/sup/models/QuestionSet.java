@@ -24,6 +24,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
+import uk.ac.cam.sup.form.QuestionSetEdit;
+
 import com.google.inject.OutOfScopeException;
 
 @Entity
@@ -253,5 +255,23 @@ public class QuestionSet extends Model {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public void edit(QuestionSetEdit qse) {
+		this.name = qse.getName();
+		this.plan = qse.getPlan();
+		
+		for(Question q: qse.getDeletedQuestions()) {
+			this.removeQuestion(q);
+		}
+		
+		this.questions.clear();
+		
+		for (int i = 0; i < qse.getOrderedQuestions().size(); i++) {
+			QuestionPlacement qp = new QuestionPlacement(qse.getOrderedQuestions().get(i), i+1);
+			qp.save();
+			this.questions.add(qp);
+		}
+		this.update();
 	}
 }

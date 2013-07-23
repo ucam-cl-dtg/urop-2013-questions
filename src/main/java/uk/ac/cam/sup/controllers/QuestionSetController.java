@@ -19,6 +19,7 @@ import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
@@ -169,5 +170,15 @@ public class QuestionSetController {
 		}
 		form.getTarget().update();
 		throw new RedirectException("/app/#sets/"+form.getTarget().getId());
+	}
+	
+	@POST
+	@Path("/update")
+	public void updateSet(@Form QuestionSetEdit form) throws Exception {
+		form.validate().parse();
+		
+		QuestionSetQuery.get(form.getSetId()).edit(form);
+		
+		throw new RedirectException("/app/#sets/"+form.getSetId());
 	}
 }
