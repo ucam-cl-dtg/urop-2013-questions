@@ -24,7 +24,9 @@ moduleScripts['questions'] = {
 
 function configureRemoveQuestion () {
 	$(document).on('click', '.remove-question-from-set', function() {
-		
+		$(this).parent().parent().parent().parent()
+			.toggleClass('success')
+			.toggleClass('red');
 	});
 }
 
