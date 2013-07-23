@@ -7,6 +7,7 @@ moduleScripts['questions'] = {
 				configureRemoveQuestion,
 				configureSelectQuestion,
 				configureUseTabSubmitButton,
+				configureEditQuestion
 		]
 
 	},
@@ -60,7 +61,7 @@ function configureRemoveQuestion () {
 }
 
 function configureSelectQuestion () {
-	$(document).on('click', '.question-to-add-to-set', function() {
+	$('.question-to-add-to-set').on('click', function() {
 		$(this).children('.list-panel').toggleClass('success');
 		$(this).toggleClass('success');
 	});
@@ -82,4 +83,11 @@ function configureUseTabSubmitButton() {
 		
 		$(this).parent().submit();
 	});
+}
+
+function configureEditQuestion() {
+	$('.expand-sub-panel').on('click', function() {
+		$(this).closest('sub-panel').slideToggle();
+	});
+	
 }
