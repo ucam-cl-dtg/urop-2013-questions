@@ -14,6 +14,7 @@
 			<ul class="panels">
 				{foreach $question in $questions}
 					{call .question}
+						{param id: $question.id /}
 						{param content: $question.content /}
 					{/call}
 				{/foreach}
@@ -33,10 +34,11 @@
 {/template}
 
 /**
+ * @param id
  * @param content
  */
 {template .question}
-<li class="panel-wrapper columns large-12 question-to-add-to-set">
+<li class="panel-wrapper columns large-12 question-to-add-to-set" data-question-id="{$id}">
 	<div class="list-panel">
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">{$content.data}</div>

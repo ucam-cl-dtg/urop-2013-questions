@@ -33,5 +33,23 @@ function searchSetup() {
 		return false;
 	});
 	
+	$('.add-question-to-set').on('click', function() {
+		$(this).parents('.list-panel').toggleClass('success');
+	});
+	
+	$('#add-questions-to-set-button').on('click', function(e) {
+		e.preventDefault();
+		
+		var selected = [];
+		$('.list-panel.success').each(function() {
+			var questionId = $(this).parent().attr('data-question-id');
+			if (questionId) {
+				selected.push(questionId);
+			}
+		});
+		$('input[name=questions]').attr('value', selected);
+		
+		$(this).parents('form').submit();
+	});
 	
 }
