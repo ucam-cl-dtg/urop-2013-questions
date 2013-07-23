@@ -7,11 +7,18 @@
  * @param expectedDuration
  * @param questions
  * @param id
+ * @param starred
  */
 {template .set}
 <div class="row">
 	<div class="columns large-12 small-12">
-		<h3><span class="websymbols-icon fixed-width-icon star-question-button">&#82;</span>{$name}</h3>
+		<h3><span class="fixed-width-icon star-question-button" data-set-id="{$id}"><i class="icon{' '}
+		{if $starred}
+			icon-star
+		{else}
+			icon-star_empty
+		{/if}
+		"></i></span>{$name}</h3>
 	</div>
 </div>
 <div class="row">

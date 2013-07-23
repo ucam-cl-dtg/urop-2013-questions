@@ -30,7 +30,9 @@
 					{call .question}
 						{param content: $question.content /}
 						{param id: $question.id /}
-						{param setid: $id /}
+						{param setId: $id /}
+						{param expectedDuration: $question.expectedDuration /}
+						{param notes: $question.notes /}
 					{/call}
 				{/foreach}
 			</ul>
@@ -42,7 +44,9 @@
 /**
  * @param content
  * @param id
- * @param setid
+ * @param setId
+ * @param expectedDuration
+ * @param notes
  */
 {template .question}
 <li class="panel-wrapper columns large-12">
@@ -53,12 +57,15 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-sub-panel"><i class="icon icon-pen"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<ul class="sub-panel">
+		{call questions.form.question.edit data="all" /}
+	</ul>
 </li>
 {/template}

@@ -73,6 +73,7 @@ public class QuestionSet extends Model {
 	
 	public boolean isStarred(){return isStarred;}
 	public void setStarred(boolean s){isStarred = s;}
+	public void toggleStarred(){isStarred = !isStarred;}
 	
 	public User getOwner(){return owner;}
 	

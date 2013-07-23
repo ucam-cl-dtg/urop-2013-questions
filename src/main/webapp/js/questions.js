@@ -7,6 +7,7 @@ moduleScripts['questions'] = {
 			configureRemoveQuestion,
 			configureSelectQuestion,
 			configureUseTabSubmitButton,
+			configureStarToggler
 		]
 
 	},
@@ -60,7 +61,7 @@ function configureRemoveQuestion () {
 }
 
 function configureSelectQuestion () {
-	$(document).on('click', '.question-to-add-to-set', function() {
+	$('.question-to-add-to-set').on('click', function() {
 		$(this).children('.list-panel').toggleClass('success');
 		$(this).toggleClass('success');
 	});
@@ -81,5 +82,17 @@ function configureUseTabSubmitButton() {
 		$("input[name=questions]").attr("value", selected);
 		
 		$(this).parent().submit();
+	});
+}
+
+function configureStarToggler() {
+	$('.star-question-button').on('click', function() {
+		var setId = $(this).attr('data-set-id');
+		var $star = $(this);
+		$.get('/sets/'+setId+'/togglestar', function() {
+			$star.find('i')
+				.toggleClass('icon-star')
+				.toggleClass('icon-star_empty');
+		});
 	});
 }
