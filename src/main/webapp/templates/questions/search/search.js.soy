@@ -16,12 +16,22 @@
 			<input type="submit" value="Search" id="foobar" />
 		</form>
 	</div>
+	
+	<div id="addToSetForm" class="row">
+		<div class="columns small-12 large-12">
+			<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
+				<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+			
+				<input type="hidden" name="questions" value="" />
+				<input type="submit" value="Add to set" id="add-questions-to-set-button" />
+			</form>
+		</div>
+	</div>
+	
 	<div id="questionList" class="row">
-		<div>
 			{call shared.question.multiple}
 				{param questions: $questions /}
 			{/call}
-		</div>
 	</div>
 	
 	

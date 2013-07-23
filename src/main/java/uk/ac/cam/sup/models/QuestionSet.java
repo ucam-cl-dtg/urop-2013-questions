@@ -257,7 +257,7 @@ public class QuestionSet extends Model {
 		return toMap(true);
 	}
 	
-	public void edit(QuestionSetEdit qse) {
+	public void edit(QuestionSetEdit qse) throws Exception {
 		this.name = qse.getName();
 		this.plan = qse.getPlan();
 		

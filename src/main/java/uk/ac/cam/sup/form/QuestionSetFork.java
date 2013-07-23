@@ -7,12 +7,10 @@ import javax.ws.rs.FormParam;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
+import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class QuestionSetFork {
-	
-	@FormParam("sourceSetId")
-	private Integer sourceId;
 	
 	@FormParam("targetSetId")
 	private Integer targetId;
@@ -20,7 +18,6 @@ public class QuestionSetFork {
 	@FormParam("questions")
 	private String questionList;
 	
-	private QuestionSet source;
 	private QuestionSet target;
 	private List<Question> questions;
 	
@@ -33,9 +30,6 @@ public class QuestionSetFork {
 	}
 	
 	public final QuestionSetFork validate() throws Exception {
-		if (sourceId == null) {
-			throw new Exception("Source not specified");
-		}
 		
 		if (targetId == null) {
 			throw new Exception("Target not specified");
@@ -49,13 +43,12 @@ public class QuestionSetFork {
 	}
 	
 	public final QuestionSetFork parse() {
-		source = QuestionSetQuery.get(sourceId);
 		target = QuestionSetQuery.get(targetId);
 		
 		questions = new ArrayList<Question>();
 		String[] split = questionList.split(",");
 		for (String s: split) {
-			questions.add(source.getQuestion(Integer.parseInt(s)+1));
+			questions.add(QuestionQuery.get(Integer.parseInt(s)));
 		}
 		
 		return this;

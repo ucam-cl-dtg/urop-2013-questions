@@ -21,10 +21,10 @@ public class QuestionSetEdit {
 	private Integer setId;
 	
 	@FormParam("delete")
-	private String deleteList;
+	public String deleteList;
 	
 	@FormParam("neworder")
-	private String newOrderList;
+	public String newOrderList;
 	
 	private Data planData;
 	private List<Question> deletedQuestions;

@@ -24,7 +24,7 @@ function configureRemoveQuestion () {
 			.toggleClass('delete');
 		
 		$(this).parents('li.panel-wrapper')
-		.toggleClass('delete');
+			.toggleClass('delete');
 		
 		$(".sortable").sortable({
 			cancel: "li.delete"
@@ -45,7 +45,7 @@ function configureRemoveQuestion () {
 		$("input[name=delete]").attr("value", deleted);
 		
 		var neworder = [];
-		$(".panel-wrapper:not(.delete)").each(function() {
+		$(".sortable .panel-wrapper:not(.delete)").each(function() {
 			var questionId = $(this).attr("data-question-id");
 			if (questionId) {
 				neworder.push(questionId);
@@ -62,6 +62,7 @@ function configureRemoveQuestion () {
 function configureSelectQuestion () {
 	$(document).on('click', '.question-to-add-to-set', function() {
 		$(this).children('.list-panel').toggleClass('success');
+		$(this).toggleClass('success');
 	});
 }
 
@@ -70,8 +71,11 @@ function configureUseTabSubmitButton() {
 		e.preventDefault();
 		
 		var selected = [];
-		$(".list-panel.success").each(function() {
-			selected.push($(this).parent().index());
+		$('.question-to-add-to-set.success').each(function() {
+			var questionId = $(this).attr('data-question-id');
+			if (questionId) {
+				selected.push(questionId);
+			}
 		});
 		
 		$("input[name=questions]").attr("value", selected);

@@ -3,22 +3,23 @@
  * Displays a single question in a summary (for ex. when searching and listing all questions)
  * @param id
  * @param content Data object holding content of the question.
- * @param owner
+ * param owner
  * @param? setid
  */
 {template .singleShort}
-<li class="panel-wrapper columns large-12">
+<li class="panel-wrapper columns large-12" data-question-id="{$id}">
 	<div class="list-panel">
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">
 				{$content.data}
 			</div>
-			<div class="columns large-2 small-2 text-right"><a href="/user/{$owner.id}"><i>{$owner.id}</i></a> <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a></div>
+			//<div class="columns large-2 small-2 text-right"><a href="/user/{$owner.id}"><i>{$owner.id}</i></a> <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a></div>
 			<div class="columns large-3 small-3 text-right">
 				<div class="icon-button-wrapper">
 					{if $setid}
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
 					{/if}
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
 				</div>
@@ -26,28 +27,6 @@
 		</div>
 	</div>
 </li>
-/*<article>
-	//<a class="toggle-question" foobar="woo woo woo" href="google.com">+</a>
-	<p class="questioncontent">{$content.data}</p>
-	<p class="questionoptions">
-	ID: <a href="/app/#q/{$id}">{$id}</a> | &thinsp;
-	{if $owner == null}
-		Author unknown
-	{else}
-		Author: <a href="/user/{$owner.id}">{$owner.id}</a>
-	{/if}
-	
-	
-	//<a href="/question/{$id}/edit">edit</a>,&ensp;
-	//<a href="/question/{$id}/fork">fork</a></p>
-	
-	{if $setid}
-		&thinsp;| <a href="/app/#q/{$id}/edit/{$setid}">edit</a>
-	{/if}
-	
-	&thinsp;| <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a>
-	</p>
-</article>*/
 {/template}
 
 /**
