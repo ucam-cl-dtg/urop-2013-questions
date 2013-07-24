@@ -28,6 +28,7 @@
 				<script src="/soy/js/1/questions.form.question.js"></script>
 
 				<script src="/soy/js/1/questions.form.question.js"></script>
+				<script src="/soy/js/1/questions.form.set.js"></script>
 				<script src="/soy/js/1/questions.view.set.tab.js"></script>
 				<script src="/soy/js/1/questions.view.set.js"></script>
 			]]>

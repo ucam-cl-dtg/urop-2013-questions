@@ -21,6 +21,7 @@ $(document).ready(function() {
     	"sets/:id" : "questions.view.set.full",
     	"q/add/:setid" : "questions.form.question.add",
     	"sets": "questions.view.set.list",
+    	"sets/add": "questions.form.set.create",
     	
     });
 	

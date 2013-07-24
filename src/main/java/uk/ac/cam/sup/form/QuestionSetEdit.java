@@ -5,17 +5,10 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 
-import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
-public class QuestionSetEdit {
-	
-	@FormParam("name")
-	private String name;
-	
-	@FormParam("plan")
-	private String plan;
+public class QuestionSetEdit extends QuestionSetForm {
 	
 	@FormParam("setid")
 	private Integer setId;
@@ -26,20 +19,11 @@ public class QuestionSetEdit {
 	@FormParam("neworder")
 	public String newOrderList;
 	
-	private Data planData;
 	private List<Question> deletedQuestions;
 	private List<Question> orderedQuestions;
 	
-	public String getName() {
-		return name;
-	}
-	
 	public int getSetId() {
 		return setId;
-	}
-	
-	public Data getPlan() {
-		return planData;
 	}
 	
 	public List<Question> getDeletedQuestions() {
@@ -55,9 +39,7 @@ public class QuestionSetEdit {
 	}
 	
 	public QuestionSetEdit validate() throws Exception {
-		if (name == null) {
-			name = "";
-		}
+		super.validate();
 		
 		if (setId == null) {
 			throw new Exception("No setId specified");
@@ -74,12 +56,8 @@ public class QuestionSetEdit {
 		return this;
 	}
 	
-	public QuestionSetEdit parse() throws Exception {
-		if (plan == null) {
-			planData = new Data(false, null);
-		} else {
-			planData = new Data(true, plan);
-		}
+	public QuestionSetEdit parse() {
+		super.parse();
 		
 		deletedQuestions = new ArrayList<Question>();
 		String[] split = deleteList.split(",");

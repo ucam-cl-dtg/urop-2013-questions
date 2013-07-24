@@ -19,6 +19,7 @@ import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.models.Question;
@@ -204,6 +205,20 @@ public class QuestionSetController {
 		}
 		form.getTarget().update();
 		throw new RedirectException("/app/#sets/"+form.getTarget().getId());
+	}
+	
+	@POST
+	@Path("/save")
+	public void saveSet(@Form QuestionSetAdd form) throws Exception {
+		form.validate().parse();
+		User author = new User((String) request.getSession().getAttribute(
+				"RavenRemoteUser"));
+		QuestionSet qs = new QuestionSet(author);
+		qs.setName(form.getName());
+		qs.setPlan(form.getPlan());
+		qs.save();
+		
+		throw new RedirectException("/app/#sets/"+qs.getId());
 	}
 	
 	@POST
