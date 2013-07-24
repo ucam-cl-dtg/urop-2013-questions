@@ -167,6 +167,8 @@ public class QuestionController {
 		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
 	}
 
+	/*
+	// Don't think this is needed. Left here in case something breaks.
 	@GET
 	@Path("/{id}/history/json")
 	@Produces("application/json")
@@ -178,15 +180,17 @@ public class QuestionController {
 		}
 
 		return ImmutableMap.of("history", history);
-	}
+	}*/
 
+	/*
+	// Don't think this is needed. Left here in case something breaks.
 	@GET
 	@Path("/{id}/forks/json")
 	@Produces("application/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
 		// TODO: change to maps
 		return QuestionQuery.all().withParent(id).list();
-	}
+	}*/
 
 	@POST
 	@Path("/update")
@@ -362,6 +366,36 @@ public class QuestionController {
 		int lastID = curChild.getId(); 
 		
 		return ImmutableMap.of("questions", historyList, "exhausted", exhausted, "last", lastID);
+	}
+	
+	@GET
+	@Path("/forks")
+	@Produces("application/json")
+	public Map<String,?> getForks(
+			@QueryParam("qid") int qid, 
+			@QueryParam("disp") int alreadyDisplayed, 
+			@QueryParam("amount") int toDisplay){
+		// disp is the number of forks already displayed. Therefore, if 0 forks are displayed, for ex,
+		// the controller will return the 
+		List<Question> forks = QuestionQuery.all().withParent(qid).list();
+		
+		if(forks.size() <= alreadyDisplayed) {
+			return ImmutableMap.of("questions", null, "exhausted", true, "disp", alreadyDisplayed);
+		}else if(forks.size() <= alreadyDisplayed + toDisplay){
+			// If the amount of forks still not displayed is less than those requested.
+			return ImmutableMap.of(
+					"questions", forks.subList(alreadyDisplayed, forks.size()),
+					"exhausted", true,
+					"disp", forks.size()
+			);
+		} else {
+			return ImmutableMap.of(
+					"questions", forks.subList(alreadyDisplayed, alreadyDisplayed + toDisplay),
+					"exhausted", false,
+					"disp", alreadyDisplayed + toDisplay
+			);
+		}
+		
 	}
 	
 }

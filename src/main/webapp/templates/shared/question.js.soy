@@ -1,26 +1,28 @@
 {namespace shared.question}
 /**
  * Displays a single question in a summary (for ex. when searching and listing all questions)
- * @param id
- * @param content Data object holding content of the question.
+ * param id
+ * param content Data object holding content of the question.
  * param owner
+ * @param question
  * @param? setid
  */
 {template .singleShort}
-<li class="panel-wrapper columns large-12" data-question-id="{$id}">
+<li class="panel-wrapper columns large-12" data-question-id="{$question.id}">
 	<div class="list-panel">
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">
-				{$content.data}
+				{if $question.timeStamp}<i>[{$question.timeStamp}] </i>{/if} 
+				{$question.content.data}
 			</div>
 			//<div class="columns large-2 small-2 text-right"><a href="/user/{$owner.id}"><i>{$owner.id}</i></a> <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a></div>
 			<div class="columns large-3 small-3 text-right">
 				<div class="icon-button-wrapper">
 					{if $setid}
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
 					{/if}
 					<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
 				</div>
 			</div>		
@@ -38,8 +40,9 @@
 	<ul class="panels">
 	{foreach $question in $questions}
 		{call .singleShort}
-			{param id: $question.id /}
-			{param content: $question.content /}
+			{param question: $question /}
+			//{param content: $question.content /}
+			//{param timestamp: $question.timeStamp /}
 			//{param owner: $question.owner /}
 			{param setid: $setid /}
 		{/call}
