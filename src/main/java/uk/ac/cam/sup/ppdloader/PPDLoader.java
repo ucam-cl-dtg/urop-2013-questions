@@ -1,5 +1,11 @@
 package uk.ac.cam.sup.ppdloader;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,11 +36,40 @@ public class PPDLoader {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void downloadQuestionPDF(Question q, String target) throws Exception {
+		URL pdf = new URL(q.getContent().getData());
+		ReadableByteChannel rbc = Channels.newChannel(pdf.openStream());
+		FileOutputStream fos = new FileOutputStream(target);
+		fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+		fos.close();
+	}
+	
+	public static void downloadAllQuestionPDFs(String targetDir) throws Exception {
 		TopicLoader tl = new TopicLoader();
+		int i = 1;
 		
 		for (Topic t: tl.getResults()) {
 			QuestionLoader ql = new QuestionLoader(t);
+			
+			for (Question q: ql.getResults()) {
+				String[] split = q.getContent().getData().split("/");
+				String filename = split[split.length-1];
+				downloadQuestionPDF(q, targetDir+filename);
+				System.out.println(i+": "+filename);
+				++i;
+			}
+		}
+		
+		System.out.println("Downloaded "+(i-1)+" files");
+	}
+	
+	public static void main(String[] args) throws Exception {
+		TopicLoader tl = new TopicLoader();
+		int i = 1;
+		
+		for (Topic t: tl.getResults()) {
+			QuestionLoader ql = new QuestionLoader(t);
+			
 			for (Question q: ql.getResults()) {
 				System.out.print(q.getContent().getData()+" - ");
 				System.out.print(q.getTimeStamp().toString()+" - ");
@@ -45,5 +80,6 @@ public class PPDLoader {
 				System.out.println();
 			}
 		}
+		
 	}
 }
