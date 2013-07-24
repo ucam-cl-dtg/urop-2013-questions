@@ -18,8 +18,10 @@ $(document).ready(function() {
 		"q/:id" : "questions.view.questionFull",
 		"q/search(?:params)" : "questions.search.main",
     	"q/:id/edit/:setid" : "questions.form.question.edit",
-    	"sets/:id" : "questions.view.set",
+    	"sets/:id" : "questions.view.set.full",
     	"q/add/:setid" : "questions.form.question.add",
+    	"sets": "questions.view.set.list",
+    	"sets/add": "questions.form.set.create",
     	
     });
 	

@@ -19,6 +19,7 @@ import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.models.Question;
@@ -40,9 +41,9 @@ public class QuestionSetController {
 	private static Logger log = LoggerFactory.getLogger(QuestionSetController.class);
 	
 	@GET
-	@Path("/json")
+	@Path("/")
 	@Produces("application/json")
-	public List<?> produceFilteredJSON (
+	public Map<String,?> produceFilteredJSON (
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String users,
 			@QueryParam("star") boolean star,
@@ -84,7 +85,7 @@ public class QuestionSetController {
 		if (minduration != null) { query.minDuration(minduration); }
 		if (maxduration != null) { query.maxDuration(maxduration); }
 		
-		return query.maplist(false);
+		return ImmutableMap.of("sets", query.maplist(false));
 	}
 	
 	@GET
@@ -92,6 +93,13 @@ public class QuestionSetController {
 	@Produces("application/json")
 	public Map<String,Object> showSingleSet(@PathParam("id") int id) {
 		return QuestionSetQuery.get(id).toMap(false);
+	}
+	
+	@GET
+	@Path("/{id}/questions")
+	@Produces("application/json")
+	public Map<String,?> showSetsQuestions(@PathParam("id") int id) {
+		return ImmutableMap.of ("questions", QuestionSetQuery.get(id).getQuestionsAsMaps());
 	}
 	
 	@GET
@@ -213,6 +221,20 @@ public class QuestionSetController {
 	}
 	
 	@POST
+	@Path("/save")
+	public void saveSet(@Form QuestionSetAdd form) throws Exception {
+		form.validate().parse();
+		User author = new User((String) request.getSession().getAttribute(
+				"RavenRemoteUser"));
+		QuestionSet qs = new QuestionSet(author);
+		qs.setName(form.getName());
+		qs.setPlan(form.getPlan());
+		qs.save();
+		
+		throw new RedirectException("/app/#sets/"+qs.getId());
+	}
+	
+	@POST
 	@Path("/update")
 	public void updateSet(@Form QuestionSetEdit form) throws Exception {
 		form.validate().parse();
@@ -225,7 +247,7 @@ public class QuestionSetController {
 	@GET
 	@Path("/{id}/togglestar")
 	@Produces("application/json")
-	public ImmutableMap<String,?> toggleStar(@PathParam("id") int id) {
+	public Map<String,?> toggleStar(@PathParam("id") int id) {
 		QuestionSet qs = QuestionSetQuery.get(id);
 		qs.toggleStarred();
 		qs.update();

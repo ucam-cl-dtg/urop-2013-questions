@@ -6,7 +6,17 @@
  * @param questions
  */
 {template .main}
-	<div id="searchbar">
+<h3>Add to a set</h3>
+<div class="row">
+	<div class="columns large-4 small-12">
+		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
+			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+			
+			<input type="hidden" name="questions" value="" />
+			<input type="submit" value="Add to set" id="add-questions-to-set-button" />
+		</form>
+	</div>
+	<div class="columns large-4 small-12" id="searchbar">
 		<form method="get" action="/q/search" id="questions-searchform">
 			{call .searchInput}
 				{param value: $st.tags /}
@@ -16,23 +26,14 @@
 			<input type="submit" value="Search" id="foobar" />
 		</form>
 	</div>
+</div>
 	
-	<div id="addToSetForm" class="row">
-		<div class="columns small-12 large-12">
-			<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-				<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-			
-				<input type="hidden" name="questions" value="" />
-				<input type="submit" value="Add to set" id="add-questions-to-set-button" />
-			</form>
-		</div>
-	</div>
-	
-	<div id="questionList" class="row">
-			{call shared.question.multiple}
-				{param questions: $questions /}
-			{/call}
-	</div>
+<h3>Questions</h3>
+<div id="questionList" class="row">
+	{call shared.question.multiple}
+		{param questions: $questions /}
+	{/call}
+</div>
 	
 	
 {/template}
@@ -45,9 +46,9 @@
  */
 {template .searchInput}
 	{if not $value}
-		{$title}: <input type="text" id="{$name}" value="" /><br>
+		<input type="text" id="{$name}" value="" placeholder="{$title}..." /><br>
 	{else}
-		{$title}: <input type="text" id="{$name}" value="{$value}" /><br>
+		<input type="text" id="{$name}" value="{$value}" placeholder="{$title}..." /><br>
 	{/if}
 {/template}
 

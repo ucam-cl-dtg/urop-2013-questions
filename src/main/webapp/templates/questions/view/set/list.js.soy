@@ -1,0 +1,85 @@
+{namespace questions.view.set}
+
+/**
+ * Displays a list of sets
+ * @param sets
+ */
+{template .list}
+<h3>Filter by</h3>
+<div class="row">
+	<div class="columns large-8 small-12">
+		<div class="button-bar">
+			<ul class="button-group">
+				<li><a href="#" class="medium secondary button">Star</a></li>
+				<li><a href="#" class="medium secondary button">Supervisor</a></li>
+				<li><a href="#" class="medium secondary button">Student</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="columns large-4 small-12">
+		<input type="text" placeholder="Search..." class="input-search">
+	</div>
+</div>
+
+<h3>Question sets</h3>
+<div class="row">
+	<ul class="panels">
+		{foreach $set in $sets}
+			{call .listset}
+				{param set: $set /}
+			{/call}
+		{/foreach}
+	</ul>
+	<div class="columns large-12">
+		<a class="large button expand">Show more</a>
+	</div>
+</div>
+{/template}
+
+/**
+ * @param set
+ */
+{template .listset}
+	<li class="panel-wrapper columns large-12">
+		<div class="list-panel">
+			<div class="row list-inner-panel">
+				<div class="columns large-7 small-7">{$set.name} by {$set.owner.id}</div>
+				<div class="columns large-5 small-5 text-right">
+					<div class="icon-button-wrapper">
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-question-list" data-qid="{$set.id}">&#112;</a>
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="sets/{$set.id}">&#88;</a>
+						<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $set.starred}_empty{/if}"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="question-list">
+//		<ul class="sub-panel">
+//			{call .listquestions}
+//				{param questions: $set.questions /}
+//			{/call}
+//		</ul>
+		</div>
+	</li>
+{/template}
+
+/**
+ * @param questions
+ */
+{template .listquestions}
+<ul class="sub-panel">
+	{foreach $question in $questions}
+	<li class="list-sub-panel">
+		<div class="row list-inner-sub-panel">
+			<div class="columns large-7 small-7">{$question.content.data}</div>
+			<div class="columns large-5 small-5 text-right">
+				<div class="icon-button-wrapper">
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}">&#88;</a>
+					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
+				</div>
+			</div>
+		</div>
+	</li>
+	{/foreach}
+</ul>
+{/template}

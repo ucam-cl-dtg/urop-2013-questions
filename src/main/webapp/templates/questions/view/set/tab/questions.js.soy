@@ -4,7 +4,6 @@
  * Questions tab
  * @param expectedDuration
  * @param questions
- * @param id
  */
 {template .full}
 <section>
@@ -27,13 +26,7 @@
 					</div>
 				</li>
 				{foreach $question in $questions}
-					{call .question}
-						{param content: $question.content /}
-						{param id: $question.id /}
-						{param setId: $id /}
-						{param expectedDuration: $question.expectedDuration /}
-						{param notes: $question.notes /}
-					{/call}
+					{call .question data="$question" /}
 				{/foreach}
 			</ul>
 		</div>
@@ -47,6 +40,7 @@
  * @param setId
  * @param expectedDuration
  * @param notes
+ * @param starred
  */
 {template .question}
 <li class="panel-wrapper columns large-12">
@@ -57,9 +51,9 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-sub-panel"><i class="icon icon-pen"></i></a>
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
-					<a class="icon-button panel-icon-button websymbols-icon">&#82;</a>
+					<a class="icon-button panel-icon-button icon-button-array expand-sub-panel"><i class="icon icon-pen"></i></a>
+					<a class="icon-button panel-icon-button icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $starred}_empty{/if}"></i></span>
 				</div>
 			</div>
 		</div>

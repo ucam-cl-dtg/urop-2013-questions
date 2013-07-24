@@ -67,6 +67,7 @@ public class QuestionQuery {
 		log.debug("New QuestionQuery required. Constructing & returning");
 		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransactionSession()
 				.createCriteria(Question.class)	
+				.addOrder(Order.desc("isStarred"))
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
 		qq.criteria.addOrder(Order.desc("timeStamp"));
 		log.debug("Successfully created, now returning");
