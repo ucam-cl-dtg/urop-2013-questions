@@ -59,30 +59,19 @@
 							<li class="columns large-12">
 								<h4>Previous versions</h4>
 							</li>
-							/*{let $curQuest: $question.parent /}
-							{$question.parent.id}
-							{for $i in range(0, 5, 1)}
-								{if $curQuest}
-									{$curQuest.id}<br>
-									{let $curQuest: $curQuest.parent /}
-								{/if}
-								
-								//{call shared.questions.singleShort}
-							{/for}*/
-								
-							
+							// Questions will be inserted here by JS
 						</ul>
 						<div class="columns large-12">
 							<a class="large button expand" id="show-more-history">Show more</a>
 						</div>
-						<ul class="panels">
+						<ul class="panels" id="forks-list" data-qid={$question.id} data-disp=0>
 							<li class="columns large-12">
 								<h4>Forks</h4>
 							</li>
-							
+							// Questions will be inserted here by JS
 						</ul>
 						<div class="columns large-12">
-							<a class="large button expand">Show more</a>
+							<a class="large button expand" id="show-more-forks">Show more</a>
 						</div>
 					</div>
 				</div>

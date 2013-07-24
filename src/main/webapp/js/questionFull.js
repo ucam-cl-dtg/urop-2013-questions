@@ -42,6 +42,12 @@ function configureInputField() {
 		return false;
 	});
 	loadMoreHistory(5);
+	
+	$(".main").on("click", "#show-more-forks", function(){
+		loadMoreForks(5);
+		return false;
+	});
+	loadMoreForks(5);
 }
 
 function loadMoreHistory(depth){
@@ -62,4 +68,22 @@ function loadMoreHistory(depth){
 				$historyList.append($newQuestions.find(".panels").children());
 			});
 	 
+}
+
+function loadMoreForks(amount){
+	var $forksList = $(".main").find("#forks-list");
+	var $newQuestions = $("<div></div>");
+	
+	loadModule($newQuestions,
+			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
+			function(json) {
+				if(json.exhausted) {
+					$(".main").find("#show-more-forks").remove();
+				}
+				$forksList.attr("data-disp", json.disp);
+				return "shared.question.multiple";
+			},
+			function() {
+				$forksList.append($newQuestions.find(".panels").children());
+			});
 }
