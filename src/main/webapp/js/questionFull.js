@@ -151,3 +151,15 @@ function toggleComplete(type, successful, $element){
 		$element.addClass("delete");
 	}
 }
+
+function configureQuestionStarToggler() {
+	$('.star-question-button').on('click', function() {
+		var questionId = $(this).attr('data-question-id');
+		var $star = $(this);
+		$.get('/q/'+questionId+'/togglestar', function() {
+			$star.find('i')
+				.toggleClass('icon-star')
+				.toggleClass('icon-star_empty');
+		});
+	});
+}

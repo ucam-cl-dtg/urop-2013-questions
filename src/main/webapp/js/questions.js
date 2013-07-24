@@ -2,13 +2,14 @@ moduleScripts['questions'] = {
     'view' : {
     	'questionFull': [
 			configureInputField,
+			configureQuestionStarToggler,
 	    ],
 		'set': {
 			'full': [
 			    configureRemoveQuestion,
 				configureSelectQuestion,
 				configureUseTabSubmitButton,
-				configureStarToggler,
+				configureSetStarToggler,
 			],
 			'list': [
 			    configureQuestionSetLoader,
@@ -90,7 +91,7 @@ function configureUseTabSubmitButton() {
 	});
 }
 
-function configureStarToggler() {
+function configureSetStarToggler() {
 	$('.star-question-button').on('click', function() {
 		var setId = $(this).attr('data-set-id');
 		var $star = $(this);

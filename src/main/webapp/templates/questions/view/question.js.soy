@@ -6,7 +6,13 @@
 {template .questionFull}
 	<div class="row">
 	<div class="columns large-12 small-12">
-		<h3><span class="websymbols-icon fixed-width-icon star-question-button">&#82;</span>Question #{$question.id}</h3>
+		<h3><span class="fixed-width-icon star-question-button" data-question-id="{$question.id}"><i class="icon{' '}
+		{if $question.starred}
+			icon-star
+		{else}
+			icon-star_empty
+		{/if}
+		"></i></span>Question #{$question.id}</h3>
 	</div>
 </div>
 <div class="row">

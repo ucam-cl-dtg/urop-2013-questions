@@ -234,7 +234,7 @@ public class QuestionSetController {
 	@GET
 	@Path("/{id}/togglestar")
 	@Produces("application/json")
-	public ImmutableMap<String,?> toggleStar(@PathParam("id") int id) {
+	public Map<String,?> toggleStar(@PathParam("id") int id) {
 		QuestionSet qs = QuestionSetQuery.get(id);
 		qs.toggleStarred();
 		qs.update();

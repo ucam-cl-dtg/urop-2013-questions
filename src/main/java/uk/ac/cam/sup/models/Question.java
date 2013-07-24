@@ -73,6 +73,7 @@ public class Question extends Model implements Cloneable {
 	
 	public boolean isStarred(){return isStarred;}
 	public void star(boolean s){isStarred = s;}
+	public void toggleStarred(){isStarred=!isStarred;}
 	
 	public int getUsageCount(){	return this.usageCount; }
 	public void setUsageCount(int c){usageCount = c;}

@@ -397,4 +397,15 @@ public class QuestionController {
 		
 	}
 	
+	@GET
+	@Path("/{id}/togglestar")
+	@Produces("application/json")
+	public Map<String,?> toggleStar(@PathParam("id") int id) {
+		Question q = QuestionQuery.get(id);
+		q.toggleStarred();
+		q.update();
+		
+		return ImmutableMap.of("id", id, "starred", q.isStarred());
+	}
+	
 }

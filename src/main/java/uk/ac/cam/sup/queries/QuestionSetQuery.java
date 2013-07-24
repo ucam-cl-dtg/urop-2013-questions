@@ -30,6 +30,7 @@ public class QuestionSetQuery {
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+					.addOrder(Order.desc("isStarred"))
 		);
 		qsq.criteria.addOrder(Order.desc("timeStamp"));
 		return qsq;
