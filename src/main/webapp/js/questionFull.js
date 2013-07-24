@@ -78,9 +78,55 @@ function configureInputField() {
 		return false;
 	});
 	
+	$(".main").on("click", "#minor-edit", function() {
+		var $checkBox = $(this);
+		var $setListDiv = $(".main").find("#set-div-to-edit");
+		
+		if($checkBox.attr("checked")){
+			$checkBox.attr("checked", false);
+			
+			if($setListDiv.children().hasClass("set-list-to-edit")){
+				$setListDiv.children(".set-list-to-edit").slideToggle();
+			}else{
+				
+				var $newList = $("<div></div>");
+				loadModule($newList,
+						"sets/mysets/qlimited?qid=" + $inputField.attr("data-qid"),
+						"shared.set.setSelectionQuestionEdit",
+						function(){
+							$newList.find(".panels").hide();
+							$newList.find(".panels").addClass("set-list-to-edit");
+							$setListDiv.append($newList.children());
+							$setListDiv.find(".panels").slideToggle();
+						});
+			}
+			
+		}else{
+			$checkBox.attr("checked", true);
+			$setListDiv.children(".set-list-to-edit").slideToggle();
+		}
+	});
+	
+	$(".main").on("click", ".list-panel.qedit-set-list a", function(e){
+		e.stopPropagation();
+	});
+	$(".main").on("click", ".list-panel.qedit-set-list.unused", function(){
+		var $this = $(this);
+		$this.removeClass("unused");
+		$this.addClass("success");
+		return false;
+	});
+	$(".main").on("click", ".list-panel.qedit-set-list.success", function(){
+		var $this = $(this);
+		$this.removeClass("success");
+		$this.addClass("unused");
+		return false;
+	});
 	
 	$(".main").on("submit", "#revisions-submit-form", function() {
-		
+		/*$.post("/q/update", {
+			content: 
+		});*/
 		return false;
 	});
 	

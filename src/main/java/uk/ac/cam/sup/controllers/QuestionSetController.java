@@ -161,6 +161,19 @@ public class QuestionSetController {
 	}
 	
 	@GET
+	@Path("/mysets/qlimited")
+	@Produces("application/json")
+	public Map<String,List<QuestionSet>> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
+		List<User> userList = new ArrayList<User>();
+		userList.add(new User((String)request.getSession().getAttribute("RavenRemoteUser")));
+		
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUsers(userList).have(qid);
+		qsq.getCriteria().addOrder(Order.asc("name"));
+		
+		return ImmutableMap.of("sets", qsq.list());
+	}
+	
+	@GET
 	@Path("/remove")
 	@Produces("application/json")
 	public boolean removeQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
