@@ -41,9 +41,9 @@ public class QuestionSetController {
 	private static Logger log = LoggerFactory.getLogger(QuestionSetController.class);
 	
 	@GET
-	@Path("/json")
+	@Path("/")
 	@Produces("application/json")
-	public List<?> produceFilteredJSON (
+	public Map<String,?> produceFilteredJSON (
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String users,
 			@QueryParam("star") boolean star,
@@ -85,7 +85,7 @@ public class QuestionSetController {
 		if (minduration != null) { query.minDuration(minduration); }
 		if (maxduration != null) { query.maxDuration(maxduration); }
 		
-		return query.maplist(false);
+		return ImmutableMap.of("sets", query.maplist(false));
 	}
 	
 	@GET
@@ -93,6 +93,13 @@ public class QuestionSetController {
 	@Produces("application/json")
 	public Map<String,Object> showSingleSet(@PathParam("id") int id) {
 		return QuestionSetQuery.get(id).toMap(false);
+	}
+	
+	@GET
+	@Path("/{id}/questions")
+	@Produces("application/json")
+	public Map<String,?> showSetsQuestions(@PathParam("id") int id) {
+		return ImmutableMap.of ("questions", QuestionSetQuery.get(id).getQuestionsAsMaps());
 	}
 	
 	@GET

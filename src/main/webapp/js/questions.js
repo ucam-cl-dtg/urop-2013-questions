@@ -3,12 +3,17 @@ moduleScripts['questions'] = {
     	'questionFull': [
 			configureInputField,
 	    ],
-		'set': [
-			configureRemoveQuestion,
-			configureSelectQuestion,
-			configureUseTabSubmitButton,
-			configureStarToggler
-		]
+		'set': {
+			'full': [
+			    configureRemoveQuestion,
+				configureSelectQuestion,
+				configureUseTabSubmitButton,
+				configureStarToggler,
+			],
+			'list': [
+			    configureQuestionSetLoader,
+			]
+    	}
 
 	},
     'search' : {
@@ -94,5 +99,20 @@ function configureStarToggler() {
 				.toggleClass('icon-star')
 				.toggleClass('icon-star_empty');
 		});
+	});
+}
+
+function configureQuestionSetLoader() {
+	$('.expand-question-list').on('click', function() {
+		if ($(this).hasClass('loaded')) {
+			$(this).parents('.panel-wrapper').find('.sub-panel').slideToggle();
+		} else {
+			var source = 'sets/'+$(this).attr('data-qid')+'/questions';
+			var $questionList = $(this).parents('.panel-wrapper').children('.question-list');
+			loadModule($questionList, source, 'questions.view.set.listquestions', function() {
+				$(this).find('.sub-panel').slideToggle();
+			});
+			$(this).toggleClass('loaded');
+		}
 	});
 }

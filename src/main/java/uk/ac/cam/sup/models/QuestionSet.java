@@ -237,6 +237,14 @@ public class QuestionSet extends Model {
 	}
 	
 	public Map<String,Object> toMap(boolean shadow) {
+		Map<String,Object> r = toShortMap(shadow);
+		
+		r.put("questions", this.getQuestionsAsMaps());
+		
+		return r;
+	}
+	
+	public Map<String,Object> toShortMap(boolean shadow) {
 		Map<String,Object> r = new HashMap<String,Object>();
 		
 		r.put("id", this.id);
@@ -244,12 +252,9 @@ public class QuestionSet extends Model {
 		r.put("owner", this.owner);
 		//r.put("timeStamp", this.timeStamp); // for direct soy access use soyTimeStamp
 		r.put("soyTimeStamp", this.timeStamp.toString());
-		r.put("plan", this.plan);
 		r.put("expectedDuration", this.getExpectedDuration());
-		r.put("parentid", null); // TODO: implement parent
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);
-		r.put("questions", this.getQuestionsAsMaps());
 		r.put("plan", (shadow ? null : this.plan));
 		
 		return r;
@@ -257,6 +262,10 @@ public class QuestionSet extends Model {
 	
 	public Map<String,Object> toMap() {
 		return toMap(true);
+	}
+	
+	public Map<String,Object> toShortMap() {
+		return toShortMap(true);
 	}
 	
 	public void edit(QuestionSetEdit qse) throws Exception {

@@ -54,7 +54,7 @@ public class QuestionSetQuery {
 		List<QuestionSet> all = list();
 		
 		for (QuestionSet qs: all) {
-			l.add(qs.toMap(shadow));
+			l.add(qs.toShortMap(shadow));
 		}
 		
 		return l;
