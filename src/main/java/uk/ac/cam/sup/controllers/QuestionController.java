@@ -167,6 +167,8 @@ public class QuestionController {
 		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
 	}
 
+	/*
+	// Don't think this is needed. Left here in case something breaks.
 	@GET
 	@Path("/{id}/history/json")
 	@Produces("application/json")
@@ -178,15 +180,17 @@ public class QuestionController {
 		}
 
 		return ImmutableMap.of("history", history);
-	}
+	}*/
 
+	/*
+	// Don't think this is needed. Left here in case something breaks.
 	@GET
 	@Path("/{id}/forks/json")
 	@Produces("application/json")
 	public List<?> produceForksJSON(@PathParam("id") int id) {
 		// TODO: change to maps
 		return QuestionQuery.all().withParent(id).list();
-	}
+	}*/
 
 	@POST
 	@Path("/update")

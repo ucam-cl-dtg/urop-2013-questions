@@ -16,7 +16,7 @@
 				<p class="title" data-section-title><a href="#">Content</a></p>
 				<div class="content" data-section-content>
 					<h4>Question</h4>
-					<p>
+					<p id="question-content-p">
 						{if $question.content.data}
 							{$question.content.data}
 						{else}
@@ -24,7 +24,7 @@
 						{/if}
 					</p>
 					<h4>Notes</h4>
-					<p>
+					<p id="question-notes-p">
 						{if $question.notes.data}
 							{$question.notes.data}
 						{else}
@@ -80,80 +80,12 @@
 				<p class="title" data-section-title><a href="#">Use</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
-						<ul class="panels">
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 1</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 2</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 3</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 4</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 5</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="panel-wrapper columns large-12">
-								<div class="list-panel">
-									<div class="row list-inner-panel">
-										<div class="columns large-7 small-7">Question set 6</div>
-										<div class="columns large-5 small-5 text-right">
-											<div class="icon-button-wrapper">
-												<a class="icon-button panel-icon-button websymbols-icon icon-button-array">&#43;</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
+						<ul class="panels" id="sets-list" data-disp="0" data-qid={$question.id}>
+							// Question Sets will be inserted here by JS 
 						</ul>
+						<div class="columns large-12">
+							<a class="large button expand" id="show-more-sets">Show more</a>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -162,15 +94,23 @@
 				<div class="content" data-section-content>
 					<h4>Question</h4>
 					<div>
-						<textarea>Bacon ipsum dolor sit amet tri-tip frankfurter hamburger ham, jerky pig ball tip meatball t-bone shank andouille short ribs tenderloin brisket. Salami bresaola chicken leberkas capicola drumstick pork ham. Ball tip drumstick shoulder turducken, andouille turkey sirloin beef pig doner kielbasa boudin. Pancetta tri-tip pork loin bresaola, boudin leberkas tongue short loin. T-bone boudin shankle turducken fatback prosciutto jerky rump chicken filet mignon frankfurter tongue. Boudin shank meatloaf rump short loin turkey pork loin pancetta sirloin. Salami bacon short ribs pig, flank leberkas bresaola kielbasa ribeye.Shoulder spare ribs sirloin tri-tip beef ribs cow chicken. Turducken capicola ham hock, frankfurter brisket filet mignon tongue pig bacon biltong bresaola prosciutto drumstick strip steak. Capicola leberkas fatback, cow beef jerky ham hock ball tip turkey t-bone rump swine. Pork loin cow doner chicken prosciutto flank shankle andouille capicola pancetta. Shankle pig t-bone venison spare ribs sirloin, tenderloin hamburger pork loin tongue.</textarea>
+						<textarea>
+							{if $question.content.data}
+								{$question.content.data}
+							{/if}
+						</textarea>
 					</div>
 					<h4>Notes</h4>
 					<div>
-						<textarea>Bacon ipsum dolor sit amet tri-tip frankfurter hamburger ham, jerky pig ball tip meatball t-bone shank andouille short ribs tenderloin brisket. Salami bresaola chicken leberkas capicola drumstick pork ham. Ball tip drumstick shoulder turducken, andouille turkey sirloin beef pig doner kielbasa boudin. Pancetta tri-tip pork loin bresaola, boudin leberkas tongue short loin. T-bone boudin shankle turducken fatback prosciutto jerky rump chicken filet mignon frankfurter tongue. Boudin shank meatloaf rump short loin turkey pork loin pancetta sirloin. Salami bacon short ribs pig, flank leberkas bresaola kielbasa ribeye.Shoulder spare ribs sirloin tri-tip beef ribs cow chicken. Turducken capicola ham hock, frankfurter brisket filet mignon tongue pig bacon biltong bresaola prosciutto drumstick strip steak. Capicola leberkas fatback, cow beef jerky ham hock ball tip turkey t-bone rump swine. Pork loin cow doner chicken prosciutto flank shankle andouille capicola pancetta. Shankle pig t-bone venison spare ribs sirloin, tenderloin hamburger pork loin tongue.</textarea>
+						<textarea>
+							{if $question.notes.data}
+								{$question.notes.data}
+							{/if}
+						</textarea>
 					</div>
 					<div class="text-right">
-						<form>
-							<input type="submit" value="Submit revisions" />
+						<form id="revisions-submit-form">
+							<input type="submit" value="Submit revisions" class="medium success button" />
 						</form>
 					</div>
 				</div>

@@ -27,12 +27,11 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
-import uk.ac.cam.sup.util.WorldStrings;
 
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.RedirectException;
 
-@Path(WorldStrings.URL_PREFIX + "/sets")
+@Path("/sets")
 public class QuestionSetController {
 	
 	@Context
@@ -132,6 +131,34 @@ public class QuestionSetController {
 			return ImmutableMap.of("maplist", maplist);
 		}
 	}
+
+	@GET
+	@Path("/mysets/limited")
+	@Produces("application/json")
+	public Map<String,?> produceSelectionOfMySets(
+			@QueryParam("contains") Integer qid,
+			@QueryParam("disp") Integer alreadyDisplayed,
+			@QueryParam("amount") Integer amount) {
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String,?>> mySets = (List<Map<String,?>>) produceMySets(qid).get("maplist");
+		
+		if(mySets.size() <= alreadyDisplayed) {
+			return ImmutableMap.of("maplist", null, "exhausted", true, "disp", alreadyDisplayed);
+		} else if(mySets.size() <= alreadyDisplayed + amount) {
+			return ImmutableMap.of(
+					"maplist", mySets.subList(alreadyDisplayed, mySets.size()),
+					"exhausted", true,
+					"disp", mySets.size()
+			);
+		} else {
+			return ImmutableMap.of(
+					"maplist", mySets.subList(alreadyDisplayed, alreadyDisplayed + amount),
+					"exhausted", false,
+					"disp", alreadyDisplayed + amount
+			);
+		}
+	}
 	
 	@GET
 	@Path("/remove")
@@ -192,4 +219,5 @@ public class QuestionSetController {
 		
 		return ImmutableMap.of("setid", id, "starred", qs.isStarred());
 	}
+	
 }
