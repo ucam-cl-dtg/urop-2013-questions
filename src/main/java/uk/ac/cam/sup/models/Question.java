@@ -99,7 +99,7 @@ public class Question extends Model implements Cloneable {
 	public void setTags(Set<Tag> tags){this.tags = tags;}
 	public Set<Tag> getTags(){return tags;}
 	public void addTag(Tag tag){tags.add(tag);}
-	public void rTag(Tag tag){tags.remove(tag);}
+	public void removeTag(Tag tag){tags.remove(tag);}
 	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();

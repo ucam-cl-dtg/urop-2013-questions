@@ -6,10 +6,21 @@
  */
 {template .add}
 <form method="POST" action="/q/save">
-	<textarea name="content"></textarea>
-	<textarea name="notes"></textarea>
-	<input type="number" name="expectedDuration" value="0" />
-	<input type="hidden" name="setId" value="{$setId}" />
-	<input type="submit" value="Submit" />	
-</form>
+			<h4>Content</h4>
+			<div>
+				<textarea name="content"></textarea>
+			</div>
+			<h4>Solution notes</h4>
+			<div>
+				<textarea name="notes"></textarea>
+			</div>
+			<h4>Estimated duration</h4>
+			<div>
+				<input type="number" name="expectedDuration" value="10" max="2000000000" min="-2000000000" />
+			</div>
+			<div class="text-right">
+				<input type="hidden" name="setId" value="{$setId}" />
+				<input type="submit" value="Submit" />
+			</div>
+		</form>
 {/template}

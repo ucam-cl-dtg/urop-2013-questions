@@ -39,7 +39,7 @@ public class QuestionSet extends Model {
 	private String name;
 	private boolean isStarred = false;
 	
-	@Column(nullable=false, columnDefinition = "date default sysdate")
+	@Column(nullable=false)
 	private Date timeStamp = new Date();
 	
 	@SuppressWarnings("unused")

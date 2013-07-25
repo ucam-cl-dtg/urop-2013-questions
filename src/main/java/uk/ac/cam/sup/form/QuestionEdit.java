@@ -6,6 +6,11 @@ import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionEdit extends QuestionForm {
+	
+	public QuestionEdit() {
+		super();
+	}
+	
 	public QuestionEdit(String content, String notes,
 			Integer setID, Integer expectedDuration) {
 		super(content, notes, setID, expectedDuration);

@@ -2,6 +2,7 @@
 
 /**
  * Questions tab
+ * @param id
  * @param expectedDuration
  * @param questions
  */
@@ -26,7 +27,9 @@
 					</div>
 				</li>
 				{foreach $question in $questions}
-					{call .question data="$question" /}
+					{call .question data="$question"}
+						{param setId: $id /}
+					{/call}
 				{/foreach}
 			</ul>
 		</div>

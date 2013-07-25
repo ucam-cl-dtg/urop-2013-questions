@@ -11,6 +11,9 @@ public class QuestionSetForm {
 	@FormParam("plan")
 	private String plan;
 	private Data planData;
+
+	public QuestionSetForm(){
+	}
 	
 	public QuestionSetForm(String name, String plan){
 		this.name = name;

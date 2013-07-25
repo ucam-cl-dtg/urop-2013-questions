@@ -37,12 +37,9 @@ import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.RedirectException;
 
 @Path("/q")
-public class QuestionController {
+public class QuestionController extends GeneralController {
 	private static Logger log = LoggerFactory
 			.getLogger(QuestionController.class);
-
-	@Context
-	private HttpServletRequest request;
 
 	@GET
 	@Path("/search")
@@ -194,8 +191,7 @@ public class QuestionController {
 	@POST
 	@Path("/update")
 	public void editQuestion(@Form QuestionEdit qe) {
-		User editor = new User((String) request.getSession().getAttribute(
-				"RavenRemoteUser"));
+		User editor = getCurrentUser();
 
 		try {
 			qe.validate();
@@ -212,8 +208,7 @@ public class QuestionController {
 	@POST
 	@Path("/save")
 	public void addQuestion(@Form QuestionAdd qa) {
-		User author = new User((String) request.getSession().getAttribute(
-				"RavenRemoteUser"));
+		User author = getCurrentUser();
 
 		try {
 			qa.validate();
