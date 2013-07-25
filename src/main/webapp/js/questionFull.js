@@ -38,22 +38,22 @@ function configureInputField() {
 	});
 	
 	$(".main").on("click", "#show-more-history", function(){
-		loadMoreHistory(5);
+		loadMoreHistory(5, $(this));
 		return false;
 	});
-	loadMoreHistory(5);
+	loadMoreHistory(5, $(".main").find("#show-more-history"));
 	
 	$(".main").on("click", "#show-more-forks", function(){
-		loadMoreForks(5);
+		loadMoreForks(5, $(this));
 		return false;
 	});
-	loadMoreForks(5);
+	loadMoreForks(5, $(".main").find("#show-more-forks"));
 	
 	$(".main").on("click", "#show-more-sets", function(){
-		loadMoreSets(10);
+		loadMoreSets(10, $(this));
 		return false;
 	});
-	loadMoreSets(10);
+	loadMoreSets(10, $(".main").find("#show-more-sets"));
 	
 	$(".main").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
@@ -133,7 +133,12 @@ function configureInputField() {
 	
 }
 
-function loadMoreHistory(depth){
+function loadMoreHistory(depth, $button){
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+	
 	var $historyList = $(".main").find("#history-list");
 	var $newQuestions = $("<div></div>");
 	
@@ -142,20 +147,27 @@ function loadMoreHistory(depth){
 			function(json) {
 				
 				if(json.exhausted) {
-					var $button = $(".main").find("#show-more-history");
 					$button.parent().append($("<i>--- End of History ---</i>"));
 					$button.remove();
 				}
 				$historyList.attr("data-qid", json.last);
+				
+				json.showAddButton = false;
 				return "shared.question.multiple";
 			}, 
 			function() {
 				$historyList.append($newQuestions.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 	 
 }
 
-function loadMoreForks(amount){
+function loadMoreForks(amount, $button){
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+		
 	var $forksList = $(".main").find("#forks-list");
 	var $newQuestions = $("<div></div>");
 	
@@ -163,19 +175,26 @@ function loadMoreForks(amount){
 			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
 			function(json) {
 				if(json.exhausted) {
-					var $button = $(".main").find("#show-more-forks");
 					$button.parent().append($("<i>--- End of forks list ---</i>"));
 					$button.remove();
 				}
 				$forksList.attr("data-disp", json.disp);
+				
+				json.showAddButton = false;
 				return "shared.question.multiple";
 			},
 			function() {
 				$forksList.append($newQuestions.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 }
 
-function loadMoreSets(amount) {
+function loadMoreSets(amount, $button) {
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+	
 	var $setsList = $(".main").find("#sets-list");
 	var $newSets = $("<div></div>");
 	
@@ -183,13 +202,15 @@ function loadMoreSets(amount) {
 			"sets/mysets/limited?disp=" + $setsList.attr("data-disp") + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
 			function(json) {
 				if(json.exhausted) {
-					$(".main").find("#show-more-sets").remove();
+					$button.parent().append("<i>--- End of set list ---");
+					$button.remove();
 				}
 				$setsList.attr("data-disp", json.disp);
 				return "shared.set.multipleHighlight";
 			},
 			function() {
 				$setsList.append($newSets.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 }
 
