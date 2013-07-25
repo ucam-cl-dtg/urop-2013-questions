@@ -17,8 +17,8 @@ $(document).ready(function() {
 
 		"": "questions.main",
 		
-		"q/search(?:params)" : "questions.search.main",
 		"q/:id" : "questions.view.questionFull",
+		"q/search(?:params)" : "questions.search.main",
 		"q/add/:setid" : "questions.form.question.add",
 		
 		"sets": "questions.view.set.list",
