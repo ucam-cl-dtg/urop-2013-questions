@@ -38,22 +38,22 @@ function configureInputField() {
 	});
 	
 	$(".main").on("click", "#show-more-history", function(){
-		loadMoreHistory(5);
+		loadMoreHistory(5, $(this));
 		return false;
 	});
-	loadMoreHistory(5);
+	loadMoreHistory(5, $(".main").find("#show-more-history"));
 	
 	$(".main").on("click", "#show-more-forks", function(){
-		loadMoreForks(5);
+		loadMoreForks(5, $(this));
 		return false;
 	});
-	loadMoreForks(5);
+	loadMoreForks(5, $(".main").find("#show-more-forks"));
 	
 	$(".main").on("click", "#show-more-sets", function(){
-		loadMoreSets(10);
+		loadMoreSets(10, $(this));
 		return false;
 	});
-	loadMoreSets(10);
+	loadMoreSets(10, $(".main").find("#show-more-sets"));
 	
 	$(".main").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
@@ -133,7 +133,12 @@ function configureInputField() {
 	
 }
 
-function loadMoreHistory(depth){
+function loadMoreHistory(depth, $button){
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+	
 	var $historyList = $(".main").find("#history-list");
 	var $newQuestions = $("<div></div>");
 	
@@ -151,11 +156,17 @@ function loadMoreHistory(depth){
 			}, 
 			function() {
 				$historyList.append($newQuestions.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 	 
 }
 
-function loadMoreForks(amount){
+function loadMoreForks(amount, $button){
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+		
 	var $forksList = $(".main").find("#forks-list");
 	var $newQuestions = $("<div></div>");
 	
@@ -172,10 +183,16 @@ function loadMoreForks(amount){
 			},
 			function() {
 				$forksList.append($newQuestions.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 }
 
-function loadMoreSets(amount) {
+function loadMoreSets(amount, $button) {
+	if($button.hasClass("disabled")) {
+		return false;
+	}
+	$button.addClass("disabled");
+	
 	var $setsList = $(".main").find("#sets-list");
 	var $newSets = $("<div></div>");
 	
@@ -190,6 +207,7 @@ function loadMoreSets(amount) {
 			},
 			function() {
 				$setsList.append($newSets.find(".panels").children());
+				$button.removeClass("disabled");
 			});
 }
 
