@@ -32,6 +32,8 @@
 				<script src="/soy/js/1/questions.form.set.js"></script>
 				<script src="/soy/js/1/questions.view.set.tab.js"></script>
 				<script src="/soy/js/1/questions.view.set.js"></script>
+				
+				<script src="/soy/js/1/questions.misc.js"></script>
 			]]>
 		</custom_templates>
 	</properties>
