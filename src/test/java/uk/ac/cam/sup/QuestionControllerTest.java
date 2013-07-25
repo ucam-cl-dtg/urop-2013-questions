@@ -3,6 +3,7 @@ package uk.ac.cam.sup;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.googlecode.htmleasy.RedirectException;
@@ -15,12 +16,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import uk.ac.cam.sup.controllers.GeneralController;
 import uk.ac.cam.sup.controllers.QuestionController;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 
 import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -64,13 +68,16 @@ public class QuestionControllerTest {
 		// Reflect on question controller to modify private request field
 		Field requestField;
 		try {
-			requestField = QuestionController.class.getDeclaredField("request");
+			requestField = GeneralController.class.getDeclaredField("request");
 			requestField.setAccessible(true);
 			requestField.set(qc, mock_req);
 		} catch (SecurityException e) {}
 			catch (IllegalAccessException e) {}
 	}
 	
+	/*
+	 * Dummy passing test
+	 */
 	@Test
 	public void testPassingQuestionAdd() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", qset.getId(), 10);
@@ -82,6 +89,11 @@ public class QuestionControllerTest {
 		}
 	}
 	
+	/*
+	 * When a question with negative id is added.
+	 * TODO: Test looks for RedirectException but if the error 
+	 * behaviour does not redirect test should be modified accordingly.
+	 */
 	@Test
 	public void testNegativeQuestionSetId() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", -1, 10);
@@ -102,5 +114,33 @@ public class QuestionControllerTest {
 		} catch(RedirectException e) {
 			assertTrue(true);
 		}
+	}
+	
+	/*
+	 * In http://localhost:8080/app/#q/:id fill the id here
+	 * If you change the qid data attribute so that it gives a non-existent id
+	 * getTagsNotInQuestion controller throws a StringIndexOutOfBoundsException
+	 * 
+	 * TODO: Asserts should be changed so that instead of checking for a list 
+	 * it should check for the relevant error object.
+	 */
+	@Test
+	public void testNonExistentIdForTagNotIn() {
+		assertEquals("Both returns List Type",qc.getTagsNotInQuestion("99999: hellloooo").getClass(), List.class);
+	}
+	
+	@Test
+	public void testWronglyFormatterInputForTagsNotIn() {
+		assertEquals("Both returns List Type",qc.getTagsNotInQuestion("aaaa: hellloooo").getClass(), List.class);
+	}
+	
+	/*
+	 * When produceSingleQuestionJSON receives a non-existent id 
+	 * TODO: Should be edited so that instead of the actual result assert
+	 * should expect error object
+	 */
+	@Test
+	public void testGettingAQuestionWithNonExistentId() {
+		assertEquals("Should return a map with error perhaps?", qc.produceSingleQuestionJSON(99999).getClass(), Map.class);
 	}
 }
