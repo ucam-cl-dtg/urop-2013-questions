@@ -21,7 +21,18 @@ private boolean validated = false;
 	private Integer setId;
 	
 	@FormParam("expectedDuration")
+
 	private String expectedDuration;
+
+	public QuestionForm(){
+	}
+	
+	public QuestionForm(String content, String notes, Integer setID, Integer expectedDuration){
+		this.content = content;
+		this.notes = notes;
+		this.setId = setID;
+		this.expectedDuration = expectedDuration.toString();
+	}
 	
 	public Data getContent() throws RuntimeException {
 		if (!validated) {

@@ -3,10 +3,11 @@
 /**
  * @param set
  * @param? contains
+ * @param? class
  */
 {template .single}
 	<li class="panel-wrapper columns large-12">
-		{if $contains}<div class="list-panel set-list success" data-sid="{$set.id}">
+		{if $contains}<div class="list-panel {if $class}{$class}{/if} success" data-sid="{$set.id}">
 		{else}<div class="list-panel set-list unused" data-sid="{$set.id}">
 		{/if}
 			<div class="row list-inner-panel">
@@ -32,6 +33,23 @@
 			{call .single}
 				{param set: $map.set /}
 				{param contains: $map.containsQuestion /}
+				{param class: 'set-list' /}
+			{/call}
+		{/foreach}
+	</ul>
+{/template}
+
+/**
+ * @param sets
+ */
+{template .setSelectionQuestionEdit}
+	<ul class="panels">
+	<p><b>Choose the sets in which to edit the question below:</b></p> 
+		{foreach $set in $sets}
+			{call .single}
+				{param set: $set /}
+				{param contains: true /}
+				{param class: 'qedit-set-list' /}
 			{/call}
 		{/foreach}
 	</ul>
