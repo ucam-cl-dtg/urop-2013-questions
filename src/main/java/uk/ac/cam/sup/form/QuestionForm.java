@@ -21,7 +21,18 @@ private boolean validated = false;
 	private Integer setId;
 	
 	@FormParam("expectedDuration")
-	private Integer expectedDuration;
+
+	private String expectedDuration;
+
+	public QuestionForm(){
+	}
+	
+	public QuestionForm(String content, String notes, Integer setID, Integer expectedDuration){
+		this.content = content;
+		this.notes = notes;
+		this.setId = setID;
+		this.expectedDuration = expectedDuration.toString();
+	}
 	
 	public Data getContent() throws RuntimeException {
 		if (!validated) {
@@ -48,7 +59,11 @@ private boolean validated = false;
 		if (!validated) {
 			throw new RuntimeException("Form was not yet validated");
 		}
-		return this.expectedDuration;
+		try {
+			return Integer.parseInt(this.expectedDuration); 
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 	
 	public QuestionForm validate() throws Exception {
@@ -70,7 +85,7 @@ private boolean validated = false;
 		}
 		
 		if (expectedDuration == null) {
-			expectedDuration = 0;
+			expectedDuration = "0";
 		}
 		
 		validated = true;
@@ -81,7 +96,7 @@ private boolean validated = false;
 	public Question store(Question q) {
 		q.setContent(dcontent);
 		q.setNotes(dnotes);
-		q.setExpectedDuration(expectedDuration);
+		q.setExpectedDuration(getExpectedDuration());
 		
 		return q;
 	}
