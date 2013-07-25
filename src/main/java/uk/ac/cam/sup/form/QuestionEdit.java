@@ -2,7 +2,6 @@ package uk.ac.cam.sup.form;
 
 import javax.ws.rs.FormParam;
 
-import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionEdit extends QuestionForm {

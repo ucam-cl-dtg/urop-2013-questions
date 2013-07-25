@@ -1,8 +1,6 @@
 package uk.ac.cam.sup.ppdloader;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -65,7 +63,6 @@ public class PPDLoader {
 	
 	public static void main(String[] args) throws Exception {
 		TopicLoader tl = new TopicLoader();
-		int i = 1;
 		
 		for (Topic t: tl.getResults()) {
 			QuestionLoader ql = new QuestionLoader(t);

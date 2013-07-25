@@ -19,6 +19,7 @@ public class TagQuery {
 		this.criteria = criteria;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Tag> list() {
 		return criteria.list();
 	}

@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
@@ -373,16 +371,20 @@ public class QuestionController extends GeneralController {
 		// the controller will return the 
 		List<Question> forks = QuestionQuery.all().withParent(qid).list();
 		
+		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
 		if(forks.size() <= alreadyDisplayed) {
-			return ImmutableMap.of("questions", null, "exhausted", true, "disp", alreadyDisplayed);
+			log.debug("Number of forks <= forks already displayed.");
+			return ImmutableMap.of("questions", new ArrayList<Question>(), "exhausted", true, "disp", alreadyDisplayed);
 		}else if(forks.size() <= alreadyDisplayed + toDisplay){
 			// If the amount of forks still not displayed is less than those requested.
+			log.debug("There are still a few forks to display but the forks are now exhausted.");
 			return ImmutableMap.of(
 					"questions", forks.subList(alreadyDisplayed, forks.size()),
 					"exhausted", true,
 					"disp", forks.size()
 			);
 		} else {
+			log.debug("Not all forks returned.");
 			return ImmutableMap.of(
 					"questions", forks.subList(alreadyDisplayed, alreadyDisplayed + toDisplay),
 					"exhausted", false,
