@@ -15,12 +15,14 @@ $(document).ready(function() {
         // Use the last line to redirect unmatched routes to an error page
         "*undefined": "errors.notfound"*/
 
-		"q/:id" : "questions.view.questionFull",
+		"": "questions.main",
+		
 		"q/search(?:params)" : "questions.search.main",
-    	"q/:id/edit/:setid" : "questions.form.question.edit",
+		"q/:id" : "questions.view.questionFull",
+		"q/add/:setid" : "questions.form.question.add",
+		
+		"sets": "questions.view.set.list",
     	"sets/:id" : "questions.view.set.full",
-    	"q/add/:setid" : "questions.form.question.add",
-    	"sets": "questions.view.set.list",
     	"sets/add": "questions.form.set.create",
     	
     });
