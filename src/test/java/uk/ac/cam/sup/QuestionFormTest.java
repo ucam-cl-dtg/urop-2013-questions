@@ -8,20 +8,14 @@ import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionForm;
 import uk.ac.cam.sup.models.Data;
 
-public class AddQuestionTest {
+public class QuestionFormTest {
 	
 	@Test
 	public void addEmptyQuestion() {
+		
+		// Empty content
+		QuestionAdd qa = new QuestionAdd("", "", 0, 0);
 
-		String content = "";
-		Data dcontent = new Data(true,"");
-		
-		String notes = "";
-		Data dnotes = new Data(true,"");
-		
-		Integer setId = 0;
-		
-		Integer expectedDuration = 0;	
 		
 	}
 	

@@ -6,9 +6,9 @@ import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionEdit extends QuestionForm {
-	public QuestionEdit(String content, Data dcontent, String notes,
-			Data dnotes, Integer setID, Integer expectedDuration) {
-		super(content, dcontent, notes, dnotes, setID, expectedDuration);
+	public QuestionEdit(String content, String notes,
+			Integer setID, Integer expectedDuration) {
+		super(content, notes, setID, expectedDuration);
 	}
 
 	private boolean validated = false;
