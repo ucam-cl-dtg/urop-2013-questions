@@ -1,6 +1,7 @@
 package uk.ac.cam.sup;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -32,8 +33,8 @@ public class QuestionFormTest extends GenericTest{
 		try {
 			qa.validate();
 		} catch (Exception e){
-			// Fails
-		}		
+			fail();
+		}
 		
 		assertNull("Data object should have null content:", qa.getContent().getData());	
 		assertNull("Data object should have null notes:", qa.getNotes().getData());	

@@ -36,28 +36,28 @@ private boolean validated = false;
 	
 	public Data getContent() throws RuntimeException {
 		if (!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new RuntimeException("Form was not validated");
 		}
 		return this.dcontent;
 	}
 	
 	public Data getNotes() throws RuntimeException {
 		if (!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new RuntimeException("Form was not validated");
 		}
 		return this.dnotes;
 	}
 	
 	public Integer getSetId() throws RuntimeException {
 		if(!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new RuntimeException("Form was not validated");
 		}
 		return this.setId;
 	}
 	
 	public int getExpectedDuration() throws RuntimeException {
 		if (!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new RuntimeException("Form was not validated");
 		}
 		try {
 			return Integer.parseInt(this.expectedDuration); 
@@ -69,7 +69,8 @@ private boolean validated = false;
 	public QuestionForm validate() throws Exception {
 		
 		if (setId == null || QuestionSetQuery.get(setId) == null) {
-			throw new Exception("Question you're trying to edit does not belong to any set");
+			return this;
+			//throw new Exception("Question you're trying to edit does not belong to any set");
 		}
 		
 		if (content == null || content.equals("")) {
