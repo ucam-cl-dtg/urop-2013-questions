@@ -23,6 +23,15 @@ private boolean validated = false;
 	@FormParam("expectedDuration")
 	private Integer expectedDuration;
 	
+	public QuestionForm(String content, Data dcontent, String notes, Data dnotes, Integer setID, Integer expectedDuration){
+		this.content = content;
+		this.dcontent = dcontent;
+		this.notes = notes;
+		this.dnotes = dnotes;
+		this.setId = setID;
+		this.expectedDuration = expectedDuration;
+	}
+	
 	public Data getContent() throws RuntimeException {
 		if (!validated) {
 			throw new RuntimeException("Form was not yet validated");

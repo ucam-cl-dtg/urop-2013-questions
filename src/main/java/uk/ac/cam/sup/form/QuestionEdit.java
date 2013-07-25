@@ -2,9 +2,15 @@ package uk.ac.cam.sup.form;
 
 import javax.ws.rs.FormParam;
 
+import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionEdit extends QuestionForm {
+	public QuestionEdit(String content, Data dcontent, String notes,
+			Data dnotes, Integer setID, Integer expectedDuration) {
+		super(content, dcontent, notes, dnotes, setID, expectedDuration);
+	}
+
 	private boolean validated = false;
 	
 	@FormParam("id")

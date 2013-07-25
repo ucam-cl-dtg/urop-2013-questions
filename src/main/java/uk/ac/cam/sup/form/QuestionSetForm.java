@@ -12,6 +12,12 @@ public class QuestionSetForm {
 	private String plan;
 	private Data planData;
 	
+	public QuestionSetForm(String name, String plan, Data planData){
+		this.name = name;
+		this.plan = plan;
+		this.planData = planData;
+	}
+	
 	public final String getName() {
 		return name;
 	}

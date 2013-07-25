@@ -5,11 +5,16 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 
+import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionSetEdit extends QuestionSetForm {
 	
+	public QuestionSetEdit(String name, String plan, Data planData) {
+		super(name, plan, planData);
+	}
+
 	@FormParam("setid")
 	private Integer setId;
 	
