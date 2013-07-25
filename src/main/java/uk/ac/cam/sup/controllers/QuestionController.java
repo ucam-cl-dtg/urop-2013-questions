@@ -161,31 +161,6 @@ public class QuestionController extends GeneralController {
 		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
 	}
 
-	/*
-	// Don't think this is needed. Left here in case something breaks.
-	@GET
-	@Path("/{id}/history/json")
-	@Produces("application/json")
-	public Map<String, ?> produceHistoryJSON(@PathParam("id") int id) {
-		List<Map<?, ?>> history = new ArrayList<Map<?, ?>>();
-
-		for (Question q = QuestionQuery.get(id); q != null; q = q.getParent()) {
-			history.add(q.toMap());
-		}
-
-		return ImmutableMap.of("history", history);
-	}*/
-
-	/*
-	// Don't think this is needed. Left here in case something breaks.
-	@GET
-	@Path("/{id}/forks/json")
-	@Produces("application/json")
-	public List<?> produceForksJSON(@PathParam("id") int id) {
-		// TODO: change to maps
-		return QuestionQuery.all().withParent(id).list();
-	}*/
-
 	@POST
 	@Path("/update")
 	public void editQuestion(@Form QuestionEdit qe) {
@@ -264,7 +239,12 @@ public class QuestionController extends GeneralController {
 	@Path("/tagsnotin")
 	@Produces("application/json")
 	public List<Map<String, String>> getTagsNotInQuestion(String strInput) {
+		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
+		
 		int equPos = strInput.indexOf("=");
+		if (equPos < 0) {
+			return results;
+		}
 		int qid = Integer.parseInt(strInput.substring(0, equPos));
 		String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
 
@@ -273,7 +253,7 @@ public class QuestionController extends GeneralController {
 
 		List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
 				.contains(strTagPart).list();
-		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
+		
 
 		for (Tag tag : tags) {
 			results.add(ImmutableMap.of("name", tag.getName()));

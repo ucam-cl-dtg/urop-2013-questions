@@ -3,10 +3,14 @@ package uk.ac.cam.sup;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.googlecode.htmleasy.RedirectException;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.junit.AfterClass;
@@ -22,12 +26,7 @@ import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import com.googlecode.htmleasy.RedirectException;
 
 @RunWith(JUnit4.class)
 public class QuestionControllerTest {
@@ -40,16 +39,18 @@ public class QuestionControllerTest {
 	public static void createQuestionSetAndOwner() {
 		Session session = HibernateUtil.getTransactionSession();
 		owner = new User("mojpc2");
-		session.save(owner);
+		owner.save();
 		qset = new QuestionSet(owner);
-		session.save(qset);
+		qset.save();
+		session.getTransaction().commit();
 	}
 	
 	@AfterClass
 	public static void destroyStuff() {
 		Session session = HibernateUtil.getTransactionSession();
-		session.delete(qset);
-		session.delete(owner);
+		qset.delete();
+		owner.delete();
+		session.getTransaction().commit();
 	}
 	
 	@Before
@@ -126,12 +127,14 @@ public class QuestionControllerTest {
 	 */
 	@Test
 	public void testNonExistentIdForTagNotIn() {
-		assertEquals("Both returns List Type",qc.getTagsNotInQuestion("99999: hellloooo").getClass(), List.class);
+		//assertEquals("Both returns List Type",qc.getTagsNotInQuestion("99999: hellloooo").getClass(), List.class);
+		assertTrue(qc.getTagsNotInQuestion("99999: hellloooo") instanceof List);
 	}
 	
 	@Test
 	public void testWronglyFormatterInputForTagsNotIn() {
-		assertEquals("Both returns List Type",qc.getTagsNotInQuestion("aaaa: hellloooo").getClass(), List.class);
+		//assertEquals("Both returns List Type",qc.getTagsNotInQuestion("aaaa: hellloooo").getClass(), List.class);
+		assertTrue(qc.getTagsNotInQuestion("aaaa: hellloooo") instanceof List);
 	}
 	
 	/*
@@ -141,6 +144,7 @@ public class QuestionControllerTest {
 	 */
 	@Test
 	public void testGettingAQuestionWithNonExistentId() {
-		assertEquals("Should return a map with error perhaps?", qc.produceSingleQuestionJSON(99999).getClass(), Map.class);
+		//assertEquals("Should return a map with error perhaps?", qc.produceSingleQuestionJSON(99999).getClass(), Map.class);
+		assertTrue(qc.produceSingleQuestionJSON(99999) instanceof Map);
 	}
 }
