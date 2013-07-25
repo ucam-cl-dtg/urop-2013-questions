@@ -1,6 +1,5 @@
 package uk.ac.cam.sup.form;
 
-import uk.ac.cam.sup.models.Data;
 
 public class QuestionSetAdd extends QuestionSetForm {
 

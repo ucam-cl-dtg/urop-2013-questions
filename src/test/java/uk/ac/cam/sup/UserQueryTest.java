@@ -1,6 +1,6 @@
 package uk.ac.cam.sup;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -11,13 +11,14 @@ import uk.ac.cam.sup.queries.UserQuery;
 public class UserQueryTest {
 	@Test
 	public void getNonExistingUser(){
+		@SuppressWarnings("unused")
 		User u;
+		
 		try {
 			u = UserQuery.get("xxx");
 		} catch (ModelNotFoundException e) {
-			assertTrue(true);
 			return;
 		}
-		assertFalse(true);
+		fail();
 	}
 }
