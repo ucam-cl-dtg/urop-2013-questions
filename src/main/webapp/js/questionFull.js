@@ -151,6 +151,8 @@ function loadMoreHistory(depth, $button){
 					$button.remove();
 				}
 				$historyList.attr("data-qid", json.last);
+				
+				json.showAddButton = false;
 				return "shared.question.multiple";
 			}, 
 			function() {
@@ -177,6 +179,8 @@ function loadMoreForks(amount, $button){
 					$button.remove();
 				}
 				$forksList.attr("data-disp", json.disp);
+				
+				json.showAddButton = false;
 				return "shared.question.multiple";
 			},
 			function() {

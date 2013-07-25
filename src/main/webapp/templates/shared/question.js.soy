@@ -1,11 +1,9 @@
 {namespace shared.question}
 /**
  * Displays a single question in a summary (for ex. when searching and listing all questions)
- * param id
- * param content Data object holding content of the question.
- * param owner
  * @param question
  * @param? setid
+ * @param showAddButton
  */
 {template .singleShort}
 <li class="panel-wrapper columns large-12" data-question-id="{$question.id}">
@@ -21,7 +19,9 @@
 					{if $setid}
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
 					{/if}
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
+					{if $showAddButton}
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
+					{/if}
 					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
 				</div>
@@ -35,6 +35,7 @@
  * Displays a list of questions
  * @param questions
  * @param? setid
+ * @param? showAddButton
  */
 {template .multiple}
 	<ul class="panels">
@@ -42,6 +43,7 @@
 		{call .singleShort}
 			{param question: $question /}
 			{param setid: $setid /}
+			{param showAddButton: $showAddButton /}
 		{/call}
 	{/foreach}
 	</ul>
