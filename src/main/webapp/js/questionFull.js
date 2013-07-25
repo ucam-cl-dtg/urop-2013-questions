@@ -142,7 +142,9 @@ function loadMoreHistory(depth){
 			function(json) {
 				
 				if(json.exhausted) {
-					$(".main").find("#show-more-history").remove();
+					var $button = $(".main").find("#show-more-history");
+					$button.parent().append($("<i>--- End of History ---</i>"));
+					$button.remove();
 				}
 				$historyList.attr("data-qid", json.last);
 				return "shared.question.multiple";
@@ -161,7 +163,9 @@ function loadMoreForks(amount){
 			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
 			function(json) {
 				if(json.exhausted) {
-					$(".main").find("#show-more-forks").remove();
+					var $button = $(".main").find("#show-more-forks");
+					$button.parent().append($("<i>--- End of forks list ---</i>"));
+					$button.remove();
 				}
 				$forksList.attr("data-disp", json.disp);
 				return "shared.question.multiple";

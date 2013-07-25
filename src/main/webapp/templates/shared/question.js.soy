@@ -41,9 +41,6 @@
 	{foreach $question in $questions}
 		{call .singleShort}
 			{param question: $question /}
-			//{param content: $question.content /}
-			//{param timestamp: $question.timeStamp /}
-			//{param owner: $question.owner /}
 			{param setid: $setid /}
 		{/call}
 	{/foreach}
