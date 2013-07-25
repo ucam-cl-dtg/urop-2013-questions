@@ -1,15 +1,10 @@
 package uk.ac.cam.sup;
 
-import static org.junit.Assert.*;
-
-import javax.ws.rs.FormParam;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 import uk.ac.cam.sup.form.QuestionAdd;
-import uk.ac.cam.sup.form.QuestionForm;
-import uk.ac.cam.sup.models.Data;
-import uk.ac.cam.sup.models.QuestionSet;
 
 public class QuestionFormTest extends GenericTest{
 	

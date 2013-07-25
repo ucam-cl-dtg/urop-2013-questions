@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import uk.ac.cam.sup.HibernateUtil;
-
 @Entity
 @Table(name="Tags")
 public class Tag extends Model implements Comparable<Tag>{
