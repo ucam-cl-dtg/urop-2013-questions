@@ -85,9 +85,12 @@ function configureUseTabSubmitButton() {
 			}
 		});
 		
-		$("input[name=questions]").attr("value", selected);
-		
-		$(this).parent().submit();
+		if (selected.length > 0) {
+			$("input[name=questions]").attr("value", selected);
+			$(this).parent().submit();
+		} else {
+			alert("No questions were selected");
+		}
 	});
 }
 

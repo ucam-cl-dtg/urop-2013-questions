@@ -48,7 +48,9 @@ public class QuestionSetFork {
 		questions = new ArrayList<Question>();
 		String[] split = questionList.split(",");
 		for (String s: split) {
-			questions.add(QuestionQuery.get(Integer.parseInt(s)));
+			if (!s.equals("")) {
+				questions.add(QuestionQuery.get(Integer.parseInt(s)));
+			}
 		}
 		
 		return this;
