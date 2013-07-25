@@ -11,6 +11,10 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionSetEdit extends QuestionSetForm {
 	
+	public QuestionSetEdit() {
+		super();
+	}
+	
 	public QuestionSetEdit(String name, String plan) {
 		super(name, plan);
 	}

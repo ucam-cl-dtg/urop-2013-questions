@@ -22,6 +22,9 @@ private boolean validated = false;
 	
 	@FormParam("expectedDuration")
 	private Integer expectedDuration;
+
+	public QuestionForm(){
+	}
 	
 	public QuestionForm(String content, String notes, Integer setID, Integer expectedDuration){
 		this.content = content;
