@@ -33,10 +33,7 @@ import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.RedirectException;
 
 @Path("/sets")
-public class QuestionSetController {
-	
-	@Context
-	private HttpServletRequest request;
+public class QuestionSetController extends GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(QuestionSetController.class);
 	
@@ -114,9 +111,9 @@ public class QuestionSetController {
 	@Produces("application/json")
 	public Map<?,?> produceMySets(@QueryParam("contains") Integer questionID){
 		
-		String userID = (String)request.getSession().getAttribute("RavenRemoteUser");
+		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
-		userlist.add(new User(userID));
+		userlist.add(user);
 		
 		QuestionSetQuery starredList = QuestionSetQuery.all().withUsers(userlist).withStar();
 		QuestionSetQuery nostarList = QuestionSetQuery.all().withUsers(userlist).withoutStar();
@@ -173,7 +170,7 @@ public class QuestionSetController {
 	@Produces("application/json")
 	public Map<String,List<QuestionSet>> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
 		List<User> userList = new ArrayList<User>();
-		userList.add(new User((String)request.getSession().getAttribute("RavenRemoteUser")));
+		userList.add(getCurrentUser());
 		
 		QuestionSetQuery qsq = QuestionSetQuery.all().withUsers(userList).have(qid);
 		qsq.getCriteria().addOrder(Order.asc("name"));
@@ -224,8 +221,7 @@ public class QuestionSetController {
 	@Path("/save")
 	public void saveSet(@Form QuestionSetAdd form) throws Exception {
 		form.validate().parse();
-		User author = new User((String) request.getSession().getAttribute(
-				"RavenRemoteUser"));
+		User author = getCurrentUser();
 		QuestionSet qs = new QuestionSet(author);
 		qs.setName(form.getName());
 		qs.setPlan(form.getPlan());

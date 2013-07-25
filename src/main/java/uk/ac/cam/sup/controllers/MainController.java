@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableMap;
 import com.googlecode.htmleasy.ViewWith;
 
 @Path(WorldStrings.URL_PREFIX + "/")
-public class MainController {
+public class MainController extends GeneralController {
 	
 	@GET
 	@Path("/")

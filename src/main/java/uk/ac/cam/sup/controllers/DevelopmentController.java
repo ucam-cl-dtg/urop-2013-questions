@@ -16,7 +16,7 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 
 @Path("/dev")
-public class DevelopmentController {
+public class DevelopmentController extends GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(DevelopmentController.class);
 	

@@ -11,7 +11,7 @@ import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.WorldStrings;
 
 @Path(WorldStrings.URL_PREFIX+"/tags")
-public class TagController {
+public class TagController extends GeneralController {
 	
 	@GET
 	@Path("/json")
