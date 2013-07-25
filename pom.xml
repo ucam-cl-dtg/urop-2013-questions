@@ -165,7 +165,7 @@
 							<outputDirectory>${basedir}/src/main/webapp/app</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/../urop-2013-frontend</directory>
+									<directory>${basedir}/../sup_frontend</directory>
 									<filtering>true</filtering>
 								</resource>
 								<!-- <resource> <directory>${basedir}/src/config</directory> <filtering>true</filtering> 
