@@ -373,16 +373,20 @@ public class QuestionController extends GeneralController {
 		// the controller will return the 
 		List<Question> forks = QuestionQuery.all().withParent(qid).list();
 		
+		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
 		if(forks.size() <= alreadyDisplayed) {
-			return ImmutableMap.of("questions", null, "exhausted", true, "disp", alreadyDisplayed);
+			log.debug("Number of forks <= forks already displayed.");
+			return ImmutableMap.of("questions", new ArrayList<Question>(), "exhausted", true, "disp", alreadyDisplayed);
 		}else if(forks.size() <= alreadyDisplayed + toDisplay){
 			// If the amount of forks still not displayed is less than those requested.
+			log.debug("There are still a few forks to display but the forks are now exhausted.");
 			return ImmutableMap.of(
 					"questions", forks.subList(alreadyDisplayed, forks.size()),
 					"exhausted", true,
 					"disp", forks.size()
 			);
 		} else {
+			log.debug("Not all forks returned.");
 			return ImmutableMap.of(
 					"questions", forks.subList(alreadyDisplayed, alreadyDisplayed + toDisplay),
 					"exhausted", false,
