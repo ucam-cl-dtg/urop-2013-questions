@@ -147,7 +147,6 @@ function loadMoreHistory(depth, $button){
 			function(json) {
 				
 				if(json.exhausted) {
-					var $button = $(".main").find("#show-more-history");
 					$button.parent().append($("<i>--- End of History ---</i>"));
 					$button.remove();
 				}
@@ -174,7 +173,6 @@ function loadMoreForks(amount, $button){
 			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
 			function(json) {
 				if(json.exhausted) {
-					var $button = $(".main").find("#show-more-forks");
 					$button.parent().append($("<i>--- End of forks list ---</i>"));
 					$button.remove();
 				}
@@ -200,7 +198,8 @@ function loadMoreSets(amount, $button) {
 			"sets/mysets/limited?disp=" + $setsList.attr("data-disp") + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
 			function(json) {
 				if(json.exhausted) {
-					$(".main").find("#show-more-sets").remove();
+					$button.parent().append("<i>--- End of set list ---");
+					$button.remove();
 				}
 				$setsList.attr("data-disp", json.disp);
 				return "shared.set.multipleHighlight";

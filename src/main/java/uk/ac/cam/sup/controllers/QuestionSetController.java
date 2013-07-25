@@ -147,7 +147,7 @@ public class QuestionSetController extends GeneralController {
 		List<Map<String,?>> mySets = (List<Map<String,?>>) produceMySets(qid).get("maplist");
 		
 		if(mySets.size() <= alreadyDisplayed) {
-			return ImmutableMap.of("maplist", null, "exhausted", true, "disp", alreadyDisplayed);
+			return ImmutableMap.of("maplist", new ArrayList<Map<String,?>>(), "exhausted", true, "disp", alreadyDisplayed);
 		} else if(mySets.size() <= alreadyDisplayed + amount) {
 			return ImmutableMap.of(
 					"maplist", mySets.subList(alreadyDisplayed, mySets.size()),
