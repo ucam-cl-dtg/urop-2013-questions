@@ -22,7 +22,7 @@ $(document).ready(function() {
     	"q/add/:setid" : "questions.form.question.add",
     	"sets": "questions.view.set.list",
     	"sets/add": "questions.form.set.create",
-    	
+    	"fairytale": "questions.misc.fairytale",
     });
 	
 });
