@@ -25,6 +25,8 @@ $(document).ready(function() {
     	"sets/:id" : "questions.view.set.full",
     	"sets/add": "questions.form.set.create",
     	
+    	"fairytale" : "questions.misc.fairytale",
+    	
     });
 	
 });
