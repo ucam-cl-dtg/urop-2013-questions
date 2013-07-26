@@ -45,6 +45,7 @@ public class HibernateUtil {
     }
 
     public static Session getTransactionSession() {
+    	commit();
         Session session = getSession();
         if (!session.getTransaction().isActive()) {
         	session.beginTransaction();
@@ -53,7 +54,7 @@ public class HibernateUtil {
     }
     
     public static void commit() {
-    	Session session = sf.getCurrentSession();
+    	Session session = getSession();
     	if (session.isOpen()) {
     		Transaction t = session.getTransaction();
     		if (t.isActive()) {
