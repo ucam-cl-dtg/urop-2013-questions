@@ -254,7 +254,7 @@ public class QuestionController extends GeneralController {
 		List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
 				.contains(strTagPart).list();
 		
-
+		results.add(ImmutableMap.of("name", strTagPart));
 		for (Tag tag : tags) {
 			results.add(ImmutableMap.of("name", tag.getName()));
 		}
