@@ -107,7 +107,7 @@ public class QuestionSet extends Model {
 		List<Question> questions = getQuestions();
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 		for (Question q: questions) {
-			result.add(q.toMap());
+			result.add(q.toMap(shadow));
 		}
 		return result;
 	}
@@ -239,7 +239,7 @@ public class QuestionSet extends Model {
 	public Map<String,Object> toMap(boolean shadow) {
 		Map<String,Object> r = toShortMap(shadow);
 		
-		r.put("questions", this.getQuestionsAsMaps());
+		r.put("questions", this.getQuestionsAsMaps(shadow));
 		
 		return r;
 	}

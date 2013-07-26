@@ -14,7 +14,7 @@
 	<input type="hidden" name="setId" value="{$setId}" />
 	<li class="list-sub-panel">
 		<textarea name="content" placeholder="Content">{if $content.data}{$content.data}{/if}</textarea>	
-		<textarea name="notes" placeholder="Solution notes">{if $notes}{$notes}{/if}</textarea>
+		<textarea name="notes" placeholder="Solution notes">{if $notes.data}{$notes.data}{/if}</textarea>
 		<input type="number" name="expectedDuration" value="{$expectedDuration}" max="2000000000" min="-2000000000" />
 		<input type="checkbox" name="minor" value="true">This is a minor update</input>
 		<input type="submit" value="Submit" />	
