@@ -180,11 +180,13 @@ public class QuestionSetController extends GeneralController {
 	@Path("/remove")
 	@Produces("application/json")
 	public boolean removeQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
-		 try{
+		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
+		try{
 			 QuestionSet qs = QuestionSetQuery.get(sid);
 			 qs.removeQuestion(QuestionQuery.get(qid));
 			 qs.update();
 		 } catch(Exception e) {
+			 log.warn("Error when trying to remove question!\n" + e.getStackTrace());
 			 return false;
 		 }
 		 return true;
@@ -194,14 +196,16 @@ public class QuestionSetController extends GeneralController {
 	@Path("/add")
 	@Produces("application/json")
 	public boolean addQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
+		log.debug("Trying to add question " + qid + " to set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
 		try{
 			 QuestionSet qs = QuestionSetQuery.get(sid);
 			 qs.addQuestion(QuestionQuery.get(qid));
 			 qs.update();
 		 } catch(Exception e) {
+			 log.warn("Error when trying to add question!\n" + e.getStackTrace());
 			 return false;
 		 }
-		 return true;
+		return true;
 	}
 	
 	@POST

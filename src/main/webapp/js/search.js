@@ -19,6 +19,8 @@ function searchSetup() {
 				{questions: data.questions, permalink: "/app/" + permalink}
 			);
 		});*/
+		router.navigate(permalink);
+		
 		loadModule($(newList), "q/search" + searchTerms, function(json){
 			//console.log(json);
 			json.permalink = permalink;	
