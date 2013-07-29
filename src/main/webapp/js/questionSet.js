@@ -1,3 +1,12 @@
+function reloadView (set) {
+	applyTemplate($("#set-content-tab"), "questions.view.set.tab.plan.full", set);
+	applyTemplate($("#set-questions-tab"), "questions.view.set.tab.questions.full", set);
+	applyTemplate($("#set-use-tab"), "questions.view.set.tab.use.full", set);
+	applyTemplate($("#set-edit-tab"), "questions.view.set.tab.edit.full", set);
+	applyTemplate($("#set-createquestion-tab"), "questions.view.set.tab.createquestion.full", set);
+	applyTemplate($(".question-set-name"), "questions.view.set.name", set);
+}
+
 function configureRemoveQuestionButton () {
 	$(document).on('click', '.remove-question-from-set', function() {
 		$(this).parents('div.list-panel')
@@ -26,7 +35,18 @@ function configureEditSetForm () {
 		});
 		$("input[name=questions]").attr("value", questions);
 		
-		$(this).parents('form').submit();
+		var data = $("#set-edit").serialize();
+		$.post ("/sets/update",	data, function (data) {
+			if (data.success) {
+				reloadView(data.set);
+				successNotification("Set edited successfully");
+			} else {
+				successNotification(data.error);
+			}
+		}).fail(function (data) {
+			console.log(data);
+			errorNotification("Error while editing the file");
+		});
 	});
 	
 	$(".sortable").sortable();

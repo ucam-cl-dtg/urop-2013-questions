@@ -5,12 +5,10 @@
  * @param id
  */
 {template .full}
-<section>
 	<p class="title" data-section-title><a href="#">Create question</a></p>
 	<div class="content" data-section-content>
 		{call questions.form.question.add}
 			{param setId: $id /}
 		{/call}
 	</div>
-</section>
 {/template}

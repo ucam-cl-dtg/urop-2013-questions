@@ -8,16 +8,15 @@
  * @param questions
  */
 {template .full}
-<section>
 	<p class="title" data-section-title><a href="#">Edit</a></p>
 	<div class="content" data-section-content>
-		<form method="POST" action="/sets/update">
+		<form method="POST" action="/sets/update" id="set-edit">
 		<h4>Basic information</h4>
 		<div>
 			<input type="text" placeholder="Name" value="{$name}" name="name" />
 		</div>
 		<div>
-			<textarea name="plan" placeholder="Supervision plan">{if $plan}{$plan}{/if}</textarea>
+			<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
 		</div>
 		
 		<h4>Questions</h4>
@@ -31,20 +30,18 @@
 				{/foreach}
 			</ul>
 		</div>
-		<h4>Add remote questions</h4>
+/*		<h4>Add remote questions</h4>
 		<div>
 			<a href="#" class="button">Add questions</a>
 		</div>
+ */
 		<div class="text-right">
-			
-				<input type="hidden" value="{$id}" name="setid" />
-				<input type="hidden" value="" name="questions" />
-				<input type="submit" value="Submit revisions" id="edit-set-submit-button" />
-			
+			<input type="hidden" value="{$id}" name="setid" />
+			<input type="hidden" value="" name="questions" />
+			<input type="submit" value="Submit revisions" id="edit-set-submit-button" />
 		</div>
 		</form>
 	</div>
-</section>
 {/template}
 
 /**
