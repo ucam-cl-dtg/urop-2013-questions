@@ -8,7 +8,7 @@ function configureQuestionSetView () {
 }
 
 function reloadView (set) {
-	applyTemplate($("#set-content-tab"), "questions.view.set.tab.plan.full", set);
+	applyTemplate($("#set-plan-tab"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab"), "questions.view.set.tab.questions.full", set);
 	applyTemplate($("#set-use-tab"), "questions.view.set.tab.use.full", set);
 	applyTemplate($("#set-edit-tab"), "questions.view.set.tab.edit.full", set);

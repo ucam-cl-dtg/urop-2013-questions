@@ -5,11 +5,10 @@
  * @param plan
  */
 {template .full}
+<h4>Plan</h4>
 {if $plan.data}
-<p class="title" data-section-title><a href="#">Content</a></p>
-<div class="content" data-section-content>
-	<h4>Plan</h4>
 	<p>{$plan.data}</p>
-</div>
+{else}
+	<p><i>--- No plan found ---</i></p>
 {/if}
 {/template}
