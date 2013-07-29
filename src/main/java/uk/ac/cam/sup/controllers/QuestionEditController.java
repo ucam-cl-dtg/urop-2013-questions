@@ -36,11 +36,12 @@ public class QuestionEditController extends GeneralController{
 	
 	Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
+	
 	@POST
 	@Path("/update")
-	public void editQuestion(@Form QuestionEdit qe) {
+	public void updateQuestion(@Form QuestionEdit qe) {
 		User editor = getCurrentUser();
-
+		//TODO: instead of throwing redirects to the error page, have an error notification show up
 		try {
 			qe.validate();
 		} catch (Exception e) {

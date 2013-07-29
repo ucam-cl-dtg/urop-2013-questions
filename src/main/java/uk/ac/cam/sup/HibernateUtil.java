@@ -44,6 +44,11 @@ public class HibernateUtil {
         return session;
     }
 
+    /**
+     * Use this to get the TransactionSessoin to access the data base.
+     * 
+     * @return
+     */
     public static Session getTransactionSession() {
         Session session = getSession();
         if (!session.getTransaction().isActive()) {
@@ -52,6 +57,9 @@ public class HibernateUtil {
         return session;
     }
     
+    /**
+     * Commits the current session. Shouldn't manually be necessary.
+     */
     public static void commit() {
     	Session session = sf.getCurrentSession();
     	if (session.isOpen()) {

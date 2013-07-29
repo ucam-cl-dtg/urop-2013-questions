@@ -30,7 +30,7 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public Map<String,?> produceFilteredJSON (
+	public Map<String,?> produceFilteredSets (
 			@QueryParam("tags") String tags,
 			@QueryParam("owners") String users,
 			@QueryParam("star") boolean star,
@@ -78,14 +78,14 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Map<String,Object> showSingleSet(@PathParam("id") int id) {
+	public Map<String,Object> produceSingleSet(@PathParam("id") int id) {
 		return QuestionSetQuery.get(id).toMap(false);
 	}
 	
 	@GET
 	@Path("/{id}/questions")
 	@Produces("application/json")
-	public Map<String,?> showSetsQuestions(@PathParam("id") int id) {
+	public Map<String,?> produceSetQuestions(@PathParam("id") int id) {
 		return ImmutableMap.of ("questions", QuestionSetQuery.get(id).getQuestionsAsMaps());
 	}
 	

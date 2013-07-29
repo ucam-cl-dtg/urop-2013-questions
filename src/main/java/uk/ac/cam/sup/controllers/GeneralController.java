@@ -15,10 +15,20 @@ public abstract class GeneralController {
 		return request.getSession().getAttribute(attr);
 	}
 	
+	/**
+	 * Gets the raven ID of the user currently logged in.
+	 * 
+	 * @return
+	 */
 	protected String getCurrentUserID(){
 		return getCurrentUser().getId();
 	}
 	
+	/**
+	 * Gets the currently logged in user as User object.
+	 * 
+	 * @return
+	 */
 	protected User getCurrentUser(){
 		String uID = (String)getSessionAttribute("RavenRemoteUser");
 		User curUser;
