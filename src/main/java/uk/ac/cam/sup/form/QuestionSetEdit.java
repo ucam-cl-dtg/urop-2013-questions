@@ -21,25 +21,17 @@ public class QuestionSetEdit extends QuestionSetForm {
 	@FormParam("setid")
 	private Integer setId;
 	
-	@FormParam("delete")
-	public String deleteList;
+	@FormParam("questions")
+	public String questionlist;
 	
-	@FormParam("neworder")
-	public String newOrderList;
-	
-	private List<Question> deletedQuestions;
-	private List<Question> orderedQuestions;
+	private List<Question> questions;
 	
 	public int getSetId() {
 		return setId;
 	}
 	
-	public List<Question> getDeletedQuestions() {
-		return deletedQuestions;
-	}
-	
-	public List<Question> getOrderedQuestions() {
-		return orderedQuestions;
+	public List<Question> getQuestions() {
+		return questions;
 	}
 	
 	public int getQuestionSetId() {
@@ -53,12 +45,8 @@ public class QuestionSetEdit extends QuestionSetForm {
 			throw new Exception("No setId specified");
 		}
 		
-		if (deleteList == null) {
-			deleteList = "";
-		}
-		
-		if (newOrderList == null) {
-			newOrderList = "";
+		if (questionlist == null) {
+			questionlist = "";
 		}
 		
 		return this;
@@ -67,20 +55,12 @@ public class QuestionSetEdit extends QuestionSetForm {
 	public QuestionSetEdit parse() {
 		super.parse();
 		
-		deletedQuestions = new ArrayList<Question>();
-		String[] split = deleteList.split(",");
+		questions = new ArrayList<Question>();
+		String[] split = questionlist.split(",");
 		for (String s: split) {
 			if (s.equals("")) { break ; }
 			int id = Integer.parseInt(s);
-			deletedQuestions.add(QuestionQuery.get(id));
-		}
-		
-		orderedQuestions = new ArrayList<Question>();
-		split = newOrderList.split(",");
-		for (String s: split) {
-			if (s.equals("")) { break ; }
-			int id = Integer.parseInt(s);
-			orderedQuestions.add(QuestionQuery.get(id));
+			questions.add(QuestionQuery.get(id));
 		}
 		
 		return this;

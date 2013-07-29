@@ -98,14 +98,7 @@ public class QuestionSetViewController extends GeneralController {
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);
 		
-		QuestionSetQuery starredList = QuestionSetQuery.all().withUsers(userlist).withStar();
-		QuestionSetQuery nostarList = QuestionSetQuery.all().withUsers(userlist).withoutStar();
-		starredList.getCriteria().addOrder(Order.asc("name"));
-		nostarList.getCriteria().addOrder(Order.asc("name"));
-		
-		List<QuestionSet> resultSets = new ArrayList<QuestionSet>();
-		resultSets.addAll(starredList.list());
-		resultSets.addAll(nostarList.list());
+		List<QuestionSet> resultSets = QuestionSetQuery.all().withUsers(userlist).list();
 		
 		if(questionID == null) {
 			return ImmutableMap.of("sets", resultSets);

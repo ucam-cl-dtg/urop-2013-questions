@@ -272,14 +272,10 @@ public class QuestionSet extends Model {
 		this.name = qse.getName();
 		this.plan = qse.getPlan();
 		
-		for(Question q: qse.getDeletedQuestions()) {
-			this.removeQuestion(q);
-		}
-		
 		this.questions.clear();
 		
-		for (int i = 0; i < qse.getOrderedQuestions().size(); i++) {
-			QuestionPlacement qp = new QuestionPlacement(qse.getOrderedQuestions().get(i), i+1);
+		for (int i = 0; i < qse.getQuestions().size(); i++) {
+			QuestionPlacement qp = new QuestionPlacement(qse.getQuestions().get(i), i+1);
 			qp.save();
 			this.questions.add(qp);
 		}

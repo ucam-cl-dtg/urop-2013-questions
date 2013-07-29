@@ -23,7 +23,6 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 import com.google.common.collect.ImmutableMap;
-import com.googlecode.htmleasy.RedirectException;
 
 @Path("/sets")
 public class QuestionSetEditController extends GeneralController {
@@ -33,6 +32,7 @@ public class QuestionSetEditController extends GeneralController {
 	@GET
 	@Path("/remove")
 	@Produces("application/json")
+	@Deprecated
 	public boolean removeQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
 		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
 		try{
@@ -49,7 +49,8 @@ public class QuestionSetEditController extends GeneralController {
 	@GET
 	@Path("/add")
 	@Produces("application/json")
-	public boolean addQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
+	@Deprecated
+	public boolean addQuestionToSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
 		log.debug("Trying to add question " + qid + " to set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
 		try{
 			 QuestionSet qs = QuestionSetQuery.get(sid);
@@ -64,36 +65,59 @@ public class QuestionSetEditController extends GeneralController {
 	
 	@POST
 	@Path("/fork")
-	public void forkSet(@Form QuestionSetFork form) throws Exception {
-		form.validate().parse();
-		for (Question q: form.getQuestions()) {
-			form.getTarget().addQuestion(q);
+	@Produces("application/json")
+	public Map<String,?> forkSet(@Form QuestionSetFork form) throws Exception {
+		QuestionSet qs;
+		
+		try {
+			form.validate().parse();
+			qs = form.getTarget();
+			for (Question q: form.getQuestions()) {
+				qs.addQuestion(q);
+			}
+			qs.update();
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
-		form.getTarget().update();
-		throw new RedirectException("/app/#sets/"+form.getTarget().getId());
+		
+		return ImmutableMap.of("success", true, "set", qs);
 	}
 	
 	@POST
 	@Path("/save")
-	public void saveSet(@Form QuestionSetAdd form) throws Exception {
-		form.validate().parse();
-		User author = getCurrentUser();
-		QuestionSet qs = new QuestionSet(author);
-		qs.setName(form.getName());
-		qs.setPlan(form.getPlan());
-		qs.save();
+	@Produces("application/json")
+	public Map<String,?> saveSet(@Form QuestionSetAdd form) throws Exception {
+		QuestionSet qs;
 		
-		throw new RedirectException("/app/#sets/"+qs.getId());
+		try {
+			form.validate().parse();
+			User author = getCurrentUser();
+			qs = new QuestionSet(author);
+			qs.setName(form.getName());
+			qs.setPlan(form.getPlan());
+			qs.save();
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		
+		return ImmutableMap.of("success", true, "set", qs);
 	}
 	
 	@POST
 	@Path("/update")
-	public void updateSet(@Form QuestionSetEdit form) throws Exception {
-		form.validate().parse();
+	@Produces("application/json")
+	public Map<String,?> updateSet(@Form QuestionSetEdit form) throws Exception {
+		QuestionSet qs;
 		
-		QuestionSetQuery.get(form.getSetId()).edit(form);
+		try {
+			form.validate().parse();
+			qs = QuestionSetQuery.get(form.getSetId());
+			qs.edit(form);
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
 		
-		throw new RedirectException("/app/#sets/"+form.getSetId());
+		return ImmutableMap.of("success", true, "set", qs.toMap(false));
 	}
 	
 	@GET
