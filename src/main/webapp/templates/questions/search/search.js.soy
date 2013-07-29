@@ -55,11 +55,10 @@
 
 /**
  * @param questions
- * @param permalink
  */
 {template .results}
 	//{if $permalink}
-		<aside class="plink"><a href="{$permalink}">permalink</a></aside>
+	//	<aside class="plink"><a href="{$permalink}">permalink</a></aside>
 	//{/if}
 	{call shared.question.multiple}
 		{param questions: $questions /}

@@ -21,18 +21,20 @@ function configureInputField() {
 	var $tagList = $(".main").find(".tags");
 	$addTagsButton.click(function(){
 		var $newtags = $("<div></div>");
-		loadModule($newtags, 
-				"q/addtags?qid=" + $tagList.attr("data-qid") + "&newtags=" + $inputField.val(),
-				"questions.view.tags",
-				function() {
-					$tagList.append($newtags.children());	
-					$('li.token-input-token-facebook').remove();		
-				});
+		
+		$.post("/q/addtags", {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
+			.done(function(data){
+				applyTemplate($newtags, "questions.view.tags", data);
+				$tagList.append($newtags.children());
+				$('li.token-input-token-facebook').remove();
+			});
+		
 		return false;
 	});
 	
 	$(".main").on("click", ".delete-tag", function(){
-		$.get("/q/deltag?qid=" + $tagList.attr("data-qid") + "&tag=" + $(this).attr("data-name"));
+		$.post("/q/deltag", {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
+		//$.get("/q/deltag" + $tagList.attr("data-qid") + "&tag=" + $(this).attr("data-name"));
 		$(this).parent().remove();
 		return false;
 	});
@@ -227,7 +229,7 @@ function configureQuestionStarToggler() {
 	$('.star-question-button').on('click', function() {
 		var questionId = $(this).attr('data-question-id');
 		var $star = $(this);
-		$.get('/q/'+questionId+'/togglestar', function() {
+		$.post('/q/'+questionId+'/togglestar', function() {
 			$star.find('i')
 				.toggleClass('icon-star')
 				.toggleClass('icon-star_empty');

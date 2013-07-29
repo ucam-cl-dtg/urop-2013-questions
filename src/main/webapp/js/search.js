@@ -21,11 +21,7 @@ function searchSetup() {
 		});*/
 		router.navigate(permalink);
 		
-		loadModule($(newList), "q/search" + searchTerms, function(json){
-			//console.log(json);
-			json.permalink = permalink;	
-			return "questions.search.results";
-		});
+		loadModule($(newList), "q/search" + searchTerms, "questions.search.results");
 		//window.location.hash = permalink;
 		
 		
