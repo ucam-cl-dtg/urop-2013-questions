@@ -42,6 +42,8 @@ public class QuestionEditController extends GeneralController{
 		User editor = getCurrentUser();
 		Question q;
 		
+		log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
+		
 		try {
 			qe.validate();
 			q = QuestionQuery.get(qe.getId());

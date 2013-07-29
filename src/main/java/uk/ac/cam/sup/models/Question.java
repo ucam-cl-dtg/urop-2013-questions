@@ -167,6 +167,11 @@ public class Question extends Model implements Cloneable {
 		return q;
 	}
 	
+	private Question forkAndEditMultiple(User editor, QuestionEdit qe){
+		log.info("FORK AND EDIT MULTIPLE");
+		return this;
+	}
+	
 	public Question edit(User editor, QuestionEdit qe) {
 		boolean inPlace = (editor.equals(owner))
 				&& (qe.isMinor() || (this.usageCount <= 1));
@@ -177,6 +182,8 @@ public class Question extends Model implements Cloneable {
 		}
 		if (inPlace) {
 			return this.inPlaceEdit(qe);
+		} else if(qe.getSetId() == -1) {
+			return this.forkAndEditMultiple(editor, qe);
 		} else {
 			return this.forkAndEdit(editor, qe);
 		}
