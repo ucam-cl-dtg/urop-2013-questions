@@ -65,17 +65,21 @@ function configureInputField() {
 		var $this = $(this);
 		$this.removeClass("unused");
 		$this.addClass("success");
-		$.getJSON("/sets/add?sid=" + $(this).attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(successful) {
-			toggleComplete("add", successful, $this);
-		});
+		$.post("/sets/add", {"sid": $this.attr("data-sid"), "qid": inputField.attr("data-qid")})
+			.done(function(json){
+				toggleComplete("add", json.success, $this);
+			});
+		/*$.getJSON("/sets/add?sid=" + $this.attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(json) {
+			toggleComplete("add", json.success, $this);
+		});*/
 		return false;
 	});
 	$(".main").on("click", ".list-panel.set-list.success", function(){
 		var $this = $(this);
 		$this.removeClass("success");
 		$this.addClass("unused");
-		$.getJSON("/sets/remove?sid=" + $(this).attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(successful) {
-			toggleComplete("remove", successful, $this);
+		$.getJSON("/sets/remove?sid=" + $(this).attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(json) {
+			toggleComplete("remove", json.success, $this);
 		});
 		return false;
 	});

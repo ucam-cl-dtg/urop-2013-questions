@@ -86,43 +86,47 @@ public class QuestionEditController extends GeneralController{
 	@POST
 	@Path("/addtags")
 	@Produces("application/json")
-	public Map<String,List<Tag>> addTags(@Form TagAdd addForm) {
+	public Map<String,?> addTags(@Form TagAdd addForm) {
 		// returns the tags added
 		
-		int qid = addForm.getQid();
-		String[] newTagsArray = addForm.getNewTags();
-		
-		if (newTagsArray != null) {
+		try {
+			int qid = addForm.getQid();
+			String[] newTagsArray = addForm.getNewTags();
 			
-			Question question = QuestionQuery.get(qid);
-			List<Tag> result = new ArrayList<Tag>();
-			Set<Tag> existingTags = question.getTags();
-			Tag tmp;
-			
-			for (int i = 0; i < newTagsArray.length; i++) {
-				tmp = new Tag(newTagsArray[i]);
+			if (newTagsArray != null) {
 				
-				if(!existingTags.contains(tmp) && tmp.getName() != null && tmp.getName() != "") {
-					result.add(tmp);
+				Question question = QuestionQuery.get(qid);
+				List<Tag> result = new ArrayList<Tag>();
+				Set<Tag> existingTags = question.getTags();
+				Tag tmp;
+				
+				for (int i = 0; i < newTagsArray.length; i++) {
+					tmp = new Tag(newTagsArray[i]);
+					
+					if(!existingTags.contains(tmp) && tmp.getName() != null && tmp.getName() != "") {
+						result.add(tmp);
+					}
+					
+					log.debug("Trying to add tag " + tmp.getName() + " to question " + qid + "...");
+					question.addTag(tmp);
 				}
 				
-				log.debug("Trying to add tag " + tmp.getName() + " to question " + qid + "...");
-				question.addTag(tmp);
+				log.debug("Trying to update question in data base...");
+				question.update();
+				
+				return ImmutableMap.of("success", true, "tags", result);
 			}
-			
-			log.debug("Trying to update question in data base...");
-			question.update();
-			
-			return ImmutableMap.of("tags", result);
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
-
-		return null;
+		return ImmutableMap.of("success", false, "error", "Tag array was null");
+		
 	}
 	
 	@POST
 	@Path("/deltag")
 	@Produces("application/json")
-	public boolean delTag(@Form TagDel delForm){
+	public Map<String,?> delTag(@Form TagDel delForm){
 		String tag = delForm.getTag();
 		int qid = delForm.getQid();
 		
@@ -131,9 +135,9 @@ public class QuestionEditController extends GeneralController{
 			Question question = QuestionQuery.get(qid);
 			question.removeTagByString(tag);
 			question.update();
-			return true;
+			return ImmutableMap.of("success", true);
 		} catch(Exception e){
-			return false;
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
 	}
@@ -142,11 +146,15 @@ public class QuestionEditController extends GeneralController{
 	@Path("/{id}/togglestar")
 	@Produces("application/json")
 	public Map<String,?> toggleStar(@PathParam("id") int id) {
-		Question q = QuestionQuery.get(id);
-		q.toggleStarred();
-		q.update();
-		
-		return ImmutableMap.of("id", id, "starred", q.isStarred());
+		Question q;
+		try{
+			q = QuestionQuery.get(id);
+			q.toggleStarred();
+			q.update();
+		}catch(Exception e){
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		return ImmutableMap.of("success", true, "id", id, "starred", q.isStarred());
 	}
 	
 }
