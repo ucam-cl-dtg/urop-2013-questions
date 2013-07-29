@@ -65,8 +65,11 @@ function configureInputField() {
 		var $this = $(this);
 		$this.removeClass("unused");
 		$this.addClass("success");
-		$.getJSON("/sets/add?sid=" + $(this).attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(successful) {
-			toggleComplete("add", successful, $this);
+		$.post("/sets/fork", {
+			"targetSetId": $this.attr("data-sid"), 
+			"questions": $inputField.attr("data-qid")
+		}).done(function(json){
+			toggleComplete("add", json.success, $this);
 		});
 		return false;
 	});
@@ -74,8 +77,11 @@ function configureInputField() {
 		var $this = $(this);
 		$this.removeClass("success");
 		$this.addClass("unused");
-		$.getJSON("/sets/remove?sid=" + $(this).attr("data-sid") + "&qid=" + $inputField.attr("data-qid"), function(successful) {
-			toggleComplete("remove", successful, $this);
+		$.post("/sets/remove", {
+			"sid": $this.attr("data-sid"),
+			"qid": $inputField.attr("data-qid")
+		}).done(function(json){
+			toggleComplete("remove", json.success, $this);
 		});
 		return false;
 	});

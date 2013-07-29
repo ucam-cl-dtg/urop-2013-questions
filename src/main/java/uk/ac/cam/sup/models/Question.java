@@ -182,6 +182,9 @@ public class Question extends Model implements Cloneable {
 		}
 	}
 	
+	/**
+	 * Will always through CloneNotSupportedException
+	 */
 	public Object clone() throws CloneNotSupportedException {
 		Question q = (Question) super.clone();
 		q.content = (Data) this.content.clone();
@@ -192,6 +195,12 @@ public class Question extends Model implements Cloneable {
 		return q;
 	}
 	
+	/**
+	 * Puts the question's content into a map.
+	 * 
+	 * @param shadowed Determines whether or not the question notes are returned. Shadowed -> don't return notes.
+	 * @return
+	 */
 	public Map<String,Object> toMap(boolean shadowed) {
 		Map<String,Object> r =	new HashMap<String,Object>();
 		r.put("id", this.id);

@@ -153,4 +153,11 @@ public class QuestionSetViewController extends GeneralController {
 		
 		return ImmutableMap.of("sets", qsq.list());
 	}
+	
+	/*
+	 * Dummy controllers. Don't return anything. Only there to satisfy the router.
+	 */
+	@GET
+	@Path("/add")
+	public void dummy1(){}
 }

@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class QuestionSetFork {
+	private Logger log = LoggerFactory.getLogger(QuestionSetFork.class);
 	
 	@FormParam("targetSetId")
 	private Integer targetId;
@@ -43,10 +47,12 @@ public class QuestionSetFork {
 	}
 	
 	public final QuestionSetFork parse() {
+		log.debug("Getting target set with ID " + targetId);
 		target = QuestionSetQuery.get(targetId);
 		
 		questions = new ArrayList<Question>();
 		String[] split = questionList.split(",");
+		log.debug("Split question list into array of length " + split.length + " (list: \"" + questionList + "\")");
 		for (String s: split) {
 			int id;
 			try {

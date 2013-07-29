@@ -29,6 +29,22 @@ import com.google.common.collect.ImmutableMap;
 public class QuestionViewController extends GeneralController {
 	private static Logger log = LoggerFactory.getLogger(QuestionViewController.class);
 
+	/**
+	 * Returns all questions which correspond to the search criteria.
+	 * 
+	 * @param tags
+	 * @param owners
+	 * @param star Whether the questions to search for should be starred. Null for both with and without star.
+	 * @param supervisor Whether only to return questions from supervisors (true) or only students (false). Null for both.
+	 * @param after Include all questions after a certain date.
+	 * @param before Include all questions before a certain date.
+	 * @param usageMin Include all questions used at least x times.
+	 * @param usageMax Include all questions used at most x times.
+	 * @param parentId
+	 * @param durMax All questions with a maximum duration as given.
+	 * @param durMin All questions with a minimum duration as given.
+	 * @return
+	 */
 	@GET
 	@Path("/search")
 	@Produces("application/json")
@@ -43,34 +59,26 @@ public class QuestionViewController extends GeneralController {
 			@QueryParam("durmax") Integer durMax,
 			@QueryParam("durmin") Integer durMin) {
 
-		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
-				before, usageMin, usageMax, parentId, durMax, durMin);
-		List<?> filteredQuestions = getFilteredQuestions(st);
+		
+		try {
+			SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
+					before, usageMin, usageMax, parentId, durMax, durMin);
+			List<?> filteredQuestions = getFilteredQuestions(st);
 
-		return ImmutableMap.of("questions", filteredQuestions, "st", st);
+			return ImmutableMap.of("success", true, "questions", filteredQuestions, "st", st);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
 		// return ImmutableMap.of("st", st);
 	}
 
-	@GET
-	@Path("/json")
-	@Produces("application/json")
-	public List<?> produceFilteredJSON(@QueryParam("tags") String tags,
-			@QueryParam("owners") String owners,
-			@QueryParam("star") Boolean star,
-			@QueryParam("supervisor") Boolean supervisor,
-			@QueryParam("after") Long after, @QueryParam("before") Long before,
-			@QueryParam("usagemin") Integer usageMin,
-			@QueryParam("usagemax") Integer usageMax,
-			@QueryParam("parent") Integer parentId,
-			@QueryParam("durmax") Integer durMax,
-			@QueryParam("durmin") Integer durMin) {
-
-		SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
-				before, usageMin, usageMax, parentId, durMax, durMin);
-
-		return getFilteredQuestions(st);
-	}
-
+	/**
+	 * Filters questions according to a search term.
+	 * 
+	 * @param st The search term according to which the questions should be filtered
+	 * @return Returns a list of filtered questions according to the search term.
+	 */
 	private List<?> getFilteredQuestions(SearchTerm st) {
 		log.debug("Getting new QuestionQuery");
 		QuestionQuery qq = QuestionQuery.all();
@@ -135,24 +143,41 @@ public class QuestionViewController extends GeneralController {
 		return qq.maplist(false);
 	}
 	
+	/**
+	 * Returns a single question (as map, potentially shadowed)
+	 * 
+	 * @param id Question ID to return
+	 * @return
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Map<String, Map<String, Object>> produceSingleQuestionJSONAsSingleObject(
+	public Map<String,?> produceSingleQuestionJSONAsSingleObject(
 			@PathParam("id") int id) {
-		return ImmutableMap.of("question", QuestionQuery.get(id).toMap(false));
+		return ImmutableMap.of("success", true, "question", QuestionQuery.get(id).toMap(false));
 	}
 	
+	/*
+	 What was/is this method for?! Delete if not needed. 
 	@GET
 	@Path("/add/{setid}")
 	@Produces("application/json")
-	public Map<?, ?> showAddForm(@PathParam("setid") int setId) {
-		Map<String, Object> r = new HashMap<String, Object>();
-		r.put("setId", setId);
+	public Map<String,?> showAddForm(@PathParam("setid") int setId) {
+		//Map<String, Object> r = new HashMap<String, Object>();
+		//r.put("success", true, "setId", setId);
 
-		return r;
-	}
+		return ImmutableMap.of("sucess", true, "setId", setId);
+	}*/
 	
+	/**
+	 * To find the tags not in the current question. Intended for auto-completion feature only. 
+	 * 
+	 * Will return a list of all tags which contain the search term
+	 * given in strInput and which are not in the question.
+	 * 
+	 * @param strInput Format: [questionID]=[tagString]
+	 * @return
+	 */
 	@POST
 	@Path("/tagsnotin")
 	@Produces("application/json")
@@ -176,10 +201,21 @@ public class QuestionViewController extends GeneralController {
 		for (Tag tag : tags) {
 			results.add(ImmutableMap.of("name", tag.getName()));
 		}
-
+		
+		// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
 		return results;
 	}
 
+	/**
+	 * Finds the parents of a question.
+	 * 
+	 * Finds parents in the order from the most recent (immediate)
+	 * parent to the parent further back in history. 
+	 * 
+	 * @param qid The question ID whose parents to look for.
+	 * @param depth The amount of parents (if available) to return.
+	 * @return
+	 */
 	@GET
 	@Path("/parents")
 	@Produces("application/json")
@@ -206,9 +242,17 @@ public class QuestionViewController extends GeneralController {
 		 
 		int lastID = curChild.getId(); 
 		
-		return ImmutableMap.of("questions", historyList, "exhausted", exhausted, "last", lastID);
+		return ImmutableMap.of("success", true, "questions", historyList, "exhausted", exhausted, "last", lastID);
 	}
-	
+	 
+	/**
+	 * Finds forks of a question.
+	 * 
+	 * @param qid The question ID whose children are to be displayed.
+	 * @param alreadyDisplayed The amount of questions already displayed (will skip those).
+	 * @param toDisplay The amount of questions to display (after skipping the alreadyDisplayed ones)
+	 * @return
+	 */
 	@GET
 	@Path("/forks")
 	@Produces("application/json")
@@ -223,11 +267,16 @@ public class QuestionViewController extends GeneralController {
 		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
 		if(forks.size() <= alreadyDisplayed) {
 			log.debug("Number of forks <= forks already displayed.");
-			return ImmutableMap.of("questions", new ArrayList<Question>(), "exhausted", true, "disp", alreadyDisplayed);
+			return ImmutableMap.of(
+					"success", false,
+					"questions", new ArrayList<Question>(),
+					"exhausted", true,
+					"disp", alreadyDisplayed);
 		}else if(forks.size() <= alreadyDisplayed + toDisplay){
 			// If the amount of forks still not displayed is less than those requested.
 			log.debug("There are still a few forks to display but the forks are now exhausted.");
 			return ImmutableMap.of(
+					"success", true,
 					"questions", forks.subList(alreadyDisplayed, forks.size()),
 					"exhausted", true,
 					"disp", forks.size()
@@ -235,6 +284,7 @@ public class QuestionViewController extends GeneralController {
 		} else {
 			log.debug("Not all forks returned.");
 			return ImmutableMap.of(
+					"success", true,
 					"questions", forks.subList(alreadyDisplayed, alreadyDisplayed + toDisplay),
 					"exhausted", false,
 					"disp", alreadyDisplayed + toDisplay
@@ -243,6 +293,14 @@ public class QuestionViewController extends GeneralController {
 		
 	}
 	
+	/**
+	 * Returns the data needed to show an edit form for questions
+	 * in context to a question set.
+	 * 
+	 * @param id
+	 * @param setId
+	 * @return
+	 */
 	@GET
 	@Path("/{id}/edit/{setid}")
 	@Produces("application/json")
@@ -256,6 +314,7 @@ public class QuestionViewController extends GeneralController {
 		r.put("notes", q.getNotes().getData());
 		r.put("setId", setId);
 		r.put("expectedDuration", q.getExpectedDuration());
+		r.put("success", true);
 
 		return r;
 	}
