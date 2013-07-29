@@ -2,17 +2,16 @@ package uk.ac.cam.sup.controllers;
 
 import java.util.Map;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
@@ -29,11 +28,18 @@ public class QuestionSetEditController extends GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(QuestionSetEditController.class);
 	
-	@GET
+	@POST
 	@Path("/remove")
 	@Produces("application/json")
-	@Deprecated
-	public boolean removeQuestionFromSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
+	public Map<String,?> removeQuestionFromSet(@Form QuestionRemove form) {
+		int qid,sid;
+		try{
+			qid = form.getQid();
+			sid = form.getSid();
+		}catch(Exception e){
+			log.warn("Exception when trying to get ints from sid & qid");
+			return ImmutableMap.of("success", false, "error", "Bad arguments passed - possibly not ints");
+		}
 		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
 		try{
 			 QuestionSet qs = QuestionSetQuery.get(sid);
@@ -41,45 +47,31 @@ public class QuestionSetEditController extends GeneralController {
 			 qs.update();
 		 } catch(Exception e) {
 			 log.warn("Error when trying to remove question!\n" + e.getStackTrace());
-			 return false;
+			 return ImmutableMap.of("success", false, "error", e.getMessage());
 		 }
-		 return true;
-	}
-	
-	@GET
-	@Path("/add")
-	@Produces("application/json")
-	@Deprecated
-	public boolean addQuestionToSet(@QueryParam("qid") int qid, @QueryParam("sid") int sid) {
-		log.debug("Trying to add question " + qid + " to set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
-		try{
-			 QuestionSet qs = QuestionSetQuery.get(sid);
-			 qs.addQuestion(QuestionQuery.get(qid));
-			 qs.update();
-		 } catch(Exception e) {
-			 log.warn("Error when trying to add question!\n" + e.getStackTrace());
-			 return false;
-		 }
-		return true;
+		 return ImmutableMap.of("success", true);
 	}
 	
 	@POST
 	@Path("/fork")
 	@Produces("application/json")
-	public Map<String,?> forkSet(@Form QuestionSetFork form) throws Exception {
+	public Map<String,?> forkQuestion(@Form QuestionSetFork form) throws Exception {
 		QuestionSet qs;
 		
 		try {
 			form.validate().parse();
 			qs = form.getTarget();
+			log.debug("Trying to fork or add question(s) to set " + qs.getId() + "...");
 			for (Question q: form.getQuestions()) {
+				log.debug("Trying to add question " + q.getId() + " to set " + qs.getId());
 				qs.addQuestion(q);
 			}
 			qs.update();
 		} catch (Exception e) {
+			log.warn("Could not add question(s) to set!");
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
-		
+		log.debug("Apparently successfully added question(s) to set " + qs.getId());
 		return ImmutableMap.of("success", true, "set", qs);
 	}
 	
@@ -120,7 +112,7 @@ public class QuestionSetEditController extends GeneralController {
 		return ImmutableMap.of("success", true, "set", qs.toMap(false));
 	}
 	
-	@GET
+	@POST
 	@Path("/{id}/togglestar")
 	@Produces("application/json")
 	public Map<String,?> toggleStar(@PathParam("id") int id) {

@@ -64,7 +64,7 @@ function configureSetStarToggler() {
 	$('.star-question-button').on('click', function() {
 		var setId = $(this).attr('data-set-id');
 		var $star = $(this);
-		$.get('/sets/'+setId+'/togglestar', function() {
+		$.post('/sets/'+setId+'/togglestar', function() {
 			$star.find('i')
 				.toggleClass('icon-star')
 				.toggleClass('icon-star_empty');
