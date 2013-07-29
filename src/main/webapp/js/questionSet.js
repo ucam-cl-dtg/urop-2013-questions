@@ -61,14 +61,14 @@ function configureEditSetForm () {
 }
 
 function configureSelectQuestion () {
-	$('.question-to-add-to-set').on('click', function() {
+	$(document).on('click', '.question-to-add-to-set', function() {
 		$(this).children('.list-panel').toggleClass('success');
 		$(this).toggleClass('success');
 	});
 }
 
 function configureUseTabSubmitButton() {
-	$("#add-questions-to-set-button").on("click", function(e) {
+	$(document).on("click", "#add-questions-to-set-button", function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -89,7 +89,7 @@ function configureUseTabSubmitButton() {
 }
 
 function configureSetStarToggler() {
-	$('.star-question-button').on('click', function() {
+	$(document).on('click', '.star-question-button', function() {
 		var setId = $(this).attr('data-set-id');
 		var $star = $(this);
 		$.post('/sets/'+setId+'/togglestar', function() {
@@ -101,7 +101,7 @@ function configureSetStarToggler() {
 }
 
 function configureQuestionSetLoader() {
-	$('.expand-question-list').on('click', function() {
+	$(document).on('click', '.expand-question-list', function() {
 		if ($(this).hasClass('loaded')) {
 			$(this).parents('.panel-wrapper').find('.sub-panel').slideToggle();
 		} else {
@@ -116,7 +116,7 @@ function configureQuestionSetLoader() {
 }
 
 function configureEditQuestionForm() {
-	$('#edit-question-button').on('click', function(e) {
+	$(document).on('click', '#edit-question-button', function(e) {
 		e.preventDefault();
 		var data = $(this).parents("form").serialize();
 		$.post("/q/update", data, function(data) {
