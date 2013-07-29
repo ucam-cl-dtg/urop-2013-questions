@@ -98,11 +98,12 @@
 			<section>
 				<p class="title" data-section-title><a href="#">Edit</a></p>
 				<div class="content" data-section-content>
-					//<div class="row">
-						{call shared.edit.question}
-							{param question: $question /}
-						{/call}
-					//</div>
+					<div class="row notifications">
+						
+					</div>
+					{call shared.edit.question}
+						{param question: $question /}
+					{/call}
 					<div id="set-div-to-edit" class="row">
 					 	// This will show the question sets which contain the question.
 					</div>

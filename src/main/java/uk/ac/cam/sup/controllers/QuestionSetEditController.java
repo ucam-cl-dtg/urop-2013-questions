@@ -68,7 +68,7 @@ public class QuestionSetEditController extends GeneralController {
 			}
 			qs.update();
 		} catch (Exception e) {
-			log.warn("Could not add question(s) to set!");
+			log.warn("Could not add question(s) to set!\n" + e.getStackTrace());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		log.debug("Apparently successfully added question(s) to set " + qs.getId());

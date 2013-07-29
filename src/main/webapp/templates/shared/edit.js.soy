@@ -12,22 +12,22 @@
 				<input type="hidden" name="id" value="{$question.id}" />
 				<input type="hidden" name="setId" value="-1" />
 			
-				<textarea name="content" placeholder="Question Content">{if $question.content.data}{$question.content.data}{/if}</textarea>
-				<textarea name="notes" placeholder="Question Notes">{if $question.notes.data}{$question.notes.data}{/if}</textarea>
+				<textarea id="edit-content" name="content" placeholder="Question Content">{if $question.content.data}{$question.content.data}{/if}</textarea>
+				<textarea id="edit-notes" name="notes" placeholder="Question Notes">{if $question.notes.data}{$question.notes.data}{/if}</textarea>
 			</div>
 		</div>
 		<div class="row">
 			<div class="columns large-1 small-1">
-				<label for="expDur" class="right inline">Duration (min):</label>
+				<label for="edit-expDur" class="right inline">Duration (min):</label>
 			</div>
 			<div class="columns large-1 small-1">
-				<input type="number" id="expDur" name="expectedDuration" value="{$question.expectedDuration}" />
+				<input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" />
 			</div>
 			<div class="columns large-1 small-1 large-offset-6 small-offset-6 text-right">
-				<input id="minor-edit" type="checkbox" name="minor" checked="true">Minor edit</input>
+				<input id="edit-minor" type="checkbox" name="edit-minor" checked="true">Minor edit</input>
 			</div>
 			<div class="columns large-3 small-3 text-right">
-				<input tpye="submit" value="Submit" class="medium success button" />
+				<input type="submit" value="Submit" class="medium success button" />
 			</div>
 		</div>
 	</form>

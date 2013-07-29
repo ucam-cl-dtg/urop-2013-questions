@@ -21,7 +21,6 @@ private boolean validated = false;
 	private Integer setId;
 	
 	@FormParam("expectedDuration")
-
 	private String expectedDuration;
 
 	public QuestionForm(){
@@ -68,7 +67,8 @@ private boolean validated = false;
 	
 	public QuestionForm validate() throws Exception {
 		
-		if (setId == null || QuestionSetQuery.get(setId) == null) {
+		// Note: setId is -1 if question is edited without a set as context.
+		if (setId == null || (setId != -1 && QuestionSetQuery.get(setId) == null)) {
 			return this;
 			//throw new Exception("Question you're trying to edit does not belong to any set");
 		}

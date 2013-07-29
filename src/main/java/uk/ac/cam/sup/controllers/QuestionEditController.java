@@ -49,9 +49,13 @@ public class QuestionEditController extends GeneralController{
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
-
-		QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
-		return ImmutableMap.of("success", true, "question", q, "set", qs);
+		
+		if(qe.getSetId() == -1) {
+			return ImmutableMap.of("success", true, "question", q);
+		}else{
+			QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
+			return ImmutableMap.of("success", true, "question", q, "set", qs);
+		}
 	}
 
 	@POST

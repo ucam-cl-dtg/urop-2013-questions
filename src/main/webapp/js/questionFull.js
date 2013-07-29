@@ -133,8 +133,29 @@ function configureInputField() {
 	
 	$(".main").on("submit", "#revisions-submit-form", function() {
 		/*$.post("/q/update", {
-			content: 
-		});*/
+			"qid": $inputField.attr("data-qid"),
+			"minor":  
+		}).done(
+			
+		);*/
+		//console.log($(this));
+		//console.log($("textarea[name=console]"))
+		//console.log($("input[name=expectedDuration]").val());
+		$.post("/q/update", {
+			"id": $inputField.attr("data-qid"),
+			"minor": $(this).find("#edit-minor").val(),
+			"setId": -1,
+			"expectedDuration": $(this).find("#expDur").val(),
+			"content": $(this).find("#edit-content").val(),
+			"notes": $(this).find("#edit-notes").val()
+		}).done(function(json){
+			if(json.success){
+				alert("Successfully edited question " + json.question.id + "!");
+			} else {
+				alert("There was a problem while editing question " + json.question.id + ":\n"
+					+ "Error message: " + json.error);
+			}
+		});
 		return false;
 	});
 	
