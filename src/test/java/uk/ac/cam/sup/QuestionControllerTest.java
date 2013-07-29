@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import uk.ac.cam.sup.controllers.GeneralController;
-import uk.ac.cam.sup.controllers.QuestionController;
+import uk.ac.cam.sup.controllers.QuestionViewController;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
@@ -33,7 +33,7 @@ public class QuestionControllerTest {
 	private static QuestionSet qset;
 	private static User owner;
 	private HttpServletRequest mock_req;
-	private QuestionController qc;
+	private QuestionViewController qc;
 	
 	@BeforeClass
 	public static void createQuestionSetAndOwner() {
@@ -64,7 +64,7 @@ public class QuestionControllerTest {
 		replay(mock_req);
 		
 		// Prepare Question Controller object
-		qc = new QuestionController();
+		qc = new QuestionViewController();
 		
 		// Reflect on question controller to modify private request field
 		Field requestField;
