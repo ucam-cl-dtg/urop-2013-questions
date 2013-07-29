@@ -17,6 +17,7 @@
 				<script src="/js/search.js"></script>
 				<script src="/js/questionFull.js"></script>
 				<script src="/js/questionShort.js"></script>
+				<script src="/js/questionSet.js"></script>
 				
 				<script src="/js/questions.js"></script>
 			]]>
