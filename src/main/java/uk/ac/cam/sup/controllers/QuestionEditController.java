@@ -34,13 +34,14 @@ public class QuestionEditController extends GeneralController{
 	
 	Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
+	
 	@POST
 	@Path("/update")
 	@Produces("application/json")
-	public Map<String,?> editQuestion(@Form QuestionEdit qe) {
+	public Map<String,?> updateQuestion(@Form QuestionEdit qe) {
 		User editor = getCurrentUser();
 		Question q;
-
+		
 		try {
 			qe.validate();
 			q = QuestionQuery.get(qe.getId());

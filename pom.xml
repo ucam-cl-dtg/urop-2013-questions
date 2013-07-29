@@ -41,16 +41,17 @@
 
 	<repositories>
 		<repository>
-			<id>htmleasy</id>
-			<url>http://htmleasy-maven.googlecode.com/svn/trunk/</url>
-		</repository>
-		<repository>
-			<id>codedance on Github</id>
+			<id>codedance</id>
 			<url>https://github.com/codedance/maven-repository/raw/master</url>
 		</repository>
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>uk.ac.cam.ucs</groupId>
+			<artifactId>webauth</artifactId>
+			<version>0.7.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>

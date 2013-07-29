@@ -48,7 +48,7 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/search")
 	@Produces("application/json")
-	public Map<String, ?> searchQuestionsView(@QueryParam("tags") String tags,
+	public Map<String, ?> produceFilteredQuestions(@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
 			@QueryParam("star") Boolean star,
 			@QueryParam("supervisor") Boolean supervisor,
@@ -152,7 +152,7 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Map<String,?> produceSingleQuestionJSONAsSingleObject(
+	public Map<String,?> produceSingleQuestion(
 			@PathParam("id") int id) {
 		return ImmutableMap.of("success", true, "question", QuestionQuery.get(id).toMap(false));
 	}
@@ -219,7 +219,7 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/parents")
 	@Produces("application/json")
-	public Map<String,?> getParents(@QueryParam("qid") int qid, @QueryParam("depth") int depth) {
+	public Map<String,?> produceParents(@QueryParam("qid") int qid, @QueryParam("depth") int depth) {
 		boolean exhausted = false;
 		List<Question> historyList = new ArrayList<Question>();
 		Question curChild = QuestionQuery.get(qid);
@@ -256,7 +256,7 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/forks")
 	@Produces("application/json")
-	public Map<String,?> getForks(
+	public Map<String,?> produceForks(
 			@QueryParam("qid") int qid, 
 			@QueryParam("disp") int alreadyDisplayed, 
 			@QueryParam("amount") int toDisplay){
@@ -304,7 +304,7 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/{id}/edit/{setid}")
 	@Produces("application/json")
-	public Map<?, ?> showEditForm(@PathParam("id") int id,
+	public Map<?, ?> produceEditForm(@PathParam("id") int id,
 			@PathParam("setid") int setId) {
 		Question q = QuestionQuery.get(id);
 
