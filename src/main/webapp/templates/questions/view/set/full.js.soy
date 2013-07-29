@@ -19,24 +19,39 @@
 	<div class="row">
 		<div class="columns large-12 small-12">
 			<div class="section-container tabs" data-section="tabs">
-				<section id="set-content-tab">
-					{call questions.view.set.tab.plan.full data="all" /}
+				<section id="set-plan-tab">
+					<p class="title" data-section-title><a href="#">Plan</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.plan.full data="all" /}
+					</div>
 				</section>
 									
 				<section id="set-questions-tab">
-					{call questions.view.set.tab.questions.full data="all" /}
+					<p class="title" data-section-title><a href="#">Questions</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.questions.full data="all" /}
+					</div>
 				</section>
 					
 				<section id="set-use-tab">
-					{call questions.view.set.tab.use.full data="all" /}
+					<p class="title" data-section-title><a href="#">Export</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.use.full data="all" /}
+					</div>
 				</section>
 					
 				<section id="set-edit-tab">
-					{call questions.view.set.tab.edit.full data="all" /}
+					<p class="title" data-section-title><a href="#">Edit</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.edit.full data="all" /}
+					</div>
 				</section>
 					
 				<section id="set-createquestion-tab">
-					{call questions.view.set.tab.createquestion.full data="all" /}
+					<p class="title" data-section-title><a href="#">Create question</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.createquestion.full data="all" /}
+					</div>
 				</section>
 			</div>
 		</div>
