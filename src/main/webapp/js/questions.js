@@ -6,11 +6,7 @@ moduleScripts['questions'] = {
 	    ],
 		'set': {
 			'full': [
-			    configureRemoveQuestionButton,
-			    configureEditSetForm,
-				configureSelectQuestion,
-				configureUseTabSubmitButton,
-				configureSetStarToggler,
+			    configureQuestionSetView
 			],
 			'list': [
 			    configureQuestionSetLoader,

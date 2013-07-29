@@ -28,8 +28,6 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 import com.google.common.collect.ImmutableMap;
-import com.googlecode.htmleasy.RedirectException;
-
 
 @Path("/q")
 public class QuestionEditController extends GeneralController{
@@ -38,42 +36,48 @@ public class QuestionEditController extends GeneralController{
 	
 	@POST
 	@Path("/update")
-	public void editQuestion(@Form QuestionEdit qe) {
+	@Produces("application/json")
+	public Map<String,?> editQuestion(@Form QuestionEdit qe) {
 		User editor = getCurrentUser();
+		Question q;
 
 		try {
 			qe.validate();
+			q = QuestionQuery.get(qe.getId());
+			q = q.edit(editor, qe);
 		} catch (Exception e) {
-			throw new RedirectException("/q/error/?msg=" + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 
-		Question q = QuestionQuery.get(qe.getId());
-		q = q.edit(editor, qe);
-
-		throw new RedirectException("/app/#sets/" + qe.getSetId());
+		QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
+		return ImmutableMap.of("success", true, "question", q, "set", qs);
 	}
 
 	@POST
 	@Path("/save")
-	public void addQuestion(@Form QuestionAdd qa) {
+	@Produces("application/json")
+	public Map<String,?> addQuestion(@Form QuestionAdd qa) {
 		User author = getCurrentUser();
+		Question q;
+		QuestionSet qs;
 
 		try {
 			qa.validate();
+			
+			q = new Question(author);
+			q.setContent(qa.getContent());
+			q.setNotes(qa.getNotes());
+			q.setExpectedDuration(qa.getExpectedDuration());
+			q.save();
+			
+			qs = QuestionSetQuery.get(qa.getSetId());
+			qs.addQuestion(q);
+			qs.update();
 		} catch (Exception e) {
-			throw new RedirectException("/q/error/?msg=" + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 
-		Question q = new Question(author);
-		q.setContent(qa.getContent());
-		q.setNotes(qa.getNotes());
-		q.setExpectedDuration(qa.getExpectedDuration());
-		q.save();
-		QuestionSet qs = QuestionSetQuery.get(qa.getSetId());
-		qs.addQuestion(q);
-		qs.update();
-
-		throw new RedirectException("/app/#sets/" + qa.getSetId());
+		return ImmutableMap.of("success", true, "question", q, "set", qs);
 	}
 
 	@GET
@@ -135,7 +139,7 @@ public class QuestionEditController extends GeneralController{
 			Question question = QuestionQuery.get(qid);
 			question.removeTagByString(tag);
 			question.update();
-			return ImmutableMap.of("success", true);
+			return ImmutableMap.of("success", true, "question", question);
 		} catch(Exception e){
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}

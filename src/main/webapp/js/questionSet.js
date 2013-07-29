@@ -1,3 +1,12 @@
+function configureQuestionSetView () {
+	configureRemoveQuestionButton();
+	configureEditSetForm();
+	configureSelectQuestion();
+	configureUseTabSubmitButton();
+	configureSetStarToggler();
+	configureEditQuestionForm();
+}
+
 function reloadView (set) {
 	applyTemplate($("#set-content-tab"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab"), "questions.view.set.tab.questions.full", set);
@@ -43,8 +52,7 @@ function configureEditSetForm () {
 			} else {
 				successNotification(data.error);
 			}
-		}).fail(function (data) {
-			console.log(data);
+		}).fail(function () {
 			errorNotification("Error while editing the file");
 		});
 	});
@@ -104,5 +112,23 @@ function configureQuestionSetLoader() {
 			});
 			$(this).toggleClass('loaded');
 		}
+	});
+}
+
+function configureEditQuestionForm() {
+	$('#edit-question-button').on('click', function(e) {
+		e.preventDefault();
+		var data = $(this).parents("form").serialize();
+		$.post("/q/update", data, function(data) {
+			if(data.success) {
+				reloadView(data.set);
+				successNotification("Question edited successfully");
+			} else {
+				console.log(data);
+				errorNotification(data.error);
+			}
+		}).fail(function () {
+			errorNotification("Error while editing question");
+		});
 	});
 }
