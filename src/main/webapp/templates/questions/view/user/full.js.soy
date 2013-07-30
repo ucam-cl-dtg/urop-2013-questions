@@ -1,0 +1,53 @@
+{namespace questions.view.user}
+
+/**
+ * @param crsid
+ * @param questions
+ * @param sets
+ */
+{template .full}
+<div class="user-content">
+	<div class="row">
+		<div class="columns large-12 small-12 question-set-name">
+			<h3>Content by user {$crsid}</h3>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="columns large-12 small-12">
+			<div class="section-container tabs" data-section="tabs">
+				<section id="user-content-sets">
+					<p class="title" data-section-title><a href="#">Sets</a></p>
+					<div class="content" data-section-content>
+						<div class="row">
+							<div class="columns large-12 small-12">
+								<ul class="panels">
+								{call shared.set.multiple}
+									{param sets: $sets /}
+								{/call}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				<section id="user-content-sets">
+					<p class="title" data-section-title><a href="#">Questions</a></p>
+					<div class="content" data-section-content>
+						<div class="row">
+							<div class="columns large-12 small-12">
+								<ul class="panels">
+								{call shared.question.multiple}
+									{param questions: $questions /}
+								{/call}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+			</div>
+		</div>
+	</div>
+</div>
+{/template}
