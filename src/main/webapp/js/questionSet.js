@@ -8,12 +8,12 @@ function configureQuestionSetView () {
 }
 
 function reloadView (set) {
-	applyTemplate($("#set-plan-tab"), "questions.view.set.tab.plan.full", set);
-	applyTemplate($("#set-questions-tab"), "questions.view.set.tab.questions.full", set);
-	applyTemplate($("#set-use-tab"), "questions.view.set.tab.use.full", set);
-	applyTemplate($("#set-edit-tab"), "questions.view.set.tab.edit.full", set);
-	applyTemplate($("#set-createquestion-tab"), "questions.view.set.tab.createquestion.full", set);
-	applyTemplate($(".question-set-name"), "questions.view.set.name", set);
+	applyTemplate($("#set-plan-tab").children(".content"), "questions.view.set.tab.plan.full", set);
+	applyTemplate($("#set-questions-tab").children(".content"), "questions.view.set.tab.questions.full", set);
+	applyTemplate($("#set-use-tab").children(".content"), "questions.view.set.tab.use.full", set);
+	applyTemplate($("#set-edit-tab").children(".content"), "questions.view.set.tab.edit.full", set);
+	applyTemplate($("#set-createquestion-tab").children(".content"), "questions.view.set.tab.createquestion.full", set);
+	applyTemplate($(".question-set-name").children(".content"), "questions.view.set.name", set);
 }
 
 function configureRemoveQuestionButton () {
@@ -47,8 +47,15 @@ function configureEditSetForm () {
 		var data = $("#set-edit").serialize();
 		$.post ("/sets/update",	data, function (data) {
 			if (data.success) {
-				reloadView(data.set);
-				successNotification("Set edited successfully");
+				var executed = false;
+				$(".list-panel.delete").slideToggle(400, function() {
+					if (!executed) {
+						executed = true;
+						reloadView(data.set);
+						successNotification("Set edited successfully");
+					}
+				});
+					
 			} else {
 				successNotification(data.error);
 			}
@@ -81,10 +88,16 @@ function configureUseTabSubmitButton() {
 		
 		if (selected.length > 0) {
 			$("input[name=questions]").attr("value", selected);
-			$(this).parent().submit();
+			var data = $(this).parents("form").serialize();
+			console.log(data);
+			$.post("/sets/fork", data, function(data) {
+				console.log(data);
+				successNotification("Questions exported successfully");
+			});
 		} else {
-			alert("No questions were selected");
+			errorNotification("No questions were selected");
 		}
+		
 	});
 }
 
@@ -127,8 +140,9 @@ function configureEditQuestionForm() {
 				console.log(data);
 				errorNotification(data.error);
 			}
-		}).fail(function () {
+		}).fail(function (data) {
 			errorNotification("Error while editing question");
+			console.log(data);
 		});
 	});
 }
