@@ -142,7 +142,7 @@ function configureInputField() {
 		});
 		
 		if(isMinor == "false" && i == 0){
-			alert("Please either choose a set to edit this question in or only apply a minor change!");
+			errorNotification("Please either choose a set to edit this question in or only apply a minor change!");
 			return false;
 		}
 		
@@ -156,9 +156,9 @@ function configureInputField() {
 			"sets": sets.toString()
 		}).done(function(json){
 			if(json.success){
-				alert("Successfully edited question " + json.question.id + "!");
+				successNotification("Successfully edited question " + json.question.id + "!");
 			} else {
-				alert("There was a problem while editing this question!\nError message: " + json.error);
+				errorNotification("There was a problem while editing this question!\nError message: " + json.error);
 			}
 		});
 		return false;
@@ -250,7 +250,7 @@ function loadMoreSets(amount, $button) {
 
 function toggleComplete(type, successful, $element){
 	if(!successful){
-		alert("Error while trying to " + type + " a question.");
+		errorNotification("Error while trying to " + type + " a question.");
 		$element.removeClass("success");
 		$element.removeClass("unused");
 		$element.addClass("delete");
