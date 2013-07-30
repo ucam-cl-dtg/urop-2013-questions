@@ -227,10 +227,10 @@ public class Question extends Model implements Cloneable {
 	/**
 	 * Puts the question's content into a map.
 	 * 
-	 * @param shadowed Determines whether or not the question notes are returned. Shadowed -> don't return notes.
+	 * @param shadow Determines whether or not the question notes are returned. Shadowed -> don't return notes.
 	 * @return
 	 */
-	public Map<String,Object> toMap(boolean shadowed) {
+	public Map<String,Object> toMap(boolean shadow) {
 		Map<String,Object> r =	new HashMap<String,Object>();
 		r.put("id", this.id);
 		r.put("parentid", (parent == null ? null : this.parent.getId()));
@@ -241,7 +241,13 @@ public class Question extends Model implements Cloneable {
 		r.put("starred", this.isStarred);
 		r.put("expectedDuration", this.expectedDuration);
 		r.put("tags", this.tags);
-		r.put("notes", (shadowed ? null : this.notes));
+		
+		if (shadow && this.owner.getSupervisor()) {
+			r.put("notes", null);
+		} else {
+			r.put("notes", this.notes);
+		}
+		
 		
 		return r;
 	}

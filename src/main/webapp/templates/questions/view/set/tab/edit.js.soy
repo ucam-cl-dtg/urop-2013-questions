@@ -8,16 +8,16 @@
  * @param questions
  */
 {template .full}
-	<p class="title" data-section-title><a href="#">Edit</a></p>
-	<div class="content" data-section-content>
 		<form method="POST" action="/sets/update" id="set-edit">
 		<h4>Basic information</h4>
 		<div>
 			<input type="text" placeholder="Name" value="{$name}" name="name" />
 		</div>
+		{if $plan}
 		<div>
 			<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
 		</div>
+		{/if}
 		
 		<h4>Questions</h4>
 		<div class="row">
@@ -41,7 +41,6 @@
 			<input type="submit" value="Submit revisions" id="edit-set-submit-button" />
 		</div>
 		</form>
-	</div>
 {/template}
 
 /**
