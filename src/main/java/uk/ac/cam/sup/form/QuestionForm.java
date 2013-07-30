@@ -2,6 +2,7 @@ package uk.ac.cam.sup.form;
 
 import javax.ws.rs.FormParam;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -33,30 +34,30 @@ private boolean validated = false;
 		this.expectedDuration = expectedDuration.toString();
 	}
 	
-	public Data getContent() throws RuntimeException {
+	public Data getContent() throws FormValidationException {
 		if (!validated) {
-			throw new RuntimeException("Form was not validated");
+			throw new FormValidationException("Form was not validated");
 		}
 		return this.dcontent;
 	}
 	
-	public Data getNotes() throws RuntimeException {
+	public Data getNotes() throws FormValidationException {
 		if (!validated) {
-			throw new RuntimeException("Form was not validated");
+			throw new FormValidationException("Form was not validated");
 		}
 		return this.dnotes;
 	}
 	
-	public Integer getSetId() throws RuntimeException {
+	public Integer getSetId() throws FormValidationException {
 		if(!validated) {
-			throw new RuntimeException("Form was not validated");
+			throw new FormValidationException("Form was not validated");
 		}
 		return this.setId;
 	}
 	
-	public int getExpectedDuration() throws RuntimeException {
+	public int getExpectedDuration() throws FormValidationException {
 		if (!validated) {
-			throw new RuntimeException("Form was not validated");
+			throw new FormValidationException("Form was not validated");
 		}
 		try {
 			return Integer.parseInt(this.expectedDuration); 
@@ -65,7 +66,7 @@ private boolean validated = false;
 		}
 	}
 	
-	public QuestionForm validate() throws Exception {
+	public QuestionForm validate() throws FormValidationException {
 		
 		// Note: setId is -1 if question is edited without a set as context.
 		if (setId == null || (setId != -1 && QuestionSetQuery.get(setId) == null)) {
@@ -94,7 +95,7 @@ private boolean validated = false;
 		return this;
 	}
 	
-	public Question store(Question q) {
+	public Question store(Question q) throws FormValidationException {
 		q.setContent(dcontent);
 		q.setNotes(dnotes);
 		q.setExpectedDuration(getExpectedDuration());

@@ -15,6 +15,7 @@ import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.form.TagAdd;
@@ -35,6 +36,12 @@ public class QuestionEditController extends GeneralController{
 	Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
 	
+	/**
+	 * Update an existing question
+	 * 
+	 * @param qe
+	 * @return
+	 */
 	@POST
 	@Path("/update")
 	@Produces("application/json")
@@ -42,22 +49,24 @@ public class QuestionEditController extends GeneralController{
 		User editor = getCurrentUser();
 		Question q;
 		
-		log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
-		
 		try {
 			qe.validate();
 			q = QuestionQuery.get(qe.getId());
 			q = q.edit(editor, qe);
-		} catch (Exception e) {
+			
+			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
+			
+			if(qe.getSetId() == -1) {
+				return ImmutableMap.of("success", true, "question", q);
+			}else{
+				QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
+				return ImmutableMap.of("success", true, "question", q, "set", qs);
+			}
+		} catch (FormValidationException e) {
+			log.debug("There was a FormValidationException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
-		if(qe.getSetId() == -1) {
-			return ImmutableMap.of("success", true, "question", q);
-		}else{
-			QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
-			return ImmutableMap.of("success", true, "question", q, "set", qs);
-		}
 	}
 
 	@POST
