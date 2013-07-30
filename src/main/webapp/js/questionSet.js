@@ -47,7 +47,6 @@ function configureEditSetForm () {
 		
 		var data = $("#set-edit").serialize();
 		$.post ("/sets/update",	data, function (data) {
-			console.log(data);
 			if (data.success) {
 				var executed = false;
 				if ($(".list-panel-delete").size() == 0) {
@@ -63,7 +62,7 @@ function configureEditSetForm () {
 				});
 					
 			} else {
-				successNotification(data.error);
+				errorNotification(data.error);
 				console.log(data);
 			}
 		}).fail(function () {
@@ -116,13 +115,29 @@ function configureUseTabSubmitButton() {
 
 function configureSetStarToggler() {
 	$(document).on('click', '.star-question-button', function() {
-		var setId = $(this).attr('data-set-id');
-		var $star = $(this);
-		$.post('/sets/'+setId+'/togglestar', function() {
-			$star.find('i')
-				.toggleClass('icon-star')
-				.toggleClass('icon-star_empty');
-		});
+		var editable = $(this).attr('data-enabled') == "true";
+		if (editable) {
+			var setId = $(this).attr('data-set-id');
+			var $star = $(this);
+			$.post('/sets/'+setId+'/togglestar', function(data) {
+				if (data.success) {
+					if (data.starred) {
+						$star.find('i')
+							.addClass('icon-star')
+							.removeClass('icon-star_empty');
+					} else {
+						$star.find('i')
+							.removeClass('icon-star')
+							.addClass('icon-star_empty');
+					}
+				} else {
+					errorNotification(data.error);
+				}
+			}).fail(function(data) {
+				errorNotification("Something went wrong");
+				console.log(data);
+			});
+		}
 	});
 }
 
@@ -155,9 +170,8 @@ function configureEditQuestionForm() {
 						successNotification("Question edited successfully");
 					}
 				});
-				
 			} else {
-				console.log(data);
+				alert("dupa");
 				errorNotification(data.error);
 			}
 		}).fail(function (data) {

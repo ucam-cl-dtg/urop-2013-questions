@@ -61,6 +61,9 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate().parse();
 			qs = form.getTarget();
+			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+				throw new Exception("You're not the owner of the target set");
+			}
 			log.debug("Trying to fork or add question(s) to set " + qs.getId() + "...");
 			for (Question q: form.getQuestions()) {
 				log.debug("Trying to add question " + q.getId() + " to set " + qs.getId());
@@ -104,6 +107,9 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate().parse();
 			qs = QuestionSetQuery.get(form.getSetId());
+			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+				throw new Exception("You're not the owner of this set");
+			}
 			qs.edit(form);
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
@@ -116,10 +122,19 @@ public class QuestionSetEditController extends GeneralController {
 	@Path("/{id}/togglestar")
 	@Produces("application/json")
 	public Map<String,?> toggleStar(@PathParam("id") int id) {
-		QuestionSet qs = QuestionSetQuery.get(id);
-		qs.toggleStarred();
-		qs.update();
+		QuestionSet qs;
 		
-		return ImmutableMap.of("setid", id, "starred", qs.isStarred());
+		try {
+			qs = QuestionSetQuery.get(id);
+			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+				throw new Exception("You're not the owner of this set");
+			}
+			qs.toggleStarred();
+			qs.update();
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		
+		return ImmutableMap.of("success", true, "setid", id, "starred", qs.isStarred());
 	}
 }
