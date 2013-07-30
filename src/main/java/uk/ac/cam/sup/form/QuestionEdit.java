@@ -62,9 +62,10 @@ public class QuestionEdit extends QuestionForm {
 		sets = new ArrayList<QuestionSet>();
 		
 		if(super.getSetId() == -1 && !this.isMinor){
-			String[] arraySets = strSets.split(",");
-			
+
 			try{
+				String[] arraySets = strSets.split(",");
+			
 				for(int i = 0; i < arraySets.length; i++){
 					sets.add(QuestionSetQuery.get(Integer.parseInt(arraySets[i])));
 				}
@@ -72,8 +73,8 @@ public class QuestionEdit extends QuestionForm {
 				throw new FormValidationException("Error while trying to parse the set list!\n" + e.getMessage());
 			}
 		}
-		if (id == null || (super.getSetId() == -1 && !isMinor && sets.size() < 1) || QuestionQuery.get(id) == null) {
-			throw new FormValidationException("Question " + id + " or set " + super.getSetId() + " does not exist");
+		if (id == null || (super.getSetId() == -1 && !isMinor && (sets.size() < 1 || sets==null)) || QuestionQuery.get(id) == null) {
+			throw new FormValidationException("Question " + id + " or set(s) " + super.getSetId() + " does not exist");
 		}
 		
 		

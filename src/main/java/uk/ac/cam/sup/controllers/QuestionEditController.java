@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
+import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.form.TagAdd;
@@ -65,6 +66,9 @@ public class QuestionEditController extends GeneralController{
 			}
 		} catch (FormValidationException e) {
 			log.debug("There was a FormValidationException: " + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		} catch (InvalidInputException e){
+			log.debug("There was an InvalidInputException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		

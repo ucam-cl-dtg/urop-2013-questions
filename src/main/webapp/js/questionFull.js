@@ -134,15 +134,7 @@ function configureInputField() {
 	});
 	
 	$(".main").on("submit", "#revisions-submit-form", function() {
-		/*$.post("/q/update", {
-			"qid": $inputField.attr("data-qid"),
-			"minor":  
-		}).done(
-			
-		);*/
-		//console.log($(this));
-		//console.log($("textarea[name=console]"))
-		//console.log($("input[name=expectedDuration]").val());
+		var isMinor = $(this).find("#edit-minor").val();
 		var sets = new Array();
 		var i = 0;
 		$(".qedit-set-list.success").each(function(){
@@ -150,9 +142,14 @@ function configureInputField() {
 			i++;
 		});
 		
+		if(isMinor == "false" && i == 0){
+			alert("Please either choose a set to edit this question in or only apply a minor change!");
+			return false;
+		}
+		
 		$.post("/q/update", {
 			"id": $inputField.attr("data-qid"),
-			"minor": $(this).find("#edit-minor").val(),
+			"minor": isMinor,
 			"setId": -1,
 			"expectedDuration": $(this).find("#expDur").val(),
 			"content": $(this).find("#edit-content").val(),
