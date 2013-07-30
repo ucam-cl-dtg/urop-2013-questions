@@ -5,6 +5,7 @@
  * @param id
  * @param expectedDuration
  * @param questions
+ * @param editable
  */
 {template .full}
 		<div class="row">
@@ -26,6 +27,7 @@
 				{foreach $question in $questions}
 					{call .question data="$question"}
 						{param setId: $id /}
+						{param editable: $editable /}
 					{/call}
 				{/foreach}
 			</ul>
@@ -39,6 +41,7 @@
  * @param expectedDuration
  * @param notes
  * @param starred
+ * @param editable
  */
 {template .question}
 <li class="panel-wrapper columns large-12">
@@ -49,15 +52,19 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button icon-button-array expand-sub-panel"><i class="icon icon-pen"></i></a>
+					{if $editable}
+						<a class="icon-button panel-icon-button icon-button-array expand-sub-panel"><i class="icon icon-pen"></i></a>
+					{/if}
 					<a class="icon-button panel-icon-button icon-button-array module-loader" data-target="q/{$id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $starred}_empty{/if}"></i></span>
 				</div>
 			</div>
 		</div>
 	</div>
+	{if $editable}
 	<ul class="sub-panel hidden">
 		{call questions.form.question.edit data="all" /}
 	</ul>
+	{/if}
 </li>
 {/template}

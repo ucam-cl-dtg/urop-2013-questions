@@ -220,9 +220,6 @@ public class Question extends Model implements Cloneable {
 		}
 	}
 	
-	/**
-	 * Will always throw CloneNotSupportedException
-	 */
 	public Object clone() throws CloneNotSupportedException {
 		Question q = (Question) super.clone();
 		q.content = (Data) this.content.clone();

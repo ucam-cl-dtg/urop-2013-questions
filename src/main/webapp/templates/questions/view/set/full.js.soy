@@ -73,9 +73,10 @@
  * @param id
  * @param starred
  * @param name
+ * @param editable
  */
 {template .name}
-	<h3><span class="fixed-width-icon star-question-button" data-set-id="{$id}"><i class="icon{' '}
+	<h3><span class="fixed-width-icon star-question-button" data-set-id="{$id}" data-enabled="{$editable}"><i class="icon{' '}
 	{if $starred}
 		icon-star
 	{else}

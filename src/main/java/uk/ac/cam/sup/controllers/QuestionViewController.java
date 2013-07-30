@@ -138,9 +138,7 @@ public class QuestionViewController extends GeneralController {
 			qq.minDuration(st.getDurMin());
 		}
 
-		// TODO: check whether current user is a supervisor
-		// and shadow the data appropriately
-		return qq.maplist(false);
+		return qq.maplist();
 	}
 	
 	/**
@@ -153,21 +151,13 @@ public class QuestionViewController extends GeneralController {
 	@Path("/{id}")
 	@Produces("application/json")
 	public Map<String,?> produceSingleQuestion(
-			@PathParam("id") int id) {
-		return ImmutableMap.of("success", true, "question", QuestionQuery.get(id).toMap(false));
+			@PathParam("id") int id
+	) {
+		return ImmutableMap.of(
+				"success", true,
+				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor())
+		);
 	}
-	
-	/*
-	 What was/is this method for?! Delete if not needed. 
-	@GET
-	@Path("/add/{setid}")
-	@Produces("application/json")
-	public Map<String,?> showAddForm(@PathParam("setid") int setId) {
-		//Map<String, Object> r = new HashMap<String, Object>();
-		//r.put("success", true, "setId", setId);
-
-		return ImmutableMap.of("sucess", true, "setId", setId);
-	}*/
 	
 	/**
 	 * To find the tags not in the current question. Intended for auto-completion feature only. 
@@ -221,7 +211,7 @@ public class QuestionViewController extends GeneralController {
 	@Produces("application/json")
 	public Map<String,?> produceParents(@QueryParam("qid") int qid, @QueryParam("depth") int depth) {
 		boolean exhausted = false;
-		List<Question> historyList = new ArrayList<Question>();
+		List<Map<String,?>> historyList = new ArrayList<Map<String,?>>();
 		Question curChild = QuestionQuery.get(qid);
 		Question curParent = null;
 		
@@ -234,7 +224,7 @@ public class QuestionViewController extends GeneralController {
 				break;
 			}
 			
-			historyList.add(curParent);
+			historyList.add(curParent.toMap());
 			curChild = curParent;
 		}
 		
@@ -262,7 +252,7 @@ public class QuestionViewController extends GeneralController {
 			@QueryParam("amount") int toDisplay){
 		// disp is the number of forks already displayed. Therefore, if 0 forks are displayed, for ex,
 		// the controller will return the 
-		List<Question> forks = QuestionQuery.all().withParent(qid).list();
+		List<Map<String,?>> forks = QuestionQuery.all().withParent(qid).maplist();
 		
 		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
 		if(forks.size() <= alreadyDisplayed) {
@@ -272,7 +262,7 @@ public class QuestionViewController extends GeneralController {
 					"questions", new ArrayList<Question>(),
 					"exhausted", true,
 					"disp", alreadyDisplayed);
-		}else if(forks.size() <= alreadyDisplayed + toDisplay){
+		} else if(forks.size() <= alreadyDisplayed + toDisplay) {
 			// If the amount of forks still not displayed is less than those requested.
 			log.debug("There are still a few forks to display but the forks are now exhausted.");
 			return ImmutableMap.of(
@@ -304,14 +294,20 @@ public class QuestionViewController extends GeneralController {
 	@GET
 	@Path("/{id}/edit/{setid}")
 	@Produces("application/json")
-	public Map<?, ?> produceEditForm(@PathParam("id") int id,
-			@PathParam("setid") int setId) {
+	public Map<String, ?> produceEditForm(
+			@PathParam("id") int id,
+			@PathParam("setid") int setId
+	) {
 		Question q = QuestionQuery.get(id);
 
 		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("id", q.getId());
 		r.put("content", q.getContent().getData());
-		r.put("notes", q.getNotes().getData());
+		if (!isCurrentUserSupervisor() && q.getOwner().getSupervisor()) {
+			r.put("notes", "");
+		} else {
+			r.put("notes", q.getNotes().getData());
+		}
 		r.put("setId", setId);
 		r.put("expectedDuration", q.getExpectedDuration());
 		r.put("success", true);

@@ -49,6 +49,7 @@ public class QuestionEditController extends GeneralController{
 	public Map<String,?> updateQuestion(@Form QuestionEdit qe) {
 		User editor = getCurrentUser();
 		Question q;
+		QuestionSet qs;
 		
 		try {
 			qe.validate();
@@ -56,12 +57,18 @@ public class QuestionEditController extends GeneralController{
 			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
 			
 			q = QuestionQuery.get(qe.getId());
+			qs = QuestionSetQuery.get(qe.getSetId());
+			if (qs != null) {
+				if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+					throw new FormValidationException("You're not the owner of the target set: "+qs.getName());
+				}
+			}
+			
 			q = q.edit(editor, qe);
 			
 			if(qe.getSetId() == -1) {
 				return ImmutableMap.of("success", true, "question", q);
 			}else{
-				QuestionSet qs = QuestionSetQuery.get(qe.getSetId());
 				return ImmutableMap.of("success", true, "question", q, "set", qs);
 			}
 		} catch (FormValidationException e) {
@@ -84,6 +91,10 @@ public class QuestionEditController extends GeneralController{
 
 		try {
 			qa.validate();
+			qs = QuestionSetQuery.get(qa.getSetId());
+			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+				throw new Exception("You're not the owner of this set");
+			}
 			
 			q = new Question(author);
 			q.setContent(qa.getContent());
@@ -91,7 +102,7 @@ public class QuestionEditController extends GeneralController{
 			q.setExpectedDuration(qa.getExpectedDuration());
 			q.save();
 			
-			qs = QuestionSetQuery.get(qa.getSetId());
+			
 			qs.addQuestion(q);
 			qs.update();
 		} catch (Exception e) {
@@ -174,9 +185,12 @@ public class QuestionEditController extends GeneralController{
 		Question q;
 		try{
 			q = QuestionQuery.get(id);
+			if (!q.getOwner().getId().equals(getCurrentUserID())) {
+				throw new Exception("You're not the owner of this question");
+			}
 			q.toggleStarred();
 			q.update();
-		}catch(Exception e){
+		} catch(Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		return ImmutableMap.of("success", true, "id", id, "starred", q.isStarred());
