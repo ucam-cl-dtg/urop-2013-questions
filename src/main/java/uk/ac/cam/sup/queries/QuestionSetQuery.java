@@ -88,6 +88,11 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
+	public QuestionSetQuery withUser(User user){
+		criteria.add(Restrictions.eq("owner.id", user.getId()).ignoreCase());
+		return this;
+	}
+	
 	public QuestionSetQuery withStar() {
 		criteria.add(Restrictions.eq("isStarred", true));
 		return this;

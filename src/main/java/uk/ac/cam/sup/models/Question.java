@@ -173,9 +173,17 @@ public class Question extends Model implements Cloneable {
 		return q;
 	}
 	
-	private Question forkAndEditMultiple(User editor, QuestionEdit qe) throws FormValidationException{
+	private Question forkAndEditMultiple(User editor, QuestionEdit qe) throws FormValidationException, InvalidInputException{
 		log.debug("Fork and Edit multiple for question " + qe.getId());
-		List<QuestionSet> sets = qe.getSets();
+		List<QuestionSet> sets;
+		if(qe.isMinor()){
+			sets = QuestionSetQuery.all().withUser(editor).list();
+		} else {
+			sets = qe.getSets();
+		}
+		if(sets == null || sets.size() < 1){
+			throw new InvalidInputException("No sets found to edit the question in.");
+		}
 		Question q = this.fork(sets.get(0));
 		sets.remove(0);
 		
