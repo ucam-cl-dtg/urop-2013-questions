@@ -22,6 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -150,14 +151,14 @@ public class Question extends Model implements Cloneable {
 		return result;
 	}
 	
-	private Question inPlaceEdit(QuestionEdit qe) {
+	private Question inPlaceEdit(QuestionEdit qe) throws FormValidationException {
 		qe.store(this);
 		this.update();
 		
 		return this;
 	}
 	
-	private Question forkAndEdit(User editor, QuestionEdit qe) {
+	private Question forkAndEdit(User editor, QuestionEdit qe) throws FormValidationException {
 		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()));
 		q.owner = editor;
 		
@@ -172,7 +173,7 @@ public class Question extends Model implements Cloneable {
 		return this;
 	}
 	
-	public Question edit(User editor, QuestionEdit qe) {
+	public Question edit(User editor, QuestionEdit qe) throws FormValidationException {
 		boolean inPlace = (editor.equals(owner))
 				&& (qe.isMinor() || (this.usageCount <= 1));
 		if(inPlace){

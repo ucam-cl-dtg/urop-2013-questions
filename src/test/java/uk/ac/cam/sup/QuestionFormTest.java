@@ -5,12 +5,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionAdd;
 
 public class QuestionFormTest extends GenericTest{
 	
 	@Test (expected = RuntimeException.class)
-	public void unvalidatedFormQuestion() throws RuntimeException {
+	public void unvalidatedFormQuestion() throws RuntimeException, FormValidationException {
 	
 		QuestionAdd qa = new QuestionAdd("content", "notes", 0, 0);
 		qa.getExpectedDuration();
@@ -26,7 +27,7 @@ public class QuestionFormTest extends GenericTest{
 	}
 	
 	@Test
-	public void emptyQuestion(){
+	public void emptyQuestion() throws FormValidationException{
 		
 		QuestionAdd qa = new QuestionAdd("", "", 0, 0);
 		

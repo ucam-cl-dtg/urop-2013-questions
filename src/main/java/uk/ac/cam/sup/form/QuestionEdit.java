@@ -2,6 +2,7 @@ package uk.ac.cam.sup.form;
 
 import javax.ws.rs.FormParam;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
 public class QuestionEdit extends QuestionForm {
@@ -23,24 +24,24 @@ public class QuestionEdit extends QuestionForm {
 	@FormParam("minor")
 	private Boolean isMinor;
 	
-	public Integer getId() throws RuntimeException {
+	public Integer getId() throws FormValidationException {
 		if(!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new FormValidationException("Form was not yet validated");
 		}
 		return this.id;
 	}
 	
-	public boolean isMinor() throws RuntimeException {
+	public boolean isMinor() throws FormValidationException {
 		if (!validated) {
-			throw new RuntimeException("Form was not yet validated");
+			throw new FormValidationException("Form was not yet validated");
 		}
 		return this.isMinor;
 	}
 	
-	public QuestionEdit validate() throws Exception {
+	public QuestionEdit validate() throws FormValidationException {
 		super.validate();
 		if (id == null || QuestionQuery.get(id) == null) {
-			throw new Exception("Question you're trying to edit does not exist");
+			throw new FormValidationException("Question you're trying to edit does not exist");
 		}
 		
 		if (isMinor == null) {
