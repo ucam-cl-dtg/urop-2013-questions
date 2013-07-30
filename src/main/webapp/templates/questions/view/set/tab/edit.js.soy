@@ -13,9 +13,11 @@
 		<div>
 			<input type="text" placeholder="Name" value="{$name}" name="name" />
 		</div>
+		{if $plan}
 		<div>
 			<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
 		</div>
+		{/if}
 		
 		<h4>Questions</h4>
 		<div class="row">

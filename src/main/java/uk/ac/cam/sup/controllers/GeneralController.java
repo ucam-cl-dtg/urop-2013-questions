@@ -25,6 +25,15 @@ public abstract class GeneralController {
 	}
 	
 	/**
+	 * Gets boolean value of user's supervisor bit
+	 * 
+	 * @return
+	 */
+	protected boolean isCurrentUserSupervisor() {
+		return getCurrentUser().getSupervisor();
+	}
+	
+	/**
 	 * Gets the currently logged in user as User object.
 	 * 
 	 * @return

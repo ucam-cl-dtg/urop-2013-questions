@@ -124,14 +124,14 @@ public class QuestionSet extends Model {
 		throw new OutOfScopeException("index: " + place + " size: " + questions.size());
 	}
 	
-	public void addQuestion(Question question) {
+	public synchronized void addQuestion(Question question) {
 		if (getQuestions().contains(question)) { return; }
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
 		questions.add(qp);
 	}
 	
-	public void removeQuestion(Question question) {
+	public synchronized void removeQuestion(Question question) {
 		for (QuestionPlacement qp: questions) {
 			if (qp.getQuestion().equals(question)) {
 				this.removeQuestion(qp.getPlace());
@@ -140,7 +140,7 @@ public class QuestionSet extends Model {
 		}
 	}
 	
-	public void removeQuestion(int place) {
+	public synchronized void removeQuestion(int place) {
 		Iterator<QuestionPlacement> i = questions.iterator();
 		
 		while (i.hasNext()) {
@@ -158,7 +158,7 @@ public class QuestionSet extends Model {
 		}
 	}
 	
-	public void addBefore(int place, Question q) {
+	public synchronized void addBefore(int place, Question q) {
 		Iterator<QuestionPlacement> i = questions.iterator();
 		
 		while (i.hasNext()) {
@@ -173,7 +173,7 @@ public class QuestionSet extends Model {
 		questions.add(new QuestionPlacement(q, place));
 	}
 	
-	public void addAfter(int place, Question q) {
+	public synchronized void addAfter(int place, Question q) {
 		if (place < questions.size()-1) {
 			addBefore(place+1, q);
 		} else {
@@ -181,7 +181,7 @@ public class QuestionSet extends Model {
 		}
 	}
 	
-	public void swapFor(int place, Question q) {
+	public synchronized void swapFor(int place, Question q) {
 		Iterator<QuestionPlacement> i = questions.iterator();
 		while (i.hasNext()) {
 			QuestionPlacement qp = i.next();
@@ -195,7 +195,7 @@ public class QuestionSet extends Model {
 		}
 	}
 	
-	public void swapFor(Question old, Question q) {
+	public synchronized void swapFor(Question old, Question q) {
 		Iterator<QuestionPlacement> i = questions.iterator();
 		while (i.hasNext()) {
 			QuestionPlacement qp = i.next();
@@ -255,7 +255,12 @@ public class QuestionSet extends Model {
 		r.put("expectedDuration", this.getExpectedDuration());
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);
-		r.put("plan", (shadow ? null : this.plan));
+		
+		if (shadow && this.owner.getSupervisor()) {
+			r.put("plan", null);
+		} else {
+			r.put("plan", this.plan);
+		}
 		
 		return r;
 	}

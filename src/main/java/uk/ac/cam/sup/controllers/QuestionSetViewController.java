@@ -75,14 +75,18 @@ public class QuestionSetViewController extends GeneralController {
 		if (minduration != null) { query.minDuration(minduration); }
 		if (maxduration != null) { query.maxDuration(maxduration); }
 		
-		return ImmutableMap.of("sets", query.maplist(false));
+		return ImmutableMap.of("sets", query.maplist());
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Map<String,Object> produceSingleSet(@PathParam("id") int id) {
-		return QuestionSetQuery.get(id).toMap(false);
+	public Map<String,?> produceSingleSet(@PathParam("id") int id) {
+		QuestionSet qs = QuestionSetQuery.get(id);
+		Map<String,Object> result = qs.toMap(isCurrentUserSupervisor());
+		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
+		result.put("editable", editable);
+		return result;
 	}
 	
 	@GET
@@ -95,7 +99,7 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/mysets")
 	@Produces("application/json")
-	public Map<?,?> produceMySets(@QueryParam("contains") Integer questionID){
+	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID){
 		
 		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
@@ -110,7 +114,10 @@ public class QuestionSetViewController extends GeneralController {
 			log.debug("Trying to get all questionSets with those specially marked containing question " + questionID);
 			List<QuestionSet> haveQuestion = QuestionSetQuery.all().have(questionID).list();
 			for(QuestionSet set : resultSets) {
-				maplist.add(ImmutableMap.of("set", set, "containsQuestion", haveQuestion.contains(set)));
+				maplist.add(ImmutableMap.of(
+						"set", set.toMap(false),
+						"containsQuestion", haveQuestion.contains(set))
+				);
 			}
 			return ImmutableMap.of("maplist", maplist);
 		}
@@ -147,14 +154,14 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/mysets/qlimited")
 	@Produces("application/json")
-	public Map<String,List<QuestionSet>> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
+	public Map<String,?> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
 		List<User> userList = new ArrayList<User>();
 		userList.add(getCurrentUser());
 		
 		QuestionSetQuery qsq = QuestionSetQuery.all().withUsers(userList).have(qid);
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		
-		return ImmutableMap.of("sets", qsq.list());
+		return ImmutableMap.of("sets", qsq.maplist(false));
 	}
 	
 	@GET
@@ -164,7 +171,7 @@ public class QuestionSetViewController extends GeneralController {
 		return ImmutableMap.of(
 				"success", true,
 				"set", QuestionSetQuery.get(id).toMap(),
-				"questions", QuestionQuery.all().list(),
+				"questions", QuestionQuery.all().maplist(),
 				"st", new SearchTerm()
 		);
 	}

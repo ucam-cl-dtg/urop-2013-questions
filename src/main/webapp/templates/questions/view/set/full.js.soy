@@ -8,6 +8,7 @@
  * @param questions
  * @param id
  * @param starred
+ * @param editable
  */
 {template .full}
 <div class="question-set" data-set-id="{$id}">
@@ -19,12 +20,14 @@
 	<div class="row">
 		<div class="columns large-12 small-12">
 			<div class="section-container tabs" data-section="tabs">
+				{if $plan}
 				<section id="set-plan-tab">
 					<p class="title" data-section-title><a href="#sets/{$id}/plan">Plan</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.plan.full data="all" /}
 					</div>
 				</section>
+				{/if}
 
 				<section id="set-questions-tab">
 					<p class="title" data-section-title><a href="#sets/{$id}/questions">Questions</a></p>
@@ -32,14 +35,16 @@
 						{call questions.view.set.tab.questions.full data="all" /}
 					</div>
 				</section>
-					
+				
+				
 				<section id="set-use-tab">
 					<p class="title" data-section-title><a href="#sets/{$id}/export">Export</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.use.full data="all" /}
 					</div>
 				</section>
-
+				
+				{if $editable}
 				<section id="set-edit-tab">
 					<p class="title" data-section-title><a href="#sets/{$id}/edit">Edit</a></p>
 					<div class="content" data-section-content>
@@ -57,6 +62,7 @@
 						{call questions.view.set.tab.createquestion.full data="all" /}
 					</div>
 				</section>
+				{/if}
 			</div>
 		</div>
 	</div>
