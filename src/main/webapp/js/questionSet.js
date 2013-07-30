@@ -83,7 +83,7 @@ function configureSelectQuestion () {
 }
 
 function configureUseTabSubmitButton() {
-	$(document).on("click", "#add-questions-to-set-button", function(e) {
+	$(document).on("click", "#export-questions-button", function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -94,18 +94,22 @@ function configureUseTabSubmitButton() {
 			}
 		});
 		
-		if (selected.length > 0) {
-			$("input[name=questions]").attr("value", selected);
-			var data = $(this).parents("form").serialize();
-			console.log(data);
-			$.post("/sets/fork", data, function(data) {
+		$("input[name=questions]").attr("value", selected);
+		var data = $(this).parents("form").serialize();
+		console.log(data);
+		$.post("/sets/fork", data, function(data) {
+			if (data.success) {
 				$(".success").removeClass("success");
 				console.log(data);
 				successNotification("Questions exported successfully");
-			});
-		} else {
-			errorNotification("No questions were selected");
-		}
+			} else {
+				errorNotification(data.error);
+			}
+			
+		}).fail(function(data) {
+			errorNotification("Something went wrong");
+			console.log(data);
+		});
 		
 	});
 }

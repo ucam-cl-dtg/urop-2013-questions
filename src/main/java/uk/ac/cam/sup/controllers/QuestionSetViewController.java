@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,7 +19,9 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -152,6 +155,18 @@ public class QuestionSetViewController extends GeneralController {
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		
 		return ImmutableMap.of("sets", qsq.list());
+	}
+	
+	@GET
+	@Path("/{id}/import")
+	@Produces("application/json")
+	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
+		return ImmutableMap.of(
+				"success", true,
+				"set", QuestionSetQuery.get(id).toMap(),
+				"questions", QuestionQuery.all().list(),
+				"st", new SearchTerm()
+		);
 	}
 	
 	/*

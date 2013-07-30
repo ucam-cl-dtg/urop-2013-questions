@@ -4,13 +4,18 @@
  * This shows the main search screen of questions
  * @param st The search terms
  * @param questions
+ * @param? set
  */
 {template .main}
-<h3>Add to a set</h3>
+<h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
 <div class="row">
 	<div class="columns large-4 small-12">
 		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+			{if $set}
+				<input type="hidden" name="targetSetId" value="{$set.id}" />
+			{else}
+				<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+			{/if}
 			
 			<input type="hidden" name="questions" value="" />
 			<input type="submit" value="Add to set" id="add-questions-to-set-button" />

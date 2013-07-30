@@ -17,6 +17,8 @@ public class SearchTerm {
 		sanitize();
 	}
 	
+	public SearchTerm() {}
+
 	private String tags;
 	private String owners;
 	private Boolean star;

@@ -23,6 +23,7 @@ $(document).ready(function() {
 		
 		"sets": "questions.view.set.list",
     	"sets/:id" : "questions.view.set.full",
+    	"sets/:id/import(?:params)" : "questions.search.main",
     	"sets/add": "questions.form.set.create",
     	
     	"fairytale" : "questions.misc.fairytale",

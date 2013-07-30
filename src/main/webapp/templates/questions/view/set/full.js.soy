@@ -20,35 +20,39 @@
 		<div class="columns large-12 small-12">
 			<div class="section-container tabs" data-section="tabs">
 				<section id="set-plan-tab">
-					<p class="title" data-section-title><a href="#">Plan</a></p>
+					<p class="title" data-section-title><a href="#sets/{$id}/plan">Plan</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.plan.full data="all" /}
 					</div>
 				</section>
 
 				<section id="set-questions-tab">
-					<p class="title" data-section-title><a href="#">Questions</a></p>
+					<p class="title" data-section-title><a href="#sets/{$id}/questions">Questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.questions.full data="all" /}
 					</div>
 				</section>
 					
 				<section id="set-use-tab">
-					<p class="title" data-section-title><a href="#">Export</a></p>
+					<p class="title" data-section-title><a href="#sets/{$id}/export">Export</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.use.full data="all" /}
 					</div>
 				</section>
 
 				<section id="set-edit-tab">
-					<p class="title" data-section-title><a href="#">Edit</a></p>
+					<p class="title" data-section-title><a href="#sets/{$id}/edit">Edit</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.edit.full data="all" /}
 					</div>
 				</section>
+				
+				<section id="set-edit-tab">
+					<p class="title" data-section-title><a href="#sets/{$id}/import">Import</a></p>
+				</section>
 
 				<section id="set-createquestion-tab">
-					<p class="title" data-section-title><a href="#">Create question</a></p>
+					<p class="title" data-section-title><a href="#sets/{$id}/create">Create question</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.createquestion.full data="all" /}
 					</div>

@@ -122,5 +122,4 @@ public class QuestionSetEditController extends GeneralController {
 		
 		return ImmutableMap.of("setid", id, "starred", qs.isStarred());
 	}
-	
 }

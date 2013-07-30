@@ -31,7 +31,7 @@ function searchSetup() {
 		return false;
 	});
 	
-	$('.add-question-to-set').on('click', function() {
+	$(document).on('click', '.add-question-to-set', function() {
 		$(this).parents('.list-panel').toggleClass('success');
 	});
 	
@@ -47,7 +47,17 @@ function searchSetup() {
 		});
 		$('input[name=questions]').attr('value', selected);
 		
-		$(this).parents('form').submit();
+		var data = $(this).parents('form').serialize();
+		$.post('/sets/fork', data, function(data) {
+			if (data.success) {
+				successNotification("Questions added successfully to a set");
+			} else {
+				errorNotification(data.error);
+			}
+		}).fail(function(data) {
+			errorNotification("Something went wrong");
+			console.log();
+		});
 	});
 	
 }
