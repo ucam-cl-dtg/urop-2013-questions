@@ -17,7 +17,7 @@ function configureInputField() {
         tokenFormatter: function(item) { return "<li>" + item.name + "</li>"; }         
 	});
 	
-	var $addTagsButton = $(".main").find("#add-tags");
+	var $addTagsButton = $("#add-tags");
 	var $tagList = $(".main").find(".tags");
 	$addTagsButton.click(function(){
 		var $newtags = $("<div></div>");
@@ -32,36 +32,35 @@ function configureInputField() {
 		return false;
 	});
 	
-	$(".main").on("click", ".delete-tag", function(){
+	$(".delete-tag").click(function(){
 		$.post("/q/deltag", {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
-		//$.get("/q/deltag" + $tagList.attr("data-qid") + "&tag=" + $(this).attr("data-name"));
 		$(this).parent().remove();
 		return false;
 	});
 	
-	$(".main").on("click", "#show-more-history", function(){
+	$("#show-more-history").click(function(){
 		loadMoreHistory(5, $(this));
 		return false;
 	});
-	loadMoreHistory(5, $(".main").find("#show-more-history"));
+	loadMoreHistory(5, $("#show-more-history"));
 	
-	$(".main").on("click", "#show-more-forks", function(){
+	$("#show-more-forks").click(function(){
 		loadMoreForks(5, $(this));
 		return false;
 	});
-	loadMoreForks(5, $(".main").find("#show-more-forks"));
+	loadMoreForks(5, $("#show-more-forks"));
 	
-	$(".main").on("click", "#show-more-sets", function(){
+	$("#show-more-sets").click(function(){
 		loadMoreSets(10, $(this));
 		return false;
 	});
-	loadMoreSets(10, $(".main").find("#show-more-sets"));
+	loadMoreSets(10, $("#show-more-sets"));
 	
-	$(".main").on("click", ".list-panel.set-list a", function(e){
+	$("#sets-list").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
 	});
 	
-	$(".main").on("click", ".list-panel.set-list.unused", function(){
+	$("#sets-list").on("click", ".list-panel.set-list.unused", function(){
 		var $this = $(this);
 		$this.removeClass("unused");
 		$this.addClass("success");
@@ -73,7 +72,7 @@ function configureInputField() {
 		});
 		return false;
 	});
-	$(".main").on("click", ".list-panel.set-list.success", function(){
+	$("#sets-list").on("click", ".list-panel.set-list.success", function(){
 		var $this = $(this);
 		$this.removeClass("success");
 		$this.addClass("unused");
@@ -86,12 +85,13 @@ function configureInputField() {
 		return false;
 	});
 	
-	$(".main").on("click", "#minor-edit", function() {
+	$("#edit-minor").click(function() {
 		var $checkBox = $(this);
 		var $setListDiv = $(".main").find("#set-div-to-edit");
 		
 		if($checkBox.attr("checked")){
 			$checkBox.attr("checked", false);
+			$checkBox.attr("value", false);
 			
 			if($setListDiv.children().hasClass("set-list-to-edit")){
 				$setListDiv.children(".set-list-to-edit").slideToggle();
@@ -111,49 +111,54 @@ function configureInputField() {
 			
 		}else{
 			$checkBox.attr("checked", true);
+			$checkBox.attr("value", true);
 			$setListDiv.children(".set-list-to-edit").slideToggle();
 		}
 	});
 	
-	$(".main").on("click", ".list-panel.qedit-set-list a", function(e){
+	$("#set-div-to-edit").on("click", ".list-panel.qedit-set-list a", function(e){
 		e.stopPropagation();
 	});
-	$(".main").on("click", ".list-panel.qedit-set-list.unused", function(){
+	$("#set-div-to-edit").on("click", ".list-panel.qedit-set-list.unused", function(){
 		var $this = $(this);
 		$this.removeClass("unused");
 		$this.addClass("success");
 		return false;
 	});
-	$(".main").on("click", ".list-panel.qedit-set-list.success", function(){
+	$("#set-div-to-edit").on("click", ".list-panel.qedit-set-list.success", function(){
 		var $this = $(this);
 		$this.removeClass("success");
 		$this.addClass("unused");
 		return false;
 	});
 	
-	$(".main").on("submit", "#revisions-submit-form", function() {
-		/*$.post("/q/update", {
-			"qid": $inputField.attr("data-qid"),
-			"minor":  
-		}).done(
-			
-		);*/
-		//console.log($(this));
-		//console.log($("textarea[name=console]"))
-		//console.log($("input[name=expectedDuration]").val());
+	$("#revisions-submit-form").on("submit", function() {
+		var isMinor = $(this).find("#edit-minor").val();
+		var sets = new Array();
+		var i = 0;
+		$(".qedit-set-list.success").each(function(){
+			sets[i] = $(this).attr("data-sid");
+			i++;
+		});
+		
+		if(isMinor == "false" && i == 0){
+			alert("Please either choose a set to edit this question in or only apply a minor change!");
+			return false;
+		}
+		
 		$.post("/q/update", {
 			"id": $inputField.attr("data-qid"),
-			"minor": $(this).find("#edit-minor").val(),
+			"minor": isMinor,
 			"setId": -1,
 			"expectedDuration": $(this).find("#expDur").val(),
 			"content": $(this).find("#edit-content").val(),
-			"notes": $(this).find("#edit-notes").val()
+			"notes": $(this).find("#edit-notes").val(),
+			"sets": sets.toString()
 		}).done(function(json){
 			if(json.success){
 				alert("Successfully edited question " + json.question.id + "!");
 			} else {
-				alert("There was a problem while editing question " + json.question.id + ":\n"
-					+ "Error message: " + json.error);
+				alert("There was a problem while editing this question!\nError message: " + json.error);
 			}
 		});
 		return false;

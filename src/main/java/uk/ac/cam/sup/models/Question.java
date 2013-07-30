@@ -1,8 +1,10 @@
 package uk.ac.cam.sup.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
+import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -152,6 +155,7 @@ public class Question extends Model implements Cloneable {
 	}
 	
 	private Question inPlaceEdit(QuestionEdit qe) throws FormValidationException {
+		log.debug("In place edit for question " + qe.getId());
 		qe.store(this);
 		this.update();
 		
@@ -159,6 +163,7 @@ public class Question extends Model implements Cloneable {
 	}
 	
 	private Question forkAndEdit(User editor, QuestionEdit qe) throws FormValidationException {
+		log.debug("Fork and edit for question " + qe.getId());
 		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()));
 		q.owner = editor;
 		
@@ -168,19 +173,52 @@ public class Question extends Model implements Cloneable {
 		return q;
 	}
 	
-	private Question forkAndEditMultiple(User editor, QuestionEdit qe){
-		log.info("FORK AND EDIT MULTIPLE");
-		return this;
+	private Question forkAndEditMultiple(User editor, QuestionEdit qe) throws FormValidationException, InvalidInputException{
+		log.debug("Fork and Edit multiple for question " + qe.getId());
+		List<QuestionSet> sets;
+		if(qe.isMinor()){
+			sets = QuestionSetQuery.all().withUser(editor).list();
+		} else {
+			sets = qe.getSets();
+		}
+		if(sets == null || sets.size() < 1){
+			throw new InvalidInputException("No sets found to edit the question in.");
+		}
+		Question q = this.fork(sets.get(0));
+		sets.remove(0);
+		
+		q.owner = editor;
+		qe.store(q);
+		q.update();
+		
+		for(QuestionSet qs: sets){
+			qs.swapFor(this, q);
+			qs.update();
+		}
+		return q;
 	}
 	
-	public Question edit(User editor, QuestionEdit qe) throws FormValidationException {
-		boolean inPlace = (editor.equals(owner))
-				&& (qe.isMinor() || (this.usageCount <= 1));
-		if(inPlace){
-			if(QuestionQuery.all().withParent(qe.getId()).list().size() < 1) {
-				inPlace = false;
+	public Question edit(User editor, QuestionEdit qe) throws FormValidationException, InvalidInputException {
+		log.debug(editor.getId() + " is editing question " + qe.getId() + " in set " + qe.getSetId());
+		boolean inPlace = false;
+		
+		List<Question> forks = QuestionQuery.all().withParent(qe.getId()).list();
+		if(forks == null){forks = new ArrayList<Question>();}
+		
+		if(editor.equals(owner)) {
+			if(qe.isMinor()
+					|| forks.size() < 1 && 
+						(this.usageCount <= 1 || (qe.getSetId() == -1 && this.usageCount <= qe.getSets().size()))){
+				inPlace = true;
+			}
+		} else {
+			List<User> userlist = new ArrayList<User>();
+			userlist.add(editor);
+			if(QuestionSetQuery.all().withUsers(userlist).have(qe.getId()).list().size() < 1){
+				throw new InvalidInputException("No sets available in which to edit this question!");
 			}
 		}
+		
 		if (inPlace) {
 			return this.inPlaceEdit(qe);
 		} else if(qe.getSetId() == -1) {

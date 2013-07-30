@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
+import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.form.TagAdd;
@@ -33,7 +34,7 @@ import com.google.common.collect.ImmutableMap;
 @Path("/q")
 public class QuestionEditController extends GeneralController{
 	
-	Logger log = LoggerFactory.getLogger(GeneralController.class);
+	Logger log = LoggerFactory.getLogger(QuestionEditController.class);
 	
 	
 	/**
@@ -52,6 +53,9 @@ public class QuestionEditController extends GeneralController{
 		
 		try {
 			qe.validate();
+
+			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
+			
 			q = QuestionQuery.get(qe.getId());
 			qs = QuestionSetQuery.get(qe.getSetId());
 			if (qs != null) {
@@ -62,8 +66,6 @@ public class QuestionEditController extends GeneralController{
 			
 			q = q.edit(editor, qe);
 			
-			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
-			
 			if(qe.getSetId() == -1) {
 				return ImmutableMap.of("success", true, "question", q);
 			}else{
@@ -71,6 +73,9 @@ public class QuestionEditController extends GeneralController{
 			}
 		} catch (FormValidationException e) {
 			log.debug("There was a FormValidationException: " + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		} catch (InvalidInputException e){
+			log.debug("There was an InvalidInputException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
