@@ -13,7 +13,7 @@ function reloadView (set) {
 	applyTemplate($("#set-use-tab").children(".content"), "questions.view.set.tab.use.full", set);
 	applyTemplate($("#set-edit-tab").children(".content"), "questions.view.set.tab.edit.full", set);
 	applyTemplate($("#set-createquestion-tab").children(".content"), "questions.view.set.tab.createquestion.full", set);
-	applyTemplate($(".question-set-name").children(".content"), "questions.view.set.name", set);
+	applyTemplate($(".question-set-name"), "questions.view.set.name", set);
 }
 
 function configureRemoveQuestionButton () {
@@ -46,8 +46,13 @@ function configureEditSetForm () {
 		
 		var data = $("#set-edit").serialize();
 		$.post ("/sets/update",	data, function (data) {
+			console.log(data);
 			if (data.success) {
 				var executed = false;
+				if (".list-panel.delete") {
+					reloadView(data.set);
+					successNotification("Set edited successfully");
+				}
 				$(".list-panel.delete").slideToggle(400, function() {
 					if (!executed) {
 						executed = true;
@@ -58,9 +63,11 @@ function configureEditSetForm () {
 					
 			} else {
 				successNotification(data.error);
+				console.log(data);
 			}
 		}).fail(function () {
 			errorNotification("Error while editing the file");
+			console.log(data);
 		});
 	});
 	
@@ -91,6 +98,7 @@ function configureUseTabSubmitButton() {
 			var data = $(this).parents("form").serialize();
 			console.log(data);
 			$.post("/sets/fork", data, function(data) {
+				$(".success").removeClass("success");
 				console.log(data);
 				successNotification("Questions exported successfully");
 			});
@@ -134,8 +142,15 @@ function configureEditQuestionForm() {
 		var data = $(this).parents("form").serialize();
 		$.post("/q/update", data, function(data) {
 			if(data.success) {
-				reloadView(data.set);
-				successNotification("Question edited successfully");
+				var executed = false;
+				$(".sub-panel:not(.hidden)").slideUp(function() {
+					if (!executed) {
+						executed = true;
+						reloadView(data.set);
+						successNotification("Question edited successfully");
+					}
+				});
+				
 			} else {
 				console.log(data);
 				errorNotification(data.error);
