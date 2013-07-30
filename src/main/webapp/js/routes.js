@@ -25,6 +25,9 @@ $(document).ready(function() {
     	"sets/:id" : "questions.view.set.full",
     	"sets/:id/import(?:params)" : "questions.search.main",
     	"sets/add": "questions.form.set.create",
+
+    	"users/:crsid" : "questions.view.user.full",
+    	"users/me" : "questions.view.user.full",
     	
     	"fairytale" : "questions.misc.fairytale",
     	

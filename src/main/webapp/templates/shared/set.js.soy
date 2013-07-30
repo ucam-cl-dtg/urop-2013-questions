@@ -22,7 +22,16 @@
 	</li>
 {/template}
 
-
+/**
+ * @param sets
+ */
+{template .multiple}
+	{foreach $set in $sets}
+		{call .single}
+			{param set: $set /}
+		{/call}
+	{/foreach}
+{/template}
 
 /**
  * @param maplist
