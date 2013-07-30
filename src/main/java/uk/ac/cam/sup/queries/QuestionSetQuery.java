@@ -53,8 +53,8 @@ public class QuestionSetQuery {
 		return qs;
 	}
 	
-	public List<Map<String,Object>> maplist(boolean shadow) {
-		List<Map<String,Object>> l = new ArrayList<Map<String,Object>>();
+	public List<Map<String, ?>> maplist(boolean shadow) {
+		List<Map<String, ?>> l = new ArrayList<Map<String,?>>();
 		List<QuestionSet> all = list();
 		
 		for (QuestionSet qs: all) {
@@ -64,7 +64,7 @@ public class QuestionSetQuery {
 		return l;
 	}
 	
-	public List<Map<String,Object>> maplist() {
+	public List<Map<String, ?>> maplist() {
 		return maplist(true);
 	}
 	
