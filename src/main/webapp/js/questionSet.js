@@ -5,6 +5,7 @@ function configureQuestionSetView () {
 	configureUseTabSubmitButton();
 	configureSetStarToggler();
 	configureEditQuestionForm();
+	configureCreateQuestionForm();
 }
 
 function reloadView (set) {
@@ -49,7 +50,7 @@ function configureEditSetForm () {
 			console.log(data);
 			if (data.success) {
 				var executed = false;
-				if (".list-panel.delete") {
+				if ($(".list-panel-delete").size() == 0) {
 					reloadView(data.set);
 					successNotification("Set edited successfully");
 				}
@@ -157,6 +158,25 @@ function configureEditQuestionForm() {
 			}
 		}).fail(function (data) {
 			errorNotification("Error while editing question");
+			console.log(data);
+		});
+	});
+}
+
+function configureCreateQuestionForm() {
+	$(document).on('click', '#add-question-button', function(e) {
+		e.preventDefault();
+		var data = $(this).parents("form").serialize();
+		$.post("/q/save", data, function(data) {
+			if (data.success) {
+				reloadView(data.set);
+				successNotification("Question added successfully");
+				
+			} else {
+				errorNotification(data.error);
+			}
+		}).fail(function(data) {
+			errorNotification("Something went wrong");
 			console.log(data);
 		});
 	});
