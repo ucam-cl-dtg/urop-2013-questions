@@ -256,10 +256,23 @@ function configureQuestionStarToggler() {
 	$('.star-question-button').on('click', function() {
 		var questionId = $(this).attr('data-question-id');
 		var $star = $(this);
-		$.post('/q/'+questionId+'/togglestar', function() {
-			$star.find('i')
-				.toggleClass('icon-star')
-				.toggleClass('icon-star_empty');
+		$.post('/q/'+questionId+'/togglestar', function(data) {
+			if (data.success) {
+				if (data.starred) {
+					$star.find('i')
+						.addClass('icon-star')
+						.removeClass('icon-star_empty');
+				} else {
+					$star.find('i')
+						.removeClass('icon-star')
+						.addClass('icon-star_empty');
+				}
+			} else {
+				errorNotification(data.error);
+			}
+		}).fail(function(data) {
+			errorNotification("Something went wrong");
+			console.log(data);
 		});
 	});
 }

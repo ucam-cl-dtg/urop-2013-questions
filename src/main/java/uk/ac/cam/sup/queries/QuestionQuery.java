@@ -34,9 +34,9 @@ public class QuestionQuery {
 		return criteria.list();
 	}
 	
-	public List<Map<String,Object>> maplist(boolean shadowed) {
+	public List<Map<String,?>> maplist(boolean shadowed) {
 		List<Question> ql = this.list();
-		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		List<Map<String, ?>> result = new ArrayList<Map<String,?>>();
 		
 		for (Question q: ql) {
 			result.add(q.toMap(shadowed));
@@ -45,7 +45,7 @@ public class QuestionQuery {
 		return result;
 	}
 	
-	public List<Map<String,Object>> maplist() {
+	public List<Map<String, ?>> maplist() {
 		return this.maplist(true);
 	}
 	
