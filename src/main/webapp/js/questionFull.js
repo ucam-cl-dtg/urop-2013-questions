@@ -86,12 +86,13 @@ function configureInputField() {
 		return false;
 	});
 	
-	$(".main").on("click", "#minor-edit", function() {
+	$(".main").on("click", "#edit-minor", function() {
 		var $checkBox = $(this);
 		var $setListDiv = $(".main").find("#set-div-to-edit");
 		
 		if($checkBox.attr("checked")){
 			$checkBox.attr("checked", false);
+			$checkBox.attr("value", false);
 			
 			if($setListDiv.children().hasClass("set-list-to-edit")){
 				$setListDiv.children(".set-list-to-edit").slideToggle();
@@ -111,6 +112,7 @@ function configureInputField() {
 			
 		}else{
 			$checkBox.attr("checked", true);
+			$checkBox.attr("value", true);
 			$setListDiv.children(".set-list-to-edit").slideToggle();
 		}
 	});
@@ -141,19 +143,26 @@ function configureInputField() {
 		//console.log($(this));
 		//console.log($("textarea[name=console]"))
 		//console.log($("input[name=expectedDuration]").val());
+		var sets = new Array();
+		var i = 0;
+		$(".qedit-set-list.success").each(function(){
+			sets[i] = $(this).attr("data-sid");
+			i++;
+		});
+		
 		$.post("/q/update", {
 			"id": $inputField.attr("data-qid"),
 			"minor": $(this).find("#edit-minor").val(),
 			"setId": -1,
 			"expectedDuration": $(this).find("#expDur").val(),
 			"content": $(this).find("#edit-content").val(),
-			"notes": $(this).find("#edit-notes").val()
+			"notes": $(this).find("#edit-notes").val(),
+			"sets": sets.toString()
 		}).done(function(json){
 			if(json.success){
 				alert("Successfully edited question " + json.question.id + "!");
 			} else {
-				alert("There was a problem while editing question " + json.question.id + ":\n"
-					+ "Error message: " + json.error);
+				alert("There was a problem while editing this question!\nError message: " + json.error);
 			}
 		});
 		return false;

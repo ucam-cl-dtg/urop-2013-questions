@@ -33,7 +33,7 @@ import com.google.common.collect.ImmutableMap;
 @Path("/q")
 public class QuestionEditController extends GeneralController{
 	
-	Logger log = LoggerFactory.getLogger(GeneralController.class);
+	Logger log = LoggerFactory.getLogger(QuestionEditController.class);
 	
 	
 	/**
@@ -51,10 +51,11 @@ public class QuestionEditController extends GeneralController{
 		
 		try {
 			qe.validate();
+
+			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
+			
 			q = QuestionQuery.get(qe.getId());
 			q = q.edit(editor, qe);
-			
-			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
 			
 			if(qe.getSetId() == -1) {
 				return ImmutableMap.of("success", true, "question", q);
