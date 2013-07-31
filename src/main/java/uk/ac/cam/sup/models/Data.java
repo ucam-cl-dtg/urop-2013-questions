@@ -1,31 +1,57 @@
 package uk.ac.cam.sup.models;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import uk.ac.cam.sup.util.DataType;
 
 @Embeddable
 public class Data implements Cloneable {
-	private Boolean isString = true;
+	
+	@Enumerated(EnumType.STRING)
+	private DataType type = DataType.PLAIN_TEXT;
 	private String data = "";
 	
 	public Data(){}
 	public Data(boolean isString, String data) {
-		this.isString = isString;
+		if (isString) {
+			this.type = DataType.PLAIN_TEXT;
+		} else {
+			this.type = DataType.EMPTY;
+		}
 		this.data = data;
 	}
 	
 	public Data(Data old) {
-		this.isString = old.isString;
+		this.type = old.type;
 		this.data = old.data;
 	}
 	
-	public boolean isString() {return isString;}
+	@Deprecated
+	public boolean isString() {
+		return this.type == DataType.PLAIN_TEXT;
+	}
+	
+	public boolean isPlainText() {
+		return this.type == DataType.PLAIN_TEXT;
+	}
+	
+	public void setType(DataType dt) {
+		this.type = dt;
+	}
 	
 	public String getData() {
 		return data;
 	}
 	
 	public void setData(boolean isString, String data) {
-		this.isString = isString;
+		if (isString) {
+			this.type = DataType.PLAIN_TEXT;
+		} else {
+			this.type = DataType.EMPTY;
+		}
+		
 		this.data = (data == null ? null : data.trim());
 	}
 	

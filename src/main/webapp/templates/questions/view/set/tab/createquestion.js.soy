@@ -5,7 +5,15 @@
  * @param id
  */
 {template .full}
-		{call questions.form.question.add}
-			{param setId: $id /}
-		{/call}
+<h4>Import questions</h4>
+<div class="row">
+	<div class="columns large-12 small-12">
+		<a href="#sets/{$id}/import" class="button">Import</a>
+	</div>
+</div>
+
+<h4>New question</h4>
+{call questions.form.question.add}
+	{param setId: $id /}
+{/call}
 {/template}

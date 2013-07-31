@@ -11,7 +11,9 @@
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">
 				{if $question.timeStamp}<i>[{$question.timeStamp}] </i>{/if} 
-				{$question.content.data}
+				{call shared.data.preview}
+					{param data: $question.content /}
+				{/call}
 			</div>
 			//<div class="columns large-2 small-2 text-right"><a href="/user/{$owner.id}"><i>{$owner.id}</i></a> <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a></div>
 			<div class="columns large-3 small-3 text-right">

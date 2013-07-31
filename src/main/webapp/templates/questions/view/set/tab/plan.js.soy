@@ -6,9 +6,7 @@
  */
 {template .full}
 <h4>Plan</h4>
-{if $plan.data}
-	<p>{$plan.data}</p>
-{else}
-	<p><i>--- No plan found ---</i></p>
-{/if}
+{call shared.data.display}
+	{param data: $plan /}
+{/call}
 {/template}

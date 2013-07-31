@@ -24,19 +24,15 @@
 				<div class="content" data-section-content>
 					<h4>Question</h4>
 					<p id="question-content-p">
-						{if $question.content.data}
-							{$question.content.data}
-						{else}
-							<i>--- No content found ---</i>
-						{/if}
+						{call shared.data.display}
+							{param data: $question.content /}
+						{/call}
 					</p>
 					<h4>Notes</h4>
 					<p id="question-notes-p">
-						{if $question.notes.data}
-							{$question.notes.data}
-						{else}
-							<i>--- No notes found ---</i>
-						{/if}
+						{call shared.data.display}
+							{param data: $question.notes /}
+						{/call}
 					</p>
 				</div>
 			</section>

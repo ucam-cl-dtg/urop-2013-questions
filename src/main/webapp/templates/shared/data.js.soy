@@ -1,0 +1,38 @@
+{namespace shared.data}
+
+/**
+ * Displays a full data object
+ * @param data
+ */
+{template .display}
+	{if $data.plainText}
+		<p>{$data.data}</p>
+	{else}
+		<p><i>--- No content found ---</i><p>
+	{/if}
+{/template}
+
+/**
+ * Displays a short version of data object
+ * @param data
+ */
+{template .preview}
+	{if $data.plainText}
+		{$data.data}
+	{else}
+		<i>--- No content found ---</i>
+	{/if}
+{/template}
+
+/**
+ * Displays a form inputs to modify data object
+ * @param data
+ * @param name
+ */
+{template .edit}
+	{if $data.plainText}
+		<input type="text" name="{$name}" placeholder="{$name}" />
+	{else}
+		<p><i>--- Unable to modify {$name} ---</i></p>
+	{/if}
+{/template}
