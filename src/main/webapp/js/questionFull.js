@@ -259,9 +259,9 @@ function toggleComplete(type, successful, $element){
 
 function configureQuestionStarToggler() {
 	$('.star-question-button').on('click', function() {
-		var questionId = $(this).attr('data-question-id');
 		var $star = $(this);
-		$.post('/q/'+questionId+'/togglestar', function(data) {
+		var data = {id: $star.attr('data-question-id')};
+		$.post('/q/togglestar', data, function(data) {
 			if (data.success) {
 				if (data.starred) {
 					$star.find('i')

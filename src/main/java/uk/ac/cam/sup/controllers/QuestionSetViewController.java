@@ -89,10 +89,30 @@ public class QuestionSetViewController extends GeneralController {
 	}
 	
 	@GET
-	@Path("/{id}/questions")
+	@Path("/{id}/import")
 	@Produces("application/json")
-	public Map<String,?> produceSetQuestions(@PathParam("id") int id) {
-		return ImmutableMap.of ("questions", QuestionSetQuery.get(id).getQuestionsAsMaps());
+	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
+		return ImmutableMap.of(
+				"success", true,
+				"set", QuestionSetQuery.get(id).toMap(),
+				"questions", QuestionQuery.all().maplist(),
+				"st", new SearchTerm()
+		);
+	}
+	
+	@GET
+	@Path("/{id}/{target}")
+	@Produces("application/json")
+	public Map<String,?> produceSingleSet(
+			@PathParam("id") int id,
+			@PathParam("target") String target
+	) {
+		if (target.equals("import")) { return produceImportPageData(id); }
+		@SuppressWarnings("unchecked")
+		Map<String,Object> result = (Map<String, Object>) produceSingleSet(id);
+		
+		result.put("target", target);
+		return result;
 	}
 	
 	@GET
@@ -161,18 +181,6 @@ public class QuestionSetViewController extends GeneralController {
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		
 		return ImmutableMap.of("sets", qsq.maplist(false));
-	}
-	
-	@GET
-	@Path("/{id}/import")
-	@Produces("application/json")
-	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
-		return ImmutableMap.of(
-				"success", true,
-				"set", QuestionSetQuery.get(id).toMap(),
-				"questions", QuestionQuery.all().maplist(),
-				"st", new SearchTerm()
-		);
 	}
 	
 	/*

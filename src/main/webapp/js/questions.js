@@ -3,10 +3,18 @@ moduleScripts['questions'] = {
     	'questionFull': [
 			configureInputField,
 			configureQuestionStarToggler,
+			configureInPlaceAnchors,
 	    ],
 		'set': {
 			'full': [
-			    configureQuestionSetView
+			    configureRemoveQuestionButton,
+			    configureEditSetForm,
+			    configureSelectQuestion,
+			    configureUseTabSubmitButton,
+			    configureSetStarToggler,
+			    configureEditQuestionForm,
+			    configureCreateQuestionForm,
+			    configureInPlaceAnchors,
 			],
 			'list': [
 			    configureQuestionSetLoader,

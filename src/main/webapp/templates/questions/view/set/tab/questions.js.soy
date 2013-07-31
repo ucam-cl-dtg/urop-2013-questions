@@ -48,7 +48,9 @@
 	<div class="list-panel">
 		<div class="row list-inner-panel">
 			<div class="columns large-7 small-7">
-				{$content.data}
+				{call shared.data.preview}
+					{param data: $content /}
+				{/call}
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">

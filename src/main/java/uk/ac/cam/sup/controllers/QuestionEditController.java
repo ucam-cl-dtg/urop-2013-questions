@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.jboss.resteasy.annotations.Form;
@@ -179,9 +179,9 @@ public class QuestionEditController extends GeneralController{
 	}
 	
 	@POST
-	@Path("/{id}/togglestar")
+	@Path("/togglestar")
 	@Produces("application/json")
-	public Map<String,?> toggleStar(@PathParam("id") int id) {
+	public Map<String,?> toggleStar(@FormParam("id") int id) {
 		Question q;
 		try{
 			q = QuestionQuery.get(id);

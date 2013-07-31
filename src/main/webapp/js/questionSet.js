@@ -1,13 +1,3 @@
-function configureQuestionSetView () {
-	configureRemoveQuestionButton();
-	configureEditSetForm();
-	configureSelectQuestion();
-	configureUseTabSubmitButton();
-	configureSetStarToggler();
-	configureEditQuestionForm();
-	configureCreateQuestionForm();
-}
-
 function reloadView (set) {
 	applyTemplate($("#set-plan-tab").children(".content"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab").children(".content"), "questions.view.set.tab.questions.full", set);
@@ -117,9 +107,9 @@ function configureSetStarToggler() {
 	$(document).on('click', '.star-question-button', function() {
 		var editable = $(this).attr('data-enabled') == "true";
 		if (editable) {
-			var setId = $(this).attr('data-set-id');
 			var $star = $(this);
-			$.post('/sets/'+setId+'/togglestar', function(data) {
+			var data = {id: $star.attr('data-set-id')};
+			$.post('/sets/togglestar', data, function(data) {
 				if (data.success) {
 					if (data.starred) {
 						$star.find('i')
@@ -146,7 +136,7 @@ function configureQuestionSetLoader() {
 		if ($(this).hasClass('loaded')) {
 			$(this).parents('.panel-wrapper').find('.sub-panel').slideToggle();
 		} else {
-			var source = 'sets/'+$(this).attr('data-qid')+'/questions';
+			var source = 'sets/'+$(this).attr('data-qid');
 			var $questionList = $(this).parents('.panel-wrapper').children('.question-list');
 			loadModule($questionList, source, 'questions.view.set.listquestions', function() {
 				$(this).find('.sub-panel').slideToggle();
@@ -197,5 +187,12 @@ function configureCreateQuestionForm() {
 			errorNotification("Something went wrong");
 			console.log(data);
 		});
+	});
+}
+
+function configureInPlaceAnchors() {
+	$(document).on('click', '.in-place-anchor', function() {
+		var target = $(this).attr("href");
+		router.navigate(target);
 	});
 }

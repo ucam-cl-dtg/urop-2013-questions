@@ -172,6 +172,27 @@ public class QuestionViewController extends GeneralController {
 	}
 	
 	/**
+	 * Returns a single question (as map, potentially shadowed)
+	 * 
+	 * @param id Question ID to return
+	 * @param target Tab to show
+	 * @return
+	 */
+	@GET
+	@Path("/{id}/{target}")
+	@Produces("application/json")
+	public Map<String,?> produceSingleQuestion(
+			@PathParam("id") int id,
+			@PathParam("target") String target
+	) {
+		return ImmutableMap.of(
+				"success", true,
+				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor()),
+				"target", target
+		);
+	}
+	
+	/**
 	 * To find the tags not in the current question. Intended for auto-completion feature only. 
 	 * 
 	 * Will return a list of all tags which contain the search term
