@@ -1,12 +1,12 @@
 function searchSetup() {
 	//alert("reload");
-	$(".main").on('submit', "#questions-searchform", function(){
+	$("#questions-searchform").on("submit", function(){
 		var $qlist = $("#questionList");
 		$qlist.empty();
 		var newList = document.createElement("div");
 		
 		var searchTerms = "?";
-		searchTerms = searchTerms + "tags=" + $("#tags").val();
+		searchTerms = searchTerms + "tags=" + $("#txtSearch").val();
 		var permalink = window.location.hash;
 		if(permalink.indexOf("?") > 0) {
 			permalink = permalink.substring(0, window.location.hash.indexOf("?"));
@@ -31,11 +31,11 @@ function searchSetup() {
 		return false;
 	});
 	
-	$(document).on('click', '.add-question-to-set', function() {
+	$(".add-question-to-set").click(function() {
 		$(this).parents('.list-panel').toggleClass('success');
 	});
 	
-	$('#add-questions-to-set-button').on('click', function(e) {
+	$('#add-questions-to-set-button').click(function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -60,4 +60,60 @@ function searchSetup() {
 		});
 	});
 	
+	var $searchField = $("#txtSearch");
+	$searchField.tokenInput("/q/search/autocomplete", {
+		method: "post",
+        queryParam: "st",
+        tokenValue: "value",
+        propertyToSearch: "value",
+        theme: "facebook",
+        minChars: 1,
+        hintText: "Begin typing your search terms...",
+        noResultsText: "No results found",
+        resultsLimit: 10,
+        preventDuplicates: true,
+        allowFreeTagging: true,
+        
+        resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
+        tokenFormatter: getTokenFormatter
+	});
+	/*var $tagsField = $("#txtTags");
+	$tagsField.tokenInput("/q/search/autocomplete", {
+		method: "post",
+        queryParam: "st",
+        tokenValue: "value",
+        propertyToSearch: "value",
+        theme: "facebook",
+        minChars: 1,
+        hintText: "Begin typing your search terms...",
+        noResultsText: "No results found",
+        resultsLimit: 10,
+        preventDuplicates: true,
+        allowFreeTagging: true,
+        
+        resultsFormatter: function(item){ return "<li class='search-input-field'><div class='st-value'>" + item.value + "</div></li>"; },
+        tokenFormatter: function(item) { return "<li class='search-input-field'>" + item.value + "</li>"; }         
+	});*/
+}
+
+function getTokenFormatter(item){
+	var $criteria = $(questions.search.searchCriteria({item: item}));
+	var $inputField = $criteria.find(".search-item-input-field");
+	$inputField.tokenInput("/q/search/autocomplete", {
+		method: "post",
+        queryParam: $inputField.attr("data-type"),
+        tokenValue: "value",
+        propertyToSearch: "value",
+        theme: "facebook",
+        minChars: 1,
+        hintText: "Begin typing your search terms...",
+        noResultsText: "No results found",
+        resultsLimit: 10,
+        preventDuplicates: true,
+        allowFreeTagging: true,
+        
+        resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
+        tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
+	});
+	return $criteria;
 }

@@ -1,5 +1,5 @@
 function configureInputField() {
-	var $inputField = $(".main").find("#tags-input");
+	var $inputField = $("#tags-input");
 	$inputField.tokenInput("/q/tagsnotin", {
 		method: "post",
         queryParam: $inputField.attr("data-qid"),

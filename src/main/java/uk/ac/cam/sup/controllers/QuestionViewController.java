@@ -72,6 +72,18 @@ public class QuestionViewController extends GeneralController {
 		}
 		// return ImmutableMap.of("st", st);
 	}
+	
+	@POST
+	@Path("/search/autocomplete")
+	@Produces("application/json")
+	public List<Map<String,?>> produceAutocompletedSTs(String param){
+		System.out.println(param);
+		List<Map<String,?>> results = new ArrayList<Map<String,?>>();
+		results.add(ImmutableMap.of("value", "Tags", "type", "tags"));
+		results.add(ImmutableMap.of("value", "BBBBBB", "type", "bbbbb"));
+		results.add(ImmutableMap.of("value", "Hi :)", "type", "hi"));
+		return results;
+	}
 
 	/**
 	 * Filters questions according to a search term.

@@ -2,7 +2,7 @@
 
 /**
  * This shows the main search screen of questions
- * @param st The search terms
+ * param st The search terms
  * @param questions
  * @param? set
  */
@@ -23,11 +23,16 @@
 	</div>
 	<div class="columns large-4 small-12" id="searchbar">
 		<form method="get" action="/q/search" id="questions-searchform">
-			{call .searchInput}
+			//{if not $value}
+				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
+			//{else}
+				//<input type="text" id="{$name}" value="{$value}" placeholder="{$title}..." /><br>
+			//{/if}
+			/*{call .searchInput}
 				{param value: $st.tags /}
 				{param name: $st.tagsName /}
 				{param title: $st.tagsTitle /}
-			{/call}
+			{/call}*/
 			<input type="submit" value="Search" id="foobar" />
 		</form>
 	</div>
@@ -62,11 +67,15 @@
  * @param questions
  */
 {template .results}
-	//{if $permalink}
-	//	<aside class="plink"><a href="{$permalink}">permalink</a></aside>
-	//{/if}
 	{call shared.question.multiple}
 		{param questions: $questions /}
 		{param showAddButton: true /}
 	{/call}
+{/template}
+
+/**
+ * @param item
+ */
+{template .searchCriteria}
+<li>{$item.value}<input type='text' data-type="{$item.type}" class='search-item-input-field' value='' /></li>
 {/template}
