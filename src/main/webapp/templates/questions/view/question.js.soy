@@ -2,6 +2,7 @@
 
 /**
  * @param question
+ * @param? target
  */
 {template .questionFull}
 	<div class="row">
@@ -18,8 +19,8 @@
 <div class="row">
 	<div class="columns large-12 small-12">
 		<div class="section-container tabs" data-section="tabs">
-			<section>
-				<p class="title" data-section-title><a href="#">Content</a></p>
+			<section {if $target=='content'}class="active"{/if}>
+				<p class="title" data-section-title><a href="#q/{$question.id}/content" class="in-place-anchor">Content</a></p>
 				<div class="content" data-section-content>
 					<h4>Question</h4>
 					<p id="question-content-p">
@@ -39,8 +40,8 @@
 					</p>
 				</div>
 			</section>
-			<section>
-				<p class="title" data-section-title><a href="#">Tags</a></p>
+			<section {if $target=='tags'}class="active"{/if}>
+				<p class="title" data-section-title><a href="#q/{$question.id}/tags" class="in-place-anchor">Tags</a></p>
 				<div class="content" data-section-content>
 					<div class="tag-search-panel clearfix">
 						<div class="columns large-11 small-11"><input type="text" id="tags-input" data-qid="{$question.id}" /></div>
@@ -57,8 +58,8 @@
 					</div>
 				</div>
 			</section>
-			<section>
-				<p class="title" data-section-title><a href="#">History</a></p>
+			<section {if $target=='history'}class="active"{/if}>
+				<p class="title" data-section-title><a href="#q/{$question.id}/history" class="in-place-anchor">History</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
 						<ul class="panels" id="history-list" data-qid={$question.id}>
@@ -82,8 +83,8 @@
 					</div>
 				</div>
 			</section>
-			<section>
-				<p class="title" data-section-title><a href="#">Export</a></p>
+			<section {if $target=='export'}class="active"{/if}>
+				<p class="title" data-section-title><a href="#q/{$question.id}/export" class="in-place-anchor">Export</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
 						<ul class="panels" id="sets-list" data-disp="0" data-qid={$question.id}>
@@ -95,8 +96,8 @@
 					</div>
 				</div>
 			</section>
-			<section>
-				<p class="title" data-section-title><a href="#">Edit</a></p>
+			<section {if $target=='edit'}class="active"{/if}>
+				<p class="title" data-section-title><a href="#q/{$question.id}/edit" class="in-place-anchor">Edit</a></p>
 				<div class="content" data-section-content>
 					<div class="row notifications">
 						

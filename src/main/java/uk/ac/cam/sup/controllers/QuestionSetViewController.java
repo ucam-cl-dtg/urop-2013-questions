@@ -89,10 +89,17 @@ public class QuestionSetViewController extends GeneralController {
 	}
 	
 	@GET
-	@Path("/{id}/questions")
+	@Path("/{id}/{target}")
 	@Produces("application/json")
-	public Map<String,?> produceSetQuestions(@PathParam("id") int id) {
-		return ImmutableMap.of ("questions", QuestionSetQuery.get(id).getQuestionsAsMaps());
+	public Map<String,?> produceSingleSet(
+			@PathParam("id") int id,
+			@PathParam("target") String target
+	) {
+		@SuppressWarnings("unchecked")
+		Map<String,Object> result = (Map<String, Object>) produceSingleSet(id);
+		
+		result.put("target", target);
+		return result;
 	}
 	
 	@GET

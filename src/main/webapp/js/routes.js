@@ -18,12 +18,14 @@ $(document).ready(function() {
 		"": "questions.main",
 		
 		"q/:id" : "questions.view.questionFull",
+		"q/:id/:target" : "questions.view.questionFull",
 		"q/search(?:params)" : "questions.search.main",
 		"q/add/:setid" : "questions.form.question.add",
 		
 		"sets": "questions.view.set.list",
     	"sets/:id" : "questions.view.set.full",
     	"sets/:id/import(?:params)" : "questions.search.main",
+    	"sets/:id/:target" : "questions.view.set.full",
     	"sets/add": "questions.form.set.create",
 
     	"users/:crsid" : "questions.view.user.full",

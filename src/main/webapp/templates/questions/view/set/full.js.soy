@@ -9,6 +9,7 @@
  * @param id
  * @param starred
  * @param editable
+ * @param? target
  */
 {template .full}
 <div class="question-set" data-set-id="{$id}">
@@ -21,32 +22,32 @@
 		<div class="columns large-12 small-12">
 			<div class="section-container tabs" data-section="tabs">
 				{if $plan}
-				<section id="set-plan-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/plan">Plan</a></p>
+				<section id="set-plan-tab" {if $target=='plan'}class="active"{/if}">
+					<p class="title" data-section-title><a href="#sets/{$id}/plan" class="in-place-anchor">Plan</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.plan.full data="all" /}
 					</div>
 				</section>
 				{/if}
 
-				<section id="set-questions-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/questions">Questions</a></p>
+				<section id="set-questions-tab" {if $target=='questions'}class="active"{/if}>
+					<p class="title" data-section-title><a href="#sets/{$id}/questions" class="in-place-anchor">Questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.questions.full data="all" /}
 					</div>
 				</section>
 				
 				
-				<section id="set-use-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/export">Export</a></p>
+				<section id="set-use-tab" {if $target=='export'}class="active"{/if}>
+					<p class="title" data-section-title><a href="#sets/{$id}/export" class="in-place-anchor">Export</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.use.full data="all" /}
 					</div>
 				</section>
 				
 				{if $editable}
-				<section id="set-edit-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/edit">Edit</a></p>
+				<section id="set-edit-tab" {if $target=='edit'}class="active"{/if}>
+					<p class="title" data-section-title><a href="#sets/{$id}/edit" class="in-place-anchor">Edit</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.edit.full data="all" /}
 					</div>
@@ -56,8 +57,8 @@
 					<p class="title" data-section-title><a href="#sets/{$id}/import">Import</a></p>
 				</section>
 
-				<section id="set-createquestion-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/create">Create question</a></p>
+				<section id="set-createquestion-tab" {if $target=='create'}class="active"{/if}>
+					<p class="title" data-section-title><a href="#sets/{$id}/create" class="in-place-anchor">Create question</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.createquestion.full data="all" /}
 					</div>
