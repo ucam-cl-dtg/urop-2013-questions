@@ -37,6 +37,10 @@ public class Data implements Cloneable {
 		return this.type == DataType.PLAIN_TEXT;
 	}
 	
+	public boolean isMarkDown() {
+		return this.type == DataType.MARKDOWN;
+	}
+	
 	public void setType(DataType dt) {
 		this.type = dt;
 	}
