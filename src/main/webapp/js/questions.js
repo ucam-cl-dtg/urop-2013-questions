@@ -15,6 +15,7 @@ moduleScripts['questions'] = {
 			    configureEditQuestionForm,
 			    configureCreateQuestionForm,
 			    configureInPlaceAnchors,
+			    configureDataEditor,
 			],
 			'list': [
 			    configureQuestionSetLoader,
@@ -27,5 +28,6 @@ moduleScripts['questions'] = {
 	        searchSetup,
 	        questionShortSetup,
 	    ]
-	}
+	},
+	
 }

@@ -30,9 +30,41 @@
  * @param name
  */
 {template .edit}
-	{if $data.plainText}
-		<input type="text" name="{$name}" placeholder="{$name}" />
-	{else}
-		<p><i>--- Unable to modify {$name} ---</i></p>
-	{/if}
+	<select name="{$name}_type" class="data-editor-type">
+		<option value="plaintext">Plain text</option>
+		<option value="markdown">Markdown</option>
+		<option value="latex">LaTeX</option>
+		<option value="file">File</option>
+	</select>
+	<div class="data-editor">
+		{if $data.plainText}
+			{call .plaintextedit data="all" /}
+		{elseif $data.markDown}
+			{call .markdownedit data="all" /}
+		{else}
+			<p><i>--- Unable to modify {$name} ---</i></p>
+		{/if}
+	</div>
+{/template}
+
+/**
+ * Displays a plaintext editor
+ * @param name
+ * @param data
+ */
+{template .plaintextedit}
+<textarea name="{$name}_plaintext" placeholder="{$name}">
+	{$data.data}
+</textarea>
+{/template}
+
+/**
+ * Displays a plaintext editor
+ * @param name
+ * @param data
+ */
+{template .markdownedit}
+<textarea name="{$name}_plaintext" placeholder="{$name}" style="font-family: monospace">
+	{$data.data}
+</textarea>
 {/template}

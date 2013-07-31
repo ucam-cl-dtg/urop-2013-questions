@@ -8,14 +8,18 @@
  * @param questions
  */
 {template .full}
-		<form method="POST" action="/sets/update" id="set-edit">
+		<form method="POST" action="/sets/update" id="set-edit" class="custom">
 		<h4>Basic information</h4>
 		<div>
 			<input type="text" placeholder="Name" value="{$name}" name="name" />
 		</div>
 		{if $plan}
 		<div>
-			<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
+			{call shared.data.edit}
+				{param name: 'plan' /}
+				{param data: $plan /}
+			{/call}
+			//<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
 		</div>
 		{/if}
 		
