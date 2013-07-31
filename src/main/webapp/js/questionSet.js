@@ -107,9 +107,9 @@ function configureSetStarToggler() {
 	$(document).on('click', '.star-question-button', function() {
 		var editable = $(this).attr('data-enabled') == "true";
 		if (editable) {
-			var setId = $(this).attr('data-set-id');
 			var $star = $(this);
-			$.post('/sets/'+setId+'/togglestar', function(data) {
+			var data = {id: $star.attr('data-set-id')};
+			$.post('/sets/togglestar', data, function(data) {
 				if (data.success) {
 					if (data.starred) {
 						$star.find('i')

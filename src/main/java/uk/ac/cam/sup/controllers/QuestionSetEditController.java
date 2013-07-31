@@ -2,9 +2,9 @@ package uk.ac.cam.sup.controllers;
 
 import java.util.Map;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.jboss.resteasy.annotations.Form;
@@ -119,9 +119,9 @@ public class QuestionSetEditController extends GeneralController {
 	}
 	
 	@POST
-	@Path("/{id}/togglestar")
+	@Path("/togglestar")
 	@Produces("application/json")
-	public Map<String,?> toggleStar(@PathParam("id") int id) {
+	public Map<String,?> toggleStar(@FormParam("id") int id) {
 		QuestionSet qs;
 		
 		try {
