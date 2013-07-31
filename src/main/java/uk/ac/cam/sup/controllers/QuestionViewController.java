@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,10 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.queries.UserQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
@@ -76,15 +79,90 @@ public class QuestionViewController extends GeneralController {
 	@POST
 	@Path("/search/autocomplete")
 	@Produces("application/json")
-	public List<Map<String,?>> produceAutocompletedSTs(String param){
+	public List<Map<String,String>> produceAutocompletedSTs(String param){
 		System.out.println(param);
-		List<Map<String,?>> results = new ArrayList<Map<String,?>>();
+		
+		String sterm = param.substring(param.indexOf("=")+1);
+		
+		switch(param.substring(0,param.indexOf("="))){
+			case "st": return produceSearchCriteria(sterm);
+			case "tags": return produceTagsWith(sterm);
+			case "owners": return produceUsersWith(sterm);
+		}
+		
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
 		results.add(ImmutableMap.of("value", "Tags", "type", "tags"));
 		results.add(ImmutableMap.of("value", "BBBBBB", "type", "bbbbb"));
 		results.add(ImmutableMap.of("value", "Hi :)", "type", "hi"));
 		return results;
 	}
 
+	private List<Map<String,String>> produceSearchCriteria(String st){
+		List<Map<String,String>> searchCriteria = new ArrayList<Map<String,String>>();
+		searchCriteria.add(ImmutableMap.of("value", "Authors", "helpText", "Questions by certain authors", "type", "owners", "displayType", "text"));
+		searchCriteria.add(ImmutableMap.of("value", "After date", "helpText", "Only questions after a certain date", "type", "after", "displayType", "date"));
+		searchCriteria.add(ImmutableMap.of("value", "Before date", "helpText", "Only questions before a certain date", "type", "before", "displayType", "date"));
+		searchCriteria.add(ImmutableMap.of("value", "Min. duration", "helpText", "Only questions with a certain min. duration in minutes", "type", "durMin", "displayType", "number"));
+		searchCriteria.add(ImmutableMap.of("value", "Max. duration", "helpText", "Only questions with a certain max. duration in minutes", "type", "durMax", "displayType", "number"));
+		searchCriteria.add(ImmutableMap.of("value", "Min. usage", "helpText", "Only questions being used min. _ times", "type", "usageMin", "displayType", "number"));
+		searchCriteria.add(ImmutableMap.of("value", "Max. usage", "helpText", "Only questions being used max. _ times", "type", "usageMax", "displayType", "number"));
+		searchCriteria.add(ImmutableMap.of("value", "Parent", "type", "helpText", "Only questions with certain parent question IDs", "parents", "displayType", "text"));
+		searchCriteria.add(ImmutableMap.of("value", "Tags", "helpText", "Questions with certain tags", "type", "tags", "displayType", "text"));
+		searchCriteria.add(ImmutableMap.of("value", "Starred", "helpText", "Only starred/not starred questions", "type", "star", "displayType", "boolean"));
+		searchCriteria.add(ImmutableMap.of("value", "Supervisor", "helpText", "Only questions by supervisors/students", "type", "supervisor", "displayType", "boolean"));
+		
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		
+		Iterator<Map<String, String>> it = searchCriteria.iterator();
+		Map<String,String> map;
+		
+		st = st.toLowerCase();
+		
+		while(it.hasNext()){
+			map = (Map<String, String>) it.next();
+			
+			if (((String)map.get("value")).toLowerCase().startsWith(st)) {
+				results.add(map);
+				it.remove();
+			}
+		}
+		it = searchCriteria.iterator();
+		
+		while(it.hasNext()){
+			map = (Map<String,String>) it.next();
+			if(((String)map.get("value")).contains(st)) {
+				results.add(map);
+			}
+		}
+		
+		return results;
+		
+	}
+	
+	private List<Map<String,String>> produceTagsWith(String st){
+		List<Tag> tags = TagQuery.all().contains(st).list();
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		
+		for(Tag t: tags){
+			results.add(ImmutableMap.of("value", t.getName()));
+		}
+		return results;
+	}
+	private List<Map<String,String>> produceUsersWith(String st){
+		// TODO: implement proper user query!
+		
+		try{
+			User user = UserQuery.get(st);
+			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+			results.add(ImmutableMap.of("value", user.getId()));
+			return results;
+		} catch(Exception e){
+			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+			results.add(ImmutableMap.of("value", "Error: " + e.getClass() + "\nMessage: " +e.getMessage()));
+			return results;
+		}
+	}
+	
 	/**
 	 * Filters questions according to a search term.
 	 * 

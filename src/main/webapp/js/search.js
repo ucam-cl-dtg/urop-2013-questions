@@ -72,28 +72,11 @@ function searchSetup() {
         noResultsText: "No results found",
         resultsLimit: 10,
         preventDuplicates: true,
-        allowFreeTagging: true,
         
         resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
         tokenFormatter: getTokenFormatter
 	});
-	/*var $tagsField = $("#txtTags");
-	$tagsField.tokenInput("/q/search/autocomplete", {
-		method: "post",
-        queryParam: "st",
-        tokenValue: "value",
-        propertyToSearch: "value",
-        theme: "facebook",
-        minChars: 1,
-        hintText: "Begin typing your search terms...",
-        noResultsText: "No results found",
-        resultsLimit: 10,
-        preventDuplicates: true,
-        allowFreeTagging: true,
-        
-        resultsFormatter: function(item){ return "<li class='search-input-field'><div class='st-value'>" + item.value + "</div></li>"; },
-        tokenFormatter: function(item) { return "<li class='search-input-field'>" + item.value + "</li>"; }         
-	});*/
+	
 }
 
 function getTokenFormatter(item){
@@ -110,7 +93,6 @@ function getTokenFormatter(item){
         noResultsText: "No results found",
         resultsLimit: 10,
         preventDuplicates: true,
-        allowFreeTagging: true,
         
         resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
         tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
