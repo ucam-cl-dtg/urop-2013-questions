@@ -5,22 +5,39 @@
  * @param setId
  */
 {template .add}
+<h4>Import questions</h4>
+<div class="row">
+	<div class="columns large-12 small-12">
+		<a href="#sets/{$setId}/import">Import</a>
+	</div>
+</div>
+
+<h4>New question</h4>
 <form method="POST" action="/q/save">
-			<h4>Content</h4>
-			<div>
-				<textarea name="content"></textarea>
-			</div>
-			<h4>Solution notes</h4>
-			<div>
-				<textarea name="notes"></textarea>
-			</div>
-			<h4>Estimated duration</h4>
-			<div>
-				<input type="number" name="expectedDuration" value="10" max="2000000000" min="-2000000000" />
-			</div>
-			<div class="text-right">
-				<input type="hidden" name="setId" value="{$setId}" />
-				<input type="submit" value="Submit" id="add-question-button" />
-			</div>
-		</form>
+	<div class="row">
+		<div class="columns large-2 small-12 text-right"><h5>Content</h5></div>
+		<div class="columns large-10 small-12">
+			<textarea name="content" placeholder="Content"></textarea>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="columns large-2 small-12 text-right"><h5>Notes</h5></div>
+		<div class="columns large-10 small-12">
+			<textarea name="notes" placeholder="Notes"></textarea>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="columns large-2 small-12 text-right"><h5>Estimated duration</h5></div>
+		<div class="columns large-10 small-12">
+			<input type="number" name="expectedDuration" value="10" max="2000000000" min="-2000000000" />
+		</div>
+	</div>
+	
+	<div class="text-right">
+		<input type="hidden" name="setId" value="{$setId}" />
+		<input type="submit" value="Submit" id="add-question-button" />
+	</div>
+</form>
 {/template}

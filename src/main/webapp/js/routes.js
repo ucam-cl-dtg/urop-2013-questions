@@ -24,8 +24,8 @@ $(document).ready(function() {
 		
 		"sets": "questions.view.set.list",
     	"sets/:id" : "questions.view.set.full",
-    	"sets/:id/import(?:params)" : "questions.search.main",
     	"sets/:id/:target" : "questions.view.set.full",
+    	"sets/:id/import(?:params)" : "questions.search.main",
     	"sets/add": "questions.form.set.create",
 
     	"users/:crsid" : "questions.view.user.full",

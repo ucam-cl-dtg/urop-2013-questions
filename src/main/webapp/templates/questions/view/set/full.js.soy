@@ -52,13 +52,9 @@
 						{call questions.view.set.tab.edit.full data="all" /}
 					</div>
 				</section>
-				
-				<section id="set-edit-tab">
-					<p class="title" data-section-title><a href="#sets/{$id}/import">Import</a></p>
-				</section>
 
-				<section id="set-createquestion-tab" {if $target=='create'}class="active"{/if}>
-					<p class="title" data-section-title><a href="#sets/{$id}/create" class="in-place-anchor">Create question</a></p>
+				<section id="set-createquestion-tab" {if $target=='add'}class="active"{/if}>
+					<p class="title" data-section-title><a href="#sets/{$id}/add" class="in-place-anchor">Add questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.createquestion.full data="all" /}
 					</div>
