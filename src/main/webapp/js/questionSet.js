@@ -37,6 +37,7 @@ function configureEditSetForm () {
 		
 		var data = $("#set-edit").serialize();
 		$.post ("/sets/update",	data, function (data) {
+			console.log(data);
 			if (data.success) {
 				var executed = false;
 				if ($(".list-panel-delete").size() == 0) {

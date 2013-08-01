@@ -8,7 +8,7 @@
  * @param questions
  */
 {template .full}
-		<form method="POST" action="/sets/update" id="set-edit" class="custom">
+		<form method="POST" action="/sets/update" id="set-edit" class="custom" enctype="multipart/form-data">
 		<h4>Basic information</h4>
 		<div>
 			<input type="text" placeholder="Name" value="{$name}" name="name" />
@@ -19,7 +19,6 @@
 				{param name: 'plan' /}
 				{param data: $plan /}
 			{/call}
-			//<textarea name="plan" placeholder="Supervision plan">{if $plan.data}{$plan.data}{/if}</textarea>
 		</div>
 		{/if}
 		
