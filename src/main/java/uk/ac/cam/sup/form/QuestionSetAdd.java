@@ -7,8 +7,13 @@ public class QuestionSetAdd extends QuestionSetForm {
 		super();
 	}
 	
-	public QuestionSetAdd(String name, String plan) {
-		super(name, plan);
+	public QuestionSetAdd(String name, String plan_type, String plan_text, String plan_desc) {
+		super(name, plan_type, plan_text, plan_desc);
+	}
+
+	@Override
+	protected boolean forceLoad() {
+		return true;
 	}
 
 }

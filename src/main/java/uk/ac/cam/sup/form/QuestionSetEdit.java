@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
@@ -14,8 +15,8 @@ public class QuestionSetEdit extends QuestionSetForm {
 		super();
 	}
 	
-	public QuestionSetEdit(String name, String plan) {
-		super(name, plan);
+	public QuestionSetEdit(String name, String plan_type, String plan_text, String plan_desc) {
+		super(name, plan_type, plan_text, plan_desc);
 	}
 
 	@FormParam("setid")
@@ -52,7 +53,7 @@ public class QuestionSetEdit extends QuestionSetForm {
 		return this;
 	}
 	
-	public QuestionSetEdit parse() {
+	public QuestionSetEdit parse() throws FormValidationException {
 		super.parse();
 		
 		questions = new ArrayList<Question>();
@@ -64,5 +65,10 @@ public class QuestionSetEdit extends QuestionSetForm {
 		}
 		
 		return this;
+	}
+
+	@Override
+	protected boolean forceLoad() {
+		return false;
 	}
 }
