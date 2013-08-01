@@ -1,7 +1,7 @@
 package uk.ac.cam.sup.queries;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +15,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 
 public class QuestionQuery {
 	private Criteria criteria;
+	private boolean touched = false;
 	private static Logger log = LoggerFactory.getLogger(QuestionQuery.class);
 	
 	private QuestionQuery(Criteria c){
@@ -29,12 +31,16 @@ public class QuestionQuery {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Question> list(){
+	public List<Question> list() throws NotYetTouchedException{
 		log.debug("Returning list of results");
-		return criteria.list();
+		if(touched){
+			return criteria.list();
+		} else {
+			throw new NotYetTouchedException("Please apply constraints or touch the query!");
+		}
 	}
 	
-	public List<Map<String,?>> maplist(boolean shadowed) {
+	public List<Map<String,?>> maplist(boolean shadowed) throws NotYetTouchedException {
 		List<Question> ql = this.list();
 		List<Map<String, ?>> result = new ArrayList<Map<String,?>>();
 		
@@ -45,7 +51,7 @@ public class QuestionQuery {
 		return result;
 	}
 	
-	public List<Map<String, ?>> maplist() {
+	public List<Map<String, ?>> maplist() throws NotYetTouchedException {
 		return this.maplist(true);
 	}
 	
@@ -74,6 +80,11 @@ public class QuestionQuery {
 		return qq;
 	}
 	
+	public QuestionQuery touch(){
+		touched = true;
+		return this;
+	}
+	
 	public QuestionQuery withTags(List<Tag> tags){
 		log.debug("Filtering withTags...");
 		List<String> tagNames = new ArrayList<String>();
@@ -92,7 +103,7 @@ public class QuestionQuery {
 		}
 		criteria.createAlias("tags", "t");
 		criteria.add(oredTagList);
-		
+		touched = true;
 		return this;
 	}
 	
@@ -106,55 +117,73 @@ public class QuestionQuery {
 	}
 	public QuestionQuery withUserIDs(List<String> ownerIDs) {
 		log.debug("Filtering witUserIDs...");
+		if(ownerIDs == null || !(ownerIDs.size() > 0)) return this;
+		
 		Disjunction oredUserList = Restrictions.disjunction();
 		for(String owner : ownerIDs){
 			oredUserList.add(Restrictions.like("owner.id", owner).ignoreCase());
 		}
-		if (ownerIDs.size() > 0) criteria.add(oredUserList);
+		criteria.add(oredUserList);
+		touched = true;
 		return this;
 	}
 	
 	public QuestionQuery withStar(){
 		log.debug("Filtering withStar...");
 		criteria.add(Restrictions.eq("isStarred", true));
+		touched = true;
 		return this;
 	}
 	public QuestionQuery withoutStar(){
 		log.debug("Filtering withoutStar...");
 		criteria.add(Restrictions.eqOrIsNull("isStarred", false));
+		touched = true;
 		return this;
 	}
 	
 	public QuestionQuery bySupervisor(){
 		log.debug("Filtering bySupervisor (no student questions)...");
 		criteria.createAlias("owner", "o_sup").add(Restrictions.eq("o_sup.supervisor", true));
+		touched = true;
 		return this;
 	}
 	public QuestionQuery byStudent(){
 		log.debug("Filtering byStudent (no supervisor questions)...");
 		criteria.createAlias("owner", "o_stu").add(Restrictions.eq("o_stu.supervisor", false));
+		touched = true;
 		return this;
 	}
 	
 	public QuestionQuery after(Date date){
 		log.debug("Filtering after a date...");
 		criteria.add(Restrictions.ge("timeStamp", date));
+		touched = true;
 		return this;
 	}
 	public QuestionQuery before(Date date){
+		try{
+			Question q = get(1);
+			System.out.println("Date provided: " + date + "      Question date: " + q.getTimeStamp());
+		}catch(Exception e){
+			System.out.println("Exception " + e.getMessage());
+		}
+		
 		log.debug("Filtering before a date...");
 		criteria.add(Restrictions.le("timeStamp", date));
+		touched = true;
 		return this;
 	}
 	
 	public QuestionQuery minUsages(int uCount){
 		log.debug("Filtering by minUsages...");
 		criteria.add(Restrictions.ge("usageCount", uCount));
+		touched = true;
 		return this;
 	}
 	public QuestionQuery maxUsages(int uCount){
 		log.debug("Filtering by maxUsages...");
 		criteria.add(Restrictions.le("usageCount", uCount));
+		touched = true;
 		return this;
 	}
 	
@@ -162,17 +191,33 @@ public class QuestionQuery {
 	public QuestionQuery withParent(int parentID) {
 		log.debug("Filtering by parentID...");
 		criteria.add(Restrictions.eq("parent.id", parentID));
+		touched = true;
+		return this;
+	}
+	
+	public QuestionQuery withParents(List<Integer> parents){
+		log.debug("Filtering with parents...");
+		if(parents == null || !(parents.size() > 0)) return this;
+		Disjunction oredParentList = Restrictions.disjunction();
+		for(int pid: parents){
+			oredParentList.add(Restrictions.eq("parent.id", pid));
+		}
+		criteria.add(oredParentList);
+		touched = true;
 		return this;
 	}
 	
 	public QuestionQuery minDuration(int minutes){
 		log.debug("Filtering by minDuration...");
 		criteria.add(Restrictions.ge("expectedDuration", minutes));
+		touched = true;
+		
 		return this;
 	}
 	public QuestionQuery maxDuration(int minutes){
 		log.debug("Filtering by maxDuration...");
 		criteria.add(Restrictions.le("expectedDuration", minutes));
+		touched = true;
 		return this;
 	}
 

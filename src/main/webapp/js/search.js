@@ -6,26 +6,47 @@ function searchSetup() {
 		var newList = document.createElement("div");
 		
 		var searchTerms = "?";
-		searchTerms = searchTerms + "tags=" + $("#txtSearch").val();
+		var $tokensList = $(".token-input-list");
+		
+		var val; var tmp;
+		
+		$tokensList.children(".token-input-token").each(function(){
+			tmp = $(this).attr("data-type") + "=";
+			val = null;
+			
+			for(var i = 0; i < 3; i++){
+				switch(i){
+					case 0: val = $(this).find(".search-item-input-field").val(); break;
+					case 1: val = $(this).find(".search-item-number").val(); break;
+					case 2: val = $(this).find(".search-item-date").val(); break;
+				}
+				if(val != null){break;}
+			}
+			
+			if(val == null){
+				var $tmp2 = $(this).find(".search-item-checkbox");
+				if ($tmp2.length > 0){
+					($tmp2.is(":checked") ? val = "true" : val = "false");
+				}
+			}
+			
+			if(val != null && val != ""){
+				if(searchTerms != "?"){
+					searchTerms = searchTerms + "&";
+				}
+				searchTerms = searchTerms + tmp + val;
+			}
+			
+		});
+		
 		var permalink = window.location.hash;
 		if(permalink.indexOf("?") > 0) {
 			permalink = permalink.substring(0, window.location.hash.indexOf("?"));
 		}
 		permalink = permalink + searchTerms; 
-		//alert(window.location.hash.indexOf("?"));
-		/*
-		$.getJSON("/q/search" + searchTerms, function(data) {
-			soy.renderElement(newList, search.results, 
-				{questions: data.questions, permalink: "/app/" + permalink}
-			);
-		});*/
 		router.navigate(permalink);
 		
 		loadModule($(newList), "q/search" + searchTerms, "questions.search.results");
-		//window.location.hash = permalink;
-		
-		
-		//window.location.search = searchTerms;
 		
 		$qlist.append(newList);
 		return false;
@@ -56,7 +77,7 @@ function searchSetup() {
 			}
 		}).fail(function(data) {
 			errorNotification("Something went wrong");
-			console.log();
+			
 		});
 	});
 	
@@ -66,7 +87,6 @@ function searchSetup() {
         queryParam: "st",
         tokenValue: "value",
         propertyToSearch: "value",
-        theme: "facebook",
         minChars: 1,
         hintText: "Begin typing your search terms...",
         noResultsText: "No results found",
@@ -82,9 +102,10 @@ function searchSetup() {
 function getTokenFormatter(item){
 	var $criteria = $(questions.search.searchCriteria({item: item}));
 	var $inputField = $criteria.find(".search-item-input-field");
+	
 	$inputField.tokenInput("/q/search/autocomplete", {
 		method: "post",
-        queryParam: $inputField.attr("data-type"),
+        queryParam: $inputField.parents(".token-input-criteria-token-facebook").attr("data-type"),
         tokenValue: "value",
         propertyToSearch: "value",
         theme: "facebook",
@@ -97,5 +118,9 @@ function getTokenFormatter(item){
         resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
         tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
 	});
+	
+	var $dateField = $criteria.find(".search-item-date");
+	$dateField.datepicker({dateFormat: "dd/mm/yy"});
+	
 	return $criteria;
 }

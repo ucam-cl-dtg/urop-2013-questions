@@ -19,7 +19,7 @@ $(document).ready(function() {
 		
 		"q/:id" : "questions.view.questionFull",
 		"q/:id/:target" : "questions.view.questionFull",
-		"q/search(?:params)" : "questions.search.main",
+		"q/search(?(:params(/))*)" : "questions.search.main",
 		"q/add/:setid" : "questions.form.question.add",
 		
 		"sets": "questions.view.set.list",
