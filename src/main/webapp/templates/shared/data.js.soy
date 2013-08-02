@@ -42,6 +42,7 @@
  * @param name
  */
 {template .edit}
+<div>
 	<select name="{$name}_type" class="data-editor-type">
 		<option value="PLAIN_TEXT" {if $data}{if $data.type == 'PLAIN_TEXT'}selected{/if}{/if}>Plain text</option>
 		<option value="MARKDOWN" {if $data}{if $data.type == 'MARKDOWN'}selected{/if}{/if}>Markdown</option>
@@ -52,6 +53,7 @@
 	<div class="data-editor" data-name="{$name}">
 		{call .editor data="all" /}
 	</div>
+</div>
 {/template}
 
 /**

@@ -85,13 +85,11 @@ function configureInputField() {
 		return false;
 	});
 	
-	$("#edit-minor").click(function() {
+	$("#edit-minor").change(function(data) {
 		var $checkBox = $(this);
 		var $setListDiv = $(".main").find("#set-div-to-edit");
 		
-		if($checkBox.attr("checked")){
-			$checkBox.attr("checked", false);
-			$checkBox.attr("value", false);
+		if(data.target.value){
 			
 			if($setListDiv.children().hasClass("set-list-to-edit")){
 				$setListDiv.children(".set-list-to-edit").slideToggle();
@@ -110,8 +108,6 @@ function configureInputField() {
 			}
 			
 		}else{
-			$checkBox.attr("checked", true);
-			$checkBox.attr("value", true);
 			$setListDiv.children(".set-list-to-edit").slideToggle();
 		}
 	});
@@ -133,12 +129,10 @@ function configureInputField() {
 	});
 	
 	$("#revisions-submit-form").on("submit", function() {
-		var isMinor = $(this).find("#edit-minor").val();
-		var sets = new Array();
-		var i = 0;
+		var isMinor = $(this).find("#minor").val();
+		var sets = [];
 		$(".qedit-set-list.success").each(function(){
-			sets[i] = $(this).attr("data-sid");
-			i++;
+			sets.push($(this).attr("data-sid"));
 		});
 		
 		if(isMinor == "false" && i == 0){
@@ -146,21 +140,34 @@ function configureInputField() {
 			return false;
 		}
 		
-		$.post("/q/update", {
-			"id": $inputField.attr("data-qid"),
-			"minor": isMinor,
-			"setId": -1,
-			"expectedDuration": $(this).find("#expDur").val(),
-			"content": $(this).find("#edit-content").val(),
-			"notes": $(this).find("#edit-notes").val(),
-			"sets": sets.toString()
-		}).done(function(json){
-			if(json.success){
-				successNotification("Successfully edited question " + json.question.id + "!");
-			} else {
-				errorNotification("There was a problem while editing this question!\nError message: " + json.error);
+		$(this).ajaxSubmit({
+			beforeSubmit: function(data, form, opts) {
+				data.push({
+					name: "setId",
+					required: true,
+					type: "hidden",
+					value: -1
+				});
+				data.push({
+					name: "sets",
+					required: true,
+					type: "hidden", 
+					value: sets.toString()
+				});
+			},
+			success: function(data) {
+				if (data.success) {
+					successNotification("Successfully edited question");
+				} else {
+					errorNotification(data.error);
+				}
+			},
+			error: function (data) {
+				errorNotification("Something went wrong");
+				console.log(data);
 			}
 		});
+		
 		return false;
 	});
 	

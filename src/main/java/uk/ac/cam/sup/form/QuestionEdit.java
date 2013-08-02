@@ -66,6 +66,10 @@ public class QuestionEdit extends QuestionForm {
 		super.validate();
 		sets = new ArrayList<QuestionSet>();
 		
+		if (isMinor == null) {
+			isMinor = false;
+		}
+		
 		try {
 			if(setId == -1 && !this.isMinor) {
 
@@ -83,19 +87,15 @@ public class QuestionEdit extends QuestionForm {
 				throw new FormValidationException("Question " + id + " or set(s) " + setId + " does not exist");
 			}
 			
-			if (isMinor == null) {
-				isMinor = false;
-			}
-			
 			validated = true;
 			
 			return this;
 		} catch (NullPointerException e) {
 			log.error("Null pointer exception when validating QuestionEdit form!\n"
-					+ "Will list if variables are null:\n"
-					+ "super.getSetID(): " + (setId == null) 
-					+ "this.isMinor: " + (this.isMinor == null)
-					+ "sets: " + (sets == null));
+					+ "Will list if variables are null:"
+					+ "\nsetId: " + (setId == null) 
+					+ "\nsets: " + (sets == null));
+			e.printStackTrace();
 			throw new FormValidationException("Null pointer exception when validating the QuestionEdit form!\n" + e.getMessage());
 		}
 	}
