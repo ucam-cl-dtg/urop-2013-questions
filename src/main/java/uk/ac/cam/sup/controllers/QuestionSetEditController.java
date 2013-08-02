@@ -2,12 +2,15 @@ package uk.ac.cam.sup.controllers;
 
 import java.util.Map;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.Form;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,7 +84,8 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/save")
 	@Produces("application/json")
-	public Map<String,?> saveSet(@Form QuestionSetAdd form) throws Exception {
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Map<String,?> saveSet(@MultipartForm QuestionSetAdd form) throws Exception {
 		QuestionSet qs;
 		
 		try {
@@ -101,7 +105,8 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/update")
 	@Produces("application/json")
-	public Map<String,?> updateSet(@Form QuestionSetEdit form) throws Exception {
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Map<String,?> updateSet(@MultipartForm QuestionSetEdit form) throws Exception {
 		QuestionSet qs;
 		
 		try {
@@ -110,8 +115,10 @@ public class QuestionSetEditController extends GeneralController {
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");
 			}
+			
 			qs.edit(form);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		

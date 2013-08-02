@@ -23,6 +23,14 @@ moduleScripts['questions'] = {
     	}
 
 	},
+	'form' : {
+		'set' : {
+			'create' : [
+			    configureDataEditor,
+			],
+		}
+		    
+	},
     'search' : {
     	'main': [
 	        searchSetup,

@@ -12,7 +12,7 @@
 	{elseif $data.type == 'LATEX'}
 		<p>{$data.data}</p>
 	{elseif $data.type == 'FILE'}
-		<p>{$data.description}</p>
+		<p><a href="{$data.data}">{$data.description}</a></p>
 	{else}
 		<p><i>--- No content found ---</i><p>
 	{/if}
@@ -38,16 +38,16 @@
 
 /**
  * Displays a form inputs to modify data object
- * @param data
+ * @param? data
  * @param name
  */
 {template .edit}
-	<select name="{$name}_type" class="data-editor-type" data-selected="{$data.type}">
-		<option value="PLAIN_TEXT">Plain text</option>
-		<option value="MARKDOWN">Markdown</option>
-		<option value="LATEX">LaTeX</option>
-		<option value="FILE">File</option>
-		<option value="EMPTY">Empty</option>
+	<select name="{$name}_type" class="data-editor-type">
+		<option value="PLAIN_TEXT" {if $data}{if $data.type == 'PLAIN_TEXT'}selected{/if}{/if}>Plain text</option>
+		<option value="MARKDOWN" {if $data}{if $data.type == 'MARKDOWN'}selected{/if}{/if}>Markdown</option>
+		<option value="LATEX" {if $data}{if $data.type == 'LATEX'}selected{/if}{/if}>LaTeX</option>
+		<option value="FILE" {if $data}{if $data.type == 'FILE'}selected{/if}{/if}>File</option>
+		<option value="EMPTY" {if $data}{if $data.type == 'EMPTY'}selected{/if}{/if}>Empty</option>
 	</select>
 	<div class="data-editor" data-name="{$name}">
 		{call .editor data="all" /}
@@ -55,60 +55,65 @@
 {/template}
 
 /**
- * @param data
+ * @param? data
  * @param name
  */
 {template .editor}
-{if $data.type == 'PLAIN_TEXT'}
+{if $data}
+	{if $data.type == 'PLAIN_TEXT'}
+		{call .plaintextedit data="all" /}
+	{elseif $data.type == 'MARKDOWN'}
+		{call .markdownedit data="all" /}
+	{elseif $data.type == 'LATEX'}
+		{call .latexedit data="all" /}
+	{elseif $data.type == 'FILE'}
+		{call .fileedit data="all" /}
+	{/if}
+{else}
 	{call .plaintextedit data="all" /}
-{elseif $data.type == 'MARKDOWN'}
-	{call .markdownedit data="all" /}
-{elseif $data.type == 'LATEX'}
-	{call .latexedit data="all" /}
-{elseif $data.type == 'FILE'}
-	{call .fileedit data="all" /}
 {/if}
 {/template}
 
 /**
  * Displays a plaintext editor
  * @param name
- * @param data
+ * @param? data
  */
 {template .plaintextedit}
 <textarea name="{$name}_text" placeholder="{$name}">
-	{$data.data}
+	{if $data}{$data.data}{/if}
 </textarea>
 {/template}
 
 /**
  * Displays a markdown editor
  * @param name
- * @param data
+ * @param? data
  */
 {template .markdownedit}
 <textarea name="{$name}_text" placeholder="{$name}" style="font-family: monospace">
-	{$data.data}
+	{if $data}{$data.data}{/if}
 </textarea>
 {/template}
 
 /**
  * Displays a LaTeX editor
  * @param name
- * @param data
+ * @param? data
  */
 {template .latexedit}
 <textarea name="{$name}_text" placeholder="{$name}" style="font-family: monospace">
-	{$data.data}
+	{if $data}{$data.data}{/if}
 </textarea>
 {/template}
 
 /**
  * Displays a file editor
  * @param name
- * @param data
+ * @param? data
  */
 {template .fileedit}
 <input type="file" name="{$name}_file" />
-<textarea name="{$name}_desc" placeholder="Description">{$data.description}</textarea>
+<textarea name="{$name}_desc" placeholder="Description">{if $data}{$data.description}{/if}</textarea>
+<input type="hidden" name="{$name}_ext" />
 {/template}

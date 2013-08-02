@@ -275,7 +275,7 @@ public class QuestionSet extends Model {
 	
 	public void edit(QuestionSetEdit qse) throws Exception {
 		this.name = qse.getName();
-		this.plan = qse.getPlan();
+		this.plan.updateWith(qse.getPlan());
 		
 		this.questions.clear();
 		
