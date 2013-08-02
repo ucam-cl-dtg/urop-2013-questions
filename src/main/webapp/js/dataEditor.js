@@ -1,9 +1,9 @@
-var text = "";
-var desc = "";
+var text;
+var desc;
 var $file;
 
 function configureDataEditor() {
-
+	
 	$(document).on('change', '.data-editor-type', function(e) {
 		var $editor = $(this).siblings('.data-editor');
 		var type = e.target.value;
@@ -29,7 +29,6 @@ function configureDataEditor() {
 	
 	$(document).on('change', 'input[type=file]', function(e) {
 		var name = $(this).parents('.data-editor').attr('data-name');
-		console.log(name);
 		
 		var filename = e.target.value.split('\\').slice(-1)[0];
 		var extension = filename.split('.').slice(-1)[0];

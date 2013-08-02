@@ -12,4 +12,9 @@ public class QuestionAdd extends QuestionForm {
 		super(content, notes, setID, expectedDuration);
 	}
 
+	@Override
+	protected boolean forceLoad() {
+		return true;
+	}
+
 }
