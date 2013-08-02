@@ -84,7 +84,8 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/save")
 	@Produces("application/json")
-	public Map<String,?> saveSet(@Form QuestionSetAdd form) throws Exception {
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Map<String,?> saveSet(@MultipartForm QuestionSetAdd form) throws Exception {
 		QuestionSet qs;
 		
 		try {

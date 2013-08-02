@@ -3,7 +3,7 @@ var desc = "";
 var $file;
 
 function configureDataEditor() {
-	
+
 	$(document).on('change', '.data-editor-type', function(e) {
 		var $editor = $(this).siblings('.data-editor');
 		var type = e.target.value;
@@ -33,7 +33,9 @@ function configureDataEditor() {
 		
 		var filename = e.target.value.split('\\').slice(-1)[0];
 		var extension = filename.split('.').slice(-1)[0];
-		$(this).siblings('textarea[name='+name+'_desc]').text(filename);
+		if ($(this).siblings('textarea[name='+name+'_desc]').val() == "") {
+			$(this).siblings('textarea[name='+name+'_desc]').val(filename);
+		}
 		$(this).siblings('input[name='+name+'_ext]').attr('value', extension);
 		
 	});
