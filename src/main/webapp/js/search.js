@@ -88,13 +88,16 @@ function searchSetup() {
         tokenValue: "value",
         propertyToSearch: "value",
         minChars: 1,
-        hintText: "Begin typing your search terms...",
+        hintText: "Add a category in which to search...",
         noResultsText: "No results found",
         resultsLimit: 10,
         preventDuplicates: true,
         
         resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
-        tokenFormatter: getTokenFormatter
+        tokenFormatter: getTokenFormatter,
+        onAdd: function(elem){
+        	$(this).closest("form").find('.token-input-token[data-type="' + elem.type + '"]').find("#token-input-").focus();
+        }
 	});
 	
 }
@@ -103,24 +106,28 @@ function getTokenFormatter(item){
 	var $criteria = $(questions.search.searchCriteria({item: item}));
 	var $inputField = $criteria.find(".search-item-input-field");
 	
-	$inputField.tokenInput("/q/search/autocomplete", {
-		method: "post",
-        queryParam: $inputField.parents(".token-input-criteria-token-facebook").attr("data-type"),
-        tokenValue: "value",
-        propertyToSearch: "value",
-        theme: "facebook",
-        minChars: 1,
-        hintText: "Begin typing your search terms...",
-        noResultsText: "No results found",
-        resultsLimit: 10,
-        preventDuplicates: true,
-        
-        resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
-        tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
-	});
-	
+	if($inputField.length > 0){	
+		$inputField.tokenInput("/q/search/autocomplete", {
+			method: "post",
+			queryParam: $inputField.parents(".token-input-criteria-token-facebook").attr("data-type"),
+			tokenValue: "value",
+			propertyToSearch: "value",
+			theme: "facebook",
+			minChars: 1,
+			hintText: "Begin typing your search terms...",
+			noResultsText: "No results found",
+			resultsLimit: 10,
+			preventDuplicates: true,
+			
+			resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
+			tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
+		});
+		
+	}
 	var $dateField = $criteria.find(".search-item-date");
-	$dateField.datepicker({dateFormat: "dd/mm/yy"});
+	if($dateField.length > 0){
+		$dateField.datepicker({dateFormat: "dd/mm/yy"});
+	}
 	
 	return $criteria;
 }
