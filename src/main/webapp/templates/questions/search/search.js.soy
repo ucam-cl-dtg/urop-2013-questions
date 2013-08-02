@@ -3,10 +3,15 @@
 /**
  * This shows the main search screen of questions
  * param st The search terms
- * @param questions
+ * @param? questions
  * @param? set
+ * @param success
+ * @param? error
  */
 {template .main}
+{if $success == false}
+	{$error} 
+{else}
 <h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
 <div class="row">
 	<div class="columns large-4 small-12">
@@ -46,7 +51,7 @@
 	{/call}
 </div>
 	
-	
+{/if}
 {/template}
 
 /**
@@ -77,5 +82,16 @@
  * @param item
  */
 {template .searchCriteria}
-<li class='token-input-criteria-token-facebook' title='{$item.helpText}'>{$item.value}<input type='text' data-type="{$item.type}" class='search-item-input-field' value='' /></li>
+<li class='token-input-criteria-token-facebook' title='{$item.helpText}' data-type='{$item.type}'>{$item.value}<input type=
+{if $item.displayType == 'text'}
+ 'text' class='search-item-input-field' />
+{elseif $item.displayType == 'boolean'}
+ 'checkbox' class='search-item-checkbox'></input>
+{elseif $item.displayType == 'number'}
+ 'number' class='search-item-number'></input>
+{elseif $item.displayType == 'date'}
+ 'text' class='search-item-date'></input>
+{/if}
+</li>
+
 {/template}

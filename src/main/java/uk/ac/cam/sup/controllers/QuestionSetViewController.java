@@ -15,6 +15,7 @@ import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -92,10 +93,19 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/{id}/import")
 	@Produces("application/json")
 	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
+		List<Map<String, ?>> questions; 
+		
+		try {
+			questions = QuestionQuery.all().maplist();
+		} catch (NotYetTouchedException e) {
+			log.error("NotYetTouchedException! Message: " + e.getMessage());
+			return ImmutableMap.of("success", false, "error", "NotYetTouchedException - see error log for more information");
+		}
+		
 		return ImmutableMap.of(
 				"success", true,
 				"set", QuestionSetQuery.get(id).toMap(),
-				"questions", QuestionQuery.all().maplist(),
+				"questions", questions,
 				"st", new SearchTerm()
 		);
 	}
