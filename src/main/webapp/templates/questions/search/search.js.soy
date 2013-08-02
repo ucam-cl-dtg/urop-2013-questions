@@ -2,15 +2,17 @@
 
 /**
  * This shows the main search screen of questions
- * param st The search terms
- * @param? questions
+ * 
+ * param? questions
  * @param? set
  * @param success
  * @param? error
  */
 {template .main}
 {if $success == false}
-	{$error} 
+	An error occurred!<br>
+	{$error}<br>
+	<a href="#q/search">Click here</a> to go to the search main page. 
 {else}
 <h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
 <div class="row">
@@ -45,10 +47,12 @@
 	
 <h3>Questions</h3>
 <div id="questionList" class="row">
-	{call shared.question.multiple}
+	/*{call .results}
 		{param questions: $questions /}
-		{param showAddButton: true /}
-	{/call}
+		{param success: $success /}
+	{/call}*/	
+	Please enter a search term in the search field to find questions!
+	
 </div>
 	
 {/if}
@@ -69,13 +73,22 @@
 {/template}
 
 /**
- * @param questions
+ * @param? questions
+ * @param success
  */
 {template .results}
-	{call shared.question.multiple}
-		{param questions: $questions /}
-		{param showAddButton: true /}
-	{/call}
+	{if $success == true}
+		{if length($questions) > 0}
+			{call shared.question.multiple}
+				{param questions: $questions /}
+				{param showAddButton: true /}
+			{/call}
+		{else}
+			<i>No questions were found with these search parameters.</i>
+		{/if}
+	{else}
+		An error occurred! Please check your input.
+	{/if}
 {/template}
 
 /**
