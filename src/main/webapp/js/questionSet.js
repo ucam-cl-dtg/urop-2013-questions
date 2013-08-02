@@ -1,4 +1,5 @@
 function reloadView (set) {
+	set.editable = $('star-question-button').attr('data-enabled');
 	applyTemplate($("#set-plan-tab").children(".content"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab").children(".content"), "questions.view.set.tab.questions.full", set);
 	applyTemplate($("#set-use-tab").children(".content"), "questions.view.set.tab.use.full", set);
@@ -35,31 +36,31 @@ function configureEditSetForm () {
 		});
 		$("input[name=questions]").attr("value", questions);
 		
-		var data = $("#set-edit").serialize();
-		$.post ("/sets/update",	data, function (data) {
-			console.log(data);
-			if (data.success) {
-				var executed = false;
-				if ($(".list-panel-delete").size() == 0) {
-					reloadView(data.set);
-					successNotification("Set edited successfully");
-				}
-				$(".list-panel.delete").slideToggle(400, function() {
-					if (!executed) {
-						executed = true;
+		$('#set-edit').ajaxSubmit({ 
+			success: function (data) {
+				console.log(data);
+				if (data.success) {
+					var executed = false;
+					if ($(".list-panel-delete").size() == 0) {
 						reloadView(data.set);
 						successNotification("Set edited successfully");
 					}
-				});
+					$(".list-panel.delete").slideToggle(400, function() {
+						if (!executed) {
+							executed = true;
+							reloadView(data.set);
+							successNotification("Set edited successfully");
+						}
+					});
 					
-			} else {
-				errorNotification(data.error);
-				console.log(data);
-			}
-		}).fail(function () {
-			errorNotification("Error while editing the file");
+				} else {
+					errorNotification(data.error);
+					console.log(data);
+				}
+		}, error: function (data) {
+			errorNotification("Something went wrong");
 			console.log(data);
-		});
+		}});
 	});
 	
 	$(".sortable").sortable();

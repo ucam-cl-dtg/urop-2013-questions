@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import uk.ac.cam.sup.controllers.DevelopmentController;
+import uk.ac.cam.sup.controllers.FileController;
 import uk.ac.cam.sup.controllers.MainController;
 import uk.ac.cam.sup.controllers.MiscController;
 import uk.ac.cam.sup.controllers.QuestionEditController;
@@ -30,6 +31,7 @@ public class QuestionsApp extends Application {
 		myServices.add(DevelopmentController.class);
 		myServices.add(MiscController.class);
 		myServices.add(UserController.class);
+		myServices.add(FileController.class);
 		
 		// Add Htmleasy Providers
 		myServices.addAll(HtmleasyProviders.getClasses());

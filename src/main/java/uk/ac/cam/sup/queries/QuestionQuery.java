@@ -1,6 +1,6 @@
 package uk.ac.cam.sup.queries;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -154,9 +154,9 @@ public class QuestionQuery {
 		return this;
 	}
 	
-	public QuestionQuery after(Date date){
+	public QuestionQuery after(Date begin){
 		log.debug("Filtering after a date...");
-		criteria.add(Restrictions.ge("timeStamp", date));
+		criteria.add(Restrictions.ge("timeStamp", begin));
 		touched = true;
 		return this;
 	}

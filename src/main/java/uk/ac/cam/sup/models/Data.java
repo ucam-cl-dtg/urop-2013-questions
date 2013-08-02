@@ -1,5 +1,8 @@
 package uk.ac.cam.sup.models;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import javax.persistence.Embeddable;
@@ -45,20 +48,15 @@ public class Data implements Cloneable {
 			this.data = "";
 			this.description = "";
 		} else if (this.type == DataType.FILE) {
-			String filename = "data-"+UUID.randomUUID().toString()+extension;
 			
 			try {
-				if (file.length == 0) {
-					throw new Exception("File empty");
-				}
-				
-				// TODO: save the file
-				
+				String filename = saveFile(file, extension);
 				this.data = filename;
 			} catch (Exception e) {
 				if (forceLoad) {
 					throw e;
 				} else {
+					e.printStackTrace();
 					this.data = null;
 				}
 			}
@@ -68,6 +66,24 @@ public class Data implements Cloneable {
 			this.data = data;
 			this.description = "";
 		}
+	}
+	
+	private static String saveFile(byte[] file, String extension) throws Exception {
+		if (file.length == 0) {
+			throw new Exception("File empty");
+		}
+		
+		String directory = "uploads/";
+		new File(directory).mkdirs();
+		String filename = "data-"+UUID.randomUUID().toString()+"."+extension;
+		
+		File destinationFile = new File(directory+filename);
+        OutputStream outputStream = new FileOutputStream(destinationFile);
+
+        outputStream.write(file);
+        outputStream.close();
+		
+		return "/"+directory+filename;
 	}
 	
 	public Data(Data old) {
