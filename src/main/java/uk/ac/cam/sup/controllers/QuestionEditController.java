@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.Form;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,13 +49,14 @@ public class QuestionEditController extends GeneralController{
 	@POST
 	@Path("/update")
 	@Produces("application/json")
-	public Map<String,?> updateQuestion(@Form QuestionEdit qe) {
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Map<String,?> updateQuestion(@MultipartForm QuestionEdit qe) {
 		User editor = getCurrentUser();
 		Question q;
 		QuestionSet qs;
 		
 		try {
-			qe.validate();
+			qe.validate().parse();
 
 			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
 			
@@ -77,6 +81,9 @@ public class QuestionEditController extends GeneralController{
 		} catch (InvalidInputException e){
 			log.debug("There was an InvalidInputException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
+		} catch (Exception e){
+			log.debug("There was an exception: " + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
 	}
@@ -84,13 +91,14 @@ public class QuestionEditController extends GeneralController{
 	@POST
 	@Path("/save")
 	@Produces("application/json")
-	public Map<String,?> addQuestion(@Form QuestionAdd qa) {
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Map<String,?> addQuestion(@MultipartForm QuestionAdd qa) {
 		User author = getCurrentUser();
 		Question q;
 		QuestionSet qs;
 
 		try {
-			qa.validate();
+			qa.validate().parse();
 			qs = QuestionSetQuery.get(qa.getSetId());
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");

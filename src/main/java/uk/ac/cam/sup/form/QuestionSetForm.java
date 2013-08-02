@@ -14,21 +14,11 @@ public abstract class QuestionSetForm {
 	@FormParam("name")
 	private String name;
 	
-	@FormParam("plan_type")
-	private String planType;
-	
-	@FormParam("plan_text")
-	private String planText;
-	
-	@FormParam("plan_file")
-	private byte[] planFile;
-	
-	@FormParam("plan_desc")
-	private String planDescription;
-	
-	@FormParam("plan_ext")
-	private String planExtension;
-	
+	@FormParam("plan_type")	private String planType;
+	@FormParam("plan_text")	private String planText;
+	@FormParam("plan_file")	private byte[] planFile;
+	@FormParam("plan_desc")	private String planDescription;
+	@FormParam("plan_ext")  private String planExtension;
 	private Data planData;
 
 	public QuestionSetForm(){

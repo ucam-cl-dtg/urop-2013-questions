@@ -27,6 +27,7 @@ moduleScripts['questions'] = {
 		'set' : {
 			'create' : [
 			    configureDataEditor,
+			    configureSetCreator
 			],
 		}
 		    

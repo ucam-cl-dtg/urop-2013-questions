@@ -56,7 +56,6 @@ public class Data implements Cloneable {
 				if (forceLoad) {
 					throw e;
 				} else {
-					e.printStackTrace();
 					this.data = null;
 				}
 			}
