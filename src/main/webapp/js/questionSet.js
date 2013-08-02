@@ -38,7 +38,6 @@ function configureEditSetForm () {
 		
 		$('#set-edit').ajaxSubmit({ 
 			success: function (data) {
-				console.log(data);
 				if (data.success) {
 					var executed = false;
 					if ($(".list-panel-delete").size() == 0) {
@@ -196,5 +195,29 @@ function configureInPlaceAnchors() {
 	$(document).on('click', '.in-place-anchor', function() {
 		var target = $(this).attr("href");
 		router.navigate(target);
+	});
+}
+
+function configureSetCreator() {
+	$(document).on('click', '#create-set-button', function(e) {
+		e.preventDefault();
+		var $form = $(this).parents('form');
+		$form.ajaxSubmit({
+			success: function(data) {
+				console.log(data);
+				if (data.success) {
+					loadModule($('.main'), 'sets/'+data.set.id, 'questions.view.set.full', function() {
+						router.navigate('sets/'+data.set.id);
+						successNotification('Set created successfully');
+					});
+				} else {
+					errorNotification(data.error);
+				}
+			},
+			error: function(data) {
+				errorNotification('Something went wrong');
+				console.log(data);
+			}
+		});
 	});
 }
