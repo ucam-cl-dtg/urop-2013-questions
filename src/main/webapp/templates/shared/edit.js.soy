@@ -6,23 +6,38 @@
  * param sets
  */
 {template .question}
-	<form method="POST" action="/q/update" id="revisions-submit-form">
+	<form method="POST" action="/q/update" id="revisions-submit-form" class="custom" enctype="multipart/form-data">
 		<div class="row">
 			<div class="columns large-12 small-12">
 				<input type="hidden" name="id" value="{$question.id}" />
-				<input type="hidden" name="setId" value="-1" />
 			
-				<textarea id="edit-content" name="content" placeholder="Question Content">{if $question.content.data}{$question.content.data}{/if}</textarea>
-				<textarea id="edit-notes" name="notes" placeholder="Question Notes">{if $question.notes.data}{$question.notes.data}{/if}</textarea>
+				{call shared.data.edit}
+					{param name: 'content' /}
+					{param data: $question.content /}
+				{/call}
+				{if $question.notes}
+					{call shared.data.edit}
+						{param name: 'notes' /}
+						{param data: $question.notes /}
+					{/call}
+				{else}
+					{call shared.data.edit}
+						{param name: 'notes' /}
+					{/call}
+				{/if}
 			</div>
 		</div>
 		<div class="row">
 			<div class="columns large-6 small-6 clearfix">
-				<label for="edit-expDur" style="display:inline-block">Duration (min):</label>
-				<input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" style="display:inline-block; width: 80px; margin-left: 12px" />
+				<label for="edit-expDur" style="display:inline-block">
+					Duration (min): <input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" style="display:inline-block; width: 80px; margin-left: 12px" />
+				</label>
 			</div>
 			<div class="columns large-6 small-6 clearfix text-right">
-				<span style="display:inline-block; margin-right: 12px;"><input id="edit-minor" type="checkbox" name="edit-minor" checked="true" value="true">Minor edit</input></span>
+				<span style="display:inline-block; margin-right: 12px;">
+					<label for="edit-minor"><input id="edit-minor" type="checkbox" name="minor" checked="true" value="true" /> Minor edit</label>
+				</span>
+
 				<input type="submit" value="Submit" class="medium success button" style="display:inline-block" />
 			</div>
 		</div>

@@ -4,6 +4,7 @@ moduleScripts['questions'] = {
 			configureInputField,
 			configureQuestionStarToggler,
 			configureInPlaceAnchors,
+			configureDataEditor,
 	    ],
 		'set': {
 			'full': [
