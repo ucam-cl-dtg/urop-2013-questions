@@ -3,8 +3,8 @@ var desc = "";
 var $file;
 
 function configureDataEditor() {
+	
 	$(document).on('change', '.data-editor-type', function(e) {
-		
 		var $editor = $(this).siblings('.data-editor');
 		var type = e.target.value;
 		var name = $editor.attr('data-name');
@@ -32,7 +32,10 @@ function configureDataEditor() {
 		console.log(name);
 		
 		var filename = e.target.value.split('\\').slice(-1)[0];
+		var extension = filename.split('.').slice(-1)[0];
 		$(this).siblings('textarea[name='+name+'_desc]').text(filename);
+		$(this).siblings('input[name='+name+'_ext]').attr('value', extension);
+		
 	});
 	
 }

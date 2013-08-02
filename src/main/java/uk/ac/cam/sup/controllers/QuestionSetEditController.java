@@ -110,6 +110,7 @@ public class QuestionSetEditController extends GeneralController {
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");
 			}
+			
 			qs.edit(form);
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());

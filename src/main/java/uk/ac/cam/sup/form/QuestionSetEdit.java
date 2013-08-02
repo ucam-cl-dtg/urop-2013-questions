@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 
-import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.queries.QuestionQuery;
 
@@ -53,7 +52,7 @@ public class QuestionSetEdit extends QuestionSetForm {
 		return this;
 	}
 	
-	public QuestionSetEdit parse() throws FormValidationException {
+	public QuestionSetEdit parse() throws Exception {
 		super.parse();
 		
 		questions = new ArrayList<Question>();

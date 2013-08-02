@@ -12,7 +12,7 @@
 	{elseif $data.type == 'LATEX'}
 		<p>{$data.data}</p>
 	{elseif $data.type == 'FILE'}
-		<p>{$data.description}</p>
+		<p><a href="{$data.data}">{$data.description}</a></p>
 	{else}
 		<p><i>--- No content found ---</i><p>
 	{/if}
@@ -42,12 +42,12 @@
  * @param name
  */
 {template .edit}
-	<select name="{$name}_type" class="data-editor-type" data-selected="{$data.type}">
-		<option value="PLAIN_TEXT">Plain text</option>
-		<option value="MARKDOWN">Markdown</option>
-		<option value="LATEX">LaTeX</option>
-		<option value="FILE">File</option>
-		<option value="EMPTY">Empty</option>
+	<select name="{$name}_type" class="data-editor-type">
+		<option value="PLAIN_TEXT" {if $data.type == 'PLAIN_TEXT'}selected{/if}>Plain text</option>
+		<option value="MARKDOWN" {if $data.type == 'MARKDOWN'}selected{/if}>Markdown</option>
+		<option value="LATEX" {if $data.type == 'LATEX'}selected{/if}>LaTeX</option>
+		<option value="FILE" {if $data.type == 'FILE'}selected{/if}>File</option>
+		<option value="EMPTY" {if $data.type == 'EMPTY'}selected{/if}>Empty</option>
 	</select>
 	<div class="data-editor" data-name="{$name}">
 		{call .editor data="all" /}
@@ -111,4 +111,5 @@
 {template .fileedit}
 <input type="file" name="{$name}_file" />
 <textarea name="{$name}_desc" placeholder="Description">{$data.description}</textarea>
+<input type="hidden" name="{$name}_ext" />
 {/template}

@@ -39,15 +39,21 @@ public class Data implements Cloneable {
 		this.description = description;
 	}
 	
-	public Data(String type, String data, byte[] file, String description, boolean forceLoad) {
+	public Data(String type, String data, byte[] file, String description, String extension, boolean forceLoad) throws Exception {
 		this.type = DataType.valueOf(type);
-		if (this.type == DataType.FILE) {
-			String[] name = this.description.split(".");
-			String extension = name[name.length-1];
+		if (this.type == DataType.EMPTY) {
+			this.data = "";
+			this.description = "";
+		} else if (this.type == DataType.FILE) {
 			String filename = "data-"+UUID.randomUUID().toString()+extension;
 			
 			try {
-				// TODO: load
+				if (file.length == 0) {
+					throw new Exception("File empty");
+				}
+				
+				// TODO: save the file
+				
 				this.data = filename;
 			} catch (Exception e) {
 				if (forceLoad) {
@@ -68,6 +74,21 @@ public class Data implements Cloneable {
 		this.type = old.type;
 		this.data = old.data;
 		this.description = old.description;
+	}
+	
+	public Data updateWith(Data update) {
+		if (this.type == DataType.FILE 
+				&& update.type == DataType.FILE
+				&& update.data == null
+		) {
+			this.description = update.description;
+		} else {
+			this.data = update.data;
+			this.description = update.description;
+			this.type = update.type;
+		}
+		
+		return this;
 	}
 	
 	public String getType() {
