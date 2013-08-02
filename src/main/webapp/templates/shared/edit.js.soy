@@ -17,17 +17,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="columns large-1 small-1">
-				<label for="edit-expDur" class="right inline">Duration (min):</label>
+			<div class="columns large-6 small-6 clearfix">
+				<label for="edit-expDur" style="display:inline-block">Duration (min):</label>
+				<input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" style="display:inline-block; width: 80px; margin-left: 12px" />
 			</div>
-			<div class="columns large-1 small-1">
-				<input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" />
-			</div>
-			<div class="columns large-1 small-1 large-offset-6 small-offset-6 text-right">
-				<input id="edit-minor" type="checkbox" name="edit-minor" checked="true" value="true">Minor edit</input>
-			</div>
-			<div class="columns large-3 small-3 text-right">
-				<input type="submit" value="Submit" class="medium success button" />
+			<div class="columns large-6 small-6 clearfix text-right">
+				<span style="display:inline-block; margin-right: 12px;"><input id="edit-minor" type="checkbox" name="edit-minor" checked="true" value="true">Minor edit</input></span>
+				<input type="submit" value="Submit" class="medium success button" style="display:inline-block" />
 			</div>
 		</div>
 	</form>

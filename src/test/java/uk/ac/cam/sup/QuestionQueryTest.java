@@ -2,7 +2,7 @@ package uk.ac.cam.sup;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 

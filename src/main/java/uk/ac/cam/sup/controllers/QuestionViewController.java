@@ -100,12 +100,11 @@ public class QuestionViewController extends GeneralController {
 			case "st": return produceSearchCriteria(sterm);
 			case "tags": return produceTagsWith(sterm);
 			case "owners": return produceUsersWith(sterm);
+			case "parents": return produceQuestionsWith(sterm);
 		}
 		
 		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
-		results.add(ImmutableMap.of("value", "Tags", "type", "tags"));
-		results.add(ImmutableMap.of("value", "BBBBBB", "type", "bbbbb"));
-		results.add(ImmutableMap.of("value", "Hi :)", "type", "hi"));
+		results.add(ImmutableMap.of("value", "Error: no autocomplete available."));
 		return results;
 	}
 
@@ -161,18 +160,25 @@ public class QuestionViewController extends GeneralController {
 		return results;
 	}
 	private List<Map<String,String>> produceUsersWith(String st){
-		// TODO: implement proper user query!
-		
 		try{
-			User user = UserQuery.get(st);
+			List<User> users = UserQuery.all().idStartsWith(st).list();
 			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
-			results.add(ImmutableMap.of("value", user.getId()));
+			for(User u: users){
+				results.add(ImmutableMap.of("value", u.getId()));
+			}
 			return results;
 		} catch(Exception e){
 			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
 			results.add(ImmutableMap.of("value", "Error: " + e.getClass() + "\nMessage: " +e.getMessage()));
 			return results;
 		}
+	}
+	private List<Map<String,String>> produceQuestionsWith(String st){
+		// TODO: implement proper method for this!
+		
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		results.add(ImmutableMap.of("value", st));
+		return results;
 	}
 	
 	/**
