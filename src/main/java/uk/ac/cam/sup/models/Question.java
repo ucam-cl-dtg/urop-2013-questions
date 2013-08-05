@@ -30,6 +30,7 @@ import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.util.DataType;
 
 @Entity()
 @Table(name="Questions")
@@ -60,10 +61,10 @@ public class Question extends Model implements Cloneable {
 	private int expectedDuration = 0;
 	
 	@Embedded @Column(nullable=false)
-	private Data content = new Data(false, null);
+	private Data content = new Data(DataType.EMPTY, null);
 	
 	@Embedded @Column(nullable=false)
-	private Data notes = new Data(false, null);
+	private Data notes = new Data(DataType.EMPTY, null);
 	
 	@SuppressWarnings("unused")
 	private Question() {}
@@ -142,7 +143,7 @@ public class Question extends Model implements Cloneable {
 		result.content = new Data(content);
 		
 		if (this.getOwner().getSupervisor() && !qs.getOwner().getSupervisor()) {
-			result.notes = new Data(false, null);
+			result.notes = new Data(DataType.EMPTY, null);
 		} else {
 			result.notes = new Data(notes);
 		}

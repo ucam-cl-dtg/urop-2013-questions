@@ -14,6 +14,7 @@ import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.util.DataType;
 
 @Path("/dev")
 public class DevelopmentController extends GeneralController {
@@ -28,11 +29,11 @@ public class DevelopmentController extends GeneralController {
 		User jcb = (User)session.createQuery("from User where id = ?").setString(0, "jcb98").uniqueResult();
 		
 		Question a = new Question(jcb);
-		a.setContent(new Data(true, "Hahaha this is a question"));
+		a.setContent(new Data(DataType.PLAIN_TEXT, "Hahaha this is a question"));
 		a.setTimeStamp(new Date());
 		
 		Question b = new Question(jcb);
-		b.setContent(new Data(true, "the most impossiblest question ever"));
+		b.setContent(new Data(DataType.PLAIN_TEXT, "the most impossiblest question ever"));
 		b.setTimeStamp(new Date());
 		
 		Question c = (Question)session.createQuery("from Question where id = ?").setInteger(0, 1).uniqueResult();
