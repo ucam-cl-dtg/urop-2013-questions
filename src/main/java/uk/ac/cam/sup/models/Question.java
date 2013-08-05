@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -205,13 +204,7 @@ public class Question extends Model implements Cloneable {
 		boolean inPlace = false;
 		
 		List<Question> forks;
-		try {
-			forks = QuestionQuery.getQuery().withParent(qe.getId()).list();
-		} catch (NotYetTouchedException e) {
-			log.error("The forks of a question could not be retrieved. Caution: returning null! Message: " + e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
+		forks = QuestionQuery.all().withParent(qe.getId()).list();
 		if(forks == null){forks = new ArrayList<Question>();}
 		
 		if(editor.equals(owner)) {

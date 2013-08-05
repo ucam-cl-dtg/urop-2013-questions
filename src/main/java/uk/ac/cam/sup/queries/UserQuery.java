@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.User;
 
 public class UserQuery {
 	
 	private static Logger log = LoggerFactory.getLogger(UserQuery.class);
 	private Criteria criteria;
-	private boolean touched = false;
 	
 	private UserQuery(Criteria c){
 		criteria = c;
@@ -48,17 +46,12 @@ public class UserQuery {
 	
 	public UserQuery idStartsWith(String idpart){
 		criteria.add(Restrictions.ilike("id", idpart, MatchMode.START));
-		touched = true;
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<User> list() throws NotYetTouchedException{
-		if(touched){
-			return criteria.list();
-		} else {
-			throw new NotYetTouchedException("UserQuery was not yet touched!");
-		}
+	public List<User> list() {
+		return criteria.list();
 	}
 	
 	

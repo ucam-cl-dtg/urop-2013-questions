@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.DateFormatException;
 import uk.ac.cam.sup.exceptions.InvalidRangeException;
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -67,13 +66,7 @@ public class QuestionViewController extends GeneralController {
 		
 		try {
 			if(sc != null && sc.equals("all")){
-				try {
-					return ImmutableMap.of("success", true, "questions", QuestionQuery.getQuery().touch().maplist(), "st", "sc=all");
-				} catch (NotYetTouchedException e) {
-					log.error("For some reason could not return all questions! (NotYetTouchedException) Message: " + e.getMessage());
-					e.printStackTrace();
-					return ImmutableMap.of("success", false, "error", "NotYetTouchedException!");
-				}
+				return ImmutableMap.of("success", true, "questions", QuestionQuery.all().maplist(), "st", "sc=all");
 			}
 			
 			SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
@@ -189,7 +182,7 @@ public class QuestionViewController extends GeneralController {
 	 */
 	private List<Map<String, ?>> getFilteredQuestions(SearchTerm st) {
 		log.debug("Getting new QuestionQuery");
-		QuestionQuery qq = QuestionQuery.getQuery();
+		QuestionQuery qq = QuestionQuery.all();
 
 		log.debug("Filtering for tags");
 		if (st.getTags() != null) {
@@ -244,11 +237,7 @@ public class QuestionViewController extends GeneralController {
 			qq.minDuration(st.getDurMin());
 		}
 
-		try{
-			return qq.maplist();
-		} catch(NotYetTouchedException e){
-			return new ArrayList<Map<String, ?>>();
-		}
+		return qq.maplist();
 	}
 	
 	/**
@@ -384,13 +373,7 @@ public class QuestionViewController extends GeneralController {
 		// disp is the number of forks already displayed. Therefore, if 0 forks are displayed, for ex,
 		// the controller will return the 
 		List<Map<String, ?>> forks;
-		try {
-			forks = QuestionQuery.getQuery().withParent(qid).maplist();
-		} catch (NotYetTouchedException e) {
-			log.error("For some reason the forks could not be retrieved! (NotYetTouchedException) Message: " + e.getMessage());
-			e.printStackTrace();
-			return ImmutableMap.of("success", false,  "error", "NotYetTouchedException! See error log for more information.");
-		}
+		forks = QuestionQuery.all().withParent(qid).maplist();
 		
 		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
 		if(forks.size() <= alreadyDisplayed) {
