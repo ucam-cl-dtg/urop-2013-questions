@@ -66,7 +66,7 @@ public class QuestionQuery {
 		return q;
 	}
 	
-	public static QuestionQuery all(){
+	public static QuestionQuery getQuery(){
 		// The .setResultTransformer(...) part is responsible for putting Questions back together,
 		// which, for ex., contain 2 or more of the tags searched for. (Otherwise you would get
 		// back 1 instance of the same object with every of the different tags specified).
@@ -78,6 +78,10 @@ public class QuestionQuery {
 		qq.criteria.addOrder(Order.desc("timeStamp"));
 		log.debug("Successfully created, now returning");
 		return qq;
+	}
+	
+	public QuestionQuery all(){
+		return touch();
 	}
 	
 	public QuestionQuery touch(){
