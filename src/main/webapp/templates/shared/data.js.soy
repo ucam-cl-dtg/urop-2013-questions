@@ -6,15 +6,15 @@
  */
 {template .display}
 	{if $data.type == 'PLAIN_TEXT'}
-		<p>{$data.data}</p>
+		{$data.data}
 	{elseif $data.type == 'MARKDOWN'}
-		<p>{$data.data}</p>
+		{$data.data}
 	{elseif $data.type == 'LATEX'}
-		<p>{$data.data}</p>
+		{$data.data}
 	{elseif $data.type == 'FILE'}
-		<p><a href="{$data.data}">{$data.description}</a></p>
+		<a href="{$data.data}">{$data.description}</a>
 	{else}
-		<p><i>--- No content found ---</i><p>
+		<i>--- No content found ---</i>
 	{/if}
 {/template}
 

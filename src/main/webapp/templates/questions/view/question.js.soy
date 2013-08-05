@@ -20,7 +20,7 @@
 	<div class="columns large-12 small-12">
 		<div class="section-container tabs" data-section="tabs">
 			<section {if $target=='content'}class="active"{/if}>
-				<p class="title" data-section-title><a href="#q/{$question.id}/content" class="in-place-anchor">Content</a></p>
+				<p class="title" data-section-title><a href="#q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false">Content</a></p>
 				<div class="content" data-section-content>
 					<h4>Question</h4>
 					<p id="question-content-p">
@@ -95,7 +95,7 @@
 				</div>
 			</section>
 			<section {if $target=='edit'}class="active"{/if}>
-				<p class="title" data-section-title><a href="#q/{$question.id}/edit" class="in-place-anchor">Edit</a></p>
+				<p class="title" data-section-title><a href="#q/{$question.id}/edit" class="in-place-anchor" id="edit-section" data-needsupdate="false">Edit</a></p>
 				<div class="content" data-section-content>
 					<div class="row notifications">
 						

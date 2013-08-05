@@ -64,6 +64,7 @@ function configureInputField() {
 		var $this = $(this);
 		$this.removeClass("unused");
 		$this.addClass("success");
+		$("#edit-section").attr("data-needsupdate", "true");
 		$.post("/sets/fork", {
 			"targetSetId": $this.attr("data-sid"), 
 			"questions": $inputField.attr("data-qid")
@@ -76,6 +77,7 @@ function configureInputField() {
 		var $this = $(this);
 		$this.removeClass("success");
 		$this.addClass("unused");
+		$("#edit-section").attr("data-needsupdate", "true");
 		$.post("/sets/remove", {
 			"sid": $this.attr("data-sid"),
 			"qid": $inputField.attr("data-qid")
@@ -94,17 +96,7 @@ function configureInputField() {
 			if($setListDiv.children().hasClass("set-list-to-edit")){
 				$setListDiv.children(".set-list-to-edit").slideToggle();
 			}else{
-				
-				var $newList = $("<div></div>");
-				loadModule($newList,
-						"sets/mysets/qlimited?qid=" + $inputField.attr("data-qid"),
-						"shared.set.setSelectionQuestionEdit",
-						function(){
-							$newList.find(".panels").hide();
-							$newList.find(".panels").addClass("set-list-to-edit");
-							$setListDiv.append($newList.children());
-							$setListDiv.find(".panels").slideToggle();
-						});
+				populateSetListToEdit($setListDiv);
 			}
 			
 		}else{
@@ -140,6 +132,8 @@ function configureInputField() {
 			return false;
 		}
 		
+		$("#content-section").attr("data-needsupdate", "true");
+		
 		$(this).ajaxSubmit({
 			beforeSubmit: function(data, form, opts) {
 				data.push({
@@ -169,6 +163,13 @@ function configureInputField() {
 		});
 		
 		return false;
+	});
+	
+	$("#edit-section").click(function(){
+		updateEditTab();
+	});
+	$("#content-section").click(function(){
+		updateContentTab();
 	});
 	
 	
@@ -287,4 +288,42 @@ function configureQuestionStarToggler() {
 			console.log(data);
 		});
 	});
+}
+
+function updateContentTab(){
+	$elem = $("#content-section");
+	if($elem.attr("data-needsupdate") == "true"){
+		$elem.attr("data-needsupdate", "false");
+		$.get("/q/" + $(".star-question-button").attr("data-question-id"), function(json){
+			applyTemplate($("#question-content-p"), "shared.data.display", {data: json.question.content});
+			applyTemplate($("#question-notes-p"), "shared.data.display", {data: json.question.notes});
+		});
+	}
+}
+function updateEditTab(){
+	$elem = $("#edit-section");
+	if($elem.attr("data-needsupdate") == "true"){
+		$elem.attr("data-needsupdate", "false");
+		$setListDiv = $("#set-div-to-edit");
+		console.log($setListDiv);
+		if($setListDiv.children().hasClass("set-list-to-edit")){
+			$setListDiv.empty();
+			if(!($("#edit-minor").is(":checked"))){
+				populateSetListToEdit($setListDiv);
+			}
+		}
+	}
+}
+
+function populateSetListToEdit($setListDiv){
+	var $newList = $("<div></div>");
+	loadModule($newList,
+			"sets/mysets/qlimited?qid=" + $("#form-qid").val(),
+			"shared.set.setSelectionQuestionEdit",
+			function(){
+				$newList.find(".panels").hide();
+				$newList.find(".panels").addClass("set-list-to-edit");
+				$setListDiv.append($newList.children());
+				$setListDiv.find(".panels").slideToggle();
+			});
 }
