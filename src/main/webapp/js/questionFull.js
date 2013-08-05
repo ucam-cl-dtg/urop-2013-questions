@@ -188,7 +188,7 @@ function loadMoreHistory(depth, $button){
 			function(json) {
 				
 				if(json.exhausted) {
-					$button.parent().append($("<i>--- End of History ---</i>"));
+					$button.parent().append($("<p align='center'><i>--- End of History ---</i></p>"));
 					$button.remove();
 				}
 				$historyList.attr("data-qid", json.last);
@@ -216,7 +216,7 @@ function loadMoreForks(amount, $button){
 			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
 			function(json) {
 				if(json.exhausted) {
-					$button.parent().append($("<i>--- End of forks list ---</i>"));
+					$button.parent().append($("<p align='center'><i>--- End of forks list ---</i></p>"));
 					$button.remove();
 				}
 				$forksList.attr("data-disp", json.disp);
@@ -243,7 +243,7 @@ function loadMoreSets(amount, $button) {
 			"sets/mysets/limited?disp=" + $setsList.attr("data-disp") + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
 			function(json) {
 				if(json.exhausted) {
-					$button.parent().append("<i>--- End of set list ---");
+					$button.parent().append($("<p align='center'><i>--- End of set list ---</i></p>"));
 					$button.remove();
 				}
 				$setsList.attr("data-disp", json.disp);

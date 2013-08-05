@@ -156,13 +156,14 @@ function populateSearchField($searchForm){
 	var arg;
 	var argName;
 	var touched = false;
+	var $txtSearch = $searchForm.find("#txtSearch");
 	for(var i = 0; i < args.length; i++){
 		arg = args[i].substring(args[i].indexOf("=") + 1, args[i].length + 1);
 		argName = args[i].substring(0, args[i].indexOf("="));
 		if(argName == "tags"){
 			
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeTagSearch());
+			$txtSearch.tokenInput("add", makeTagSearch());
 			var $tmp = $searchForm.find('.token-input-token[data-type="tags"]').find(".search-item-input-field");
 			var tmp2 = arg.split(",");
 			for(var j = 0; j < tmp2.length; j++){
@@ -171,37 +172,37 @@ function populateSearchField($searchForm){
 			
 		}else if(argName == "after"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeAfterSearch());
+			$txtSearch.tokenInput("add", makeAfterSearch());
 			$searchForm.find('.token-input-token[data-type="after"]').find(".search-item-date").datepicker("setDate", arg);
 			
 		}else if(argName == "before"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeBeforeSearch());
+			$txtSearch.tokenInput("add", makeBeforeSearch());
 			$searchForm.find('.token-input-token[data-type="before"]').find(".search-item-date").datepicker("setDate", arg);
 			
 		}else if(argName == "durmin"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeDurMinSearch());
+			$txtSearch.tokenInput("add", makeDurMinSearch());
 			$searchForm.find('.token-input-token[data-type="durmin"]').find(".search-item-number").val(arg);
 			
 		}else if(argName == "durmax"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeDurMaxSearch());
+			$txtSearch.tokenInput("add", makeDurMaxSearch());
 			$searchForm.find('.token-input-token[data-type="durmax"]').find(".search-item-number").val(arg);
 			
 		}else if(argName == "usagemin"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeUsageMinSearch());
+			$txtSearch.tokenInput("add", makeUsageMinSearch());
 			$searchForm.find('.token-input-token[data-type="usagemin"]').find(".search-item-number").val(arg);
 			
 		}else if(argName == "usagemax"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeUsageMaxSearch());
+			$txtSearch.tokenInput("add", makeUsageMaxSearch());
 			$searchForm.find('.token-input-token[data-type="usagemax"]').find(".search-item-number").val(arg);
 			
 		}else if(argName == "owners"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeOwnersSearch());
+			$txtSearch.tokenInput("add", makeOwnersSearch());
 			var $tmp = $searchForm.find('.token-input-token[data-type="owners"]').find(".search-item-input-field");
 			var tmp2 = arg.split(",");
 			for(var j = 0; j < tmp2.length; j++){
@@ -210,7 +211,7 @@ function populateSearchField($searchForm){
 			
 		}else if(argName == "parents"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeParentsSearch());
+			$txtSearch.tokenInput("add", makeParentsSearch());
 			var $tmp = $searchForm.find('.token-input-token[data-type="parents"]').find(".search-item-input-field");
 			var tmp2 = arg.split(",");
 			for(var j = 0; j < tmp2.length; j++){
@@ -219,21 +220,27 @@ function populateSearchField($searchForm){
 			
 		}else if(argName == "star"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeStarSearch());
+			$txtSearch.tokenInput("add", makeStarSearch());
 			if(arg == "false"){
 				$searchForm.find('.token-input-token[data-type="star"]').find(".search-item-checkbox").attr("checked", false);
 			}
 			
 		}else if(argName == "supervisor"){
 			touched = true;
-			$searchForm.find("#txtSearch").tokenInput("add", makeSupervisorSearch());
+			$txtSearch.tokenInput("add", makeSupervisorSearch());
 			if(arg == "false"){
 				$searchForm.find('.token-input-token[data-type="supervisor"]').find(".search-item-checkbox").attr("checked", false);
+			}
+		}else if(argName == "sc"){
+			if(arg == "all"){
+				touched = true;
+				$txtSearch.tokenInput("add", {value: "sc", helpText: "sc", type: "sc", displayType: "text"});
+				$searchForm.find('.token-input-token[data-type="sc"]').find(".search-item-input-field").tokenInput("add", {value: "all"});
 			}
 		}
 	}
 	if(!touched){
-		$searchForm.find("#txtSearch").tokenInput("add", makeTagSearch());
+		$txtSearch.tokenInput("add", makeTagSearch());
 	}
 }
 function makeTagSearch(){
