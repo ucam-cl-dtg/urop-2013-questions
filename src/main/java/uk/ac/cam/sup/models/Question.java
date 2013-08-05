@@ -205,7 +205,7 @@ public class Question extends Model implements Cloneable {
 		
 		List<Question> forks;
 		try {
-			forks = QuestionQuery.all().withParent(qe.getId()).list();
+			forks = QuestionQuery.getQuery().withParent(qe.getId()).list();
 		} catch (NotYetTouchedException e) {
 			log.error("The forks of a question could not be retrieved. Caution: returning null! Message: " + e.getMessage());
 			e.printStackTrace();

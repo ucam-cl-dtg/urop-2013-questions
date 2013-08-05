@@ -34,7 +34,7 @@ public class UserController extends GeneralController {
 		
 		List<Map<String, ?>> questions;
 		try {
-			questions = QuestionQuery.all().withOwners(userlist).maplist();
+			questions = QuestionQuery.getQuery().withOwners(userlist).maplist();
 		} catch (NotYetTouchedException e) {
 			log.error("NotYetTouchedException! Message: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", "NotYetTouchedException - see error log for more information");

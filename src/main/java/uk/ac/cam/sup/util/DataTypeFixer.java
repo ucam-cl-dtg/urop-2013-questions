@@ -23,7 +23,7 @@ public class DataTypeFixer {
 		}
 		HibernateUtil.commit();
 		
-		List<Question> qlist = QuestionQuery.all().touch().list();
+		List<Question> qlist = QuestionQuery.getQuery().touch().list();
 		for (Question q: qlist) {
 			if (q.getNotes().isString()) {
 				q.getNotes().setType(DataType.PLAIN_TEXT);

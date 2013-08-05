@@ -96,7 +96,7 @@ public class QuestionSetViewController extends GeneralController {
 		List<Map<String, ?>> questions; 
 		
 		try {
-			questions = QuestionQuery.all().maplist();
+			questions = QuestionQuery.getQuery().maplist();
 		} catch (NotYetTouchedException e) {
 			log.error("NotYetTouchedException! Message: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", "NotYetTouchedException - see error log for more information");

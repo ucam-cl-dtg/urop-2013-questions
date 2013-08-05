@@ -68,7 +68,7 @@ public class QuestionViewController extends GeneralController {
 		try {
 			if(sc != null && sc.equals("all")){
 				try {
-					return ImmutableMap.of("success", true, "questions", QuestionQuery.all().touch().maplist(), "st", "sc=all");
+					return ImmutableMap.of("success", true, "questions", QuestionQuery.getQuery().touch().maplist(), "st", "sc=all");
 				} catch (NotYetTouchedException e) {
 					log.error("For some reason could not return all questions! (NotYetTouchedException) Message: " + e.getMessage());
 					e.printStackTrace();
@@ -189,7 +189,7 @@ public class QuestionViewController extends GeneralController {
 	 */
 	private List<Map<String, ?>> getFilteredQuestions(SearchTerm st) {
 		log.debug("Getting new QuestionQuery");
-		QuestionQuery qq = QuestionQuery.all();
+		QuestionQuery qq = QuestionQuery.getQuery();
 
 		log.debug("Filtering for tags");
 		if (st.getTags() != null) {
@@ -385,7 +385,7 @@ public class QuestionViewController extends GeneralController {
 		// the controller will return the 
 		List<Map<String, ?>> forks;
 		try {
-			forks = QuestionQuery.all().withParent(qid).maplist();
+			forks = QuestionQuery.getQuery().withParent(qid).maplist();
 		} catch (NotYetTouchedException e) {
 			log.error("For some reason the forks could not be retrieved! (NotYetTouchedException) Message: " + e.getMessage());
 			e.printStackTrace();
