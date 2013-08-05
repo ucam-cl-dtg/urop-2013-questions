@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.ppdloader;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -7,8 +8,6 @@ import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
-
-import com.ibm.icu.util.Calendar;
 
 public class QuestionLoader extends Loader<Question> {
 	private Topic topic;

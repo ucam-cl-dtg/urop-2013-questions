@@ -26,8 +26,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import uk.ac.cam.sup.form.QuestionSetEdit;
 
-import com.google.inject.OutOfScopeException;
-
 @Entity
 @Table(name="QuestionSets")
 public class QuestionSet extends Model {
@@ -121,7 +119,7 @@ public class QuestionSet extends Model {
 				return qp.getQuestion();
 			}
 		}
-		throw new OutOfScopeException("index: " + place + " size: " + questions.size());
+		throw new IndexOutOfBoundsException("index: " + place + " size: " + questions.size());
 	}
 	
 	public synchronized void addQuestion(Question question) {

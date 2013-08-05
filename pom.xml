@@ -1,48 +1,18 @@
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>uk.ac.cam.sup</groupId>
-	<artifactId>urop-2013-questions</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>UROP2013 Question Database</name>
-
-	<properties>
-		<jettyVersion>7.2.0.v20101020</jettyVersion>
-		<custom_scripts>
-			<![CDATA[
-				<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-				<script src="http://malsup.github.com/jquery.form.js"></script> 
-			
-				<script src="/js/search.js"></script>
-				<script src="/js/questionFull.js"></script>
-				<script src="/js/questionShort.js"></script>
-				<script src="/js/questionSet.js"></script>
-				<script src="/js/dataEditor.js"></script>
-				
-				<script src="/js/questions.js"></script>
-			]]>
-		</custom_scripts>
-		<custom_templates>
-			<![CDATA[
-				<script src="/soy/js/1/questions.js"></script>
-				<script src="/soy/js/1/questions.search.js"></script>
-				<script src="/soy/js/1/questions.view.js"></script>
-				<script src="/soy/js/1/questions.form.question.js"></script>
-
-				<script src="/soy/js/1/questions.form.question.js"></script>
-				<script src="/soy/js/1/questions.form.set.js"></script>
-				<script src="/soy/js/1/questions.view.set.tab.js"></script>
-				<script src="/soy/js/1/questions.view.set.js"></script>
-				<script src="/soy/js/1/questions.view.user.js"></script>
-				
-				<script src="/soy/js/1/questions.misc.js"></script>
-			]]>
-		</custom_templates>
-	</properties>
+  <groupId>uk.ac.cam.cl.dtg.teaching</groupId>
+  <artifactId>questions</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Supervision Question Database</name>
 
 	<repositories>
+		<repository>
+			<id>htmleasy</id>
+			<url>http://htmleasy-maven.googlecode.com/svn/trunk/</url>
+		</repository>
 		<repository>
 			<id>codedance</id>
 			<url>https://github.com/codedance/maven-repository/raw/master</url>
@@ -50,17 +20,25 @@
 	</repositories>
 
 	<dependencies>
-		<dependency>
-			<groupId>uk.ac.cam.ucs</groupId>
-			<artifactId>webauth</artifactId>
-			<version>0.7.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${jettyVersion}</version>
-		</dependency>
+    <dependency>
+      <groupId>uk.ac.cam.cl.dtg.teaching</groupId>
+      <artifactId>frontend</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+    
+    <dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>2.5</version>
+  	</dependency>
 
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>11.0.1</version>
+    </dependency>
+    
 		<dependency>
 			<groupId>com.googlecode.htmleasy</groupId>
 			<artifactId>htmleasy</artifactId>
@@ -83,12 +61,6 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-multipart-provider</artifactId>
 			<version>2.2.0.GA</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.papercut.silken</groupId>
-			<artifactId>silken</artifactId>
-			<version>2013-03-05</version>
 		</dependency>
 
 		<dependency>
@@ -139,7 +111,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jettyVersion}</version>
+				<version>7.2.0.v20101020</version>
 			</plugin>
 
 			<plugin>
@@ -151,52 +123,21 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
-				<groupId>org.jasig.maven</groupId>
-				<artifactId>sass-maven-plugin</artifactId>
-				<version>1.1.1</version>
-				<configuration>
-					<sassSourceDirectory>${basedir}/src/main/webapp/app/scss</sassSourceDirectory>
-					<destination>${basedir}/src/main/webapp/app/css</destination>
-					<sassOptions>
-						<cache>false</cache>
-						<style>:compressed</style>
-						<syntax>:scss</syntax>
-					</sassOptions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<!-- here the phase you need -->
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<nonFilteredFileExtensions>
-								<nonFilteredFileExtension>woff</nonFilteredFileExtension>
-								<nonFilteredFileExtension>eot</nonFilteredFileExtension>
-								<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-								<nonFilteredFileExtension>svg</nonFilteredFileExtension>
-							</nonFilteredFileExtensions>
-							<outputDirectory>${basedir}/src/main/webapp/app</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/../sup_frontend</directory>
-									<filtering>true</filtering>
-								</resource>
-								<!-- <resource> <directory>${basedir}/src/config</directory> <filtering>true</filtering> 
-									</resource> -->
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <overlays>
+            <overlay>
+            </overlay>
+            <overlay>
+              <groupId>uk.ac.cam.cl.dtg.teaching</groupId>
+              <artifactId>frontend</artifactId>
+            </overlay>
+          </overlays>
+        </configuration>
+      </plugin>
 		</plugins>
 	</build>
-
 </project>
