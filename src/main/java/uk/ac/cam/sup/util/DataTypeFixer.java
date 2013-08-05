@@ -11,6 +11,7 @@ import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class DataTypeFixer {
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws NotYetTouchedException {
 		List<QuestionSet> qslist = QuestionSetQuery.all().list();
 		for (QuestionSet qs: qslist) {
