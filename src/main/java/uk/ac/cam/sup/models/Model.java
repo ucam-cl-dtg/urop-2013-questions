@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.cam.sup.util.HibernateUtil;
 
 public class Model {
-	Logger log = LoggerFactory.getLogger(Model.class);
+	private static Logger log = LoggerFactory.getLogger(Model.class);
 	
 	public final void save() {
 		Session session = HibernateUtil.getTransactionSession();

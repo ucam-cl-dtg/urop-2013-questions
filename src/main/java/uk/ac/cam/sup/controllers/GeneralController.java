@@ -49,7 +49,9 @@ public abstract class GeneralController {
 		try {
 			curUser = UserQuery.get(uID);
 		} catch (ModelNotFoundException e) {
-			log.info("User '" + uID + "' doesn't exist yet. Creating...");
+
+			log.info("User "+uID+" does not exist in the database. Attempting to save");
+
 			curUser = new User(uID);
 			curUser.saveOrUpdate();
 		}
