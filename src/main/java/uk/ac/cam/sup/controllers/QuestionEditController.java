@@ -134,10 +134,10 @@ public class QuestionEditController extends GeneralController{
 		// returns the tags added
 		
 		try {
-			int qid = addForm.getQid();
+			int qid = addForm.validate().getQid();
 			String[] newTagsArray = addForm.getNewTags();
 			
-			if (newTagsArray != null) {
+			if (newTagsArray != null && newTagsArray.length > 0) {
 				
 				Question question = QuestionQuery.get(qid);
 				List<Tag> result = new ArrayList<Tag>();
@@ -145,7 +145,7 @@ public class QuestionEditController extends GeneralController{
 				Tag tmp;
 				
 				for (int i = 0; i < newTagsArray.length; i++) {
-					tmp = new Tag(newTagsArray[i]);
+					tmp = new Tag(newTagsArray[i].trim());
 					
 					if(!existingTags.contains(tmp) && tmp.getName() != null && tmp.getName() != "") {
 						result.add(tmp);
@@ -158,7 +158,7 @@ public class QuestionEditController extends GeneralController{
 				log.debug("Trying to update question in data base...");
 				question.update();
 				
-				return ImmutableMap.of("success", true, "tags", result);
+				return ImmutableMap.of("success", true, "tags", result, "amount", result.size());
 			}
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());

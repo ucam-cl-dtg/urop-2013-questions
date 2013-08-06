@@ -8,9 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import uk.ac.cam.sup.queries.TagQuery;
-import uk.ac.cam.sup.util.WorldStrings;
 
-@Path(WorldStrings.URL_PREFIX+"/tags")
+@Path("/tags")
 public class TagController extends GeneralController {
 	
 	@GET

@@ -294,26 +294,31 @@ public class QuestionViewController extends GeneralController {
 	public List<Map<String, String>> getTagsNotInQuestion(String strInput) {
 		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 		
-		int equPos = strInput.indexOf("=");
-		if (equPos < 0) {
+		try {
+			int equPos = strInput.indexOf("=");
+			if (equPos < 0) {
+				return results;
+			}
+			int qid = Integer.parseInt(strInput.substring(0, equPos));
+			String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
+
+			log.debug("Trying to get all tags containing " + strTagPart
+					+ " which are NOT in question " + qid);
+
+			List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
+					.contains(strTagPart).list();
+			
+			//results.add(ImmutableMap.of("name", strTagPart));
+			for (Tag tag : tags) {
+				results.add(ImmutableMap.of("name", tag.getName()));
+			}
+			
+			// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
+			return results;
+		} catch (Exception e) {
+			log.warn("There was some invalid input to the tagsNotInQuestion method. Message: " + e.getMessage());
 			return results;
 		}
-		int qid = Integer.parseInt(strInput.substring(0, equPos));
-		String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
-
-		log.debug("Trying to get all tags containing " + strTagPart
-				+ " which are NOT in question " + qid);
-
-		List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
-				.contains(strTagPart).list();
-		
-		results.add(ImmutableMap.of("name", strTagPart));
-		for (Tag tag : tags) {
-			results.add(ImmutableMap.of("name", tag.getName()));
-		}
-		
-		// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
-		return results;
 	}
 
 	/**
