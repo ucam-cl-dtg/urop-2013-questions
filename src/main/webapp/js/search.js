@@ -36,7 +36,6 @@ function searchSetup() {
         propertyToSearch: "value",
         minChars: 1,
         hintText: "Add a category in which to search...",
-        noResultsText: "No results found",
         resultsLimit: 10,
         preventDuplicates: true,
         
@@ -131,7 +130,7 @@ function search(){
 	}
 	
 	if(searchTerms == "?"){
-		$qlist.append($("<p>Type into search bar at top to find questions...</p>"));
+		$qlist.append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));
 		return false;
 	}
 	

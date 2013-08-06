@@ -5,7 +5,7 @@ import org.hibernate.exception.GenericJDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public class Model {
 	Logger log = LoggerFactory.getLogger(Model.class);

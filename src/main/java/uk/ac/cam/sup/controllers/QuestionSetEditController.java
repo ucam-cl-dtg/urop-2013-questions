@@ -23,6 +23,7 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -65,7 +66,7 @@ public class QuestionSetEditController extends GeneralController {
 			form.validate().parse();
 			qs = form.getTarget();
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
-				throw new Exception("You're not the owner of the target set");
+				return ImmutableMap.of("success", false, "error", "You're not the owner of the target set");
 			}
 			log.debug("Trying to fork or add question(s) to set " + qs.getId() + "...");
 			for (Question q: form.getQuestions()) {
@@ -73,6 +74,7 @@ public class QuestionSetEditController extends GeneralController {
 				qs.addQuestion(q);
 			}
 			qs.update();
+			//HibernateUtil.commit();
 		} catch (Exception e) {
 			log.warn("Could not add question(s) to set!\n" + e.getStackTrace());
 			return ImmutableMap.of("success", false, "error", e.getMessage());

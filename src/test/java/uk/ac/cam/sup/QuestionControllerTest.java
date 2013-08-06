@@ -28,6 +28,7 @@ import uk.ac.cam.sup.controllers.QuestionViewController;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 @RunWith(JUnit4.class)
 public class QuestionControllerTest {

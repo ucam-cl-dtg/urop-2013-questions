@@ -14,10 +14,10 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public class QuestionQuery {
 	private Criteria criteria;

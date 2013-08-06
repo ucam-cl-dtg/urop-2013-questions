@@ -96,7 +96,9 @@ public class QuestionSet extends Model {
 	public List<Question> getQuestions(){
 		List<Question> result = new ArrayList<Question>();
 		while (result.size() < questions.size()) { result.add(null); }
+		log.debug("Trying to get questions of set " + id + " which has " + questions.size() + " questions...");
 		for(QuestionPlacement q: questions) {
+			log.debug("    -> trying to set question in place " + (q.getPlace()-1) + "...");
 			result.set(q.getPlace()-1, q.getQuestion());
 		}
 		return result;

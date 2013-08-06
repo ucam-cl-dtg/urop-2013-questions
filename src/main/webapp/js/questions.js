@@ -40,4 +40,4 @@ moduleScripts['questions'] = {
 	    ]
 	},
 	
-}
+};
