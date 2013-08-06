@@ -1,8 +1,5 @@
 package uk.ac.cam.sup;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
@@ -10,8 +7,8 @@ import uk.ac.cam.sup.form.QuestionAdd;
 
 public class QuestionFormTest extends GenericTest{
 	
-	@Test (expected = RuntimeException.class)
-	public void unvalidatedFormQuestion() throws RuntimeException, FormValidationException {
+	@Test (expected = FormValidationException.class)
+	public void unvalidatedFormQuestion() throws FormValidationException {
 	
 		QuestionAdd qa = new QuestionAdd("content", "notes", 0, 0);
 		qa.getExpectedDuration();
@@ -26,20 +23,25 @@ public class QuestionFormTest extends GenericTest{
 		
 	}
 	
+	/*
+	 * Empty question is perfectly fine, I don't see the point of this test
 	@Test
 	public void emptyQuestion() throws FormValidationException{
 		
-		QuestionAdd qa = new QuestionAdd("", "", 0, 0);
+		QuestionAdd qa = new QuestionAdd("", "", 1, 0);
 		
 		try {
-			qa.validate();
+			qa.validate().parse();
+		} catch (FormValidationException e) {
+			assertTrue(true);
 		} catch (Exception e){
-			fail();
+			fail("Exception: "+e.getMessage());
 		}
 		
 		assertNull("Data object should have null content:", qa.getContent().getData());	
 		assertNull("Data object should have null notes:", qa.getNotes().getData());	
 		
 	}
+	*/
 	
 }

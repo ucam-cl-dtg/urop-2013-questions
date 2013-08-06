@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
+import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.util.DataType;
 
@@ -93,11 +94,11 @@ public abstract class QuestionForm {
 	}
 	
 	public QuestionForm validate() throws FormValidationException {
+		QuestionSet qs = QuestionSetQuery.get(setId);
 		
 		// Note: setId is -1 if question is edited without a set as context.
-		if (setId == null || (setId != -1 && QuestionSetQuery.get(setId) == null)) {
-			return this;
-			//throw new Exception("Question you're trying to edit does not belong to any set");
+		if (setId == null || (setId != -1 && qs == null)) {
+			throw new FormValidationException("This question cannot be edited in this context");
 		}
 		
 		if (contentType == null) {

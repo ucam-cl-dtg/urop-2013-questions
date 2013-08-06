@@ -3,10 +3,13 @@ package uk.ac.cam.sup;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,8 +28,6 @@ import uk.ac.cam.sup.controllers.QuestionViewController;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
-
-import com.googlecode.htmleasy.RedirectException;
 
 @RunWith(JUnit4.class)
 public class QuestionControllerTest {
@@ -86,9 +87,11 @@ public class QuestionControllerTest {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", qset.getId(), 10);
 		
 		try {
-			qec.addQuestion(qa);
-		} catch(RedirectException e) {
-			assertTrue(true);
+			Map<String,?> response = qec.addQuestion(qa);
+			assertTrue((Boolean)response.get("success"));
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail("Exception: "+e.getMessage());
 		}
 	}
 	
@@ -100,12 +103,14 @@ public class QuestionControllerTest {
 	@Test
 	public void testNegativeQuestionSetId() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", -1, 10);
-
+		
 		try {
-			qec.addQuestion(qa);
-		} catch(RedirectException e) {
-			assertTrue(true);
+			Map<String,?> response = qec.addQuestion(qa);
+			assertFalse((Boolean)response.get("success"));
+		} catch(Exception e) {
+			fail("Exception: "+e.getMessage());
 		}
+		
 	}
 	
 	@Test
@@ -113,9 +118,10 @@ public class QuestionControllerTest {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", 999, 10);
 		
 		try {
-			qec.addQuestion(qa);
-		} catch(RedirectException e) {
-			assertTrue(true);
+			Map<String,?> response = qec.addQuestion(qa);
+			assertFalse((Boolean)response.get("success"));
+		} catch(Exception e) {
+			fail("Exception: "+e.getMessage());
 		}
 	}
 	
