@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +17,11 @@ public class Data implements Cloneable {
 	
 	@Enumerated(EnumType.STRING)
 	private DataType type = DataType.PLAIN_TEXT;
+	
+	@Column(length = 1024)
 	private String data = "";
+	
+	@Column(length = 1024)
 	private String description = "";
 	
 	public Data(){}

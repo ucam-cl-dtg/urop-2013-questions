@@ -9,6 +9,7 @@ function handle_file_change {
   echo "Copying $full_path to $final_move_path";
 }
 while read output; do
+  echo $output;
   directory=$(echo $output | cut -d " " -f 1);
   file=$(echo $output | cut -d " " -f 3);
   full_path=$directory$file;

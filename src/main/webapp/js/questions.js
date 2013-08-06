@@ -5,6 +5,8 @@ moduleScripts['questions'] = {
 			configureQuestionStarToggler,
 			configureInPlaceAnchors,
 			configureDataEditor,
+			configureMathJax,
+			configureMarkDown,
 	    ],
 		'set': {
 			'full': [
@@ -17,6 +19,8 @@ moduleScripts['questions'] = {
 			    configureCreateQuestionForm,
 			    configureInPlaceAnchors,
 			    configureDataEditor,
+			    configureMarkDown,
+			    configureMathJax,
 			],
 			'list': [
 			    configureQuestionSetLoader,
