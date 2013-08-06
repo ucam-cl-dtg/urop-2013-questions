@@ -22,17 +22,27 @@ function configureInputField() {
 	$addTagsButton.click(function(){
 		var $newtags = $("<div></div>");
 		
+		if($inputField.val().trim().length < 1){
+			errorNotification("Please do not try to add empty tags.");
+			return false;
+		}
+		
 		$.post("/q/addtags", {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
 			.done(function(data){
-				applyTemplate($newtags, "questions.view.tags", data);
-				$tagList.append($newtags.children());
-				$('li.token-input-token-facebook').remove();
+				if(data.success){
+					applyTemplate($newtags, "questions.view.tags", data);
+					$tagList.append($newtags.children());
+					$('li.token-input-token-facebook').remove();
+					successNotification("Successfully added tags");
+				} else {
+					errorNotification(data.error);
+				}
 			});
 		
 		return false;
 	});
 	
-	$(".delete-tag").click(function(){
+	$(".tags-cloud").on("click", ".delete-tag", function(){
 		$.post("/q/deltag", {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
 		$(this).parent().remove();
 		return false;
@@ -88,7 +98,7 @@ function configureInputField() {
 	});
 	
 	$("#edit-minor").change(function(data) {
-		var $checkBox = $(this);
+		//var $checkBox = $(this);
 		var $setListDiv = $(".main").find("#set-div-to-edit");
 		
 		if(data.target.value){
