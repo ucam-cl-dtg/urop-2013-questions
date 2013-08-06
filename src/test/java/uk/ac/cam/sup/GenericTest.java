@@ -10,6 +10,7 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public abstract class GenericTest {
 	protected static Session session;

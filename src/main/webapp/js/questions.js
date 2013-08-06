@@ -44,4 +44,4 @@ moduleScripts['questions'] = {
 	    ]
 	},
 	
-}
+};

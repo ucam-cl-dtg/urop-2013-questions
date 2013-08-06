@@ -175,7 +175,8 @@ function configureInputField() {
 				console.log(data);
 			}
 		});
-		
+		$elem.attr("data-needsupdate", "true");
+		updateEditTab();
 		return false;
 	});
 	

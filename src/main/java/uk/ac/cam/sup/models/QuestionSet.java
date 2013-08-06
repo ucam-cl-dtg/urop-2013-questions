@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -23,12 +22,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.form.QuestionSetEdit;
 
 @Entity
 @Table(name="QuestionSets")
 public class QuestionSet extends Model {
+	private static Logger log = LoggerFactory.getLogger(QuestionSet.class);
+	
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
@@ -55,8 +58,8 @@ public class QuestionSet extends Model {
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@OneToMany
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private Set<QuestionPlacement> questions = new TreeSet<QuestionPlacement>();
+	@Cascade(CascadeType.ALL)
+	private Set<QuestionPlacement> questions = new HashSet<QuestionPlacement>();
 	
 	@SuppressWarnings("unused")
 	private QuestionSet() {}
@@ -96,7 +99,9 @@ public class QuestionSet extends Model {
 	public List<Question> getQuestions(){
 		List<Question> result = new ArrayList<Question>();
 		while (result.size() < questions.size()) { result.add(null); }
+		log.debug("Trying to get questions of set " + id + " which has " + questions.size() + " questions...");
 		for(QuestionPlacement q: questions) {
+			log.debug("    -> trying to set question in place " + (q.getPlace()-1) + "...");
 			result.set(q.getPlace()-1, q.getQuestion());
 		}
 		return result;
@@ -123,7 +128,11 @@ public class QuestionSet extends Model {
 	}
 	
 	public synchronized void addQuestion(Question question) {
-		if (getQuestions().contains(question)) { return; }
+		if (getQuestions().contains(question)) { 
+			log.debug("Question " + question.getId() + " is already in set " + id + ". Doing nothing.");
+			return; 
+		}
+		log.debug("Adding question " + question.getId() + " to set " + id);
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
 		questions.add(qp);

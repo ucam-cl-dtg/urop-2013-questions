@@ -1,25 +1,54 @@
 package uk.ac.cam.sup.controllers;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.DataType;
+import uk.ac.cam.sup.util.HibernateUtil;
+
+import com.google.common.collect.ImmutableMap;
 
 @Path("/dev")
 public class DevelopmentController extends GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(DevelopmentController.class);
+	
+	@GET
+	@Path("/commit")
+	@Produces("application/json")
+	public Map<String,String> commitDB(){
+		try{
+			HibernateUtil.commit();
+			return ImmutableMap.of("status", "commited.");
+		} catch(Exception e) {
+			return ImmutableMap.of("status", "error. Message: " + e.getMessage());
+		}
+		
+	}
+	
+	@GET
+	@Path("/rconf")
+	@Produces("application/json")
+	public Map<String,String> reconfigerDB(){
+		try{
+			HibernateUtil.reconfigure();
+			return ImmutableMap.of("status", "reconfigured");
+		} catch(Exception e) {
+			return ImmutableMap.of("status", "error. Message: " + e.getMessage());
+		}
+	}
 	
 	@GET
 	@Path("/addquestionstosets")

@@ -2,7 +2,6 @@ package uk.ac.cam.sup.util;
 
 import java.util.List;
 
-import uk.ac.cam.sup.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
