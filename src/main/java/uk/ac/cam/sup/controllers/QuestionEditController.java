@@ -158,7 +158,7 @@ public class QuestionEditController extends GeneralController{
 				log.debug("Trying to update question in data base...");
 				question.update();
 				
-				return ImmutableMap.of("success", true, "tags", result);
+				return ImmutableMap.of("success", true, "tags", result, "amount", result.size());
 			}
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());

@@ -30,10 +30,14 @@ function configureInputField() {
 		$.post("/q/addtags", {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
 			.done(function(data){
 				if(data.success){
-					applyTemplate($newtags, "questions.view.tags", data);
-					$tagList.append($newtags.children());
+					if(data.amount > 0){
+						applyTemplate($newtags, "questions.view.tags", data);
+						$tagList.append($newtags.children());
+						successNotification("Successfully added " + data.amount + " tag(s)");
+					} else {
+						showNotification("No tags were added. This questions was probably already associated with these tags.");
+					}
 					$('li.token-input-token-facebook').remove();
-					successNotification("Successfully added tags");
 				} else {
 					errorNotification(data.error);
 				}
