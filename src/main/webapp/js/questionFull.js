@@ -1,6 +1,6 @@
 function configureInputField() {
 	var $inputField = $("#tags-input");
-	$inputField.tokenInput("/q/tagsnotin", {
+	$inputField.tokenInput(prepareURL("q/tagsnotin"), {
 		method: "post",
         queryParam: $inputField.attr("data-qid"),
         tokenValue: "name",
@@ -27,7 +27,7 @@ function configureInputField() {
 			return false;
 		}
 		
-		$.post("/q/addtags", {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
+		$.post(prepareURL("q/addtags"), {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
 			.done(function(data){
 				if(data.success){
 					if(data.amount > 0){
@@ -47,7 +47,7 @@ function configureInputField() {
 	});
 	
 	$(".tags-cloud").on("click", ".delete-tag", function(){
-		$.post("/q/deltag", {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
+		$.post(prepareURL("q/deltag"), {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
 		$(this).parent().remove();
 		return false;
 	});
@@ -79,7 +79,7 @@ function configureInputField() {
 		$this.removeClass("unused");
 		$this.addClass("success");
 		$("#edit-section").attr("data-needsupdate", "true");
-		$.post("/sets/fork", {
+		$.post(prepareURL("sets/fork"), {
 			"targetSetId": $this.attr("data-sid"), 
 			"questions": $inputField.attr("data-qid")
 		}).done(function(json){
@@ -92,7 +92,7 @@ function configureInputField() {
 		$this.removeClass("success");
 		$this.addClass("unused");
 		$("#edit-section").attr("data-needsupdate", "true");
-		$.post("/sets/remove", {
+		$.post(prepareURL("sets/remove"), {
 			"sid": $this.attr("data-sid"),
 			"qid": $inputField.attr("data-qid")
 		}).done(function(json){
@@ -283,7 +283,7 @@ function configureQuestionStarToggler() {
 	$('.star-question-button').on('click', function() {
 		var $star = $(this);
 		var data = {id: $star.attr('data-question-id')};
-		$.post('/q/togglestar', data, function(data) {
+		$.post(prepareURL('q/togglestar'), data, function(data) {
 			if (data.success) {
 				if (data.starred) {
 					$star.find('i')

@@ -1,9 +1,9 @@
 function searchSetup() {
-	$(".add-question-to-set").click(function() {
+	$(document).on('click', '.add-question-to-set', function() {
 		$(this).parents('.list-panel').toggleClass('success');
 	});
 	
-	$('#add-questions-to-set-button').click(function(e) {
+	$(document).on('click', '#add-questions-to-set-button', function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -16,7 +16,7 @@ function searchSetup() {
 		$('input[name=questions]').attr('value', selected);
 		
 		var data = $(this).parents('form').serialize();
-		$.post('/sets/fork', data, function(data) {
+		$.post(prepareURL('sets/fork'), data, function(data) {
 			if (data.success) {
 				successNotification("Questions added successfully to a set");
 			} else {
@@ -29,7 +29,7 @@ function searchSetup() {
 	});
 	
 	var $searchField = $("#txtSearch");
-	$searchField.tokenInput("/q/search/autocomplete", {
+	$searchField.tokenInput(prepareURL("q/search/autocomplete"), {
 		method: "post",
         queryParam: "st",
         tokenValue: "value",
@@ -61,7 +61,7 @@ function getTokenFormatter(item){
 	var $inputField = $criteria.find(".search-item-input-field");
 	
 	if($inputField.length > 0){	
-		$inputField.tokenInput("/q/search/autocomplete", {
+		$inputField.tokenInput(prepareURL("q/search/autocomplete"), {
 			method: "post",
 			queryParam: $inputField.parents(".token-input-criteria-token-facebook").attr("data-type"),
 			tokenValue: "value",

@@ -192,5 +192,7 @@ public class QuestionSetViewController extends GeneralController {
 	 */
 	@GET
 	@Path("/add")
-	public void dummy1(){}
+	public Map<String,String> dummy1(){
+		return ImmutableMap.of();
+	}
 }

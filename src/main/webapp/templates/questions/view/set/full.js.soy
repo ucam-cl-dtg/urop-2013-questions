@@ -23,7 +23,7 @@
 			<div class="section-container tabs" data-section="tabs">
 				{if $plan}
 				<section id="set-plan-tab" {if $target=='plan'}class="active"{/if}">
-					<p class="title" data-section-title><a href="#sets/{$id}/plan" class="in-place-anchor">Plan</a></p>
+					<p class="title" data-section-title><a href="sets/{$id}/plan" data-bypass class="in-place-anchor">Plan</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.plan.full data="all" /}
 					</div>
@@ -31,7 +31,7 @@
 				{/if}
 
 				<section id="set-questions-tab" {if $target=='questions'}class="active"{/if}>
-					<p class="title" data-section-title><a href="#sets/{$id}/questions" class="in-place-anchor">Questions</a></p>
+					<p class="title" data-section-title><a href="sets/{$id}/questions" data-bypass class="in-place-anchor">Questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.questions.full data="all" /}
 					</div>
@@ -39,7 +39,7 @@
 				
 				
 				<section id="set-use-tab" {if $target=='export'}class="active"{/if}>
-					<p class="title" data-section-title><a href="#sets/{$id}/export" class="in-place-anchor">Export</a></p>
+					<p class="title" data-section-title><a href="sets/{$id}/export" data-bypass class="in-place-anchor">Export</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.use.full data="all" /}
 					</div>
@@ -47,14 +47,14 @@
 				
 				{if $editable}
 				<section id="set-edit-tab" {if $target=='edit'}class="active"{/if}>
-					<p class="title" data-section-title><a href="#sets/{$id}/edit" class="in-place-anchor">Edit</a></p>
+					<p class="title" data-section-title><a href="sets/{$id}/edit" data-bypass class="in-place-anchor">Edit</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.edit.full data="all" /}
 					</div>
 				</section>
 
 				<section id="set-createquestion-tab" {if $target=='add'}class="active"{/if}>
-					<p class="title" data-section-title><a href="#sets/{$id}/add" class="in-place-anchor">Add questions</a></p>
+					<p class="title" data-section-title><a href="sets/{$id}/add" data-bypass class="in-place-anchor">Add questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.createquestion.full data="all" /}
 					</div>

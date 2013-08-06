@@ -94,7 +94,7 @@ function configureUseTabSubmitButton() {
 		$("input[name=questions]").attr("value", selected);
 		var data = $(this).parents("form").serialize();
 		console.log(data);
-		$.post("/sets/fork", data, function(data) {
+		$.post(prepareURL("sets/fork"), data, function(data) {
 			if (data.success) {
 				$(".success").removeClass("success");
 				console.log(data);
@@ -117,7 +117,7 @@ function configureSetStarToggler() {
 		if (editable) {
 			var $star = $(this);
 			var data = {id: $star.attr('data-set-id')};
-			$.post('/sets/togglestar', data, function(data) {
+			$.post(prepareURL('sets/togglestar'), data, function(data) {
 				if (data.success) {
 					if (data.starred) {
 						$star.find('i')

@@ -6,6 +6,11 @@ a function that returns the template name. The function will receive the json re
 by the request as the first parameter.
 */
 
+var BASE_PATH="/api/";
+var ROUTER_OPTIONS= {
+     pushState: true
+}
+
 $(document).ready(function() {
 	router = Router({
         /* "test(/:id)": "main.test",
