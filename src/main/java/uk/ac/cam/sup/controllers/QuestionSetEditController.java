@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
@@ -18,8 +19,10 @@ import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
+import uk.ac.cam.sup.form.QuestionSetTagForm;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
+import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -147,5 +150,47 @@ public class QuestionSetEditController extends GeneralController {
 		}
 		
 		return ImmutableMap.of("success", true, "setid", id, "starred", qs.isStarred());
+	}
+	
+	@POST
+	@Path("/addtags")
+	@Produces("application/json")
+	public Map<String,?> addTags(@Form QuestionSetTagForm form) {
+		try {
+			form.validate();
+			QuestionSet qs = QuestionSetQuery.get(form.getSetId());
+			List<Tag> tags = form.getTagsList();
+			
+			for (Tag t: tags) {
+				t.saveOrUpdate();
+				qs.addTag(t);	
+			}
+			qs.update();
+			
+			return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+	}
+	
+	@POST
+	@Path("/removetags")
+	@Produces("application/json")
+	public Map<String,?> removeTags(@Form QuestionSetTagForm form) {
+		try {
+			form.validate();
+			QuestionSet qs = QuestionSetQuery.get(form.getSetId());
+			List<Tag> tags = form.getTagsList();
+			
+			for (Tag t: tags) {
+				//t.saveOrUpdate();
+				qs.removeTag(t);	
+			}
+			qs.update();
+			
+			return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
 	}
 }

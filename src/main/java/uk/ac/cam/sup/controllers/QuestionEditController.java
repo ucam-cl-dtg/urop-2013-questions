@@ -22,7 +22,7 @@ import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
-import uk.ac.cam.sup.form.TagAdd;
+import uk.ac.cam.sup.form.QuestionTagAdd;
 import uk.ac.cam.sup.form.TagDel;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
@@ -130,7 +130,7 @@ public class QuestionEditController extends GeneralController{
 	@POST
 	@Path("/addtags")
 	@Produces("application/json")
-	public Map<String,?> addTags(@Form TagAdd addForm) {
+	public Map<String,?> addTags(@Form QuestionTagAdd addForm) {
 		// returns the tags added
 		
 		try {
