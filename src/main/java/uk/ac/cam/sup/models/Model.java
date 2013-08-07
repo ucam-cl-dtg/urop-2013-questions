@@ -13,7 +13,9 @@ public class Model {
 	public final void save() {
 		Session session = HibernateUtil.getTransactionSession();
 		try {
+			log.debug("Trying to SAVE model " + this.getClass().toString());
 			session.save(this);
+			log.debug("     Success on model save!");
 		} catch (GenericJDBCException e) {
 			session.getTransaction().commit();
 			log.warn("Exception on model save: "+e.getMessage());

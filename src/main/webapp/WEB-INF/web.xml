@@ -29,7 +29,7 @@
 
 	<filter>
 		<filter-name>Hibernate</filter-name>
-		<filter-class>uk.ac.cam.sup.HibernateSessionRequestFilter</filter-class>
+		<filter-class>uk.ac.cam.sup.util.HibernateSessionRequestFilter</filter-class>
 	</filter>
 
 	<filter>

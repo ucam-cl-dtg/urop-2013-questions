@@ -37,7 +37,7 @@ public class HibernateSessionRequestFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		//sf.getCurrentSession().beginTransaction();
 		chain.doFilter(request, response);
-		
+		log.debug("Finalizing session");
 		Transaction transaction = sf.getCurrentSession().getTransaction();
 
         if (transaction.isActive())

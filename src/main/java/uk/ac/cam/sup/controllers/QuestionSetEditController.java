@@ -23,7 +23,6 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -88,6 +87,7 @@ public class QuestionSetEditController extends GeneralController {
 	@Produces("application/json")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Map<String,?> saveSet(@MultipartForm QuestionSetAdd form) throws Exception {
+		log.debug("Trying to add new set for user '" + getCurrentUserID() + "..."); 
 		QuestionSet qs;
 		
 		try {
@@ -98,9 +98,11 @@ public class QuestionSetEditController extends GeneralController {
 			qs.setPlan(form.getPlan());
 			qs.save();
 		} catch (Exception e) {
+			log.debug("Failed to add set for user " + getCurrentUserID() + "!");
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
+		log.debug("Successfully added set " + form.getName() + " for user " + getCurrentUserID());
 		return ImmutableMap.of("success", true, "set", qs);
 	}
 	

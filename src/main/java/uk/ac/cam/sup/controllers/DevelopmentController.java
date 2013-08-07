@@ -5,16 +5,19 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.UserQuery;
 import uk.ac.cam.sup.util.DataType;
 import uk.ac.cam.sup.util.HibernateUtil;
 
@@ -95,4 +98,19 @@ public class DevelopmentController extends GeneralController {
 		
 		log.debug("(Hopefully) successfully managed to add stuff to database...");
 	}
+	
+	/*@GET
+	@Path("/{uid}/toggle_sup")
+	@Produces("application/json")
+	public Map<String,String> toggleSup(@PathParam("uid") String uid){
+		boolean newUser = false;
+		
+		try {
+			UserQuery.get(uid);
+		} catch (ModelNotFoundException e) {
+			newUser = true;
+			User u = new User(uid);
+		}
+		
+	}*/
 }
