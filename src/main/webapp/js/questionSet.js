@@ -6,13 +6,7 @@ function reloadView (set) {
 	applyTemplate($("#set-edit-tab").children(".content"), "questions.view.set.tab.edit.full", set);
 	applyTemplate($("#set-createquestion-tab").children(".content"), "questions.view.set.tab.createquestion.full", set);
 	applyTemplate($(".question-set-name"), "questions.view.set.name", set);
-	
-	var elements = $('.latex-content').get();
-	if (elements.length > 0) {
-		MathJax.Hub.Typeset($('.latex-content').get());
-	}
-	
-	configureMarkDown();
+	reloadData();
 }
 
 function configureRemoveQuestionButton () {
