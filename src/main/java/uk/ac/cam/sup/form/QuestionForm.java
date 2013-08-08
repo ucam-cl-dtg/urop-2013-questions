@@ -94,10 +94,15 @@ public abstract class QuestionForm {
 	}
 	
 	public QuestionForm validate() throws FormValidationException {
+		
+		if (setId == null) {
+			throw new FormValidationException("This question cannot be edited in this context (setId == null)");
+		}
+		
 		QuestionSet qs = QuestionSetQuery.get(setId);
 		
 		// Note: setId is -1 if question is edited without a set as context.
-		if (setId == null || (setId != -1 && qs == null)) {
+		if (setId != -1 && qs == null) {
 			throw new FormValidationException("This question cannot be edited in this context");
 		}
 		
