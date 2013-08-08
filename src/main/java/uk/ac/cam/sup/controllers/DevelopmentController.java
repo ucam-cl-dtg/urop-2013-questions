@@ -99,18 +99,27 @@ public class DevelopmentController extends GeneralController {
 		log.debug("(Hopefully) successfully managed to add stuff to database...");
 	}
 	
-	/*@GET
+	@GET
 	@Path("/{uid}/toggle_sup")
 	@Produces("application/json")
-	public Map<String,String> toggleSup(@PathParam("uid") String uid){
+	public Map<String,?> toggleSup(@PathParam("uid") String uid){
 		boolean newUser = false;
+		User u;
 		
 		try {
-			UserQuery.get(uid);
+			u = UserQuery.get(uid);
+			if(u.getSupervisor()){
+				u.setSupervisor(false);
+			} else {
+				u.setSupervisor(true);
+			}
 		} catch (ModelNotFoundException e) {
 			newUser = true;
-			User u = new User(uid);
+			u = new User(uid);
+			u.save();
 		}
 		
-	}*/
+		return ImmutableMap.of("newUser", newUser, "UserID", uid, "isSupervisor", u.getSupervisor());
+		
+	}
 }

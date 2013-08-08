@@ -12,12 +12,14 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.UserQuery;
 
 public class QuestionSetQueryTest extends GenericTest {
 	
@@ -285,5 +287,11 @@ public class QuestionSetQueryTest extends GenericTest {
 				fail(((QuestionSet)o).getName() + " was omitted");
 			}
 		}
+	}
+	
+	@Test
+	public void countingRowsWorks() throws ModelNotFoundException{
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get("jcb98"));
+		assertTrue(qsq.size() > 0);
 	}
 }

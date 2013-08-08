@@ -197,5 +197,15 @@ public class QuestionQuery {
 		criteria.add(Restrictions.le("expectedDuration", minutes));
 		return this;
 	}
+	
+	public QuestionQuery maxResults(int max){
+		criteria.setMaxResults(max);
+		return this;
+	}
+	
+	public QuestionQuery offset(int offset){
+		criteria.setFirstResult(offset);
+		return this;
+	}
 
 }

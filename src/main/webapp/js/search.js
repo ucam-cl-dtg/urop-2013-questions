@@ -124,10 +124,10 @@ function search(){
 		
 	});
 	
-	var permalink = window.location.hash;
-	if(permalink.indexOf("?") > 0) {
+	var permalink = window.location.pathname;
+	/*if(permalink.indexOf("?") > 0) {
 		permalink = permalink.substring(0, window.location.hash.indexOf("?"));
-	}
+	}*/
 	
 	if(searchTerms == "?"){
 		$qlist.append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));
@@ -137,7 +137,7 @@ function search(){
 	permalink = permalink + searchTerms; 
 	router.navigate(permalink);
 	
-	loadModule($(newList), "q/search" + searchTerms, function(json){
+	loadModule($(newList), permalink, function(json){
 		if(!json.success){
 			errorNotification(json.error);
 		}
@@ -149,9 +149,11 @@ function search(){
 }
 
 function populateSearchField($searchForm){
-	var argStr = window.location.hash;
-	argStr = argStr.substring(argStr.indexOf("?") + 1, argStr.length + 1);
+	var argStr = window.location.search;
+	
+	argStr = decodeURIComponent(argStr).substring(1, argStr.length + 1);
 	var args = argStr.split("&");
+	
 	var arg;
 	var argName;
 	var touched = false;

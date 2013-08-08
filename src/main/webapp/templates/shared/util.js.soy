@@ -1,0 +1,46 @@
+{namespace shared.util}
+
+/**
+ * @param? curPage
+ * @param maxPage
+ * @param? defaultDispNum
+ * @param? className
+ */
+{template .pageNumbers}
+	{if not $curPage or $curPage > $maxPage or $curPage < 1}
+		{let $curPage: 1 /}
+	{/if}
+	{if not $defaultDispNum or ($defaultDispNum != 10 and $defaultDispNum != 25 and $defaultDispNum != 50
+		and $defaultDispNum != 100 and $defaultDispNum != 250 and $defaultDispNum != 500
+	)}
+		{let $defaultDispNum: 10 /}
+	{/if}
+<div class="clearfix">	
+	<div class="page-number-list"> 
+		{if $curPage >= 5}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="1">&lt;&lt;</a>{/if}
+		{if $curPage >= 2}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPage - 1}">&lt;</a>{/if}
+		{for $i in range($curPage-3, $curPage)}
+			{if $i > 0}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$i}">{$i}</a>{/if}
+		{/for}
+		<strong class="page-number {if $className}{$className}{/if} current" data-p="{$curPage}">{$curPage}</strong>
+		{for $i in range($curPage+1, $curPage+4)}
+			{if $i <= $maxPage}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$i}">{$i}</a>{/if}
+		{/for}
+		{if $curPage < $maxPage}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPage + 1}">&gt;</a>{/if}
+		{if $curPage <= $maxPage-4}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$maxPage}">&gt;&gt;</a>{/if}
+		&#32; Results per page:
+	</div>
+	
+		
+		<select class="results-per-page-select">
+			<option {if $defaultDispNum==10}selected="selected"{/if} value="10">10</option>
+			<option {if $defaultDispNum==25}selected="selected"{/if} value="25">25</option>
+			<option {if $defaultDispNum==50}selected="selected"{/if}value="50">50</option>
+			<option {if $defaultDispNum==100}selected="selected"{/if}value="100">100</option>
+			<option {if $defaultDispNum==250}selected="selected"{/if}value="250">250</option>
+			<option {if $defaultDispNum==500}selected="selected"{/if}value="500">500</option>
+		</select>
+	
+</div>
+	
+{/template}

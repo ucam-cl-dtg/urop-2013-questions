@@ -2,6 +2,7 @@
 
 /**
  * @param question
+ * @param maxSetPage
  * @param? target
  */
 {template .questionFull}
@@ -45,11 +46,11 @@
 				<div class="content" data-section-content>
 					<div class="tag-search-panel row">
 						<div class="columns large-12 small-12 clearfix">
-							<div style="float:right; width:140px;">
+							<div class="button-container-tags-tab">
 								<a class="medium success button full-width" href="#" id="add-tags">Add</a>
 							</div>
-							<div style="margin-right:152px;">
-								<input type="text" id="tags-input" data-qid="{$question.id}" style="width:100%" />
+							<div class="text-field-container-tags-tab">
+								<input type="text" id="tags-input" data-qid="{$question.id}" />
 							</div>
 						</div>
 					</div>
@@ -91,8 +92,16 @@
 				<p class="title" data-section-title><a data-bypass href="/q/{$question.id}/export" class="in-place-anchor">Export</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
-						<div class="columns large-2 small-2 large-offset-10 small-offset-10">
-							<a href="#" class="success button">Save</a>
+						<div class="columns large-6 small-6 page-number-selector">
+							{call shared.util.pageNumbers}
+								{param curPage: 1 /}
+								{param maxPage: $maxSetPage /}
+								{param defaultDispNum: 10 /}
+								{param className: 'set-page' /}
+							{/call}
+						</div>
+						<div class="columns large-6 small-6 clearfix">
+							<a href="#" class="success button" style="float:right">Save</a>
 						</div>
 					</div>
 					<div class="row">

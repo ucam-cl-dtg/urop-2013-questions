@@ -22,6 +22,7 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.queries.UserQuery;
 import uk.ac.cam.sup.util.SearchTerm;
@@ -252,9 +253,16 @@ public class QuestionViewController extends GeneralController {
 	public Map<String,?> produceSingleQuestion(
 			@PathParam("id") int id
 	) {
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(getCurrentUser());
+		int size = qsq.size();
+		int pages = size / 10;
+		if(size % 10 >= 1) pages++; 
+		
 		return ImmutableMap.of(
 				"success", true,
-				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor())
+				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor()),
+				"userSets", qsq.maxResults(10).list(),
+				"maxSetPage", pages 
 		);
 	}
 	
@@ -272,9 +280,15 @@ public class QuestionViewController extends GeneralController {
 			@PathParam("id") int id,
 			@PathParam("target") String target
 	) {
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(getCurrentUser());
+		int size = qsq.size();
+		int pages = size / 10;
+		if(size % 10 >= 1) pages++; 
 		return ImmutableMap.of(
 				"success", true,
 				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor()),
+				"userSets", qsq.maxResults(10).list(),
+				"maxSetPage", pages,
 				"target", target
 		);
 	}

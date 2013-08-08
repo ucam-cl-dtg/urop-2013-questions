@@ -64,11 +64,11 @@ function configureInputField() {
 	});
 	loadMoreForks(5, $("#show-more-forks"));
 	
-	$("#show-more-sets").click(function(){
+	/*$("#show-more-sets").click(function(){
 		loadMoreSets(10, $(this));
 		return false;
-	});
-	loadMoreSets(10, $("#show-more-sets"));
+	});*/
+	//loadMoreSets(10, $("#show-more-sets"));
 	
 	$("#sets-list").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
@@ -165,7 +165,8 @@ function configureInputField() {
 			},
 			success: function(data) {
 				if (data.success) {
-					successNotification("Successfully edited question");
+					successNotification("Successfully edited question " + data.question.id);
+					
 				} else {
 					errorNotification(data.error);
 				}
@@ -246,7 +247,10 @@ function loadMoreForks(amount, $button){
 			});
 }
 
+
+/* 
 function loadMoreSets(amount, $button) {
+	
 	if($button.hasClass("disabled")) {
 		return false;
 	}
@@ -269,7 +273,7 @@ function loadMoreSets(amount, $button) {
 				$setsList.append($newSets.find(".panels").children());
 				$button.removeClass("disabled");
 			});
-}
+}*/
 
 function toggleComplete(type, successful, $element){
 	if(!successful){

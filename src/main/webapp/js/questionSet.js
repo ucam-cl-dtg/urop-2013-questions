@@ -211,7 +211,7 @@ function configureInPlaceAnchors() {
 }
 
 function configureSetCreator() {
-	$(document).on('click', '#create-set-button', function(e) {
+	$('#create-set-button').click(function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({

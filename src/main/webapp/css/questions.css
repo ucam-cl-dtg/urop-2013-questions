@@ -1,0 +1,31 @@
+div.page-number-list {
+	float:left;
+	padding: 4px 10px 0px 0px;
+}
+
+.page-number {
+	padding: 2px 5px;
+	margin: 0xp 5px 0px 0px;
+}
+
+strong.page-number{
+	background-color: #E6E6E6;
+}
+
+.results-per-page-select{
+	float: left; 
+	width: 70px;
+}
+
+div.button-container-tags-tab{
+	float: right; 
+	width: 100px;
+}
+
+div.text-field-container-tags-tab{
+	margin-right: 112px;
+}
+
+input#tags-input{
+	width: 100%
+}
