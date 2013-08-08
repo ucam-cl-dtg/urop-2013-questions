@@ -46,13 +46,26 @@ function searchSetup() {
         }
 	});
 	
+	$(".page-numbers").on("click", "a.page-number", function(){
+		var p = $(this).attr("data-p");
+		var spp = $(this).parent().siblings(".results-per-page-select").val();
+		loadPageNumbers(Number(p), Number(spp));
+		loadPage(Number(p), Number(spp));
+		return false;
+	});
+	$(".page-numbers").on("change", ".results-per-page-select", function(){
+		var spp = $(this).val();
+		loadPageNumbers(1, Number(spp));
+		loadPage(1, Number(spp));
+	});
+	
 	populateSearchField($("#questions-searchform"));
 	
 	$("#questions-searchform").on("submit", function(){
 		search();
 		return false;
 	});
-	search();
+	search();	
 }
 
 function getTokenFormatter(item){
@@ -94,7 +107,7 @@ function search(){
 	var $tokensList = $(".token-input-list");
 	
 	var val; var tmp;
-	
+	// TODO: load page numbers and page in separate methods. (create those)
 	$tokensList.children(".token-input-token").each(function(){
 		tmp = $(this).attr("data-type") + "=";
 		val = null;
@@ -125,9 +138,6 @@ function search(){
 	});
 	
 	var permalink = window.location.pathname;
-	/*if(permalink.indexOf("?") > 0) {
-		permalink = permalink.substring(0, window.location.hash.indexOf("?"));
-	}*/
 	
 	if(searchTerms == "?"){
 		$qlist.append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));

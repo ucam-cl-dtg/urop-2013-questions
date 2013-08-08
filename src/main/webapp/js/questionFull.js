@@ -64,22 +64,17 @@ function configureInputField() {
 	});
 	loadMoreForks(5, $("#show-more-forks"));
 	
-	/*$("#show-more-sets").click(function(){
-		loadMoreSets(10, $(this));
-		return false;
-	});*/
-	//loadMoreSets(10, $("#show-more-sets"));
 	loadSetTabPageNumbers(1, 10);
 	loadSetTabPage(1, 10);
-	$("#page-numbers-export").on("click", "a.page-number", function(){
+	$(".page-numbers-export").on("click", "a.page-number", function(){
 		var p = $(this).attr("data-p");
-		var spp = $("#page-numbers-export").find(".results-per-page-select").val();
+		var spp = $(this).parent().siblings(".results-per-page-select").val();
 		loadSetTabPageNumbers(Number(p), Number(spp));
 		loadSetTabPage(Number(p), Number(spp));
 		return false;
 	});
-	$("#page-numbers-export").on("change", ".results-per-page-select", function(){
-		var spp = $("#page-numbers-export").find(".results-per-page-select").val();
+	$(".page-numbers-export").on("change", ".results-per-page-select", function(){
+		var spp = $(this).val();
 		loadSetTabPageNumbers(1, Number(spp));
 		loadSetTabPage(1, Number(spp));
 	});
@@ -256,35 +251,8 @@ function loadMoreForks(amount, $button){
 }
 
 
-/* 
-function loadMoreSets(amount, $button) {
-	
-	if($button.hasClass("disabled")) {
-		return false;
-	}
-	$button.addClass("disabled");
-	
-	var $setsList = $(".main").find("#sets-list");
-	var $newSets = $("<div></div>");
-	
-	loadModule($newSets,
-			"sets/mysets/limited?disp=" + $setsList.attr("data-disp") + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
-			function(json) {
-				if(json.exhausted) {
-					$button.parent().append($("<p align='center'><i>--- End of set list ---</i></p>"));
-					$button.remove();
-				}
-				$setsList.attr("data-disp", json.disp);
-				return "shared.set.multipleHighlight";
-			},
-			function() {
-				$setsList.append($newSets.find(".panels").children());
-				$button.removeClass("disabled");
-			});
-}*/
-
 function loadSetTabPageNumbers(curPage, setsPerPage){
-	var $pageNums = $("#page-numbers-export");
+	var $pageNums = $(".page-numbers-export");
 	var maxPage;
 	
 	curPage = Number(curPage);
@@ -294,10 +262,6 @@ function loadSetTabPageNumbers(curPage, setsPerPage){
 		if(json.amount % setsPerPage > 1){maxPage = Number(maxPage) + Number(1);}
 		
 		var data = {curPage: Number(curPage), maxPage: Number(maxPage), resultsPerPage: Number(setsPerPage), className: "set-page"};
-		
-		if($pageNums.children().length > 0){
-			data.resultsPerPage = Number($pageNums.find(".results-per-page-select").val());
-		}
 		
 		$pageNums.empty();
 		var $newPageNums = $("<div></div>");
