@@ -227,3 +227,24 @@ function configureSetCreator() {
 		});
 	});
 }
+
+function configureTags() {
+	$(document).on('click', '.delete-tag', function() {
+		var data = {
+				tags: $(this).attr('data-name'),
+				setid: $(this).parents('.tags').attr('data-setid')
+		};
+		$.post(prepareURL('sets/removetags'), data, function(data) {
+			if (data.success) {
+				//console.log(data.set.tags);
+				applyTemplate($('.tags'), 'questions.view.set.tab.tags.list', {tags: data.set.tags});
+				successNotification('Successfully removed tag(s)');
+			} else {
+				errorNotification(data.error);
+			}
+		}).fail( function(data) {
+			errorNotification('Something went wrong');
+			console.log(data);
+		});
+	});
+}
