@@ -12,6 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -252,10 +254,14 @@ public class QuestionViewController extends GeneralController {
 	public Map<String,?> produceSingleQuestion(
 			@PathParam("id") int id
 	) {
+		Question q = QuestionQuery.get(id);
+		if (q == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 		
 		return ImmutableMap.of(
 				"success", true,
-				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor())
+				"question", q.toMap(!isCurrentUserSupervisor())
 		);
 	}
 	
@@ -273,10 +279,14 @@ public class QuestionViewController extends GeneralController {
 			@PathParam("id") int id,
 			@PathParam("target") String target
 	) {
+		Question q = QuestionQuery.get(id);
+		if (q == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 		
 		return ImmutableMap.of(
 				"success", true,
-				"question", QuestionQuery.get(id).toMap(!isCurrentUserSupervisor()),
+				"question", q.toMap(!isCurrentUserSupervisor()),
 				"target", target
 		);
 	}
@@ -340,6 +350,9 @@ public class QuestionViewController extends GeneralController {
 		boolean exhausted = false;
 		List<Map<String,?>> historyList = new ArrayList<Map<String,?>>();
 		Question curChild = QuestionQuery.get(qid);
+		if (curChild == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 		Question curParent = null;
 		
 		for(; depth > 0; depth--) {
@@ -427,6 +440,9 @@ public class QuestionViewController extends GeneralController {
 			@PathParam("setid") int setId
 	) {
 		Question q = QuestionQuery.get(id);
+		if (q == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 
 		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("id", q.getId());

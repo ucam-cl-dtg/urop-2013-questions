@@ -11,7 +11,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.Form;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
@@ -61,6 +63,9 @@ public class QuestionEditController extends GeneralController{
 			log.debug("Trying to update question " + qe.getId() + " in set " + qe.getSetId() + ".");
 			
 			q = QuestionQuery.get(qe.getId());
+			if (q == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			qs = QuestionSetQuery.get(qe.getSetId());
 			if (qs != null) {
 				if (!qs.getOwner().getId().equals(getCurrentUserID())) {
@@ -75,6 +80,8 @@ public class QuestionEditController extends GeneralController{
 			}else{
 				return ImmutableMap.of("success", true, "question", q, "set", qs);
 			}
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (FormValidationException e) {
 			log.debug("There was a FormValidationException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
@@ -104,6 +111,9 @@ public class QuestionEditController extends GeneralController{
 		try {
 			qa.validate().parse();
 			qs = QuestionSetQuery.get(qa.getSetId());
+			if (qs == null) {
+				throw new Exception("Set does not exist");
+			}
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");
 			}
@@ -144,6 +154,9 @@ public class QuestionEditController extends GeneralController{
 			if (newTagsArray != null && newTagsArray.length > 0) {
 				
 				Question question = QuestionQuery.get(qid);
+				if (question == null) {
+					throw new WebApplicationException(Response.Status.NOT_FOUND);
+				}
 				List<Tag> result = new ArrayList<Tag>();
 				Set<Tag> existingTags = question.getTags();
 				Tag tmp;
@@ -164,6 +177,8 @@ public class QuestionEditController extends GeneralController{
 				
 				return ImmutableMap.of("success", true, "tags", result, "amount", result.size());
 			}
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
@@ -181,9 +196,14 @@ public class QuestionEditController extends GeneralController{
 		try{
 			log.debug("Deleting tag '" + tag + "' from question " + qid);
 			Question question = QuestionQuery.get(qid);
+			if (question == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			question.removeTagByString(tag);
 			question.update();
 			return ImmutableMap.of("success", true, "question", question);
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch(Exception e){
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
@@ -197,11 +217,16 @@ public class QuestionEditController extends GeneralController{
 		Question q;
 		try{
 			q = QuestionQuery.get(id);
+			if (q == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			if (!q.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this question");
 			}
 			q.toggleStarred();
 			q.update();
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch(Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
