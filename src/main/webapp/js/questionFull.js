@@ -27,7 +27,7 @@ function configureInputField() {
 			return false;
 		}
 		
-		$.post(prepareURL("q/addtags"), {"qid": $tagList.attr("data-qid"), "newTags": $inputField.val()})
+		$.post(prepareURL("q/addtags"), {"qid": $tagList.attr("data-qid"), "tags": $inputField.val()})
 			.done(function(data){
 				if(data.success){
 					if(data.amount > 0){

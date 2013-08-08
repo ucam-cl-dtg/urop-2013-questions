@@ -16,10 +16,6 @@ public abstract class GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
-	protected Object getSessionAttribute(String attr){
-		return request.getSession().getAttribute(attr);
-	}
-	
 	/**
 	 * Gets the raven ID of the user currently logged in.
 	 * 
@@ -44,7 +40,9 @@ public abstract class GeneralController {
 	 * @return
 	 */
 	protected User getCurrentUser(){
-		String uID = (String)getSessionAttribute("RavenRemoteUser");
+		// FIXME: Should be able to put APIFilter.USER_ATTR in place of "userId"
+		//        but for some reason it isn't available on the class path.
+		String uID = (String) request.getAttribute("userId");
 		User curUser;
 		try {
 			curUser = UserQuery.get(uID);

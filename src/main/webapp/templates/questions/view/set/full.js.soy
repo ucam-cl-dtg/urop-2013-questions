@@ -7,6 +7,7 @@
  * @param expectedDuration
  * @param questions
  * @param id
+ * @param tags
  * @param starred
  * @param editable
  * @param? target
@@ -37,6 +38,12 @@
 					</div>
 				</section>
 				
+				<section id="set-questions-tab" {if $target=='tags'}class="active"{/if}>
+                    <p class="title" data-section-title><a href="sets/{$id}/tags" data-bypass class="in-place-anchor">Tags</a></p>
+                    <div class="content" data-section-content>
+                        {call questions.view.set.tab.tags.full data="all" /}
+                    </div>
+                </section>
 				
 				<section id="set-use-tab" {if $target=='export'}class="active"{/if}>
 					<p class="title" data-section-title><a href="sets/{$id}/export" data-bypass class="in-place-anchor">Export</a></p>
