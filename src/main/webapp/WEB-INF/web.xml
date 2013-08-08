@@ -55,7 +55,7 @@
 		<param-value>blablabla</param-value>
 	</context-param>
 	
-	<filter>
+	 <filter>
 		<filter-name>apiauth</filter-name>
 		<filter-class>uk.ac.cam.cl.dtg.teaching.APIFilter</filter-class>
 		<init-param>

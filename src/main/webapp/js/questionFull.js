@@ -1,8 +1,8 @@
 function configureInputField() {
 	var $inputField = $("#tags-input");
-	$inputField.tokenInput(prepareURL("q/tagsnotin"), {
+	$inputField.tokenInput(prepareURL("q/tagsnotin/" + $inputField.attr("data-qid")), {
 		method: "post",
-        queryParam: $inputField.attr("data-qid"),
+        queryParam: "q",
         tokenValue: "name",
         propertyToSearch: "name",
         theme: "facebook",

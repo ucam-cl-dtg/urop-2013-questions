@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -83,13 +84,17 @@ public class QuestionViewController extends GeneralController {
 	}
 	
 	@POST
-	@Path("/search/autocomplete")
+	@Path("/search/autocomplete/{paramType}")
 	@Produces("application/json")
-	public List<Map<String,String>> produceAutocompletedSTs(String param){
-		System.out.println("########################## param: " + param);
-		String sterm = param.substring(param.indexOf("=")+1);
+	public List<Map<String, String>> produceAutocompletedSTs(@PathParam("paramType") String paramType, @FormParam("q") String sterm){
 		
-		switch(param.substring(0,param.indexOf("="))){
+		if(paramType == null || sterm == null || paramType == "" || sterm ==""){
+			List<Map<String,String>> tmp = new ArrayList<Map<String,String>>();
+			tmp.add(ImmutableMap.of("value", "No autocomplete available for this input (was null or empty string)"));
+			return tmp;
+		}
+		
+		switch(paramType){
 			case "st": return produceSearchCriteria(sterm);
 			case "tags": return produceTagsWith(sterm);
 			case "owners": return produceUsersWith(sterm);
@@ -291,18 +296,16 @@ public class QuestionViewController extends GeneralController {
 	 * @return
 	 */
 	@POST
-	@Path("/tagsnotin")
+	@Path("/tagsnotin/{qid}")
 	@Produces("application/json")
-	public List<Map<String, String>> getTagsNotInQuestion(String strInput) {
+	public List<Map<String, String>> getTagsNotInQuestion(@FormParam("q") String strInput, @PathParam("qid") Integer qid) {
 		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 		log.debug(strInput);
 		try {
-			int equPos = strInput.indexOf("=");
-			if (equPos < 0) {
+			if (strInput == null || strInput == "" || qid == null) {
 				return results;
 			}
-			int qid = Integer.parseInt(strInput.substring(0, equPos));
-			String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
+			String strTagPart = strInput.replace("+", " ");
 
 			log.debug("Trying to get all tags containing " + strTagPart
 					+ " which are NOT in question " + qid);
@@ -310,7 +313,6 @@ public class QuestionViewController extends GeneralController {
 			List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid).getTags())
 					.contains(strTagPart).list();
 			
-			//results.add(ImmutableMap.of("name", strTagPart));
 			for (Tag tag : tags) {
 				results.add(ImmutableMap.of("name", tag.getName()));
 			}
