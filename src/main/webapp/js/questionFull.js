@@ -84,7 +84,9 @@ function configureInputField() {
 			"questions": $inputField.attr("data-qid")
 		}).done(function(json){
 			toggleComplete("add", json.success, $this);
+			updateEditTab();
 		});
+		
 		return false;
 	});
 	$("#sets-list").on("click", ".list-panel.set-list.success", function(){
@@ -97,7 +99,9 @@ function configureInputField() {
 			"qid": $inputField.attr("data-qid")
 		}).done(function(json){
 			toggleComplete("remove", json.success, $this);
+			updateEditTab();
 		});
+		
 		return false;
 	});
 	
@@ -134,7 +138,8 @@ function configureInputField() {
 		return false;
 	});
 	
-	$("#revisions-submit-form").on("submit", function() {
+	$("#revisions-submit-form").on("submit", function(e) {
+		e.preventDefault();
 		var isMinor = $(this).find("#minor").val();
 		var sets = [];
 		$(".qedit-set-list.success").each(function(){
@@ -166,7 +171,8 @@ function configureInputField() {
 			success: function(data) {
 				if (data.success) {
 					successNotification("Successfully edited question " + data.question.id);
-					
+					updateEditTab();
+					updateContentTab(data);
 				} else {
 					errorNotification(data.error);
 				}
@@ -176,19 +182,7 @@ function configureInputField() {
 				console.log(data);
 			}
 		});
-		$elem.attr("data-needsupdate", "true");
-		updateEditTab();
-		return false;
-	});
-	
-	$("#edit-section").click(function(){
-		updateEditTab();
-	});
-	$("#content-section").click(function(){
-		updateContentTab();
-	});
-	
-	
+	});	
 }
 
 function loadMoreHistory(depth, $button){
@@ -309,27 +303,19 @@ function configureQuestionStarToggler() {
 	});
 }
 
-function updateContentTab(){
-	$elem = $("#content-section");
-	if($elem.attr("data-needsupdate") == "true"){
-		$elem.attr("data-needsupdate", "false");
-		$.get("/q/" + $(".star-question-button").attr("data-question-id"), function(json){
-			applyTemplate($("#question-content-p"), "shared.data.display", {data: json.question.content});
-			applyTemplate($("#question-notes-p"), "shared.data.display", {data: json.question.notes});
-		});
-	}
+function updateContentTab(json){
+	applyTemplate($("#question-content"), "shared.data.display", {data: json.question.content});
+	applyTemplate($("#question-notes"), "shared.data.display", {data: json.question.notes});
+	reloadData();
+	
 }
 function updateEditTab(){
-	$elem = $("#edit-section");
-	if($elem.attr("data-needsupdate") == "true"){
-		$elem.attr("data-needsupdate", "false");
-		$setListDiv = $("#set-div-to-edit");
-		console.log($setListDiv);
-		if($setListDiv.children().hasClass("set-list-to-edit")){
-			$setListDiv.empty();
-			if(!($("#edit-minor").is(":checked"))){
-				populateSetListToEdit($setListDiv);
-			}
+	$setListDiv = $("#set-div-to-edit");
+	
+	if($setListDiv.children().hasClass("set-list-to-edit")){
+		$setListDiv.empty();
+		if(!($("#edit-minor").is(":checked"))){
+			populateSetListToEdit($setListDiv);
 		}
 	}
 }

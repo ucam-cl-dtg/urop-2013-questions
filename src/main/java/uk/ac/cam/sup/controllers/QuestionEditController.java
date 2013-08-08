@@ -81,6 +81,10 @@ public class QuestionEditController extends GeneralController{
 		} catch (InvalidInputException e){
 			log.debug("There was an InvalidInputException: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
+		} catch (NullPointerException e){
+			log.debug("There was a NullPointerException");
+			e.printStackTrace();
+			return ImmutableMap.of("success", false, "error", "NullPointerException");
 		} catch (Exception e){
 			log.debug("There was an exception: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());

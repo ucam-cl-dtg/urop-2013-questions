@@ -41,7 +41,6 @@ moduleScripts['questions'] = {
     'search' : {
     	'main': [
 	        searchSetup,
-	        questionShortSetup,
 	    ]
 	},
 	

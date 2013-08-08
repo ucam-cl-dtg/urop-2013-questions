@@ -26,18 +26,18 @@
 				</p>
 				<div class="content" data-section-content>
 					<h4>Question</h4>
-					<p id="question-content-p">
+					<div id="question-content">
 						{call shared.data.display}
 							{param data: $question.content /}
 						{/call}
-					</p>
+					</div>
 					{if $question.notes}
 						<h4>Notes</h4>
-						<p id="question-notes-p">
+						<div id="question-notes">
 							{call shared.data.display}
 								{param data: $question.notes /}
 							{/call}
-						</p>
+						</div>
 					{/if}
 				</div>
 			</section>
