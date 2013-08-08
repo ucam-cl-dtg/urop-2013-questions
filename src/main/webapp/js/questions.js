@@ -21,7 +21,7 @@ moduleScripts['questions'] = {
 			    configureSetTags,
 			    configureDataEditor,
 			    configureDataRenderer,
-			    reloadMathJax,
+			    
 			],
 			'list': [
 			    configureQuestionSetLoader,

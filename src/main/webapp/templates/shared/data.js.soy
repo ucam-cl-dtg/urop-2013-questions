@@ -24,16 +24,15 @@
  */
 {template .preview}
 	{if $data.type == 'PLAIN_TEXT'}
-		{$data.data}
-	{elseif $data.type == 'MARKDOWN'}
-		{$data.data}
-	{elseif $data.type == 'LATEX'}
-		{$data.data}
-	{elseif $data.type == 'FILE'}
-		{$data.description}
-	{else}
-		<i>--- No content found ---</i>
-	{/if}
+        {$data.data}
+    {elseif $data.type == 'MARKDOWN'}
+        <span class="latex-content markdown-content">{$data.data}</span>
+    {elseif $data.type == 'LATEX'}
+        {$data.data}
+    {elseif $data.type == 'FILE'}
+        <a href="{$data.data}">{$data.description}</a>
+    {else}
+    {/if}
 {/template}
 
 /**
