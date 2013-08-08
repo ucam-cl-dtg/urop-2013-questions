@@ -11,10 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
@@ -23,7 +20,7 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.HibernateUtil;
 
 public class QuestionSetQuery {
-	private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
+	//private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
 	
 	private Criteria criteria;
 	private QuestionSetQuery(Criteria criteria) {
