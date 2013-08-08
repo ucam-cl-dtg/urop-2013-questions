@@ -93,7 +93,7 @@ public class QuestionViewController extends GeneralController {
 			tmp.add(ImmutableMap.of("value", "No autocomplete available for this input (was null or empty string)"));
 			return tmp;
 		}
-		
+		sterm = sterm.replace("+", " ");
 		switch(paramType){
 			case "st": return produceSearchCriteria(sterm);
 			case "tags": return produceTagsWith(sterm);
