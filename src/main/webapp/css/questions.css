@@ -8,24 +8,28 @@ div.page-number-list {
 	margin: 0xp 5px 0px 0px;
 }
 
-strong.page-number{
+strong.page-number {
 	background-color: #E6E6E6;
 }
 
-.results-per-page-select{
+.results-per-page-select {
 	float: left; 
 	width: 70px;
 }
 
-div.button-container-tags-tab{
+div.button-container-tags-tab {
 	float: right; 
 	width: 100px;
 }
 
-div.text-field-container-tags-tab{
+div.text-field-container-tags-tab {
 	margin-right: 112px;
 }
 
 input#tags-input{
 	width: 100%
+}
+
+#save-export-state-button {
+	 float: right
 }

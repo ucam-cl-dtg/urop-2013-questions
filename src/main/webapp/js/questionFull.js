@@ -69,6 +69,20 @@ function configureInputField() {
 		return false;
 	});*/
 	//loadMoreSets(10, $("#show-more-sets"));
+	loadSetTabPageNumbers(1, 10);
+	loadSetTabPage(1, 10);
+	$("#page-numbers-export").on("click", "a.page-number", function(){
+		var p = $(this).attr("data-p");
+		var spp = $("#page-numbers-export").find(".results-per-page-select").val();
+		loadSetTabPageNumbers(Number(p), Number(spp));
+		loadSetTabPage(Number(p), Number(spp));
+		return false;
+	});
+	$("#page-numbers-export").on("change", ".results-per-page-select", function(){
+		var spp = $("#page-numbers-export").find(".results-per-page-select").val();
+		loadSetTabPageNumbers(1, Number(spp));
+		loadSetTabPage(1, Number(spp));
+	});
 	
 	$("#sets-list").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
@@ -275,6 +289,40 @@ function loadMoreSets(amount, $button) {
 			});
 }*/
 
+function loadSetTabPageNumbers(curPage, setsPerPage){
+	var $pageNums = $("#page-numbers-export");
+	var maxPage;
+	
+	curPage = Number(curPage);
+	
+	$.get(prepareURL("sets/mysets/amount"), function(json){
+		maxPage = Math.floor(json.amount / setsPerPage);
+		if(json.amount % setsPerPage > 1){maxPage = Number(maxPage) + Number(1);}
+		
+		var data = {curPage: Number(curPage), maxPage: Number(maxPage), resultsPerPage: Number(setsPerPage), className: "set-page"};
+		
+		if($pageNums.children().length > 0){
+			data.resultsPerPage = Number($pageNums.find(".results-per-page-select").val());
+		}
+		
+		$pageNums.empty();
+		var $newPageNums = $("<div></div>");
+		applyTemplate($newPageNums, "shared.util.pageNumbers", data);
+		$pageNums.append($newPageNums.children());
+	});
+}
+function loadSetTabPage(page, amount){
+	var $newSets = $("<div></div>");
+	var $setsList = $(".main").find("#sets-list");
+	loadModule($newSets,
+			"sets/mysets/limited?page=" + page + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
+			"shared.set.multipleHighlight",
+			function() {
+				$setsList.empty();
+				$setsList.append($newSets.find(".panels").children());
+			});
+}
+
 function toggleComplete(type, successful, $element){
 	if(!successful){
 		errorNotification("Error while trying to " + type + " a question.");
@@ -324,7 +372,7 @@ function updateEditTab(){
 	if($elem.attr("data-needsupdate") == "true"){
 		$elem.attr("data-needsupdate", "false");
 		$setListDiv = $("#set-div-to-edit");
-		console.log($setListDiv);
+		
 		if($setListDiv.children().hasClass("set-list-to-edit")){
 			$setListDiv.empty();
 			if(!($("#edit-minor").is(":checked"))){
