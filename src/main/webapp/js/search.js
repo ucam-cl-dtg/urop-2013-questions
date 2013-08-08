@@ -1,9 +1,9 @@
 function searchSetup() {
-	$(document).on('click', '.add-question-to-set', function() {
+	$('#question-list').on('click', '.add-question-to-set', function() {
 		$(this).parents('.list-panel').toggleClass('success');
 	});
 	
-	$(document).on('click', '#add-questions-to-set-button', function(e) {
+	$('#add-questions-to-set-form').on('click', '#add-questions-to-set-button', function(e) {
 		e.preventDefault();
 		
 		var selected = [];

@@ -18,7 +18,25 @@
 
 	<context-param>
 		<param-name>jsFiles</param-name>
-		<param-value>http://code.jquery.com/ui/1.10.3/jquery-ui.js,http://malsup.github.com/jquery.form.js,/js/showdown.js,/js/search.js,/js/questionFull.js,/js/questionShort.js,/js/questionSet.js,/js/dataEditor.js,http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,/js/dataRenderer.js,/js/questions.js,/soy/js/1/questions.js,/soy/js/1/questions.search.js,/soy/js/1/questions.view.js,/soy/js/1/questions.form.question.js,/soy/js/1/questions.form.question.js,/soy/js/1/questions.form.set.js,/soy/js/1/questions.view.set.tab.js,/soy/js/1/questions.view.set.js,/soy/js/1/questions.view.user.js,/soy/js/1/questions.misc.js
+		<param-value>
+		  http://code.jquery.com/ui/1.10.3/jquery-ui.js,
+		  http://malsup.github.com/jquery.form.js,/js/showdown.js,
+		  http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,
+		  /js/search.js,
+		  /js/questionFull.js,
+		  /js/questionSet.js,
+		  /js/dataEditor.js,
+		  /js/dataRenderer.js,
+		  /js/questions.js,
+		  /soy/js/1/questions.js,
+		  /soy/js/1/questions.search.js,
+		  /soy/js/1/questions.view.js,
+		  /soy/js/1/questions.form.question.js,
+		  /soy/js/1/questions.form.set.js,
+		  /soy/js/1/questions.view.set.tab.js,
+		  /soy/js/1/questions.view.set.js,
+		  /soy/js/1/questions.view.user.js,
+		  /soy/js/1/questions.misc.js
 		</param-value>
 	</context-param>
 

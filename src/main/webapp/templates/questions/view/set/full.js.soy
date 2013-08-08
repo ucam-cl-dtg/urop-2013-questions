@@ -38,7 +38,7 @@
 					</div>
 				</section>
 				
-				<section id="set-questions-tab" {if $target=='tags'}class="active"{/if}>
+				<section id="set-tags-tab" {if $target=='tags'}class="active"{/if}>
                     <p class="title" data-section-title><a href="sets/{$id}/tags" data-bypass class="in-place-anchor">Tags</a></p>
                     <div class="content" data-section-content>
                         {call questions.view.set.tab.tags.full data="all" /}
