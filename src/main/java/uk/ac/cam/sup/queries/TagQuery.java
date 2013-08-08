@@ -47,8 +47,7 @@ public class TagQuery {
 		return this;
 	}
 	
-	public TagQuery notContainedIn(Question q) {
-		Set<Tag> tags = q.getTags();
+	public TagQuery notContainedIn(Set<Tag> tags) {
 		for(Tag tag: tags) {
 			criteria.add(Restrictions.not(Restrictions.eq("name", tag.getName())));
 		}

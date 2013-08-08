@@ -228,7 +228,7 @@ function configureSetCreator() {
 	});
 }
 
-function configureTags() {
+function configureSetTags() {
 	$('#set-tags-tab .tags').on('click', '.delete-tag', function() {
 		var data = {
 				tags: $(this).attr('data-name'),
@@ -236,13 +236,31 @@ function configureTags() {
 		};
 		$.post(prepareURL('sets/removetags'), data, function(data) {
 			if (data.success) {
-				//console.log(data.set.tags);
 				applyTemplate($('.tags'), 'questions.view.set.tab.tags.list', {tags: data.set.tags});
 				successNotification('Successfully removed tag(s)');
 			} else {
 				errorNotification(data.error);
 			}
 		}).fail( function(data) {
+			errorNotification('Something went wrong');
+			console.log(data);
+		});
+	});
+	
+	$('#set-tags-tab .tag-search-panel').on('click', '#add-tags', function() {
+		var data = {
+				setid: $(this).parents('.question-set').attr('data-set-id'),
+				tags: $('#tags-input').val()
+		}
+		$.post(prepareURL('sets/addtags'), data, function(data) {
+			if (data.success) {
+				applyTemplate($('.tags'), 'questions.view.set.tab.tags.list', {tags: data.set.tags});
+				$('#tags-input').val('');
+				successNotification('Tags added successfully');
+			} else {
+				errorNotification(data.error);
+			}
+		}).fail(function(data) {
 			errorNotification('Something went wrong');
 			console.log(data);
 		});

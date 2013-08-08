@@ -18,7 +18,7 @@ moduleScripts['questions'] = {
 			    configureEditQuestionForm,
 			    configureCreateQuestionForm,
 			    configureInPlaceAnchors,
-			    configureTags,
+			    configureSetTags,
 			    configureDataEditor,
 			    configureDataRenderer,
 			    reloadMathJax,

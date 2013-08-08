@@ -307,7 +307,7 @@ public class QuestionViewController extends GeneralController {
 	@Produces("application/json")
 	public List<Map<String, String>> getTagsNotInQuestion(String strInput) {
 		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
-		
+		log.debug(strInput);
 		try {
 			int equPos = strInput.indexOf("=");
 			if (equPos < 0) {
@@ -319,7 +319,7 @@ public class QuestionViewController extends GeneralController {
 			log.debug("Trying to get all tags containing " + strTagPart
 					+ " which are NOT in question " + qid);
 
-			List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid))
+			List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid).getTags())
 					.contains(strTagPart).list();
 			
 			//results.add(ImmutableMap.of("name", strTagPart));

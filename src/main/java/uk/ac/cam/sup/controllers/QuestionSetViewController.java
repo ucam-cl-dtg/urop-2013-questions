@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,6 +21,7 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
@@ -185,6 +187,48 @@ public class QuestionSetViewController extends GeneralController {
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		
 		return ImmutableMap.of("sets", qsq.maplist(false));
+	}
+	
+	/**
+	 * To find the tags not in the current question. Intended for auto-completion feature only. 
+	 * 
+	 * Will return a list of all tags which contain the search term
+	 * given in strInput and which are not in the question.
+	 * 
+	 * @param strInput Format: [questionID]=[tagString]
+	 * @return
+	 */
+	@POST
+	@Path("/tagsnotin")
+	@Produces("application/json")
+	public List<Map<String, String>> getTagsNotInSet(String strInput) {
+		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
+		
+		try {
+			int equPos = strInput.indexOf("=");
+			if (equPos < 0) {
+				return results;
+			}
+			int setid = Integer.parseInt(strInput.substring(0, equPos));
+			String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
+
+			log.debug("Trying to get all tags containing " + strTagPart
+					+ " which are NOT in question " + setid);
+
+			List<Tag> tags = TagQuery.all().notContainedIn(QuestionSetQuery.get(setid).getTags())
+					.contains(strTagPart).list();
+			
+			//results.add(ImmutableMap.of("name", strTagPart));
+			for (Tag tag : tags) {
+				results.add(ImmutableMap.of("name", tag.getName()));
+			}
+			
+			// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
+			return results;
+		} catch (Exception e) {
+			log.warn("There was some invalid input to the tagsNotInQuestion method. Message: " + e.getMessage());
+			return results;
+		}
 	}
 	
 	/*
