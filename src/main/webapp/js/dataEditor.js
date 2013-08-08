@@ -4,7 +4,7 @@ var $file;
 
 function configureDataEditor() {
 	
-	$(document).on('change', '.data-editor-type', function(e) {
+	$('form').on('change', '.data-editor-type', function(e) {
 		var $editor = $(this).siblings('.data-editor');
 		var type = e.target.value;
 		var name = $editor.attr('data-name');
@@ -27,7 +27,7 @@ function configureDataEditor() {
 		}
 	});
 	
-	$(document).on('change', 'input[type=file]', function(e) {
+	$('form').on('change', 'input[type=file]', function(e) {
 		var name = $(this).parents('.data-editor').attr('data-name');
 		
 		var filename = e.target.value.split('\\').slice(-1)[0];

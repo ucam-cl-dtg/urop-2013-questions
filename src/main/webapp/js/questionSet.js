@@ -10,7 +10,7 @@ function reloadView (set) {
 }
 
 function configureRemoveQuestionButton () {
-	$(document).on('click', '.remove-question-from-set', function() {
+	$('#set-edit-tab .panels').on('click', '.remove-question-from-set', function() {
 		$(this).parents('div.list-panel')
 			.toggleClass('delete');
 		
@@ -25,7 +25,7 @@ function configureRemoveQuestionButton () {
 }
 
 function configureEditSetForm () {
-	$(document).on('click', '#edit-set-submit-button', function(e) {
+	$('#set-edit-tab form').on('click', '#edit-set-submit-button', function(e) {
 		e.preventDefault();
 		
 		var questions = [];
@@ -67,14 +67,14 @@ function configureEditSetForm () {
 }
 
 function configureSelectQuestion () {
-	$(document).on('click', '.question-to-add-to-set', function() {
+	$('#set-use-tab .panels').on('click', '.question-to-add-to-set', function() {
 		$(this).children('.list-panel').toggleClass('success');
 		$(this).toggleClass('success');
 	});
 }
 
 function configureUseTabSubmitButton() {
-	$(document).on("click", "#export-questions-button", function(e) {
+	$('#add-questions-to-set-form').on("click", "#export-questions-button", function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -106,7 +106,7 @@ function configureUseTabSubmitButton() {
 }
 
 function configureSetStarToggler() {
-	$(document).on('click', '.star-question-button', function() {
+	$('.question-set').on('click', '.star-question-button', function() {
 		var editable = $(this).attr('data-enabled') == "true";
 		if (editable) {
 			var $star = $(this);
@@ -134,7 +134,7 @@ function configureSetStarToggler() {
 }
 
 function configureQuestionSetLoader() {
-	$(document).on('click', '.expand-question-list', function() {
+	$('#question-set-list').on('click', '.expand-question-list', function() {
 		if ($(this).hasClass('loaded')) {
 			$(this).parents('.panel-wrapper').find('.sub-panel').slideToggle();
 		} else {
@@ -149,7 +149,7 @@ function configureQuestionSetLoader() {
 }
 
 function configureEditQuestionForm() {
-	$(document).on('click', '#edit-question-button', function(e) {
+	$('#set-questions-tab .panels').on('click', '#edit-question-button', function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
@@ -176,7 +176,7 @@ function configureEditQuestionForm() {
 }
 
 function configureCreateQuestionForm() {
-	$(document).on('click', '#add-question-button', function(e) {
+	$('#set-createquestion-tab form').on('click', '#add-question-button', function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
@@ -198,14 +198,14 @@ function configureCreateQuestionForm() {
 }
 
 function configureInPlaceAnchors() {
-	$(document).on('click', '.in-place-anchor', function() {
+	$('.in-place-anchor').on('click', function() {
 		var target = $(this).attr("href");
 		router.navigate(target);
 	});
 }
 
 function configureSetCreator() {
-	$(document).on('click', '#create-set-button', function(e) {
+	$('#create-set-button').on('click', function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
@@ -229,7 +229,7 @@ function configureSetCreator() {
 }
 
 function configureTags() {
-	$(document).on('click', '.delete-tag', function() {
+	$('#set-tags-tab .tags').on('click', '.delete-tag', function() {
 		var data = {
 				tags: $(this).attr('data-name'),
 				setid: $(this).parents('.tags').attr('data-setid')
