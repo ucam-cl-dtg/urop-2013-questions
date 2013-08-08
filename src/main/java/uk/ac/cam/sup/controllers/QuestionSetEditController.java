@@ -8,7 +8,9 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.Form;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
@@ -39,23 +41,31 @@ public class QuestionSetEditController extends GeneralController {
 	@Produces("application/json")
 	public Map<String,?> removeQuestionFromSet(@Form QuestionRemove form) {
 		int qid,sid;
-		try{
+		try {
 			qid = form.getQid();
 			sid = form.getSid();
-		}catch(Exception e){
+		} catch(Exception e) {
 			log.warn("Exception when trying to get ints from sid & qid");
 			return ImmutableMap.of("success", false, "error", "Bad arguments passed - possibly not ints");
 		}
+		
+		
 		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
-		try{
-			 QuestionSet qs = QuestionSetQuery.get(sid);
-			 qs.removeQuestion(QuestionQuery.get(qid));
-			 qs.update();
-		 } catch(Exception e) {
-			 log.warn("Error when trying to remove question!\n" + e.getStackTrace());
-			 return ImmutableMap.of("success", false, "error", e.getMessage());
-		 }
-		 return ImmutableMap.of("success", true);
+		try {
+			QuestionSet qs = QuestionSetQuery.get(sid);
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
+
+			qs.removeQuestion(QuestionQuery.get(qid));
+			qs.update();
+		} catch (WebApplicationException e) {
+			throw e;
+		} catch(Exception e) {
+			log.warn("Error when trying to remove question!\n" + e.getStackTrace());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		return ImmutableMap.of("success", true);
 	}
 	
 	@POST
@@ -67,6 +77,9 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate().parse();
 			qs = form.getTarget();
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				return ImmutableMap.of("success", false, "error", "You're not the owner of the target set");
 			}
@@ -77,6 +90,8 @@ public class QuestionSetEditController extends GeneralController {
 			}
 			qs.update();
 			//HibernateUtil.commit();
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			log.warn("Could not add question(s) to set!\n" + e.getStackTrace());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
@@ -119,11 +134,16 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate().parse();
 			qs = QuestionSetQuery.get(form.getSetId());
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");
 			}
 			
 			qs.edit(form);
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ImmutableMap.of("success", false, "error", e.getMessage());
@@ -140,11 +160,16 @@ public class QuestionSetEditController extends GeneralController {
 		
 		try {
 			qs = QuestionSetQuery.get(id);
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
 				throw new Exception("You're not the owner of this set");
 			}
 			qs.toggleStarred();
 			qs.update();
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
@@ -159,6 +184,9 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate();
 			QuestionSet qs = QuestionSetQuery.get(form.getSetId());
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			List<Tag> tags = form.getTagsList();
 			
 			for (Tag t: tags) {
@@ -168,6 +196,8 @@ public class QuestionSetEditController extends GeneralController {
 			qs.update();
 			
 			return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
@@ -180,15 +210,19 @@ public class QuestionSetEditController extends GeneralController {
 		try {
 			form.validate();
 			QuestionSet qs = QuestionSetQuery.get(form.getSetId());
+			if (qs == null) {
+				throw new WebApplicationException(Response.Status.NOT_FOUND);
+			}
 			List<Tag> tags = form.getTagsList();
 			
 			for (Tag t: tags) {
-				//t.saveOrUpdate();
 				qs.removeTag(t);	
 			}
 			qs.update();
 			
 			return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
+		} catch (WebApplicationException e) {
+			throw e;
 		} catch (Exception e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}

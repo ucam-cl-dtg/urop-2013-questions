@@ -11,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
@@ -85,6 +87,9 @@ public class QuestionSetViewController extends GeneralController {
 	@Produces("application/json")
 	public Map<String,?> produceSingleSet(@PathParam("id") int id) {
 		QuestionSet qs = QuestionSetQuery.get(id);
+		if (qs == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 		Map<String,Object> result = qs.toMap(isCurrentUserSupervisor());
 		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
 		result.put("editable", editable);
@@ -95,13 +100,15 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/{id}/import")
 	@Produces("application/json")
 	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
-		List<Map<String, ?>> questions; 
-		
-		questions = QuestionQuery.all().maplist();
+		List<Map<String, ?>> questions = QuestionQuery.all().maplist();
+		QuestionSet qs = QuestionSetQuery.get(id);
+		if (qs == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 		
 		return ImmutableMap.of(
 				"success", true,
-				"set", QuestionSetQuery.get(id).toMap(),
+				"set", qs.toMap(),
 				"questions", questions,
 				"st", new SearchTerm()
 		);

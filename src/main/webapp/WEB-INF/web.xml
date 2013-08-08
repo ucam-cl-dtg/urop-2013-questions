@@ -51,11 +51,6 @@
 	</context-param>
 
 	<context-param>
-		<param-name>dashboardUrl</param-name>
-		<param-value>http://woo</param-value>
-	</context-param>
-
-	<context-param>
 		<param-name>apiKey</param-name>
 		<param-value>blablabla</param-value>
 	</context-param>
