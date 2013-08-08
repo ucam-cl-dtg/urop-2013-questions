@@ -56,6 +56,7 @@ public abstract class GeneralController {
 			log.info("Added User " + uID + " to the database.");
 		}
 		return curUser;
+		
 	}
 	
 }

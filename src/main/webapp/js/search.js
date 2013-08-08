@@ -29,9 +29,9 @@ function searchSetup() {
 	});
 	
 	var $searchField = $("#txtSearch");
-	$searchField.tokenInput(prepareURL("q/search/autocomplete"), {
+	$searchField.tokenInput(prepareURL("q/search/autocomplete/st"), {
 		method: "post",
-        queryParam: "st",
+        queryParam: "q",
         tokenValue: "value",
         propertyToSearch: "value",
         minChars: 1,
@@ -60,9 +60,9 @@ function getTokenFormatter(item){
 	var $inputField = $criteria.find(".search-item-input-field");
 	
 	if($inputField.length > 0){	
-		$inputField.tokenInput(prepareURL("q/search/autocomplete"), {
+		$inputField.tokenInput(prepareURL("q/search/autocomplete/" + $inputField.parents(".token-input-criteria-token-facebook").attr("data-type")), {
 			method: "post",
-			queryParam: $inputField.parents(".token-input-criteria-token-facebook").attr("data-type"),
+			queryParam: "q",
 			tokenValue: "value",
 			propertyToSearch: "value",
 			theme: "facebook",

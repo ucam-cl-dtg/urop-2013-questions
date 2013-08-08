@@ -137,13 +137,7 @@ public class QuestionControllerTest {
 	@Test
 	public void testNonExistentIdForTagNotIn() {
 		//assertEquals("Both returns List Type",qc.getTagsNotInQuestion("99999: hellloooo").getClass(), List.class);
-		assertTrue(qvc.getTagsNotInQuestion("99999: hellloooo") instanceof List);
-	}
-	
-	@Test
-	public void testWronglyFormatterInputForTagsNotIn() {
-		//assertEquals("Both returns List Type",qc.getTagsNotInQuestion("aaaa: hellloooo").getClass(), List.class);
-		assertTrue(qvc.getTagsNotInQuestion("aaaa: hellloooo") instanceof List);
+		assertTrue(qvc.getTagsNotInQuestion("hellloooo", 99999) instanceof List);
 	}
 	
 	/*
