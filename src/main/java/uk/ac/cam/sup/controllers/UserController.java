@@ -9,9 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
@@ -21,7 +18,7 @@ import com.google.common.collect.ImmutableMap;
 @Path("/users")
 public class UserController extends GeneralController {
 	
-	private static Logger log = LoggerFactory.getLogger(UserController.class);
+	//private static Logger log = LoggerFactory.getLogger(UserController.class);
 	
 	@GET
 	@Path("/{crsid}")

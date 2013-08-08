@@ -18,12 +18,7 @@
 			</ul>
 		</div>
 		<h4>Select set...</h4>
-		<form class="custom" id="add-questions-to-set-form" method="POST" action="/api/sets/fork">
-			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-			
-			<input type="hidden" name="questions" />
-			<input type="submit" value="Add to set" id="export-questions-button" />
-		</form>
+		<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
 {/template}
 
 /**
@@ -53,9 +48,20 @@
  * @param sets
  */
 {template .options}
-<select name="targetSetId">
-	{foreach $set in $sets}
-		<option value="{$set.id}">{$set.name}</option>
-	{/foreach}
-</select>
+
+{if $sets.length > 0}
+    <form class="custom" id="add-questions-to-set-form" method="POST" action="/api/sets/fork">
+        <select name="targetSetId">
+	       {foreach $set in $sets}
+		      <option value="{$set.id}">{$set.name}</option>
+	       {/foreach}
+        </select>
+        <input type="hidden" name="questions" />
+        <input type="submit" value="Add to set" id="export-questions-button" />
+    </form>
+{else}
+    <p>You don't have any sets. <a href="/sets/add">Create one</a> first.</p>
+{/if}
+    
+    
 {/template}

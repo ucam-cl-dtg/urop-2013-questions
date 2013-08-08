@@ -8,7 +8,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.util.HibernateUtil;
 

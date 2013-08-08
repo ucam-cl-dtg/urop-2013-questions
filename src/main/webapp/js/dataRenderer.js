@@ -1,8 +1,12 @@
 function reloadMathJax() {
 	var elems = $('.latex-content').get();
-	if (elems.length > 0) {
-		MathJax.Hub.Typeset(elems);
+	
+	function loop(n) {
+		if (n < elems.length) {
+			MathJax.Hub.Typeset(elems[n], function() { loop(n+1); });
+		}
 	}
+	loop(0);
 }
 
 function reloadMarkDown() {
@@ -19,18 +23,17 @@ function reloadData() {
 }
 
 function configureDataRenderer() {
-	reloadMarkDown();
+	//reloadMarkDown();
 	
 	MathJax.Hub.Config({
+		skipStartupTypeset: true,
 		tex2jax: {
 			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
 		    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-		    elements: $('.latex-content').get(),
 		    processEscapes: true
 		}
 	});
 	
-	if ($('.latex-content').get().length > 0) {
-		MathJax.Hub.Configured();
-	}
+	MathJax.Hub.Configured();
+	reloadData();
 }
