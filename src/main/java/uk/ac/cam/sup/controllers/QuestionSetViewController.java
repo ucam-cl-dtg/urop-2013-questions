@@ -16,6 +16,7 @@ import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -147,43 +148,52 @@ public class QuestionSetViewController extends GeneralController {
 			return ImmutableMap.of("maplist", maplist);
 		}
 	}
+	
+	@GET
+	@Path("/mysets/amount")
+	@Produces("application/json")
+	public Map<String,?> produceMySetCount(){
+		try{
+			int amount = QuestionSetQuery.all().withUser(getCurrentUser()).size();
+			return ImmutableMap.of("success", true, "amount", amount);
+		} catch(Exception e) {
+			log.error("Error while trying to count the number of sets of user " + getCurrentUserID() + ". Message: " + e.getMessage());
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+	}
 
 	@GET
 	@Path("/mysets/limited")
 	@Produces("application/json")
 	public Map<String,?> produceSelectionOfMySets(
 			@QueryParam("contains") Integer qid,
-			@QueryParam("disp") Integer alreadyDisplayed,
+			@QueryParam("page") Integer page,
 			@QueryParam("amount") Integer amount) {
 		
-		@SuppressWarnings("unchecked")
-		List<Map<String,?>> mySets = (List<Map<String,?>>) produceMySets(qid).get("maplist");
+		//@SuppressWarnings("unchecked")
+		//List<Map<String,?>> mySets = (List<Map<String,?>>) produceMySets(qid).get("maplist");
 		
-		if(mySets.size() <= alreadyDisplayed) {
-			return ImmutableMap.of("maplist", new ArrayList<Map<String,?>>(), "exhausted", true, "disp", alreadyDisplayed);
-		} else if(mySets.size() <= alreadyDisplayed + amount) {
-			return ImmutableMap.of(
-					"maplist", mySets.subList(alreadyDisplayed, mySets.size()),
-					"exhausted", true,
-					"disp", mySets.size()
-			);
-		} else {
-			return ImmutableMap.of(
-					"maplist", mySets.subList(alreadyDisplayed, alreadyDisplayed + amount),
-					"exhausted", false,
-					"disp", alreadyDisplayed + amount
-			);
+		if(qid == null || page == null || amount == null){
+			return ImmutableMap.of("success", false, "error", "An input value was null");
 		}
+		
+		List<QuestionSet> sets = QuestionSetQuery.all().withUser(getCurrentUser()).maxResults(amount).offset((page-1)*amount).list();
+		Question q = QuestionQuery.get(qid);
+		List<Map<String,?>> resultSets = new ArrayList<Map<String,?>>();
+		
+		for(QuestionSet s: sets){
+			resultSets.add(ImmutableMap.of("set", s.toMap(!getCurrentUser().getSupervisor()),
+					"containsQuestion", s.getQuestions().contains(q)));
+		}
+		
+		return ImmutableMap.of("maplist", resultSets, "sucess", true);
 	}
 	
 	@GET
 	@Path("/mysets/qlimited")
 	@Produces("application/json")
 	public Map<String,?> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
-		List<User> userList = new ArrayList<User>();
-		userList.add(getCurrentUser());
-		
-		QuestionSetQuery qsq = QuestionSetQuery.all().withUsers(userList).have(qid);
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(getCurrentUser()).have(qid);
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		
 		return ImmutableMap.of("sets", qsq.maplist(false));

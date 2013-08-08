@@ -2,7 +2,6 @@
 
 /**
  * @param question
- * @param maxSetPage
  * @param? target
  */
 {template .questionFull}
@@ -92,25 +91,17 @@
 				<p class="title" data-section-title><a data-bypass href="/q/{$question.id}/export" class="in-place-anchor">Export</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
-						<div class="columns large-6 small-6 page-number-selector">
-							{call shared.util.pageNumbers}
-								{param curPage: 1 /}
-								{param maxPage: $maxSetPage /}
-								{param defaultDispNum: 10 /}
-								{param className: 'set-page' /}
-							{/call}
+						<div class="columns large-6 small-6 page-number-selector" id="page-numbers-export">
+							// Page numbers will be inserted here by JS
 						</div>
 						<div class="columns large-6 small-6 clearfix">
-							<a href="#" class="success button" style="float:right">Save</a>
+							<a href="#" class="success button" id="save-export-state-button">Save</a>
 						</div>
 					</div>
 					<div class="row">
 						<ul class="panels" id="sets-list" data-disp="0" data-qid={$question.id}>
 							// Question Sets will be inserted here by JS 
 						</ul>
-						<div class="columns large-12">
-							<a class="large button expand" id="show-more-sets">Show more</a>
-						</div>
 					</div>
 				</div>
 			</section>
