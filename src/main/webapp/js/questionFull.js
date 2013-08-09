@@ -79,6 +79,9 @@ function configureInputField() {
 		loadSetTabPage(1, Number(spp));
 	});
 	
+	$revisionForm = $("#revision-submit-form");
+	$revisionForm.attr("action", prepareURL($revisionForm.attr("action")));
+	
 	$("#sets-list").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
 	});
