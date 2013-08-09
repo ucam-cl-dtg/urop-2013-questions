@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.Criteria;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.util.HibernateUtil;
@@ -15,7 +17,12 @@ import uk.ac.cam.sup.util.HibernateUtil;
 @Entity
 @Table(name="Tags")
 public class Tag extends Model implements Comparable<Tag>{
-	@Id private String name;
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy="increment")
+	private Integer id;
+	
+	private String name;
 	
 	public String getName() {
 		return this.name;
