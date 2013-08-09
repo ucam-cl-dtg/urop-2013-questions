@@ -7,6 +7,7 @@ import javax.ws.rs.FormParam;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.queries.TagQuery;
 
 public abstract class TagForm {
 	@FormParam("tags")
@@ -47,7 +48,7 @@ public abstract class TagForm {
 		
 		String[] tagsArray = tags.split(",");
 		for (String s: tagsArray) {
-			Tag t = new Tag(s.trim());
+			Tag t = TagQuery.get(s.trim());
 			result.add(t);
 		}
 		

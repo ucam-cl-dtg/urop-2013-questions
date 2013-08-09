@@ -31,6 +31,20 @@ public class TagQuery {
 		);
 	}
 	
+	public static Tag get(String name) {
+		Criteria criteria = HibernateUtil.getTransactionSession()
+			.createCriteria(Tag.class)
+			.add(Restrictions.eqOrIsNull("name", name));
+		Tag t = (Tag) criteria.uniqueResult();
+		
+		if (t == null) {
+			t = new Tag(name);
+			t.saveOrUpdate();
+		}
+		
+		return t;
+	}
+	
 	public TagQuery contains(String pattern) {
 		criteria.add(Restrictions.ilike("name", pattern, MatchMode.ANYWHERE));
 		return this;
@@ -48,7 +62,9 @@ public class TagQuery {
 	
 	public TagQuery notContainedIn(Set<Tag> tags) {
 		for(Tag tag: tags) {
-			criteria.add(Restrictions.not(Restrictions.eq("name", tag.getName())));
+			criteria.add(Restrictions.not(
+					Restrictions.eq("name", tag.getName()).ignoreCase()
+			));
 		}
 		return this;
 	}
