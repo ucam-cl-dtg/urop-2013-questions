@@ -33,6 +33,7 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.ppdloader.PPDLoader;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -40,7 +41,6 @@ import com.google.common.collect.ImmutableMap;
 public class QuestionEditController extends GeneralController{
 	
 	Logger log = LoggerFactory.getLogger(QuestionEditController.class);
-	
 	
 	/**
 	 * Update an existing question
@@ -162,7 +162,7 @@ public class QuestionEditController extends GeneralController{
 				Tag tmp;
 				
 				for (int i = 0; i < newTagsArray.length; i++) {
-					tmp = new Tag(newTagsArray[i].trim());
+					tmp = TagQuery.get(newTagsArray[i].trim());
 					
 					if(!existingTags.contains(tmp) && tmp.getName() != null && tmp.getName() != "") {
 						result.add(tmp);

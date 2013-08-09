@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -53,7 +54,7 @@ public class QuestionSetViewController extends GeneralController {
 			String[] tagstrings = tags.split(",");
 			List<Tag> tagset = new ArrayList<Tag>();
 			for (String t: tagstrings) {
-				tagset.add(new Tag(t));
+				tagset.add(TagQuery.get(t));
 			}
 			query.withTags(tagset);
 		}
@@ -207,7 +208,7 @@ public class QuestionSetViewController extends GeneralController {
 	}
 	
 	/**
-	 * To find the tags not in the current question. Intended for auto-completion feature only. 
+	 * To find the tags not in the current set. Intended for auto-completion feature only. 
 	 * 
 	 * Will return a list of all tags which contain the search term
 	 * given in strInput and which are not in the question.
@@ -216,31 +217,27 @@ public class QuestionSetViewController extends GeneralController {
 	 * @return
 	 */
 	@POST
-	@Path("/tagsnotin")
+	@Path("/tagsnotin/{id}")
 	@Produces("application/json")
-	public List<Map<String, String>> getTagsNotInSet(String strInput) {
+	public List<Map<String, String>> getTagsNotInSet(@FormParam("q") String tag, @PathParam("id") Integer setid) {
 		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 		
 		try {
-			int equPos = strInput.indexOf("=");
-			if (equPos < 0) {
-				return results;
-			}
-			int setid = Integer.parseInt(strInput.substring(0, equPos));
-			String strTagPart = strInput.substring(equPos + 1).replace("+", " ");
-
-			log.debug("Trying to get all tags containing " + strTagPart
-					+ " which are NOT in question " + setid);
+			log.debug("Trying to get all tags containing " + tag
+					+ " which are NOT in set " + setid);
 
 			List<Tag> tags = TagQuery.all().notContainedIn(QuestionSetQuery.get(setid).getTags())
-					.contains(strTagPart).list();
+					.contains(tag).list();
 			
 			//results.add(ImmutableMap.of("name", strTagPart));
-			for (Tag tag : tags) {
-				results.add(ImmutableMap.of("name", tag.getName()));
+			for (Tag t : tags) {
+				results.add(ImmutableMap.of("name", t.getName()));
 			}
 			
 			// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
+			return results;
+		} catch (NullPointerException e) {
+			log.warn("There was some invalid input to the tagsNotInQuestion method: NullPointerException");
 			return results;
 		} catch (Exception e) {
 			log.warn("There was some invalid input to the tagsNotInQuestion method. Message: " + e.getMessage());

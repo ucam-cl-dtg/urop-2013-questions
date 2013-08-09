@@ -68,9 +68,10 @@ public class QuestionViewController extends GeneralController {
 			@QueryParam("page") Integer page,
 			@QueryParam("amount") Integer resultsPerPage) {
 		
+
 		if(page == null || page < 1) page = 1;
 		if(resultsPerPage == null || resultsPerPage < 1) resultsPerPage = 25;
-		
+
 		try {
 			if(sc != null && sc.equals("all")){
 				List<Map<String,?>> allQuestions;

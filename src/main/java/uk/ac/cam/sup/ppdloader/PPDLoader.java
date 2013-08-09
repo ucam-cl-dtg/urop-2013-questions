@@ -9,6 +9,7 @@ import java.util.Set;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.queries.TagQuery;
 
 public class PPDLoader {
 	public static Set<Question> loadAllQuestions() throws Exception {
@@ -29,7 +30,7 @@ public class PPDLoader {
 		TopicLoader tl = new TopicLoader();
 		Set<Topic> ts = tl.getResults();
 		for (Topic t: ts) {
-			Tag tag = new Tag(t.getName());
+			Tag tag = TagQuery.get(t.getName());
 			tag.saveOrUpdate();
 		}
 	}

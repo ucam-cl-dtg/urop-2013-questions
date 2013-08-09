@@ -15,6 +15,7 @@ public class TagQuery {
 	
 	private Criteria criteria;
 	private TagQuery(Criteria criteria) {
+		
 		this.criteria = criteria;
 	}
 	
@@ -29,6 +30,10 @@ public class TagQuery {
 					.createCriteria(Tag.class)
 					.addOrder(Order.asc("name"))
 		);
+	}
+	
+	public static Tag get(String name) {
+		return Tag.get(name);
 	}
 	
 	public TagQuery contains(String pattern) {
@@ -48,7 +53,9 @@ public class TagQuery {
 	
 	public TagQuery notContainedIn(Set<Tag> tags) {
 		for(Tag tag: tags) {
-			criteria.add(Restrictions.not(Restrictions.eq("name", tag.getName())));
+			criteria.add(Restrictions.not(
+					Restrictions.eq("name", tag.getName()).ignoreCase()
+			));
 		}
 		return this;
 	}

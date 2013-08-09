@@ -247,6 +247,24 @@ function configureSetTags() {
 		});
 	});
 	
+	var $inputField = $("#tags-input");
+	$inputField.tokenInput(prepareURL("sets/tagsnotin/" + $inputField.attr("data-setid")), {
+		method: "post",
+        queryParam: "q",
+        tokenValue: "name",
+        propertyToSearch: "name",
+        theme: "facebook",
+        minChars: 1,
+        hintText: "Begin typing tags to add here!",
+        noResultsText: "No tags found.",
+        resultsLimit: 10,
+        preventDuplicates: true,
+        allowFreeTagging: true,
+        
+        resultsFormatter: function(item){ return "<li><div style='display: inline-block; padding-left: 10px;'><div class='tag_name'>" + item.name + "</div></li>"; },
+        tokenFormatter: function(item) { return "<li>" + item.name + "</li>"; }         
+	});
+	
 	$('#set-tags-tab .tag-search-panel').on('click', '#add-tags', function() {
 		var data = {
 				setid: $(this).parents('.question-set').attr('data-set-id'),
@@ -256,6 +274,7 @@ function configureSetTags() {
 			if (data.success) {
 				applyTemplate($('.tags'), 'questions.view.set.tab.tags.list', {tags: data.set.tags});
 				$('#tags-input').val('');
+				$('li.token-input-token-facebook').remove();
 				successNotification('Tags added successfully');
 			} else {
 				errorNotification(data.error);
