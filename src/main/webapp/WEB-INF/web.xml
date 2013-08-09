@@ -15,10 +15,15 @@
 		<param-name>cssFiles</param-name>
 		<param-value>/css/questions.css</param-value>
 	</context-param>
-
+	
+	<context-param>
+		<param-name>apiKey</param-name>
+		<param-value>4870v534lmomthfssb27ho4vjtidhujlmmssasuf</param-value>
+	</context-param>
+	
 	<context-param>
 		<param-name>dashboardUrl</param-name>
-		<param-value>http://www.cl.cam.ac.uk/research/dtg/berrycider/dashboard/api/dashboard</param-value>
+		<param-value>http://www.cl.cam.ac.uk/research/dtg/berrycider/dashboard</param-value>
 	</context-param>
 
 	<context-param>
