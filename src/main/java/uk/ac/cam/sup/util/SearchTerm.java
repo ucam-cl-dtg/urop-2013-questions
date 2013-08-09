@@ -46,8 +46,8 @@ public class SearchTerm {
 	private enum SanitizationMode {NO_SPACES, ALLOW_SINGLE_SPACES};
 	
 	public void sanitize() throws DateFormatException, InvalidRangeException{
-		tagsStr = santizeString(tagsStr, SanitizationMode.ALLOW_SINGLE_SPACES);
-		ownersStr = santizeString(ownersStr, SanitizationMode.NO_SPACES);
+		tagsStr = sanitizeString(tagsStr, SanitizationMode.ALLOW_SINGLE_SPACES);
+		ownersStr = sanitizeString(ownersStr, SanitizationMode.NO_SPACES);
 		tags = makeStringList(tagsStr);
 		owners = makeStringList(ownersStr);
 		
@@ -59,7 +59,7 @@ public class SearchTerm {
 		checkRange(usageMin, usageMax, "Usage");
 		checkRange(durMin, durMax, "Duration");
 	}
-	private String santizeString(String in, SanitizationMode level){
+	private String sanitizeString(String in, SanitizationMode level){
 		if(in == null || in.equals("")) return null;
 		if(level == SanitizationMode.NO_SPACES){
 			return in.replace(" ", "");

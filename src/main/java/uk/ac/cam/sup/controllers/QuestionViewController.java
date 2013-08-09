@@ -66,7 +66,6 @@ public class QuestionViewController extends GeneralController {
 			@QueryParam("durmin") Integer durMin,
 			@QueryParam("sc") String sc) {
 		
-		
 		try {
 			if(sc != null && sc.equals("all")){
 				return ImmutableMap.of("success", true, "questions", QuestionQuery.all().maplist(), "st", "sc=all");

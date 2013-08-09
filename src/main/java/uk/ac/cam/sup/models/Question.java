@@ -29,6 +29,7 @@ import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.DataType;
 
 @Entity()
@@ -105,7 +106,7 @@ public class Question extends Model implements Cloneable {
 	public Set<Tag> getTags(){return tags;}
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
-	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	public void removeTagByString(String tag){tags.remove(TagQuery.get(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
 		for(Tag t : tags){

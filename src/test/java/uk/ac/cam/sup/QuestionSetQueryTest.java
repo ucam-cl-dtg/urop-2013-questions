@@ -19,6 +19,7 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.queries.UserQuery;
 
 public class QuestionSetQueryTest extends GenericTest {
@@ -35,9 +36,9 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void allElementsReturnedByWithTagsHaveOneOfTheTagsSpecified() {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Algorithms"));
-		tags.add(new Tag("Sorting"));
-		tags.add(new Tag("Discrete Mathematics"));
+		tags.add(TagQuery.get("Algorithms"));
+		tags.add(TagQuery.get("Sorting"));
+		tags.add(TagQuery.get("Discrete Mathematics"));
 		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: result) {
 			boolean contains = false;
@@ -56,8 +57,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void noElementsAreOmittedByWithTagsFilter () {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Algorithms"));
-		tags.add(new Tag("Discrete Mathematics"));
+		tags.add(TagQuery.get("Algorithms"));
+		tags.add(TagQuery.get("Discrete Mathematics"));
 		List<?> all = QuestionSetQuery.all().list();
 		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: all) {

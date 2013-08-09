@@ -190,8 +190,7 @@ public class QuestionSetEditController extends GeneralController {
 			List<Tag> tags = form.getTagsList();
 			
 			for (Tag t: tags) {
-				t.saveOrUpdate();
-				qs.addTag(t);	
+				qs.addTag(t);
 			}
 			qs.update();
 			

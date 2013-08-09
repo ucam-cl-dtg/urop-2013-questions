@@ -12,6 +12,7 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.TagQuery;
 
 public class QuestionSetModelTest extends GenericTest {
 	@Test
@@ -31,7 +32,7 @@ public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void afterAddingATagItIsAnElementOfTagSet () {
 		QuestionSet q = new QuestionSet(new User("abc123"));
-		Tag t = new Tag("abc");
+		Tag t = TagQuery.get("abc");
 		q.addTag(t);
 		assertTrue(q.getTags().contains(t));
 	}
@@ -39,9 +40,9 @@ public class QuestionSetModelTest extends GenericTest {
 	@Test
 	public void afterRemovingATagItIsNoLongerAnElementOfTagSet () {
 		QuestionSet q = new QuestionSet(new User("abc123"));
-		Tag t = new Tag("abc");
+		Tag t = TagQuery.get("abc");
 		q.addTag(t);
-		q.removeTag(new Tag("abc"));
+		q.removeTag(TagQuery.get("abc"));
 		assertFalse(q.getTags().contains(t));
 	}
 	

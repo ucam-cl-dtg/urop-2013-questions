@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.form.QuestionSetEdit;
+import uk.ac.cam.sup.queries.TagQuery;
 
 @Entity
 @Table(name="QuestionSets")
@@ -87,7 +88,7 @@ public class QuestionSet extends Model {
 	}
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
-	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	public void removeTagByString(String tag){tags.remove(TagQuery.get(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
 		for(Tag t : tags){

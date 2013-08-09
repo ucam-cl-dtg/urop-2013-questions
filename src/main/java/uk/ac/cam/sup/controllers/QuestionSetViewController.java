@@ -54,7 +54,7 @@ public class QuestionSetViewController extends GeneralController {
 			String[] tagstrings = tags.split(",");
 			List<Tag> tagset = new ArrayList<Tag>();
 			for (String t: tagstrings) {
-				tagset.add(new Tag(t));
+				tagset.add(TagQuery.get(t));
 			}
 			query.withTags(tagset);
 		}

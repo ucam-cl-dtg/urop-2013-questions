@@ -15,6 +15,7 @@ public class TagQuery {
 	
 	private Criteria criteria;
 	private TagQuery(Criteria criteria) {
+		
 		this.criteria = criteria;
 	}
 	
@@ -32,17 +33,7 @@ public class TagQuery {
 	}
 	
 	public static Tag get(String name) {
-		Criteria criteria = HibernateUtil.getTransactionSession()
-			.createCriteria(Tag.class)
-			.add(Restrictions.eqOrIsNull("name", name));
-		Tag t = (Tag) criteria.uniqueResult();
-		
-		if (t == null) {
-			t = new Tag(name);
-			t.saveOrUpdate();
-		}
-		
-		return t;
+		return Tag.get(name);
 	}
 	
 	public TagQuery contains(String pattern) {

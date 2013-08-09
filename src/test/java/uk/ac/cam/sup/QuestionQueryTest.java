@@ -12,6 +12,7 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 
 public class QuestionQueryTest extends GenericTest {
 
@@ -69,8 +70,8 @@ public class QuestionQueryTest extends GenericTest {
 
 		QuestionQuery qq = QuestionQuery.all();
 		List<Tag> tags = new LinkedList<Tag>();
-		Tag tag1 = new Tag("Algorithms");
-		Tag tag2 = new Tag("Sorting");
+		Tag tag1 = TagQuery.get("Algorithms");
+		Tag tag2 = TagQuery.get("Sorting");
 		tags.add(tag1);
 		tags.add(tag2);
 		qq.withTags(tags);
