@@ -29,7 +29,7 @@ public class Tag extends Model implements Comparable<Tag>{
 	public static Tag get(String name) {
 		Criteria criteria = HibernateUtil.getTransactionSession()
 			.createCriteria(Tag.class)
-			.add(Restrictions.eq("name", name));
+			.add(Restrictions.eq("name", name).ignoreCase());
 		Tag t = (Tag) criteria.uniqueResult();
 		
 		if (t == null) {
