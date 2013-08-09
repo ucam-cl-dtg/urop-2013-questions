@@ -137,7 +137,7 @@ function search(){
 		
 	});
 	
-	var permalink = window.location.pathname;
+	var permalink = "q/search"; //window.location.pathname;
 	
 	if(searchTerms == "?"){
 		$qlist.append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));
