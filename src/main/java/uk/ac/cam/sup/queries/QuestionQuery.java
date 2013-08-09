@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
@@ -206,6 +207,14 @@ public class QuestionQuery {
 	public QuestionQuery offset(int offset){
 		criteria.setFirstResult(offset);
 		return this;
+	}
+	
+	public int size(){
+		ScrollableResults sr = criteria.scroll();
+		sr.last();
+		int result = sr.getRowNumber() + 1;
+		
+		return result;
 	}
 
 }

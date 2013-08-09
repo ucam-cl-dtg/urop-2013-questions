@@ -27,9 +27,13 @@ div.text-field-container-tags-tab {
 }
 
 input#tags-input{
-	width: 100%
+	width: 100%;
 }
 
 #save-export-state-button {
-	 float: right
+	 float: right;
+}
+
+div.result-number-text {
+	padding-bottom: 10px;
 }

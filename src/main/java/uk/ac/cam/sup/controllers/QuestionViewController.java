@@ -35,6 +35,13 @@ import com.google.common.collect.ImmutableMap;
 public class QuestionViewController extends GeneralController {
 	private static Logger log = LoggerFactory.getLogger(QuestionViewController.class);
 
+	@GET
+	@Path("/search")
+	@Produces("application/json")
+	public Map<String,?> showSearchPage(){
+		return ImmutableMap.of("success", true);
+	}
+	
 	/**
 	 * Returns all questions which correspond to the search criteria.
 	 * 
@@ -52,7 +59,7 @@ public class QuestionViewController extends GeneralController {
 	 * @return
 	 */
 	@GET
-	@Path("/search")
+	@Path("/find")
 	@Produces("application/json")
 	public Map<String, ?> produceFilteredQuestions(@QueryParam("tags") String tags,
 			@QueryParam("owners") String owners,
@@ -71,19 +78,21 @@ public class QuestionViewController extends GeneralController {
 
 		if(page == null || page < 1) page = 1;
 		if(resultsPerPage == null || resultsPerPage < 1) resultsPerPage = 25;
-
+		
 		try {
 			if(sc != null && sc.equals("all")){
 				List<Map<String,?>> allQuestions;
 				allQuestions = QuestionQuery.all().maxResults(resultsPerPage).offset(resultsPerPage*(page-1)).maplist();
-				return ImmutableMap.of("success", true, "questions", allQuestions, "st", "sc=all");
+				return ImmutableMap.of("success", true, "questions", allQuestions, "st", "sc=all", "totalAmount", -1);
 			}
 			
 			SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
 					before, usageMin, usageMax, parents, durMax, durMin);
-			List<?> filteredQuestions = getFilteredQuestions(st, resultsPerPage*(page-1), resultsPerPage);
+			Map<String,?> tmp = getFilteredQuestions(st, resultsPerPage*(page-1), resultsPerPage);
+			
+			List<?> filteredQuestions = (List<?>) tmp.get("results");
 
-			return ImmutableMap.of("success", true, "questions", filteredQuestions, "st", st);
+			return ImmutableMap.of("success", true, "questions", filteredQuestions, "st", st, "totalAmount", tmp.get("totalAmount"));
 			
 		} catch (NumberFormatException | DateFormatException | InvalidRangeException e) {
 			return ImmutableMap.of("success", false, "error", 
@@ -194,9 +203,9 @@ public class QuestionViewController extends GeneralController {
 	 * @param st The search term according to which the questions should be filtered
 	 * @return Returns a list of filtered questions according to the search term.
 	 */
-	private List<Map<String, ?>> getFilteredQuestions(SearchTerm st, int offset, int amount) {
+	private Map<String,?> getFilteredQuestions(SearchTerm st, int offset, int amount) {
 		log.debug("Getting new QuestionQuery");
-		QuestionQuery qq = QuestionQuery.all().offset(offset).maxResults(amount);
+		QuestionQuery qq = QuestionQuery.all();
 
 		log.debug("Filtering for tags");
 		if (st.getTags() != null) {
@@ -251,7 +260,7 @@ public class QuestionViewController extends GeneralController {
 			qq.minDuration(st.getDurMin());
 		}
 
-		return qq.maplist();
+		return ImmutableMap.of("totalAmount", qq.size(), "results", qq.offset(offset).maxResults(amount).maplist());
 	}
 	
 	/**

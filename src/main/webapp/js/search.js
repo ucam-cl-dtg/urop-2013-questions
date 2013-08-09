@@ -48,24 +48,24 @@ function searchSetup() {
 	
 	$(".page-numbers").on("click", "a.page-number", function(){
 		var p = $(this).attr("data-p");
-		var spp = $(this).parent().siblings(".results-per-page-select").val();
-		loadPageNumbers(Number(p), Number(spp));
-		loadPage(Number(p), Number(spp));
+		var rpp = $(this).parent().siblings(".results-per-page-select").val();
+		search(Number(p), Number(rpp));
 		return false;
 	});
 	$(".page-numbers").on("change", ".results-per-page-select", function(){
 		var spp = $(this).val();
-		loadPageNumbers(1, Number(spp));
-		loadPage(1, Number(spp));
+		search(1, Number(spp));
 	});
 	
 	populateSearchField($("#questions-searchform"));
 	
 	$("#questions-searchform").on("submit", function(){
-		search();
+		var resultsPerPage = $(".page-numbers").find(".results-per-page-select").val();
+		search(1, Number(resultsPerPage));
 		return false;
 	});
-	search();	
+	search();
+	
 }
 
 function getTokenFormatter(item){
@@ -98,16 +98,18 @@ function getTokenFormatter(item){
 	return $criteria;
 }
 
-function search(){
-	var $qlist = $("#questionList");
-	$qlist.empty();
-	var newList = document.createElement("div");
+function search(page, amount){
+	if(!(page >=  1)){
+		page = 1;
+	}
+	if(!(amount >= 1)){
+		amount = 25;
+	}
 	
 	var searchTerms = "?";
 	var $tokensList = $(".token-input-list");
-	
 	var val; var tmp;
-	// TODO: load page numbers and page in separate methods. (create those)
+	
 	$tokensList.children(".token-input-token").each(function(){
 		tmp = $(this).attr("data-type") + "=";
 		val = null;
@@ -137,25 +139,43 @@ function search(){
 		
 	});
 	
-	var permalink = "q/search"; //window.location.pathname;
-	
 	if(searchTerms == "?"){
-		$qlist.append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));
+		$("#questionList").empty();
+		$("#questionList").append($("<div class='column large-12 small-12'><i>Please enter one or more search terms to find questions</i></div>"));
 		return false;
 	}
 	
-	permalink = permalink + searchTerms; 
-	router.navigate(permalink);
+	var permalink = searchTerms + "&amount=" + amount + "&page=" + page;
+	router.navigate("q/search" + permalink);
 	
-	loadModule($(newList), permalink, function(json){
-		if(!json.success){
-			errorNotification(json.error);
-		}
-		return "questions.search.results";
+	$.get(prepareURL("q/find" + permalink), function(json){
+		displayResults(json);
+		
+		displayPageNumbers(page, json.totalAmount, amount);
 	});
 	
-	$qlist.append(newList);
 	return false;
+}
+
+function displayPageNumbers(page, maxPage, amount){
+	insertPageNumbers($(".page-numbers"), "search-page-number", page, maxPage, amount)
+}
+function displayResults(json){
+	var $qlist = $("#questionList");
+	var $pNumSections = $(".page-numbers");
+	var $newList = $("<div></div>");
+	
+	$qlist.empty();
+	$pNumSections.empty();
+	
+	applyTemplate($newList, function(data){
+		if(!data.success){
+			errorNotification(data.error);
+		}
+		return "questions.search.results";
+	}, json);
+	$qlist.append($newList.children());
+	
 }
 
 function populateSearchField($searchForm){
@@ -164,7 +184,9 @@ function populateSearchField($searchForm){
 	argStr = decodeURIComponent(argStr).substring(1, argStr.length + 1);
 	var args = argStr.split("&");
 	
-	var arg;
+	var arg; 
+	var page = 1; 
+	var amount = 25;
 	var argName;
 	var touched = false;
 	var $txtSearch = $searchForm.find("#txtSearch");
@@ -248,11 +270,17 @@ function populateSearchField($searchForm){
 				$txtSearch.tokenInput("add", {value: "sc", helpText: "sc", type: "sc", displayType: "text"});
 				$searchForm.find('.token-input-token[data-type="sc"]').find(".search-item-input-field").tokenInput("add", {value: "all"});
 			}
+		}else if(argName == "page"){
+			page = arg;
+		}else if(argName == "amount"){
+			amount = arg;
 		}
 	}
 	if(!touched){
 		$txtSearch.tokenInput("add", makeTagSearch());
 	}
+	
+	search(Number(page), Number(amount));
 }
 function makeTagSearch(){
 	return {value: "Tags", helpText: "Questions with certain tags", type: "tags", displayType: "text"};

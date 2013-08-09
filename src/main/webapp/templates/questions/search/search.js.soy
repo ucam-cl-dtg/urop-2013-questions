@@ -55,9 +55,15 @@
 /**
  * @param? questions
  * @param success
+ * @param? totalAmount
  */
 {template .results}
 	{if $success == true}
+		{if $totalAmount}
+			<div class="column large-12 small-12 result-number-text">
+				<i>Found a total of {$totalAmount} result{if $totalAmount > 1}s{/if}.</i> 
+			</div>
+		{/if}
 		{if length($questions) > 0}
 			{call shared.question.multiple}
 				{param questions: $questions /}
