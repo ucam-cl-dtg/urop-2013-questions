@@ -64,17 +64,23 @@ public class QuestionViewController extends GeneralController {
 			@QueryParam("parents") String parents,
 			@QueryParam("durmax") Integer durMax,
 			@QueryParam("durmin") Integer durMin,
-			@QueryParam("sc") String sc) {
+			@QueryParam("sc") String sc,
+			@QueryParam("page") Integer page,
+			@QueryParam("amount") Integer resultsPerPage) {
 		
+		if(page == null || page < 1) page = 1;
+		if(resultsPerPage == null || resultsPerPage < 1) resultsPerPage = 25;
 		
 		try {
 			if(sc != null && sc.equals("all")){
-				return ImmutableMap.of("success", true, "questions", QuestionQuery.all().maplist(), "st", "sc=all");
+				List<Map<String,?>> allQuestions;
+				allQuestions = QuestionQuery.all().maxResults(resultsPerPage).offset(resultsPerPage*(page-1)).maplist();
+				return ImmutableMap.of("success", true, "questions", allQuestions, "st", "sc=all");
 			}
 			
 			SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
 					before, usageMin, usageMax, parents, durMax, durMin);
-			List<?> filteredQuestions = getFilteredQuestions(st);
+			List<?> filteredQuestions = getFilteredQuestions(st, resultsPerPage*(page-1), resultsPerPage);
 
 			return ImmutableMap.of("success", true, "questions", filteredQuestions, "st", st);
 			
@@ -187,9 +193,9 @@ public class QuestionViewController extends GeneralController {
 	 * @param st The search term according to which the questions should be filtered
 	 * @return Returns a list of filtered questions according to the search term.
 	 */
-	private List<Map<String, ?>> getFilteredQuestions(SearchTerm st) {
+	private List<Map<String, ?>> getFilteredQuestions(SearchTerm st, int offset, int amount) {
 		log.debug("Getting new QuestionQuery");
-		QuestionQuery qq = QuestionQuery.all();
+		QuestionQuery qq = QuestionQuery.all().offset(offset).maxResults(amount);
 
 		log.debug("Filtering for tags");
 		if (st.getTags() != null) {

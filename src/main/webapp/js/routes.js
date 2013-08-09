@@ -6,9 +6,10 @@ a function that returns the template name. The function will receive the json re
 by the request as the first parameter.
 */
 
-var BASE_PATH="/api/";
+var BASE_PATH="/questions/api/";
 var ROUTER_OPTIONS= {
-     pushState: true
+     pushState: true,
+     root: '/questions/'
 }
 
 $(document).ready(function() {
