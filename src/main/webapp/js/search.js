@@ -158,7 +158,7 @@ function search(page, amount){
 }
 
 function displayPageNumbers(page, maxPage, amount){
-	insertPageNumbers($(".page-numbers"), "search-page-number", page, maxPage, amount)
+	insertPageNumbers($(".page-numbers"), "search-page-number", page, maxPage, amount);
 }
 function displayResults(json){
 	var $qlist = $("#questionList");

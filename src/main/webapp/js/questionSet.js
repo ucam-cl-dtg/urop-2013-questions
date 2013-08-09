@@ -205,6 +205,9 @@ function configureInPlaceAnchors() {
 }
 
 function configureSetCreator() {
+	var actionURL = prepareURL($("form.custom").attr("action"));
+	$("form.custom").attr("action", actionURL);
+	
 	$('#create-set-button').click(function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
@@ -269,7 +272,7 @@ function configureSetTags() {
 		var data = {
 				setid: $(this).parents('.question-set').attr('data-set-id'),
 				tags: $('#tags-input').val()
-		}
+		};
 		$.post(prepareURL('sets/addtags'), data, function(data) {
 			if (data.success) {
 				applyTemplate($('.tags'), 'questions.view.set.tab.tags.list', {tags: data.set.tags});
