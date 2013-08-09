@@ -79,9 +79,6 @@ function configureInputField() {
 		loadSetTabPage(1, Number(spp));
 	});
 	
-	$revisionForm = $("#revision-submit-form");
-	$revisionForm.attr("action", prepareURL($revisionForm.attr("action")));
-	
 	$("#sets-list").on("click", ".list-panel.set-list a", function(e){
 		e.stopPropagation();
 	});
@@ -166,7 +163,7 @@ function configureInputField() {
 		$("#content-section").attr("data-needsupdate", "true");
 		
 		$(this).ajaxSubmit({
-			beforeSubmit: function(data, form, opts) {
+			beforeSubmit: function(data, $form, opts) {
 				data.push({
 					name: "setId",
 					required: true,
@@ -179,6 +176,7 @@ function configureInputField() {
 					type: "hidden", 
 					value: sets.toString()
 				});
+				opts.url = prepareURL($form.attr('action'));
 			},
 			success: function(data) {
 				if (data.success) {

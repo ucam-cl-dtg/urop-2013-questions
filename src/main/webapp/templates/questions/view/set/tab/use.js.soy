@@ -50,7 +50,7 @@
 {template .options}
 
 {if $sets.length > 0}
-    <form class="custom" id="add-questions-to-set-form" method="POST" action="/api/sets/fork">
+    <form class="custom" id="add-questions-to-set-form" method="POST" action="sets/fork">
         <select name="targetSetId">
 	       {foreach $set in $sets}
 		      <option value="{$set.id}">{$set.name}</option>
