@@ -5,7 +5,7 @@ The second term must be either a string representing the template name or
 a function that returns the template name. The function will receive the json returned
 by the request as the first parameter.
 */
-SOY_GLOBALS = {URLPrefix: CONTEXT_PATH, UploadPrefix: '/uploads/'};
+SOY_GLOBALS = {URLPrefix: CONTEXT_PATH, UploadPrefix: '/api/uploads/'};
 
 ROUTER_OPTIONS.pushState=true;
 
