@@ -12,7 +12,7 @@
 {if $success == false}
 	An error occurred!<br>
 	{$error}<br>
-	<a href="#q/search">Click here</a> to go to the search main page. 
+	<a href="{$ij.URLPrefix}q/search">Click here</a> to go to the search main page. 
 {else}
 <h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
 <div class="row">
@@ -32,7 +32,7 @@
 	<div class="columns large-4 small-12" id="searchbar">
 		<form method="get" action="/q/search" id="questions-searchform">
 				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
-			<input type="submit" value="Search" id="foobar" />
+			<input type="submit" value="Search" />
 		</form>
 	</div>
 </div>

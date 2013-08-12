@@ -55,11 +55,6 @@
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/api</param-value>
 	</context-param>
-
-	<context-param>
-		<param-name>apiKey</param-name>
-		<param-value>blablabla</param-value>
-	</context-param>
 	
 	 <filter>
 		<filter-name>apiauth</filter-name>
@@ -85,7 +80,7 @@
 			<param-value>uk.ac.cam.sup.QuestionsApp</param-value>
 		</init-param>
 	</filter>
-
+	
 	<filter-mapping>
 		<filter-name>apiauth</filter-name>
 		<url-pattern>/api/*</url-pattern>
