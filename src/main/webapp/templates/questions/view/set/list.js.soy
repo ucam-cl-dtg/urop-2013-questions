@@ -47,7 +47,7 @@
 				<div class="columns large-5 small-5 text-right">
 					<div class="icon-button-wrapper">
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-question-list" data-qid="{$set.id}">&#112;</a>
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="sets/{$set.id}">&#88;</a>
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/sets/{$set.id}">&#88;</a>
 						<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $set.starred}_empty{/if}"></i></span>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}">&#88;</a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}">&#88;</a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
 				</div>
 			</div>

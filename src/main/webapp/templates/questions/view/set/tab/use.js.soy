@@ -36,7 +36,7 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button use-question-from-set"><i class="icon icon-plus"></i></a>
+					<a data-bypass class="icon-button panel-icon-button use-question-from-set"><i class="icon icon-plus"></i></a>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
         <input type="submit" value="Add to set" id="export-questions-button" />
     </form>
 {else}
-    <p>You don't have any sets. <a href="/sets/add">Create one</a> first.</p>
+    <p>You don't have any sets. <a href="{$ij.URLPrefix}/sets/add">Create one</a> first.</p>
 {/if}
     
     

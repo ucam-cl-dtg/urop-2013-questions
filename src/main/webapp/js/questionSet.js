@@ -208,8 +208,11 @@ function configureCreateQuestionForm() {
 }
 
 function configureInPlaceAnchors() {
-	$('.in-place-anchor').on('click', function() {
+	$('.in-place-anchor').click(function(evt) {
+		//if(evt.ctrlKey) return true;
+		if(evt.which ==  2) return;
 		var target = $(this).attr("href");
+		target = target.slice(0, CONTEXT_PATH.length) == CONTEXT_PATH ? target.slice(CONTEXT_PATH.length) : target;
 		router.navigate(target);
 	});
 }

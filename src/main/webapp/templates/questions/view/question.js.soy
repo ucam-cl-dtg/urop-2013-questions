@@ -21,7 +21,7 @@
 		<div class="section-container tabs" data-section="tabs">
 			<section {if $target=='content'}class="active"{/if}>
 				<p class="title" data-section-title>
-					<a href="/q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false" data-bypass>Content</a>
+					<a href="{$ij.URLPrefix}/q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false" data-bypass>Content</a>
 				</p>
 				<div class="content" data-section-content>
 					<h4>Question</h4>
@@ -41,7 +41,7 @@
 				</div>
 			</section>
 			<section {if $target=='tags'}class="active"{/if}>
-				<p class="title" data-section-title><a href="/q/{$question.id}/tags" class="in-place-anchor" data-bypass>Tags</a></p>
+				<p class="title" data-section-title><a href="{$ij.URLPrefix}/q/{$question.id}/tags" class="in-place-anchor" data-bypass>Tags</a></p>
 				<div class="content" data-section-content>
 					<div class="tag-search-panel row">
 						<div class="columns large-12 small-12 clearfix">
@@ -63,7 +63,7 @@
 				</div>
 			</section>
 			<section {if $target=='history'}class="active"{/if}>
-				<p class="title" data-section-title><a data-bypass href="/q/{$question.id}/history" class="in-place-anchor">History</a></p>
+				<p class="title" data-section-title><a data-bypass href="{$ij.URLPrefix}/q/{$question.id}/history" class="in-place-anchor">History</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
 						<ul class="panels" id="history-list" data-qid={$question.id}>
@@ -88,7 +88,7 @@
 				</div>
 			</section>
 			<section {if $target=='export'}class="active"{/if}>
-				<p class="title" data-section-title><a data-bypass href="/q/{$question.id}/export" class="in-place-anchor">Export</a></p>
+				<p class="title" data-section-title><a data-bypass href="{$ij.URLPrefix}/q/{$question.id}/export" class="in-place-anchor">Export</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
 						<div class="columns large-6 small-6 page-number-selector page-numbers-export">
