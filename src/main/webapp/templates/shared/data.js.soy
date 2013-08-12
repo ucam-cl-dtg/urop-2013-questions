@@ -12,7 +12,7 @@
 	{elseif $data.type == 'LATEX'}
 		<div class="latex-content">{$data.data}</div>
 	{elseif $data.type == 'FILE'}
-		<div><a href="{$data.data}">{$data.description}</a></div>
+		<div><a href="/uploads/{$data.data}">{$data.description}</a></div>
 	{else}
 		<div><i>--- No content found ---</i></div>
 	{/if}
@@ -30,7 +30,7 @@
     {elseif $data.type == 'LATEX'}
         {$data.data}
     {elseif $data.type == 'FILE'}
-        <a href="{$data.data}">{$data.description}</a>
+        <a href="/uploads/{$data.data}">{$data.description}</a>
     {else}
     {/if}
 {/template}

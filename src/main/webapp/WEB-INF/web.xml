@@ -56,12 +56,7 @@
 		<param-value>/api</param-value>
 	</context-param>
 
-	<context-param>
-		<param-name>apiKey</param-name>
-		<param-value>4870v534lmomthfssb27ho4vjtidhujlmmssasuf</param-value>
-	</context-param>
-	
-	 <filter>
+    <filter>
 		<filter-name>apiauth</filter-name>
 		<filter-class>uk.ac.cam.cl.dtg.teaching.APIFilter</filter-class>
 		<init-param>

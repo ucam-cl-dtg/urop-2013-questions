@@ -87,7 +87,7 @@ public class Data implements Cloneable {
         outputStream.write(file);
         outputStream.close();
 		
-		return "/"+directory+filename;
+		return filename;
 	}
 	
 	public Data(Data old) {
