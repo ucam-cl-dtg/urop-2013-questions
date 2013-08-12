@@ -3,7 +3,7 @@ function searchSetup() {
 		$(this).parents('.list-panel').toggleClass('success');
 	});
 	
-	$('#add-questions-to-set-form').on('click', '#add-questions-to-set-button', function(e) {
+	$('#search-export-questions-form').on('click', '#export-questions-button', function(e) {
 		e.preventDefault();
 		
 		var selected = [];

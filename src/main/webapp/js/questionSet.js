@@ -38,6 +38,9 @@ function configureEditSetForm () {
 		$("input[name=questions]").attr("value", questions);
 		
 		$('#set-edit').ajaxSubmit({ 
+			beforeSubmit: function (data, $form, opts) {
+				opts.url = prepareURL($form.attr('action'));
+			},
 			success: function (data) {
 				if (data.success) {
 					var executed = false;
@@ -74,7 +77,7 @@ function configureSelectQuestion () {
 }
 
 function configureUseTabSubmitButton() {
-	$('#add-questions-to-set-form').on("click", "#export-questions-button", function(e) {
+	$('#set-use-tab .async-loader').on("click", "#export-questions-button", function(e) {
 		e.preventDefault();
 		
 		var selected = [];
@@ -87,8 +90,9 @@ function configureUseTabSubmitButton() {
 		
 		$("input[name=questions]").attr("value", selected);
 		var data = $(this).parents("form").serialize();
-		console.log(data);
-		$.post(prepareURL("sets/fork"), data, function(data) {
+		var action = prepareURL($(this).parents("form").attr("action"));
+		
+		$.post(action, data, function(data) {
 			if (data.success) {
 				$(".success").removeClass("success");
 				console.log(data);
@@ -153,6 +157,9 @@ function configureEditQuestionForm() {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
+			beforeSubmit: function (data, $form, opts) {
+				opts.url = prepareURL($form.attr('action'));
+			},
 			success: function(data) {
 				if(data.success) {
 					var executed = false;
@@ -180,6 +187,9 @@ function configureCreateQuestionForm() {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
+			beforeSubmit: function (data, $form, opts) {
+				opts.url = prepareURL($form.attr('action'));
+			},
 			success: function(data) {
 				if (data.success) {
 					reloadView(data.set);
@@ -205,13 +215,14 @@ function configureInPlaceAnchors() {
 }
 
 function configureSetCreator() {
-	var actionURL = prepareURL($("form.custom").attr("action"));
-	$("form.custom").attr("action", actionURL);
 	
 	$('#create-set-button').click(function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
 		$form.ajaxSubmit({
+			beforeSubmit: function (data, $form, opts) {
+				opts.url = prepareURL($form.attr('action'));
+			},
 			success: function(data) {
 				console.log(data);
 				if (data.success) {
