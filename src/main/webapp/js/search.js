@@ -85,8 +85,9 @@ function getTokenFormatter(item){
 			resultsLimit: 10,
 			preventDuplicates: true,
 			
-			resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
-			tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }         
+			resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + " (" + item.crsid + ")</div><div class='email'>" + item.crsid + "@cam.ac.uk</div></div></li>" },
+			tokenFormatter: function(item) { return "<li><p>" + item.name + " (" + item.crsid + ")</p></li>" }
+        
 		});
 		
 	}
