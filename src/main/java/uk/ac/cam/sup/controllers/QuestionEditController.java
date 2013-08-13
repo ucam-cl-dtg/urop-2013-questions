@@ -118,6 +118,8 @@ public class QuestionEditController extends GeneralController{
 				throw new Exception("You're not the owner of this set");
 			}
 			
+			System.out.println(qa.getContent());
+			
 			q = new Question(author);
 			q.setContent(qa.getContent());
 			q.setNotes(qa.getNotes());

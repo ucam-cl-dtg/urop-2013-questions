@@ -83,32 +83,40 @@ function configureInputField() {
 		e.stopPropagation();
 	});
 	
-	$("#sets-list").on("click", ".list-panel.set-list.unused", function(){
+	$("#sets-list").on("click", ".list-panel.set-list", function(){
 		var $this = $(this);
-		$this.removeClass("unused");
-		$this.addClass("success");
-		$("#edit-section").attr("data-needsupdate", "true");
-		$.post(prepareURL("sets/fork"), {
-			"targetSetId": $this.attr("data-sid"), 
-			"questions": $inputField.attr("data-qid")
-		}).done(function(json){
-			toggleComplete("add", json.success, $this);
-			updateEditTab();
+		$this.toggleClass("success");
+		$this.toggleClass("modified");
+	});
+	
+	$("#save-export-state-button").click(function(){
+		if($(this).hasClass("disabled")) return false;
+		
+		var setsToModify = [];
+		$modifiedSets = $(".list-panel.set-list.modified"); 
+		if($modifiedSets.length < 1){
+			showNotification("Please select one or more sets in which to add or remove this question.");
+			return false;
+		}
+		$modifiedSets.each(function(){
+			setsToModify.push({sid: Number($(this).attr("data-sid")), useQuestion: $(this).hasClass("success")});
 		});
 		
-		return false;
-	});
-	$("#sets-list").on("click", ".list-panel.set-list.success", function(){
-		var $this = $(this);
-		$this.removeClass("success");
-		$this.addClass("unused");
-		$("#edit-section").attr("data-needsupdate", "true");
-		$.post(prepareURL("sets/remove"), {
-			"sid": $this.attr("data-sid"),
-			"qid": $inputField.attr("data-qid")
+		$.post(prepareURL("sets/addremove"), {
+			sets: JSON.stringify(setsToModify),
+			qid: $inputField.attr("data-qid")
 		}).done(function(json){
-			toggleComplete("remove", json.success, $this);
+			$modifiedSets.removeClass("modified");
 			updateEditTab();
+			if(json.success){
+				successNotification("Successfully added/removed question to/from set(s)!");
+			} else {
+				errorNotification("Error while trying to add/remove question(s).\n" +
+					json.error);
+				$modifiedSets.removeClass("success");
+				$modifiedSets.addClass("delete");
+				$(this).addClass("disabled");
+			}
 		});
 		
 		return false;
@@ -181,6 +189,8 @@ function configureInputField() {
 			success: function(data) {
 				if (data.success) {
 					successNotification("Successfully edited question " + data.question.id);
+					var curQuestionId = $("#form-qid").val();
+					if(curQuestionId != data.question.id) router.navigate("/q/" + data.question.id, {trigger: true});;
 					updateEditTab();
 					updateContentTab(data);
 				} else {
@@ -280,15 +290,6 @@ function loadSetTabPage(page, amount){
 				$setsList.empty();
 				$setsList.append($newSets.find(".panels").children());
 			});
-}
-
-function toggleComplete(type, successful, $element){
-	if(!successful){
-		errorNotification("Error while trying to " + type + " a question.");
-		$element.removeClass("success");
-		$element.removeClass("unused");
-		$element.addClass("delete");
-	}
 }
 
 function configureQuestionStarToggler() {

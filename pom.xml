@@ -20,6 +20,13 @@
 	</repositories>
 
 	<dependencies>
+	
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20070829</version>
+    </dependency>
+	
     <dependency>
       <groupId>uk.ac.cam.cl.dtg.teaching</groupId>
       <artifactId>frontend</artifactId>

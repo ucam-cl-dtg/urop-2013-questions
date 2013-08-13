@@ -1,7 +1,9 @@
 package uk.ac.cam.sup.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -17,11 +19,13 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.form.QuestionSetTagForm;
+import uk.ac.cam.sup.form.QuestionsAddRemove;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -35,6 +39,64 @@ import com.google.common.collect.ImmutableMap;
 public class QuestionSetEditController extends GeneralController {
 	
 	private static Logger log = LoggerFactory.getLogger(QuestionSetEditController.class);
+	
+	@POST
+	@Path("/addremove")
+	@Produces("application/json")
+	public Map<String,?> addRemoveQuestionToSet(@Form QuestionsAddRemove form){
+		Set<Map<String,?>> sets;
+		int qid;
+		
+		try {
+			form.validate();
+			qid = form.getQid();
+			sets = form.getSets();
+		} catch (FormValidationException e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		
+		int sid;
+		boolean add;
+		QuestionSet qs;
+		Question q = QuestionQuery.get(qid);
+		List<Integer> unsuccessful = new ArrayList<Integer>();
+		for(Map<String,?> map: sets){
+			try{
+				sid = (Integer)map.get("sid");
+				
+			} catch(Exception e){
+				return ImmutableMap.of("success", false, "error", "An error occurred! " + e.getMessage());
+			}
+			
+			try{
+				qs = QuestionSetQuery.get(sid);
+				add = (Boolean)map.get("add");
+				if(add){
+					qs.addQuestion(q);
+					qs.update();
+				}else if(!add){
+					qs.removeQuestion(q);
+					qs.update();
+				}else{
+					throw new Exception();
+				}
+				
+			} catch(Exception e){
+				unsuccessful.add(sid);
+			}
+		}
+		
+		if(unsuccessful.size() < 1){
+			return ImmutableMap.of("success", true);
+		} else {
+			String s = "";
+			for(int i: unsuccessful){
+				s = s + " " + i;
+			}
+			s = s + ".";
+			return ImmutableMap.of("success", false, "error", "Error while adding/removing question in set(s):" + s);
+		}
+	}
 	
 	@POST
 	@Path("/remove")
