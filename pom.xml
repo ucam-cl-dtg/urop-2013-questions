@@ -27,6 +27,12 @@
       <type>war</type>
     </dependency>
     
+	<dependency>
+		<groupId>uk.ac.cam.cl.dtg</groupId>
+		<artifactId>ldap</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+    
     <dependency>
   		<groupId>javax.servlet</groupId>
   		<artifactId>servlet-api</artifactId>

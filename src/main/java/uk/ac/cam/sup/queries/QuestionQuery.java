@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -32,7 +35,10 @@ public class QuestionQuery {
 	@SuppressWarnings("unchecked")
 	public List<Question> list() {
 		log.debug("Returning list of results");
-		return criteria.list();
+		return criteria
+				.addOrder(Order.desc("isStarred"))
+				.addOrder(Order.desc("timeStamp"))
+				.list();
 		
 	}
 	
@@ -69,9 +75,7 @@ public class QuestionQuery {
 		log.debug("New QuestionQuery required. Constructing & returning");
 		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransactionSession()
 				.createCriteria(Question.class)	
-				.addOrder(Order.desc("isStarred"))
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
-		qq.criteria.addOrder(Order.desc("timeStamp"));
 		log.debug("Successfully created, now returning");
 		return qq;
 	}
@@ -95,6 +99,7 @@ public class QuestionQuery {
 		}
 		criteria.createAlias("tags", "t");
 		criteria.add(oredTagList);
+		//criteria.setFetchMode("t", FetchMode.JOIN);
 		return this;
 	}
 	
@@ -209,12 +214,20 @@ public class QuestionQuery {
 		return this;
 	}
 	
-	public int size(){
-		ScrollableResults sr = criteria.scroll();
+	public int size() throws QueryAlreadyOrderedException {
+		try{
+			int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			criteria.setProjection(null);
+			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			return result;
+		} catch(Exception e) {
+			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
+		}
+		/*ScrollableResults sr = criteria.scroll();
 		sr.last();
 		int result = sr.getRowNumber() + 1;
 		
-		return result;
+		return result;*/
 	}
 
 }

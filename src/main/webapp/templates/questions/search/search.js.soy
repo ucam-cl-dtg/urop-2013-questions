@@ -31,10 +31,17 @@
                 <input type="hidden" name="questions" value="" />
                 <input type="submit" value="Add to set" id="add-questions-to-set-button" />
             </form>
-        {else}
-            <div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-        {/if}
-    </div>
+		{else}
+			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+		{/if}
+
+	</div>
+	<div class="columns large-6 small-12" id="searchbar">
+		<form method="get" action="/q/search" id="questions-searchform" style="width:full">
+				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
+			<input type="submit" value="Search" />
+		</form>
+	</div>
 </div>
 	
 <h3>Questions</h3>
@@ -61,7 +68,7 @@
 	{if $success == true}
 		{if $totalAmount}
 			<div class="column large-12 small-12 result-number-text">
-				<i>Found a total of {$totalAmount} result{if $totalAmount > 1}s{/if}.</i> 
+				<i>There {if $totalAmount > 1}were{else}was{/if} {$totalAmount} hit{if $totalAmount > 1}s{/if} for these search terms.</i> 
 			</div>
 		{/if}
 		{if length($questions) > 0}
