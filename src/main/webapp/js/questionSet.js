@@ -1,12 +1,18 @@
 function reloadView (set) {
-	set.editable = $('star-question-button').attr('data-enabled');
+	set.editable = $('.star-question-button').attr('data-enabled');
+	console.log(set);
 	applyTemplate($("#set-plan-tab").children(".content"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab").children(".content"), "questions.view.set.tab.questions.full", set);
+	applyTemplate($("#set-tags-tab").children(".content"), "questions.view.set.tab.tags.full", set);
 	applyTemplate($("#set-use-tab").children(".content"), "questions.view.set.tab.use.full", set);
 	applyTemplate($("#set-edit-tab").children(".content"), "questions.view.set.tab.edit.full", set);
 	applyTemplate($("#set-createquestion-tab").children(".content"), "questions.view.set.tab.createquestion.full", set);
 	applyTemplate($(".question-set-name"), "questions.view.set.name", set);
 	reloadData();
+	var scripts = moduleScripts.questions.view.set.full;
+	for (var i = 0; i < scripts.length; i++) {
+		scripts[i]();
+	}
 }
 
 function configureRemoveQuestionButton () {
@@ -110,7 +116,7 @@ function configureUseTabSubmitButton() {
 }
 
 function configureSetStarToggler() {
-	$('.question-set').on('click', '.star-question-button', function() {
+	$('.star-question-button').on('click', function() {
 		var editable = $(this).attr('data-enabled') == "true";
 		if (editable) {
 			var $star = $(this);
