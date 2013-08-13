@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.DateFormatException;
 import uk.ac.cam.sup.exceptions.InvalidRangeException;
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -88,7 +89,12 @@ public class QuestionViewController extends GeneralController {
 			
 			SearchTerm st = new SearchTerm(tags, owners, star, supervisor, after,
 					before, usageMin, usageMax, parents, durMax, durMin);
-			Map<String,?> tmp = getFilteredQuestions(st, resultsPerPage*(page-1), resultsPerPage);
+			Map<String, ?> tmp;
+			try {
+				tmp = getFilteredQuestions(st, resultsPerPage*(page-1), resultsPerPage);
+			} catch (QueryAlreadyOrderedException e) {
+				return ImmutableMap.of("success", false, "error", e.getMessage());
+			}
 			
 			List<?> filteredQuestions = (List<?>) tmp.get("results");
 
@@ -202,8 +208,9 @@ public class QuestionViewController extends GeneralController {
 	 * 
 	 * @param st The search term according to which the questions should be filtered
 	 * @return Returns a list of filtered questions according to the search term.
+	 * @throws QueryAlreadyOrderedException 
 	 */
-	private Map<String,?> getFilteredQuestions(SearchTerm st, int offset, int amount) {
+	private Map<String,?> getFilteredQuestions(SearchTerm st, int offset, int amount) throws QueryAlreadyOrderedException {
 		log.debug("Getting new QuestionQuery");
 		QuestionQuery qq = QuestionQuery.all();
 

@@ -29,8 +29,8 @@
 		{/if}
 
 	</div>
-	<div class="columns large-4 small-12" id="searchbar">
-		<form method="get" action="/q/search" id="questions-searchform">
+	<div class="columns large-6 small-12" id="searchbar">
+		<form method="get" action="/q/search" id="questions-searchform" style="width:full">
 				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
 			<input type="submit" value="Search" />
 		</form>
@@ -61,7 +61,7 @@
 	{if $success == true}
 		{if $totalAmount}
 			<div class="column large-12 small-12 result-number-text">
-				<i>Found a total of {$totalAmount} result{if $totalAmount > 1}s{/if}.</i> 
+				<i>There {if $totalAmount > 1}were{else}was{/if} {$totalAmount} hit{if $totalAmount > 1}s{/if} for these search terms.</i> 
 			</div>
 		{/if}
 		{if length($questions) > 0}

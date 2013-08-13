@@ -157,7 +157,9 @@ function search(page, amount){
 	return false;
 }
 
-function displayPageNumbers(page, maxPage, amount){
+function displayPageNumbers(page, totalAmount, amount){
+	var maxPage = Math.floor(totalAmount / amount);
+	if(totalAmount % amount > 1){maxPage = Number(maxPage) + Number(1);}
 	insertPageNumbers($(".page-numbers"), "search-page-number", page, maxPage, amount);
 }
 function displayResults(json){
