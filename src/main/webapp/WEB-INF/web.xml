@@ -33,6 +33,7 @@
 		  http://malsup.github.com/jquery.form.js,/js/showdown.js,
 		  http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,
 		  /js/search.js,
+		  /js/searchSet.js,
 		  /js/questionFull.js,
 		  /js/questionSet.js,
 		  /js/dataEditor.js,

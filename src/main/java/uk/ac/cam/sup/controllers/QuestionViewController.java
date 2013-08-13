@@ -19,6 +19,9 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
+import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
+import uk.ac.cam.cl.dtg.ldap.LDAPUser;
 import uk.ac.cam.sup.exceptions.DateFormatException;
 import uk.ac.cam.sup.exceptions.InvalidRangeException;
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
@@ -182,12 +185,35 @@ public class QuestionViewController extends GeneralController {
 		return results;
 	}
 	private List<Map<String,String>> produceUsersWith(String st){
-		try{
-			List<User> users = UserQuery.all().idStartsWith(st).list();
-			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
-			for(User u: users){
-				results.add(ImmutableMap.of("value", u.getId()));
+		
+		try{ 
+			List<User> users = UserQuery.all().list();
+			List<Map<String,String>> crsidResults = new ArrayList<Map<String,String>>();
+			List<Map<String,String>> surnameResults = new ArrayList<Map<String,String>>();
+			for(User u : users){
+				if(u.getId().startsWith(st)){
+					try {
+						LDAPUser user = LDAPQueryManager.getUser(u.getId());
+						crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getcName()));
+					} catch(LDAPObjectNotFoundException e){
+						crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
+					}
+				} else {
+					try {
+						LDAPUser user = LDAPQueryManager.getUser(u.getId());
+						if(user.getSurname().toLowerCase().startsWith(st)){
+							surnameResults.add(ImmutableMap.of("value", user.getSurname(), "crsid", u.getId(), "name", user.getcName()));
+						}
+					} catch(LDAPObjectNotFoundException e){
+						if(u.getId().startsWith(st)){
+							surnameResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
+						}
+					}
+				}
 			}
+			List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+			results.addAll(crsidResults);
+			results.addAll(surnameResults);
 			return results;
 		} catch(Exception e){
 			List<Map<String,String>> results = new ArrayList<Map<String,String>>();

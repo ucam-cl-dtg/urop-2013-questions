@@ -5,20 +5,119 @@
  * @param sets
  */
 {template .list}
-<h3>Filter by</h3>
-<div class="row">
-	<div class="columns large-8 small-12">
-		<div class="button-bar">
-			<ul class="button-group">
-				<li><a href="#" class="medium secondary button">Star</a></li>
-				<li><a href="#" class="medium secondary button">Supervisor</a></li>
-				<li><a href="#" class="medium secondary button">Student</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="columns large-4 small-12">
-		<input type="text" placeholder="Search..." class="input-search">
-	</div>
+<div class="">
+    <div class="row">
+    	<div class="columns large-6 small-8 search-bar search">
+    	   <h3>Search...</h3>
+    	   <h5 class="search-tags-label">Tags</h5>
+    	   <input type="text" placeholder="Tags..." class="input-search" />
+    	</div>
+    </div>
+</div>
+
+<div class="advanced-search search">
+    <div class="row">
+        <div class="columns large-6 small-12">
+            <div><h5>Authors</h5></div>
+            <div>
+                <input type="text" placeholder="Authors..." />
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <div class="columns large-6 small-12">
+            <div><h5>Expected duration</h5></div>
+            <div>
+                <div class="row">
+                    <div class="columns large-2 small-2 text-right">
+                        <h6>From:</h6>
+                    </div>
+                    <div class="columns large-4 small-10 text-right">
+                        <input type="number" value="25" />
+                    </div>
+                    <div class="columns large-2 small-2 text-right">
+                        <h6>To:</h6>
+                    </div>
+                    <div class="columns large-4 small-10 text-right">
+                        <input type="number" value="35" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns large-6 small-12">
+            <div><h5>Date created</h5></div>
+            <div>
+                <div class="row">
+                    <div class="columns large-2 small-2 text-right">
+                        <h6>From:</h6>
+                    </div>
+                    <div class="columns large-4 small-10 text-right">
+                        <input type="date" />
+                    </div>
+                    <div class="columns large-2 small-2 text-right">
+                        <h6>To:</h6>
+                    </div>
+                    <div class="columns large-4 small-10 text-right">
+                        <input type="date" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="columns large-6 small-12">
+            <div><h5>Created by supervisor</h5></div>
+            <div>
+                <div class="row">
+                    <div class="columns large-12 small-12">
+                        <label for="supervisor-radio-x" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="supervisor" id="supervisor-radio-x" checked /> Don't care
+                        </label>
+                        <label for="supervisor-radio-y" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="supervisor" id="supervisor-radio-y" /> Yes
+                        </label>
+                        <label for="supervisor-radio-n" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="supervisor" id="supervisor-radio-n" /> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns large-6 small-12">
+            <div><h5>Starred</h5></div>
+            <div>
+                <div class="row">
+                    <div class="columns large-12 small-12">
+                        <label for="starred-radio-x" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="starred" id="starred-radio-x" checked /> Don't care
+                        </label>
+                        <label for="starred-radio-y" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="starred" id="starred-radio-y" /> Yes
+                        </label>
+                        <label for="starred-radio-n" style="float: left; margin-right: 10px;">
+                            <input type="radio" name="starred" id="starred-radio-n" /> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-buttons search">
+    <div class="row">
+        <div class="columns large-4 small-8">
+            <a id="advanced-search-expand">Advanced search...</a>
+        </div>
+        <div class="columns large-2 small-4 text-right">
+           <input type="submit" value="Search" class="medium button success" />
+        </div>
+        
+        <div class="columns large-6 small-0"></div>
+    </div>
 </div>
 
 <h3>Question sets</h3>
