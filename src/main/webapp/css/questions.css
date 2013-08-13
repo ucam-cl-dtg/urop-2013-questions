@@ -37,3 +37,50 @@ input#tags-input{
 div.result-number-text {
 	padding-bottom: 10px;
 }
+
+.search-bar {
+	margin: 0 0.9375em;
+	padding: 10px 20px 0 20px;
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: transparent;
+	position: relative;
+	top: 1px;
+}
+
+.search-bar.expanded {
+    margin: 0 0.9375em;
+    padding: 10px 20px 0 20px;
+    border-color: #ccc;
+    position: relative;
+    background-color: white;
+    top: 1px;
+}
+
+.advanced-search {
+	display: none;
+	padding: 10px 20px 0 20px;
+	border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.advanced-search.expanded {
+    border-color: #ccc;
+}
+
+.search-buttons {
+	padding: 0 20px 10px 20px;
+	border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.search-buttons.expanded {
+	padding: 0 20px 10px 20px;
+    border-color: #ccc;
+}
+
+.search-tags-label {
+	display: none;
+}

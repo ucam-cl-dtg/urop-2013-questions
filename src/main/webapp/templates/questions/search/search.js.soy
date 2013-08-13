@@ -14,27 +14,27 @@
 	{$error}<br>
 	<a href="{$ij.URLPrefix}/q/search">Click here</a> to go to the search main page. 
 {else}
-<h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
+
 <div class="row">
-	<div class="columns large-4 small-12" id="search-export-questions-form">
-		
-		{if $set}
-			<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-				<input type="hidden" name="targetSetId" value="{$set.id}" />
-			    <input type="hidden" name="questions" value="" />
+	<div class="columns large-6 small-12" id="searchbar">
+	   <h3>Search</h3>
+	   <form method="get" action="/q/search" id="questions-searchform">
+	       <input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
+	       <input type="submit" value="Search" />
+	   </form>
+    </div>
+    <div class="columns large-4 small-12" id="search-export-questions-form">
+        <h3>Add to {if $set}{$set.name}{else}a set{/if}</h3>
+        {if $set}
+            <form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
+                <input type="hidden" name="targetSetId" value="{$set.id}" />
+                <input type="hidden" name="questions" value="" />
                 <input type="submit" value="Add to set" id="add-questions-to-set-button" />
             </form>
-		{else}
-			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-		{/if}
-
-	</div>
-	<div class="columns large-4 small-12" id="searchbar">
-		<form method="get" action="/q/search" id="questions-searchform">
-				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
-			<input type="submit" value="Search" />
-		</form>
-	</div>
+        {else}
+            <div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+        {/if}
+    </div>
 </div>
 	
 <h3>Questions</h3>

@@ -45,3 +45,5 @@ moduleScripts['questions'] = {
 	},
 	
 };
+
+configureAdvancedSearchExpand();
