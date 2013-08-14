@@ -120,8 +120,23 @@
     </div>
 </div>
 
-<h3>Question sets</h3>
+<h3>Results</h3>
+<div class="page-numbers">
+	// JS will insert page numbers here
+</div>
 <div class="row" id="question-set-list">
+	// JS will insert page content here
+	{call .multiple data="all" /}
+</div>
+<div class="page-numbers">
+	// JS will insert page numbers here
+</div>
+{/template}
+
+/**
+ * @param sets
+ */
+{template .multiple}
 	<ul class="panels">
 		{foreach $set in $sets}
 			{call .listset}
@@ -129,11 +144,8 @@
 			{/call}
 		{/foreach}
 	</ul>
-	<div class="columns large-12">
-		<a class="large button expand">Show more</a>
-	</div>
-</div>
 {/template}
+
 
 /**
  * @param set

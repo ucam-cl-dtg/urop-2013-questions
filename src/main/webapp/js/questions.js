@@ -8,7 +8,7 @@ moduleScripts['questions'] = {
 			configureDataRenderer,
 			reloadMathJax,
 	    ],
-		'set': {
+	    'set': {
 			'full': [
 			    configureRemoveQuestionButton,
 			    configureEditSetForm,
@@ -25,6 +25,7 @@ moduleScripts['questions'] = {
 			],
 			'list': [
 			    configureQuestionSetLoader,
+			    configureSetSearchPages,
 			]
     	}
 
