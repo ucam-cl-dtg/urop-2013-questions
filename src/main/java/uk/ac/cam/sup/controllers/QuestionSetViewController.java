@@ -1,7 +1,6 @@
 package uk.ac.cam.sup.controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +15,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.hibernate.criterion.Order;
+import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
+import uk.ac.cam.sup.form.SetSearchForm;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -38,49 +40,17 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public Map<String,?> produceFilteredSets (
-			@QueryParam("tags") String tags,
-			@QueryParam("owners") String users,
-			@QueryParam("star") boolean star,
-			@QueryParam("supervisor") Boolean supervisor,
-			@QueryParam("after") Long after,
-			@QueryParam("before") Long before,
-			@QueryParam("durmin") Integer minduration,
-			@QueryParam("durmax") Integer maxduration
-	) {
-		QuestionSetQuery query = QuestionSetQuery.all();
-		
-		if (tags != null) {
-			String[] tagstrings = tags.split(",");
-			List<Tag> tagset = new ArrayList<Tag>();
-			for (String t: tagstrings) {
-				tagset.add(TagQuery.get(t));
-			}
-			query.withTags(tagset);
+	public Map<String,?> produceFilteredSets (@Form SetSearchForm sf) {
+		try {
+			sf.validate().parse();
+			return ImmutableMap.of(
+					"success", true,
+					"sets", sf.getSearchResults(),
+					"form", sf.toMap()
+			);
+		} catch (FormValidationException e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
-		
-		if (users != null) {
-			String[] userstrings = users.split(",");
-			List<User> userset = new ArrayList<User>();
-			for (String u: userstrings) {
-				userset.add(new User(u));
-			}
-			query.withUsers(userset);
-		}
-		
-		if (star) {	query.withStar(); }
-		if (supervisor != null) {
-			if (supervisor) { query.bySupervisor(); }
-			else { query.byStudent(); }
-		}
-		
-		if (after != null) { query.after(new Date(after)); }
-		if (before != null) { query.before(new Date(before)); }
-		
-		if (minduration != null) { query.minDuration(minduration); }
-		if (maxduration != null) { query.maxDuration(maxduration); }
-		
-		return ImmutableMap.of("sets", query.maplist());
 	}
 	
 	@GET
@@ -139,7 +109,7 @@ public class QuestionSetViewController extends GeneralController {
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);
 		
-		List<QuestionSet> resultSets = QuestionSetQuery.all().withUsers(userlist).list();
+		List<QuestionSet> resultSets = QuestionSetQuery.all().withOwners(userlist).list();
 		
 		if(questionID == null) {
 			return ImmutableMap.of("sets", resultSets);

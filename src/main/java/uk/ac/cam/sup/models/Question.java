@@ -31,10 +31,11 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.DataType;
+import uk.ac.cam.sup.util.Mappable;
 
 @Entity()
 @Table(name="Questions")
-public class Question extends Model implements Cloneable {
+public class Question extends Model implements Cloneable, Mappable {
 	@Transient
 	private static Logger log = LoggerFactory.getLogger(Question.class);
 	
@@ -217,7 +218,7 @@ public class Question extends Model implements Cloneable {
 		} else {
 			List<User> userlist = new ArrayList<User>();
 			userlist.add(editor);
-			if(QuestionSetQuery.all().withUsers(userlist).have(qe.getId()).list().size() < 1){
+			if(QuestionSetQuery.all().withOwners(userlist).have(qe.getId()).list().size() < 1){
 				throw new InvalidInputException("No sets available in which to edit this question!");
 			}
 		}
