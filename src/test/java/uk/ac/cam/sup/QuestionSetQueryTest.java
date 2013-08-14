@@ -13,6 +13,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -291,7 +292,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	}
 	
 	@Test
-	public void countingRowsWorks() throws ModelNotFoundException{
+	public void countingRowsWorks() throws ModelNotFoundException, QueryAlreadyOrderedException{
 		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get("jcb98"));
 		assertTrue(qsq.size() > 0);
 	}

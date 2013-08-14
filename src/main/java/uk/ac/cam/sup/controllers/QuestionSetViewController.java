@@ -19,6 +19,7 @@ import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -26,6 +27,7 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.queries.UserQuery;
 import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
@@ -177,17 +179,36 @@ public class QuestionSetViewController extends GeneralController {
 			@QueryParam("contains") Integer qid,
 			@QueryParam("page") Integer page,
 			@QueryParam("amount") Integer amount) {
+		return produceSelectionOfUserSets(getCurrentUserID(), qid, page, amount);
+	}
+	
+	@GET
+	@Path("/{crsid}/limited")
+	@Produces("application/json")
+	public Map<String,?> produceSelectionOfUserSets(
+			@PathParam("crsid") String crsid,
+			@QueryParam("contains") Integer qid,
+			@QueryParam("page") Integer page,
+			@QueryParam("amount") Integer amount) {
 		
-		if(qid == null || page == null || amount == null){
+		if(qid == null || page == null || amount == null || crsid == null){
 			return ImmutableMap.of("success", false, "error", "An input value was null");
 		}
 		
-		List<QuestionSet> sets = QuestionSetQuery.all().withUser(getCurrentUser()).maxResults(amount).offset((page-1)*amount).list();
+		User u;
+		try {
+			u = UserQuery.get(crsid);
+		} catch (ModelNotFoundException e) {
+			u = new User(crsid, false);
+			u.save();
+		}
+		List<QuestionSet> sets = QuestionSetQuery.all().withUser(u).maxResults(amount).offset((page-1)*amount).list();
 		Question q = QuestionQuery.get(qid);
 		List<Map<String,?>> resultSets = new ArrayList<Map<String,?>>();
 		
 		for(QuestionSet s: sets){
-			resultSets.add(ImmutableMap.of("set", s.toMap(!getCurrentUser().getSupervisor()),
+			resultSets.add(ImmutableMap.of(
+					"set", s.toMap(!(getCurrentUser().getSupervisor() || getCurrentUser().getId().equals(u.getId()))),
 					"containsQuestion", s.getQuestions().contains(q)));
 		}
 		

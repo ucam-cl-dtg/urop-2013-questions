@@ -223,11 +223,7 @@ public class QuestionQuery {
 		} catch(Exception e) {
 			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
 		}
-		/*ScrollableResults sr = criteria.scroll();
-		sr.last();
-		int result = sr.getRowNumber() + 1;
 		
-		return result;*/
 	}
 
 }

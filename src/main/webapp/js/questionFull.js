@@ -103,8 +103,8 @@ function configureInputField() {
 		});
 		
 		$.post(prepareURL("sets/addremove"), {
-			sets: JSON.stringify(setsToModify),
-			qid: $inputField.attr("data-qid")
+			qid: $inputField.attr("data-qid"),
+			sets: JSON.stringify(setsToModify)
 		}).done(function(json){
 			$modifiedSets.removeClass("modified");
 			updateEditTab();
@@ -272,12 +272,7 @@ function loadSetTabPageNumbers(curPage, setsPerPage){
 		maxPage = Math.floor(json.amount / setsPerPage);
 		if(json.amount % setsPerPage > 1){maxPage = Number(maxPage) + Number(1);}
 		
-		var data = {curPage: Number(curPage), maxPage: Number(maxPage), resultsPerPage: Number(setsPerPage), className: "set-page"};
-		
-		$pageNums.empty();
-		var $newPageNums = $("<div></div>");
-		applyTemplate($newPageNums, "shared.util.pageNumbers", data);
-		$pageNums.append($newPageNums.children());
+		insertPageNumbers($pageNums, "set-page", curPage, maxPage, setsPerPage);
 	});
 }
 function loadSetTabPage(page, amount){

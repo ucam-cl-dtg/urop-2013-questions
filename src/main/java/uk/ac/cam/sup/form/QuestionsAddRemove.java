@@ -17,18 +17,19 @@ import com.google.common.collect.ImmutableMap;
 
 public class QuestionsAddRemove {
 	
+	@FormParam("qid")
+	private Integer qid;
+	
 	@FormParam("sets")
 	private String setsString;
 	private Set<Map<String,?>> sets;
-	
-	@FormParam("qid")
-	private Integer qid;
 	
 	private boolean validated = false;
 	
 	public final QuestionsAddRemove validate() throws FormValidationException{
 		
 		if(qid == null || QuestionQuery.get(qid) == null){
+			System.out.println("######################### " + qid);
 			throw new FormValidationException("Question does not exist!");
 		}
 		if(setsString == null || setsString.length() < 1){

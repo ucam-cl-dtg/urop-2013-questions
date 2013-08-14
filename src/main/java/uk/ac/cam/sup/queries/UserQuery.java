@@ -41,6 +41,7 @@ public class UserQuery {
 				.setParameter("id", userID)
 				.uniqueResult();
 		if(result == null) {throw new ModelNotFoundException("The User with id " + userID + " was not found in the data base");}
+		log.debug("Returning user with user ID " + userID);
 		return result;
 	}
 	

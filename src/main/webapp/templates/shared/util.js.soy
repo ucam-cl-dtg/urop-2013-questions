@@ -15,7 +15,7 @@
 	)}
 		{let $resultsPerPage: 10 /}
 	{/if}
-<div class="clearfix">	
+<div class="clearfix internal-page-number-container">	
 	<div class="page-number-list" data-max-page="{$maxPage}"> 
 		{if $curPage >= 5}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="1">&lt;&lt;</a>{/if}
 		{if $curPage >= 2}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPage - 1}">&lt;</a>{/if}

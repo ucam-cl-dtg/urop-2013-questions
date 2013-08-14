@@ -26,9 +26,13 @@ moduleScripts['questions'] = {
 			'list': [
 			    configureQuestionSetLoader,
 			    configureSetSearchPages,
-			]
-    	}
-
+			],
+    	},
+		'user': {
+			'full': [
+			    configureUserPage,
+			 ],
+		},
 	},
 	'form' : {
 		'set' : {

@@ -84,3 +84,7 @@ div.result-number-text {
 .search-tags-label {
 	display: none;
 }
+
+.internal-page-number-container {
+	padding: 10px 0px 0px 0px;
+}

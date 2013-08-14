@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -33,13 +34,12 @@ public class QuestionSetQuery {
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-					.addOrder(Order.desc("isStarred"))
 		);
-		qsq.criteria.addOrder(Order.desc("timeStamp"));
 		return qsq;
 	}
 	
 	public List<QuestionSet> list() {
+		criteria.addOrder(Order.desc("isStarred")).addOrder(Order.desc("timeStamp"));
 		@SuppressWarnings("unchecked")
 		List<QuestionSet> l = criteria.list();
 		return l;
@@ -163,11 +163,14 @@ public class QuestionSetQuery {
 		return criteria;
 	}
 	
-	public int size(){
-		ScrollableResults sr = criteria.scroll();
-		sr.last();
-		int result = sr.getRowNumber() + 1;
-		
-		return result;
+	public int size() throws QueryAlreadyOrderedException{
+		try{
+			int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			criteria.setProjection(null);
+			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			return result;
+		} catch(Exception e) {
+			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
+		}
 	}
 }
