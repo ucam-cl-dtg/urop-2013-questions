@@ -1,17 +1,13 @@
 package uk.ac.cam.sup.queries;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -23,38 +19,12 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.HibernateUtil;
 
-public class QuestionQuery {
-	private Criteria criteria;
+public class QuestionQuery extends Query<Question> {
 	private static Logger log = LoggerFactory.getLogger(QuestionQuery.class);
 	
 	private QuestionQuery(Criteria c){
 		log.debug("Constructing new criteria");
 		criteria = c; 
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Question> list() {
-		log.debug("Returning list of results");
-		return criteria
-				.addOrder(Order.desc("isStarred"))
-				.addOrder(Order.desc("timeStamp"))
-				.list();
-		
-	}
-	
-	public List<Map<String,?>> maplist(boolean shadowed) {
-		List<Question> ql = this.list();
-		List<Map<String, ?>> result = new ArrayList<Map<String,?>>();
-		
-		for (Question q: ql) {
-			result.add(q.toMap(shadowed));
-		}
-		
-		return result;
-	}
-	
-	public List<Map<String, ?>> maplist() {
-		return this.maplist(true);
 	}
 	
 	public static Question get(int id) {
@@ -223,7 +193,7 @@ public class QuestionQuery {
 		} catch(Exception e) {
 			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
 		}
-		
+
 	}
 
 }

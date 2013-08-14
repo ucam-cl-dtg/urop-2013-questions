@@ -25,6 +25,7 @@ moduleScripts['questions'] = {
 			],
 			'list': [
 			    configureQuestionSetLoader,
+			    configureSetSearchFields,
 			    configureSetSearchPages,
 			],
     	},
@@ -52,3 +53,4 @@ moduleScripts['questions'] = {
 };
 
 configureAdvancedSearchExpand();
+configureSetSearchButton();

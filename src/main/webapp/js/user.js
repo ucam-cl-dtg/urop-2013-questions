@@ -1,6 +1,26 @@
 function configureUserPage() {
 	loadUserSets(1, 25);
 	loadUserQuestions(1, 25);
+	$(".sets-page-numbers").on("click", "a.page-number", function(){
+		var p = $(this).attr("data-p");
+		var spp = $(this).parent().siblings(".results-per-page-select").val();
+		loadUserSets(Number(p), Number(spp));
+		return false;
+	});
+	$(".sets-page-numbers").on("change", ".results-per-page-select", function(){
+		var spp = $(this).val();
+		loadUserSets(1, Number(spp));
+	});
+	$(".questions-page-numbers").on("click", "a.page-number", function(){
+		var p = $(this).attr("data-p");
+		var spp = $(this).parent().siblings(".results-per-page-select").val();
+		loadUserQuestions(Number(p), Number(spp));
+		return false;
+	});
+	$(".questions-page-numbers").on("change", ".results-per-page-select", function(){
+		var spp = $(this).val();
+		loadUserQuestions(1, Number(spp));
+	});
 }
 
 function loadUserSets(page, amount){

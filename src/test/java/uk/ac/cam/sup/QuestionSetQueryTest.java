@@ -77,7 +77,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		List<User> users = new ArrayList<User>();
 		users.add(new User("mr595"));
 		users.add(new User("as123"));
-		List<?> result = QuestionSetQuery.all().withUsers(users).list();
+		List<?> result = QuestionSetQuery.all().withOwners(users).list();
 		for (Object q: result) {
 			boolean contains = false;
 			for (User u: users) {
@@ -98,7 +98,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		user.add(new User("mr595"));
 		user.add(new User("as123"));
 		List<?> all = QuestionSetQuery.all().list();
-		List<?> result = QuestionSetQuery.all().withUsers(user).list();
+		List<?> result = QuestionSetQuery.all().withOwners(user).list();
 		for (Object q: all) {
 			User owner = ((QuestionSet)q).getOwner();
 			for (User u: user) {
@@ -293,7 +293,7 @@ public class QuestionSetQueryTest extends GenericTest {
 	
 	@Test
 	public void countingRowsWorks() throws ModelNotFoundException, QueryAlreadyOrderedException{
-		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get("jcb98"));
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get("u1"));
 		assertTrue(qsq.size() > 0);
 	}
 }

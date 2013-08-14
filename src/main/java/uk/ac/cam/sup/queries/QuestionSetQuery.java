@@ -1,9 +1,7 @@
 package uk.ac.cam.sup.queries;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -20,10 +18,9 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.HibernateUtil;
 
-public class QuestionSetQuery {
+public class QuestionSetQuery extends Query<QuestionSet> {
 	//private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
 	
-	private Criteria criteria;
 	private QuestionSetQuery(Criteria criteria) {
 		this.criteria = criteria;
 	}
@@ -56,21 +53,6 @@ public class QuestionSetQuery {
 		return qs;
 	}
 	
-	public List<Map<String, ?>> maplist(boolean shadow) {
-		List<Map<String, ?>> l = new ArrayList<Map<String,?>>();
-		List<QuestionSet> all = list();
-		
-		for (QuestionSet qs: all) {
-			l.add(qs.toShortMap(shadow));
-		}
-		
-		return l;
-	}
-	
-	public List<Map<String, ?>> maplist() {
-		return maplist(true);
-	}
-	
 	public QuestionSetQuery withTags(List<Tag> taglist) {
 		Disjunction d = Restrictions.disjunction();
 		for (Tag t: taglist) {
@@ -81,7 +63,7 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
-	public QuestionSetQuery withUsers(List<User> userlist) {
+	public QuestionSetQuery withOwners(List<User> userlist) {
 		Disjunction d = Restrictions.disjunction();
 		for (User u: userlist) {
 			d.add(Restrictions.eq("owner.id", u.getId()).ignoreCase());
