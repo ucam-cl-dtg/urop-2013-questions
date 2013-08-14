@@ -3,122 +3,137 @@
 /**
  * Displays a list of sets
  * @param sets
+ * @param form
  */
 {template .list}
-<div class="">
-    <div class="row">
-    	<div class="columns large-6 small-8 search-bar search">
-    	   <h3>Search...</h3>
-    	   <h5 class="search-tags-label">Tags</h5>
-    	   <input type="text" placeholder="Tags..." class="input-search" />
-    	</div>
-    </div>
-</div>
-
-<div class="advanced-search search">
-    <div class="row">
-        <div class="columns large-6 small-12">
-            <div><h5>Authors</h5></div>
-            <div>
-                <input type="text" placeholder="Authors..." />
-            </div>
-        </div>
-        
-    </div>
-    
-    <div class="row">
-        <div class="columns large-6 small-12">
-            <div><h5>Expected duration</h5></div>
-            <div>
-                <div class="row">
-                    <div class="columns large-2 small-2 text-right">
-                        <h6>From:</h6>
-                    </div>
-                    <div class="columns large-4 small-10 text-right">
-                        <input type="number" value="25" />
-                    </div>
-                    <div class="columns large-2 small-2 text-right">
-                        <h6>To:</h6>
-                    </div>
-                    <div class="columns large-4 small-10 text-right">
-                        <input type="number" value="35" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="columns large-6 small-12">
-            <div><h5>Date created</h5></div>
-            <div>
-                <div class="row">
-                    <div class="columns large-2 small-2 text-right">
-                        <h6>From:</h6>
-                    </div>
-                    <div class="columns large-4 small-10 text-right">
-                        <input type="date" />
-                    </div>
-                    <div class="columns large-2 small-2 text-right">
-                        <h6>To:</h6>
-                    </div>
-                    <div class="columns large-4 small-10 text-right">
-                        <input type="date" />
-                    </div>
-                </div>
-            </div>
+<form method="GET" action="sets">
+    <div class="">
+        <div class="row">
+        	<div class="columns large-6 small-8 search-bar search">
+        	   <h3>Search...</h3>
+        	   <h5 class="search-tags-label">Tags</h5>
+        	   <input type="text" name="tags" {if $form.tags}value="{$form.tags}"{/if} placeholder="Tags..." class="input-search" />
+        	</div>
         </div>
     </div>
     
-    <div class="row">
-        <div class="columns large-6 small-12">
-            <div><h5>Created by supervisor</h5></div>
-            <div>
-                <div class="row">
-                    <div class="columns large-12 small-12">
-                        <label for="supervisor-radio-x" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="supervisor" id="supervisor-radio-x" checked /> Don't care
-                        </label>
-                        <label for="supervisor-radio-y" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="supervisor" id="supervisor-radio-y" /> Yes
-                        </label>
-                        <label for="supervisor-radio-n" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="supervisor" id="supervisor-radio-n" /> No
-                        </label>
-                    </div>
+    <div class="advanced-search search">
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Authors</h5></div>
+                <div>
+                    <input type="text" name="authors" {if $form.authors}value="{$form.authors}"{/if} placeholder="Authors..." />
                 </div>
             </div>
-        </div>
-        <div class="columns large-6 small-12">
-            <div><h5>Starred</h5></div>
-            <div>
-                <div class="row">
-                    <div class="columns large-12 small-12">
-                        <label for="starred-radio-x" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="starred" id="starred-radio-x" checked /> Don't care
-                        </label>
-                        <label for="starred-radio-y" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="starred" id="starred-radio-y" /> Yes
-                        </label>
-                        <label for="starred-radio-n" style="float: left; margin-right: 10px;">
-                            <input type="radio" name="starred" id="starred-radio-n" /> No
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="search-buttons search">
-    <div class="row">
-        <div class="columns large-4 small-8">
-            <a id="advanced-search-expand">Advanced search...</a>
-        </div>
-        <div class="columns large-2 small-4 text-right">
-           <input type="submit" value="Search" class="medium button success" />
+            
         </div>
         
-        <div class="columns large-6 small-0"></div>
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Expected duration</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>From:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="number" name="minduration" {if $form.minDuration}value="{$form.minDuration}"{/if} />
+                        </div>
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>To:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="number" name="maxduration" {if $form.maxDuration}value="{$form.maxDuration}"{/if}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns large-6 small-12">
+                <div><h5>Date created</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>From:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="text" name="after" id="set-search-field-after" {if $form.after}value="{$form.after}"{/if} />
+                        </div>
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>To:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="text" name="before" id="set-search-field-before" {if $form.before}value="{$form.before}"{/if} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Created by supervisor</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-12 small-12">
+                            <label for="supervisor-radio-x" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="DONT_CARE"
+                                    {if $form.supervisor != 'YES' and $form.supervisor != 'NO'}checked {/if}
+                                    id="supervisor-radio-x" /> Don't care
+                            </label>
+                            <label for="supervisor-radio-y" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="YES"
+                                    {if $form.supervisor == 'YES'}checked {/if}
+                                    id="supervisor-radio-y" /> Yes
+                            </label>
+                            <label for="supervisor-radio-n" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="NO" 
+                                    {if $form.supervisor == 'NO'}checked {/if}
+                                    id="supervisor-radio-n" /> No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns large-6 small-12">
+                <div><h5>Starred</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-12 small-12">
+                            <label for="starred-radio-x" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="DONT_CARE" 
+                                    {if $form.starred != 'YES' and $form.starred != 'NO'}checked {/if}
+                                    id="starred-radio-x" /> Don't care
+                            </label>
+                            <label for="starred-radio-y" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="YES" 
+                                    {if $form.starred == 'YES'}checked {/if}
+                                    id="starred-radio-y" /> Yes
+                            </label>
+                            <label for="starred-radio-n" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="NO" 
+                                    {if $form.starred == 'NO'}checked {/if}
+                                    id="starred-radio-n" /> No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    
+    <div class="search-buttons search">
+        <div class="row">
+            <div class="columns large-4 small-8">
+                <a id="advanced-search-expand">Advanced search...</a>
+            </div>
+            <div class="columns large-2 small-4 text-right">
+               <input type="submit" value="Search" id="set-search-button" class="medium button success" />
+            </div>
+            
+            <div class="columns large-6 small-0"></div>
+        </div>
+    </div>
+</form>
 
 <h3>Results</h3>
 <div class="page-numbers">
@@ -126,7 +141,7 @@
 </div>
 <div class="row" id="question-set-list">
 	// JS will insert page content here
-	{call .multiple data="all" /}
+	{call .listsets data="all" /}
 </div>
 <div class="page-numbers">
 	// JS will insert page numbers here
@@ -136,16 +151,15 @@
 /**
  * @param sets
  */
-{template .multiple}
-	<ul class="panels">
-		{foreach $set in $sets}
-			{call .listset}
-				{param set: $set /}
-			{/call}
-		{/foreach}
-	</ul>
+{template .listsets}
+    <ul class="panels">
+        {foreach $set in $sets}
+            {call .listset}
+                {param set: $set /}
+            {/call}
+        {/foreach}
+    </ul>
 {/template}
-
 
 /**
  * @param set
@@ -164,13 +178,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="question-list">
-//		<ul class="sub-panel">
-//			{call .listquestions}
-//				{param questions: $set.questions /}
-//			{/call}
-//		</ul>
-		</div>
+		<div class="question-list"></div>
 	</li>
 {/template}
 

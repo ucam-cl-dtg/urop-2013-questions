@@ -1,16 +1,12 @@
 package uk.ac.cam.sup.queries;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Criteria;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.models.Question;
@@ -19,10 +15,9 @@ import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.HibernateUtil;
 
-public class QuestionSetQuery {
+public class QuestionSetQuery extends Query<QuestionSet> {
 	//private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
 	
-	private Criteria criteria;
 	private QuestionSetQuery(Criteria criteria) {
 		this.criteria = criteria;
 	}
@@ -33,16 +28,8 @@ public class QuestionSetQuery {
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-					.addOrder(Order.desc("isStarred"))
 		);
-		qsq.criteria.addOrder(Order.desc("timeStamp"));
 		return qsq;
-	}
-	
-	public List<QuestionSet> list() {
-		@SuppressWarnings("unchecked")
-		List<QuestionSet> l = criteria.list();
-		return l;
 	}
 	
 	public static QuestionSet get(int id) {
@@ -56,21 +43,6 @@ public class QuestionSetQuery {
 		return qs;
 	}
 	
-	public List<Map<String, ?>> maplist(boolean shadow) {
-		List<Map<String, ?>> l = new ArrayList<Map<String,?>>();
-		List<QuestionSet> all = list();
-		
-		for (QuestionSet qs: all) {
-			l.add(qs.toShortMap(shadow));
-		}
-		
-		return l;
-	}
-	
-	public List<Map<String, ?>> maplist() {
-		return maplist(true);
-	}
-	
 	public QuestionSetQuery withTags(List<Tag> taglist) {
 		Disjunction d = Restrictions.disjunction();
 		for (Tag t: taglist) {
@@ -81,7 +53,7 @@ public class QuestionSetQuery {
 		return this;
 	}
 	
-	public QuestionSetQuery withUsers(List<User> userlist) {
+	public QuestionSetQuery withOwners(List<User> userlist) {
 		Disjunction d = Restrictions.disjunction();
 		for (User u: userlist) {
 			d.add(Restrictions.eq("owner.id", u.getId()).ignoreCase());
@@ -147,27 +119,5 @@ public class QuestionSetQuery {
 			.createAlias("qp.question", "q")
 			.add(Restrictions.eq("q.id", qID));
 		return this;
-	}
-	
-	public QuestionSetQuery maxResults(int max){
-		criteria.setMaxResults(max);
-		return this;
-	}
-	
-	public QuestionSetQuery offset(int offset){
-		criteria.setFirstResult(offset);
-		return this;
-	}
-	
-	public Criteria getCriteria(){
-		return criteria;
-	}
-	
-	public int size(){
-		ScrollableResults sr = criteria.scroll();
-		sr.last();
-		int result = sr.getRowNumber() + 1;
-		
-		return result;
 	}
 }

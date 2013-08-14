@@ -30,7 +30,7 @@ public class UserController extends GeneralController {
 		
 		List<Map<String, ?>> questions;
 		questions = QuestionQuery.all().withOwners(userlist).maplist();
-		List<Map<String,?>> sets = QuestionSetQuery.all().withUsers(userlist).maplist();
+		List<Map<String,?>> sets = QuestionSetQuery.all().withOwners(userlist).maplist();
 		
 		return ImmutableMap.of(
 				"success", true,
