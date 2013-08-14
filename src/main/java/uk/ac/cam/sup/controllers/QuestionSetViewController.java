@@ -71,7 +71,7 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/{id}/import")
 	@Produces("application/json")
 	public Map<String,?> produceImportPageData(@PathParam("id") int id) {
-		List<Map<String, ?>> questions = QuestionQuery.all().maplist();
+		List<Map<String, ?>> questions = new ArrayList<Map<String,?>>();
 		QuestionSet qs = QuestionSetQuery.get(id);
 		if (qs == null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -104,7 +104,7 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/mysets")
 	@Produces("application/json")
 	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID){
-		
+		// TODO: modify so that not all sets are queried (introduce page numbers in frontend)
 		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);
@@ -147,9 +147,6 @@ public class QuestionSetViewController extends GeneralController {
 			@QueryParam("contains") Integer qid,
 			@QueryParam("page") Integer page,
 			@QueryParam("amount") Integer amount) {
-		
-		//@SuppressWarnings("unchecked")
-		//List<Map<String,?>> mySets = (List<Map<String,?>>) produceMySets(qid).get("maplist");
 		
 		if(qid == null || page == null || amount == null){
 			return ImmutableMap.of("success", false, "error", "An input value was null");
@@ -197,9 +194,8 @@ public class QuestionSetViewController extends GeneralController {
 					+ " which are NOT in set " + setid);
 
 			List<Tag> tags = TagQuery.all().notContainedIn(QuestionSetQuery.get(setid).getTags())
-					.contains(tag).list();
+					.contains(tag).maxResults(10).list();
 			
-			//results.add(ImmutableMap.of("name", strTagPart));
 			for (Tag t : tags) {
 				results.add(ImmutableMap.of("name", t.getName()));
 			}

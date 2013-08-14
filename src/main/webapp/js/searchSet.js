@@ -71,3 +71,20 @@ function configureSetSearchFields() {
 		dateFormat: "dd/mm/yy"
 	});
 }
+
+function configureSetSearchPages() {
+	// TODO
+	// 1. populate search fields
+	// 2. make search request & insert page numbers and populate sets-list (call setSearch())
+	//     -> remove call to .multiple in questions.view.set.list; this is now handled by JS here.
+	displayPageNumbersSetSearch(1,1,1);
+}
+function setSearch(){
+	// TODO
+	// insert page numbers & populate sets-list here
+}
+function displayPageNumbersSetSearch(page, totalAmount, amountPerPage){
+	var maxPage = Math.floor(totalAmount / amountPerPage);
+	if(totalAmount % amountPerPage > 1){maxPage = Number(maxPage) + Number(1);}
+	insertPageNumbers($(".page-numbers"), "set-search-page-number", page, maxPage, amountPerPage);
+}

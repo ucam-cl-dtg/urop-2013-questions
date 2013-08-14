@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
@@ -23,6 +24,8 @@ public abstract class Query<T extends Mappable> {
 	
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
+		criteria.addOrder(Order.desc("isStarred"))
+			.addOrder(Order.desc("timeStamp"));
 		return criteria.list();
 	}
 	

@@ -54,5 +54,14 @@ public class UserQuery {
 		return criteria.list();
 	}
 	
+	public UserQuery maxResults(int amount){
+		criteria.setMaxResults(amount);
+		return this;
+	}
+	
+	public UserQuery offset(int offset){
+		criteria.setFirstResult(offset);
+		return this;
+	}
 	
 }

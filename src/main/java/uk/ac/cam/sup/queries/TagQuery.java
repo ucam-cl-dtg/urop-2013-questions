@@ -59,5 +59,15 @@ public class TagQuery {
 		}
 		return this;
 	}
+	
+	public TagQuery maxResults(int amount){
+		criteria.setMaxResults(amount);
+		return this;
+	}
+	
+	public TagQuery offset(int offset){
+		criteria.setFirstResult(offset);
+		return this;
+	}
 
 }

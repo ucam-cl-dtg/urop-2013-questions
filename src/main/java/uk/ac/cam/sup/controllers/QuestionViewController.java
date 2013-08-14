@@ -176,7 +176,7 @@ public class QuestionViewController extends GeneralController {
 	}
 	
 	private List<Map<String,String>> produceTagsWith(String st){
-		List<Tag> tags = TagQuery.all().contains(st).list();
+		List<Tag> tags = TagQuery.all().contains(st).maxResults(10).list();
 		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
 		
 		for(Tag t: tags){
@@ -187,27 +187,39 @@ public class QuestionViewController extends GeneralController {
 	private List<Map<String,String>> produceUsersWith(String st){
 		
 		try{ 
-			List<User> users = UserQuery.all().list();
+			List<User> users = UserQuery.all().idStartsWith(st).maxResults(10).list();
 			List<Map<String,String>> crsidResults = new ArrayList<Map<String,String>>();
 			List<Map<String,String>> surnameResults = new ArrayList<Map<String,String>>();
+			
+			
 			for(User u : users){
-				if(u.getId().startsWith(st)){
+				try {
+					LDAPUser user = LDAPQueryManager.getUser(u.getId());
+					crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getcName()));
+				} catch(LDAPObjectNotFoundException e){
+					crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
+				}
+			}
+			
+			int offset = 0;
+			String surname;
+			while(surnameResults.size() + crsidResults.size() < 10 && (users.size() > 0 || offset == 0)){
+				users = UserQuery.all().maxResults(40).offset(offset).list();
+				offset += 40;
+				
+				for(User u: users){
 					try {
 						LDAPUser user = LDAPQueryManager.getUser(u.getId());
-						crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getcName()));
+						surname = user.getSurname();
+						if(surname.toLowerCase().startsWith(st.toLowerCase()) && !crsidResults.contains(u)){
+							surnameResults.add(ImmutableMap.of("value", surname, "crsid", u.getId(), "name", user.getcName()));
+						}
 					} catch(LDAPObjectNotFoundException e){
-						crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
+						// Don't do anything if something goes wrong in previous step, as it is unknown if the last name starts with st
 					}
-				} else {
-					try {
-						LDAPUser user = LDAPQueryManager.getUser(u.getId());
-						if(user.getSurname().toLowerCase().startsWith(st)){
-							surnameResults.add(ImmutableMap.of("value", user.getSurname(), "crsid", u.getId(), "name", user.getcName()));
-						}
-					} catch(LDAPObjectNotFoundException e){
-						if(u.getId().startsWith(st)){
-							surnameResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
-						}
+					
+					if(surnameResults.size() + crsidResults.size() >= 10){
+						break;
 					}
 				}
 			}
@@ -370,7 +382,7 @@ public class QuestionViewController extends GeneralController {
 					+ " which are NOT in question " + qid);
 
 			List<Tag> tags = TagQuery.all().notContainedIn(QuestionQuery.get(qid).getTags())
-					.contains(strTagPart).list();
+					.contains(strTagPart).maxResults(10).list();
 			
 			for (Tag tag : tags) {
 				results.add(ImmutableMap.of("name", tag.getName()));
@@ -444,30 +456,39 @@ public class QuestionViewController extends GeneralController {
 		// disp is the number of forks already displayed. Therefore, if 0 forks are displayed, for ex,
 		// the controller will return the 
 		List<Map<String, ?>> forks;
-		forks = QuestionQuery.all().withParent(qid).maplist();
 		
-		log.debug("There were " + forks.size() + " forks found. There are " + alreadyDisplayed + " already displayed.");
-		if(forks.size() <= alreadyDisplayed) {
+		QuestionQuery qq = QuestionQuery.all().withParent(qid);
+		int size;
+		try {
+			size = qq.size();
+		} catch (QueryAlreadyOrderedException e) {
+			return ImmutableMap.of("success", false, "error", "Unexpected error: " + e.getMessage());
+		}
+		
+		forks = qq.maxResults(toDisplay).offset(alreadyDisplayed).maplist();
+		
+		log.debug("There were " + size + " forks found. There are " + alreadyDisplayed + " already displayed.");
+		if(size <= alreadyDisplayed) {
 			log.debug("Number of forks <= forks already displayed.");
 			return ImmutableMap.of(
 					"success", false,
 					"questions", new ArrayList<Question>(),
 					"exhausted", true,
 					"disp", alreadyDisplayed);
-		} else if(forks.size() <= alreadyDisplayed + toDisplay) {
+		} else if(size <= alreadyDisplayed + toDisplay) {
 			// If the amount of forks still not displayed is less than those requested.
 			log.debug("There are still a few forks to display but the forks are now exhausted.");
 			return ImmutableMap.of(
 					"success", true,
-					"questions", forks.subList(alreadyDisplayed, forks.size()),
+					"questions", forks,
 					"exhausted", true,
-					"disp", forks.size()
+					"disp", size
 			);
 		} else {
 			log.debug("Not all forks returned.");
 			return ImmutableMap.of(
 					"success", true,
-					"questions", forks.subList(alreadyDisplayed, alreadyDisplayed + toDisplay),
+					"questions", forks,
 					"exhausted", false,
 					"disp", alreadyDisplayed + toDisplay
 			);

@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.models.Question;
@@ -29,9 +28,7 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-					.addOrder(Order.desc("isStarred"))
 		);
-		qsq.criteria.addOrder(Order.desc("timeStamp"));
 		return qsq;
 	}
 	
