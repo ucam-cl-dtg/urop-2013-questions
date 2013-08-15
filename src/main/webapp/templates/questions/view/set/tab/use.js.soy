@@ -50,15 +50,21 @@
 {template .options}
 
 {if $sets.length > 0}
+<div class="clearfix">
     <form class="custom" id="add-questions-to-set-form" method="POST" action="sets/fork">
-        <select name="targetSetId">
-	       {foreach $set in $sets}
-		      <option value="{$set.id}">{$set.name}</option>
-	       {/foreach}
-        </select>
+        <div class="button-container-search">
+            <input type="submit" value="Add to set" id="export-questions-button" class="button success medium"/>
+        </div>
+        <div class="text-field-container-search">
+            <select name="targetSetId">
+    	       {foreach $set in $sets}
+    		      <option value="{$set.id}">{$set.name}</option>
+    	       {/foreach}
+            </select>
+        </div>
         <input type="hidden" name="questions" />
-        <input type="submit" value="Add to set" id="export-questions-button" />
     </form>
+</div>
 {else}
     <p>You don't have any sets. <a href="{$ij.URLPrefix}/sets/add">Create one</a> first.</p>
 {/if}

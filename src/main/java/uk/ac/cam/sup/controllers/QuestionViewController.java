@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ import uk.ac.cam.cl.dtg.ldap.LDAPUser;
 import uk.ac.cam.sup.exceptions.DateFormatException;
 import uk.ac.cam.sup.exceptions.InvalidRangeException;
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
+import uk.ac.cam.sup.form.QuestionSearchForm;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -39,11 +41,29 @@ import com.google.common.collect.ImmutableMap;
 public class QuestionViewController extends GeneralController {
 	private static Logger log = LoggerFactory.getLogger(QuestionViewController.class);
 
+	/**
+	 * Returns a JSON with search results and a copy of the criteria
+	 * 
+	 * @param form QuestionSearchForm object with search criteria
+	 * @return
+	 */
 	@GET
 	@Path("/search")
 	@Produces("application/json")
-	public Map<String,?> showSearchPage(){
-		return ImmutableMap.of("success", true);
+	public Map<String,?> showSearchPage(@Form QuestionSearchForm form){
+		try {
+			form.validate().parse();
+			
+			return ImmutableMap.of(
+					"success", true,
+					"questions", form.getSearchResults(),
+					"form", form.toMap()
+			);
+		} catch (NullPointerException e) {
+			return ImmutableMap.of("success", false, "error", "Null pointer exception");
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
 	}
 	
 	/**

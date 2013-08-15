@@ -1,6 +1,6 @@
 function configureAdvancedSearchExpand() {
 	$(document).on('click', '#advanced-search-expand', function() {
-		var duration = 400;
+		var duration = 1000;
 		$(this).toggleClass('expanded');
 		if ($(this).hasClass('expanded')) {
 			$(this).text('Basic search...');
@@ -30,7 +30,6 @@ function configureSetSearchButton() {
 		
 		var $form = $(this).parents('form');
 		var $button = $(this);
-		var datasent;
 		$form.ajaxSubmit({
 			beforeSerialize: function($form, options) {
 				if ( ! $button.parents('.search-buttons').hasClass('expanded')) {

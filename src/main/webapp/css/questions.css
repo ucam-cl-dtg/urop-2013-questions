@@ -26,6 +26,15 @@ div.text-field-container-tags-tab {
 	margin-right: 112px;
 }
 
+div.button-container-search {
+    float: right; 
+    width: 150px;
+}
+
+div.text-field-container-search {
+    margin-right: 162px;
+}
+
 input#tags-input{
 	width: 100%;
 }
@@ -87,4 +96,21 @@ div.result-number-text {
 
 .internal-page-number-container {
 	padding: 10px 0px 0px 0px;
+}
+
+@media only screen and (max-width: 768px) { /* Change to $small-screen */
+    #search-export-questions-form {
+        width: 100% !important;
+    }
+}
+
+#search-export-questions-form {
+	float: right;
+	width: 40%;
+	padding: 10px 20px 0;
+}
+
+#add-questions-to-set-form {
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
