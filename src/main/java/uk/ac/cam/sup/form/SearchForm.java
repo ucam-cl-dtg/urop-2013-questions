@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.Query;
@@ -54,6 +55,16 @@ public abstract class SearchForm<T extends Mappable> {
 	protected String starred;
 	protected TripleChoice starredChoice = TripleChoice.DONT_CARE;
 	
+	@QueryParam("page")
+	protected String page;
+	protected Integer pageInt;
+	
+	@QueryParam("amount")
+	protected String amount;
+	protected Integer amountInt;
+	
+	protected Integer totalAmount = null;
+	
 	protected boolean validated = false;
 	
 	protected final void checkValidity() throws FormValidationException {
@@ -63,6 +74,7 @@ public abstract class SearchForm<T extends Mappable> {
 	}
 	
 	public SearchForm<T> validate() throws FormValidationException {
+		
 		if (tags == null) {
 			tags = "";
 		}
@@ -109,12 +121,35 @@ public abstract class SearchForm<T extends Mappable> {
 				("Illegal value for starred filter: "+starred);
 		}
 		
+		if(page == null || page == ""){
+			page = "1";
+			pageInt = 1;
+		}
+		
+		if(amount == null || amount == ""){
+			amount = "25";
+			amountInt = 25;
+		}
+			
 		this.validated = true;
 		return this;
 	}
 	
 	public SearchForm<T> parse() throws FormValidationException {
 		checkValidity();
+		
+		try{
+			pageInt = Integer.parseInt(page);
+		} catch (NumberFormatException e) {
+			page = "1";
+			pageInt = 1;
+		}
+		try{
+			amountInt = Integer.parseInt(amount);
+		} catch (NumberFormatException e) {
+			amount = "25";
+			amountInt = 25;
+		}
 		
 		String[] split = tags.split(",");
 		for (String s: split) {
@@ -180,6 +215,7 @@ public abstract class SearchForm<T extends Mappable> {
 		Query<T> query = getQueryObject();
 		
 		if (query == null) {
+			totalAmount = 0;
 			return new ArrayList<T>();
 		}
 		
@@ -208,7 +244,18 @@ public abstract class SearchForm<T extends Mappable> {
 			 .after(afterDate)
 			 .before(beforeDate);
 		
-		return query.list();
+	
+		try {
+			totalAmount = query.size();
+		} catch (QueryAlreadyOrderedException e) {
+			totalAmount = -1;
+		}
+		
+		
+		return query
+				 .maxResults(amountInt)
+				 .offset(amountInt * (pageInt - 1))
+				 .list();
 	}
 	
 	public final Map<String, ?> toMap() {
@@ -221,6 +268,10 @@ public abstract class SearchForm<T extends Mappable> {
 		b.put("before", before);
 		b.put("supervisor", supervisor);
 		b.put("starred", starred);
+		b.put("page", page);
+		b.put("amount", amount);
+		if(totalAmount == null) getSearchResults();
+		b.put("totalAmount", totalAmount);
 		
 		return b.build();
 	}

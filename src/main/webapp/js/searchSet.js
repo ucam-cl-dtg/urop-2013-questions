@@ -28,31 +28,9 @@ function configureSetSearchButton() {
 	$(document).on('click', '#set-search-button', function(e) {
 		e.preventDefault();
 		
-		var $form = $(this).parents('form');
-		var $button = $(this);
-		var datasent;
-		$form.ajaxSubmit({
-			beforeSerialize: function($form, options) {
-				if ( ! $button.parents('.search-buttons').hasClass('expanded')) {
-					$form.find('input')
-						.not('[type=radio]').not('[name=tags]').not('[type=submit]')
-						.val('');
-					
-					$form.find('input[type=radio]').removeAttr('checked');
-					$form.find('input[type=radio][value=DONT_CARE]').attr('checked','');
-				}
-			},
-			beforeSubmit: function(data, $form, options) {
-				options.url = prepareURL($form.attr('action'));
-			},
-			success: function(data) {
-				applyTemplate($('#question-set-list .panels'), 'questions.view.set.listsets', data);
-				router.navigate("sets?"+$form.serialize());
-			},
-			error: function(data) {
-				console.log(data);
-			}
-		});
+		var amount = Number($(".page-numbers").find("select.results-per-page-select").val());
+		
+		setSearch(1, amount);
 	});
 }
 
@@ -73,18 +51,70 @@ function configureSetSearchFields() {
 }
 
 function configureSetSearchPages() {
-	// TODO
-	// 1. populate search fields
-	// 2. make search request & insert page numbers and populate sets-list (call setSearch())
-	//     -> remove call to .multiple in questions.view.set.list; this is now handled by JS here.
-	displayPageNumbersSetSearch(1,1,1);
+	var page = Number($("div.search.basic-search").attr("data-page"));
+	var amount = Number($("div.search.basic-search").attr("data-amount"));
+	var totalAmount = Number($("div.search.basic-search").attr("data-totalAmount"));
+	if(page == Number("NaN")) page = 1;
+	if(amount == Number("NaN")) amount == 25;
+	if(totalAmount == Number("NaN")){
+		errorNotification("There was an error while trying to retrieve the total amount of setes!");
+		totalAmount == -1;
+	}
+	
+	displayPageNumbersSetSearch(page, totalAmount, amount);
+	
+	$(".page-numbers").on("click", "a.page-number", function(){
+		var p = $(this).attr("data-p");
+		var spp = $(this).parent().siblings(".results-per-page-select").val();
+		setSearch(p, spp);
+		return false;
+	});
+	$(".page-numbers").on("change", ".results-per-page-select", function(){
+		var spp = $(this).val();
+		setSearch(1, spp);
+		return false;
+	});
 }
-function setSearch(){
-	// TODO
-	// insert page numbers & populate sets-list here
+
+function setSearch(page, amount){
+	var $setList = $("#question-set-list");
+	
+	var $form = $("#set-search-form");
+	var $button = $("#set-search-button");
+	var datasent;
+	
+	$setList.empty();
+	$setList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
+	
+	$form.ajaxSubmit({
+		beforeSerialize: function($form, options) {
+			if ( ! $button.parents('.search-buttons').hasClass('expanded')) {
+				$form.find('input')
+					.not('[type=radio]').not('[name=tags]').not('[type=submit]')
+					.val('');
+				
+				$form.find('input[type=radio]').removeAttr('checked');
+				$form.find('input[type=radio][value=DONT_CARE]').attr('checked','');
+			}
+		},
+		beforeSubmit: function(data, $form, options) {
+			options.url = prepareURL($form.attr('action'));
+			data.push({name: "page", value: page});
+			data.push({name: "amount", value: amount});
+		},
+		success: function(data) {
+			applyTemplate($setList, 'questions.view.set.listsets', data);
+			displayPageNumbersSetSearch(data.form.page, data.form.totalAmount, data.form.amount);
+			router.navigate("sets?"+$form.serialize() + "&page=" + page + "&amount=" + amount);
+		},
+		error: function(data) {
+			errorNotification("An error occurred!");
+			console.log(data);
+		}
+	});
 }
+
 function displayPageNumbersSetSearch(page, totalAmount, amountPerPage){
-	var maxPage = Math.floor(totalAmount / amountPerPage);
-	if(totalAmount % amountPerPage > 1){maxPage = Number(maxPage) + Number(1);}
+	var maxPage = Math.ceil(totalAmount / amountPerPage);
 	insertPageNumbers($(".page-numbers"), "set-search-page-number", page, maxPage, amountPerPage);
 }

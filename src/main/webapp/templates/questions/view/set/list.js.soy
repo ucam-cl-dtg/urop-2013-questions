@@ -6,8 +6,10 @@
  * @param form
  */
 {template .list}
-<form method="GET" action="sets">
-    <div class="">
+<form method="GET" action="sets" id="set-search-form">
+    <div class="basic-search search" {if $form.page}data-page="{$form.page}"{else}data-page="1"{/if} 
+    								{if $form.amount} data-amount="{$form.amount}"{else} data-amount="25"{/if}
+    								{if $form.totalAmount}data-totalAmount="{$form.totalAmount}"{/if}>
         <div class="row">
         	<div class="columns large-6 small-8 search-bar search">
         	   <h3>Search...</h3>
