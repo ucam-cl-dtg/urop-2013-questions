@@ -10,13 +10,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Path("/uploads")
 public class FileController {
 	
-	private static Logger log = LoggerFactory.getLogger(GeneralController.class);
+	//private static Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
 	@GET
 	@Path("/{filename}")
