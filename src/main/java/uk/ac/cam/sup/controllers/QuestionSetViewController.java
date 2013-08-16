@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
-import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.form.SetSearchForm;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
@@ -108,7 +107,6 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/mysets")
 	@Produces("application/json")
 	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID){
-		// TODO: modify so that not all sets are queried (introduce page numbers in frontend)
 		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);
