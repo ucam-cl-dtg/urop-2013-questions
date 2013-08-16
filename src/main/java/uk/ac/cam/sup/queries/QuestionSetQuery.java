@@ -4,15 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
@@ -32,15 +29,10 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 					.createCriteria(QuestionSet.class)
 					.createAlias("owner", "o")
 					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+					.addOrder(Order.desc("isStarred"))
+					.addOrder(Order.desc("timeStamp"))
 		);
 		return qsq;
-	}
-	
-	public List<QuestionSet> list() {
-		criteria.addOrder(Order.desc("isStarred")).addOrder(Order.desc("timeStamp"));
-		@SuppressWarnings("unchecked")
-		List<QuestionSet> l = criteria.list();
-		return l;
 	}
 	
 	public static QuestionSet get(int id) {
@@ -60,7 +52,9 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 			d.add(Restrictions.eq("t.name", t.getName()).ignoreCase());
 		}
 		criteria.createAlias("tags", "t").add(d);
-			
+		
+		modified = true;
+		
 		return this;
 	}
 	
@@ -71,57 +65,67 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 		}
 		criteria.add(d);
 		
+		modified = true;
+		
 		return this;
 	}
 	
 	public QuestionSetQuery withUser(User user){
 		criteria.add(Restrictions.eq("owner.id", user.getId()).ignoreCase());
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery withStar() {
 		criteria.add(Restrictions.eq("isStarred", true));
+		modified = true;
 		return this;
 	}
 	public QuestionSetQuery withoutStar() {
 		criteria.add(Restrictions.eq("isStarred", false));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery bySupervisor() {
-		criteria
-			.add(Restrictions.eq("o.supervisor", true));
+		criteria.add(Restrictions.eq("o.supervisor", true));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery byStudent() {
-		criteria
-		.add(Restrictions.eq("o.supervisor", false));
+		criteria.add(Restrictions.eq("o.supervisor", false));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery after(Date date) {
 		criteria.add(Restrictions.gt("timeStamp", date));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery before(Date date) {
 		criteria.add(Restrictions.lt("timeStamp", date));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery maxDuration(int mins) {
 		criteria.add(Restrictions.le("expectedDuration", mins));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery minDuration(int mins) {
 		criteria.add(Restrictions.ge("expectedDuration", mins));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionSetQuery have(Question q) {
 		this.have(q.getId());
+		modified = true;
 		return this;
 	}
 	public QuestionSetQuery have(int qID) {
@@ -129,35 +133,7 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 			.createAlias("questions", "qp")
 			.createAlias("qp.question", "q")
 			.add(Restrictions.eq("q.id", qID));
+		modified = true;
 		return this;
-	}
-	
-	public QuestionSetQuery maxResults(int max){
-		criteria.setMaxResults(max);
-		return this;
-	}
-	
-	public QuestionSetQuery offset(int offset){
-		criteria.setFirstResult(offset);
-		return this;
-	}
-	
-	public Criteria getCriteria(){
-		return criteria;
-	}
-	
-	public int size() throws QueryAlreadyOrderedException{
-		try{
-			ScrollableResults sr = criteria.scroll();
-			sr.last();
-			int result = sr.getRowNumber() + 1;
-			return result;
-			/*int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
-			criteria.setProjection(null);
-			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-			return result;*/
-		} catch(Exception e) {
-			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
-		}
 	}
 }

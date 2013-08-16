@@ -27,10 +27,9 @@ function configureAdvancedSearchExpand() {
 function configureSetSearchButton() {
 	$(document).on('click', '#set-search-button', function(e) {
 		e.preventDefault();
-		
 		var amount = Number($(".page-numbers").find("select.results-per-page-select").val());
-		
-		setSearch(1, amount);
+		if(amount == Number("NaN") || amount < 1) amount = 25;
+		setSearch(1, 25);
 	});
 }
 
@@ -103,8 +102,15 @@ function setSearch(page, amount){
 			data.push({name: "amount", value: amount});
 		},
 		success: function(data) {
-			applyTemplate($setList, 'questions.view.set.listsets', data);
-			displayPageNumbersSetSearch(data.form.page, data.form.totalAmount, data.form.amount);
+			if(Number(data.form.totalAmount) > 0){
+				$setList.empty();
+				applyTemplate($setList, 'questions.view.set.listsets', data);
+				displayPageNumbersSetSearch(data.form.page, data.form.totalAmount, data.form.amount);
+			} else {
+				$setList.empty();
+				$(".page-numbers").empty();
+				$setList.append($("<div class='columns large-12 small-12'><i>No results found with these search terms.</i></div>"));
+			}
 			router.navigate("sets?"+$form.serialize() + "&page=" + page + "&amount=" + amount);
 		},
 		error: function(data) {
@@ -115,6 +121,7 @@ function setSearch(page, amount){
 }
 
 function displayPageNumbersSetSearch(page, totalAmount, amountPerPage){
+	if(Number(totalAmount) <= 0){return;}
 	var maxPage = Math.ceil(totalAmount / amountPerPage);
 	insertPageNumbers($(".page-numbers"), "set-search-page-number", page, maxPage, amountPerPage);
 }

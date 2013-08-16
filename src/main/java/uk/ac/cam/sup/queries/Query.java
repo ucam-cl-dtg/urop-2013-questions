@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+import org.hibernate.ScrollableResults;
 
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Tag;
@@ -17,6 +15,7 @@ import uk.ac.cam.sup.util.Mappable;
 
 public abstract class Query<T extends Mappable> {
 	protected Criteria criteria;
+	protected boolean modified = false;
 	
 	public static Query<?> all(Class<?> qclass) {
 		return null;
@@ -24,8 +23,6 @@ public abstract class Query<T extends Mappable> {
 	
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
-		criteria.addOrder(Order.desc("isStarred"))
-			.addOrder(Order.desc("timeStamp"));
 		return criteria.list();
 	}
 	
@@ -59,30 +56,34 @@ public abstract class Query<T extends Mappable> {
 		return criteria;
 	}
 	
-	public Query<T> maxResults(int max){
-		criteria.setMaxResults(max);
+	public Query<T> maxResults(int amount){
+		modified = true;
+		criteria.setMaxResults(amount);
 		return this;
 	}
 	
 	public Query<T> offset(int offset) {
+		modified = true;
 		criteria.setFirstResult(offset);
 		return this;
 	}
 	
 	public int size() throws QueryAlreadyOrderedException {
 		try{
-			int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			/*int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 			criteria.setProjection(null);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			return result;*/
+			ScrollableResults sr = criteria.scroll();
+			sr.last();
+			int result = sr.getRowNumber() + 1;
+			
 			return result;
 		} catch(Exception e) {
 			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
 		}
 		
-		/*ScrollableResults sr = criteria.scroll();
-		sr.last();
-		int result = sr.getRowNumber() + 1;
-		
-		return result;*/
 	}
+	
+	public boolean isModified(){return modified;}
 }

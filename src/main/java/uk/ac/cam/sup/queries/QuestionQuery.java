@@ -5,16 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
@@ -35,6 +33,7 @@ public class QuestionQuery extends Query<Question> {
 				.createQuery("from Question where id = :id")
 				.setParameter("id", id)
 				.uniqueResult();
+				
 		log.debug("Returning question with id " + id);
 		return q;
 	}
@@ -46,7 +45,9 @@ public class QuestionQuery extends Query<Question> {
 		log.debug("New QuestionQuery required. Constructing & returning");
 		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransactionSession()
 				.createCriteria(Question.class)	
-				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
+				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.desc("isStarred"))
+				.addOrder(Order.desc("timeStamp")));
 		log.debug("Successfully created, now returning");
 		return qq;
 	}
@@ -174,31 +175,4 @@ public class QuestionQuery extends Query<Question> {
 		criteria.add(Restrictions.le("expectedDuration", minutes));
 		return this;
 	}
-	
-	public QuestionQuery maxResults(int max){
-		criteria.setMaxResults(max);
-		return this;
-	}
-	
-	public QuestionQuery offset(int offset){
-		criteria.setFirstResult(offset);
-		return this;
-	}
-	
-	public int size() throws QueryAlreadyOrderedException {
-		try{
-			ScrollableResults sr = criteria.scroll();
-			sr.last();
-			int result = sr.getRowNumber() + 1;
-			return result;
-			/*int result = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
-			criteria.setProjection(null);
-			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-			return result;*/
-		} catch(Exception e) {
-			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
-		}
-
-	}
-
 }
