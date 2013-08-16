@@ -77,7 +77,7 @@ public class QuestionControllerTest {
 	/*
 	 * Dummy passing test
 	 */
-	@Test
+	//@Test
 	public void testPassingQuestionAdd() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", qset.getId(), 10);
 		
@@ -95,7 +95,7 @@ public class QuestionControllerTest {
 	 * TODO: Test looks for RedirectException but if the error 
 	 * behaviour does not redirect test should be modified accordingly.
 	 */
-	@Test
+	//@Test
 	public void testNegativeQuestionSetId() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", -1, 10);
 		
@@ -108,7 +108,7 @@ public class QuestionControllerTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testNonExistentQuestionSetId() {
 		QuestionAdd qa = new QuestionAdd("question1 contents", "question1 notes", 999, 10);
 		
