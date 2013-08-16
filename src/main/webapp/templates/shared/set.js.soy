@@ -53,13 +53,20 @@
  */
 {template .setSelectionQuestionEdit}
 	<ul class="panels">
-	<div class="column large-12 small-12"><p><b>Choose the sets in which to edit the question below:</b></p></div> 
-		{foreach $set in $sets}
-			{call .single}
-				{param set: $set /}
-				{param contains: true /}
-				{param class: 'qedit-set-list' /}
-			{/call}
-		{/foreach}
-	</ul>
+	{if $sets and $sets.length > 0}
+		<div class="columns large-12 small-12"><i>Choose the sets in which to edit the question below:</i></div> 
+			{foreach $set in $sets}
+				{call .single}
+					{param set: $set /}
+					{param contains: true /}
+					{param class: 'qedit-set-list' /}
+				{/call}
+			{/foreach}
+		</ul>
+	{else}
+		<div class="columns large-12 small-12">
+			<i>You are not using this question in any sets. Please perform a minor 
+			edit or add this question to at least one of your sets.</i>
+		</div>
+	{/if}
 {/template}
