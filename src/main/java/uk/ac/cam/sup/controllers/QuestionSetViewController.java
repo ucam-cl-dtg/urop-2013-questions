@@ -42,6 +42,7 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/")
 	@Produces("application/json")
 	public Map<String,?> produceFilteredSets (@Form SetSearchForm sf) {
+		
 		try {
 			sf.validate().parse();
 			return ImmutableMap.of(
@@ -104,7 +105,6 @@ public class QuestionSetViewController extends GeneralController {
 	@Path("/mysets")
 	@Produces("application/json")
 	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID){
-		// TODO: modify so that not all sets are queried (introduce page numbers in frontend)
 		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);

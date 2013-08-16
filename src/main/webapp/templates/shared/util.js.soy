@@ -7,39 +7,61 @@
  * @param? className
  */
 {template .pageNumbers}
-	{if not $curPage or $curPage > $maxPage or $curPage < 1}
-		{let $curPage: 1 /}
-	{/if}
-	{if not $resultsPerPage or ($resultsPerPage != 10 and $resultsPerPage != 25 and $resultsPerPage != 50
-		and $resultsPerPage != 100 and $resultsPerPage != 250 and $resultsPerPage != 500
-	)}
-		{let $resultsPerPage: 10 /}
-	{/if}
+    {let $curPageS}
+        {if not $curPage or $curPage > $maxPage or $curPage < 1}
+            1
+        {else}
+            {$curPage}
+        {/if}
+    {/let}
+
+    {let $resultsPerPageS}
+        {if not $resultsPerPage or ($resultsPerPage != 10 and $resultsPerPage != 25 and $resultsPerPage != 50
+            and $resultsPerPage != 100 and $resultsPerPage != 250 and $resultsPerPage != 500
+        )}
+            10
+        {else}
+            $resultsPerPage
+        {/if}
+    {/let}
+	
+	
 <div class="clearfix internal-page-number-container">	
 	<div class="page-number-list" data-max-page="{$maxPage}"> 
-		{if $curPage >= 5}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="1">&lt;&lt;</a>{/if}
-		{if $curPage >= 2}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPage - 1}">&lt;</a>{/if}
-		{for $i in range($curPage-3, $curPage)}
+		{if $curPageS >= 5}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="1">&laquo;</a>{/if}
+		{if $curPageS >= 2}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPageS - 1}">&lsaquo;</a>{/if}
+		{for $i in range($curPageS-3, $curPageS)}
 			{if $i > 0}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$i}">{$i}</a>{/if}
 		{/for}
-		<strong class="page-number {if $className}{$className}{/if} current" data-p="{$curPage}">{$curPage}</strong>
-		{for $i in range($curPage+1, $curPage+4)}
+		<strong class="page-number {if $className}{$className}{/if} current" data-p="{$curPageS}">{$curPageS}</strong>
+		{for $i in range($curPageS+1, $curPageS+4)}
 			{if $i <= $maxPage}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$i}">{$i}</a>{/if}
 		{/for}
-		{if $curPage < $maxPage}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPage + 1}">&gt;</a>{/if}
-		{if $curPage <= $maxPage-4}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$maxPage}">&gt;&gt;</a>{/if}
+		{if $curPageS < $maxPage}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$curPageS + 1}">&rsaquo;</a>{/if}
+		{if $curPageS <= $maxPage-4}<a href="#" class="page-number {if $className}{$className}{/if}" data-p="{$maxPage}">&raquo;;</a>{/if}
 		&#32; Results per page:
 	</div>
 		
 	<select class="results-per-page-select">
-		<option {if $resultsPerPage==10}selected="selected"{/if} value="10">10</option>
-		<option {if $resultsPerPage==25}selected="selected"{/if} value="25">25</option>
-		<option {if $resultsPerPage==50}selected="selected"{/if}value="50">50</option>
-		<option {if $resultsPerPage==100}selected="selected"{/if}value="100">100</option>
-		<option {if $resultsPerPage==250}selected="selected"{/if}value="250">250</option>
-		<option {if $resultsPerPage==500}selected="selected"{/if}value="500">500</option>
+		<option {if $resultsPerPageS==10}selected="selected"{/if} value="10">10</option>
+		<option {if $resultsPerPageS==25}selected="selected"{/if} value="25">25</option>
+		<option {if $resultsPerPageS==50}selected="selected"{/if} value="50">50</option>
+		<option {if $resultsPerPageS==100}selected="selected"{/if}value="100">100</option>
+		<option {if $resultsPerPageS==250}selected="selected"{/if}value="250">250</option>
+		<option {if $resultsPerPageS==500}selected="selected"{/if}value="500">500</option>
 	</select>
 	
 </div>
 	
+{/template}
+
+/**
+ * 
+ */
+{template .loading}
+    <div class="row">
+        <div class="columns large-12 small-12">
+            <i>Loading...</i>
+        </div>
+    </div>
 {/template}

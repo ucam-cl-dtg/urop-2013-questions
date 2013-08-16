@@ -42,7 +42,6 @@ function searchSetup() {
 	});
 	
 	$(".page-numbers").on("change", ".results-per-page-select", function(e){
-		e.preventDefault();
 		var spp = $(this).val();
 		search(1, Number(spp));
 	});
@@ -95,6 +94,10 @@ function search(page, amount){
 	
 	var $button = $('#question-search-button');
 	var $form = $button.parents('form');
+	var $questionList = $('#question-search-results');
+	
+	applyTemplate($questionList, 'shared.util.loading', {});
+	
 	$form.ajaxSubmit({
 		beforeSerialize: function($form, options) {
 			if ( ! $button.parents('.search-buttons').hasClass('expanded')) {
@@ -110,7 +113,10 @@ function search(page, amount){
 			options.url = prepareURL($form.attr('action'));
 		},
 		success: function(data) {
-			applyTemplate($('#question-list'), 'questions.search.results', data);
+			applyTemplate($questionList, 'questions.search.results', data);
+			if (data.form.totalAmount > 0) {
+				displayPageNumbers(page, Number(data.form.totalAmount), amount);
+			}
 			router.navigate("q/search?"+$form.serialize());
 		},
 		error: function(data) {

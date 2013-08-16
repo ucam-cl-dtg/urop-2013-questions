@@ -278,6 +278,8 @@ function loadSetTabPageNumbers(curPage, setsPerPage){
 function loadSetTabPage(page, amount){
 	var $newSets = $("<div></div>");
 	var $setsList = $(".main").find("#sets-list");
+	$setsList.empty();
+	$setsList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
 	loadModule($newSets,
 			"sets/mysets/limited?page=" + page + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
 			"shared.set.multipleHighlight",
@@ -331,12 +333,15 @@ function updateEditTab(){
 
 function populateSetListToEdit($setListDiv){
 	var $newList = $("<div></div>");
+	$setListDiv.empty();
+	$setListDiv.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
 	loadModule($newList,
 			"sets/mysets/qlimited?qid=" + $("#form-qid").val(),
 			"shared.set.setSelectionQuestionEdit",
 			function(){
 				$newList.find(".panels").hide();
 				$newList.find(".panels").addClass("set-list-to-edit");
+				$setListDiv.empty();
 				$setListDiv.append($newList.children());
 				$setListDiv.find(".panels").slideToggle();
 			});
