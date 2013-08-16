@@ -12,9 +12,12 @@
     								{if $form.totalAmount}data-totalAmount="{$form.totalAmount}"{else}data-totalAmount="0"{/if}>
         <div class="row">
         	<div class="columns large-6 small-8 search-bar search">
-        	   <h3>Search...</h3>
+        	   <h3>Search sets...</h3>
         	   <h5 class="search-tags-label">Tags</h5>
         	   <input type="text" name="tags" {if $form.tags}value="{$form.tags}"{/if} placeholder="Tags..." class="input-search" />
+        	</div>
+        	<div class="columns large-4 small-0">
+
         	</div>
         </div>
     </div>
@@ -138,37 +141,68 @@
 </form>
 
 <h3>Results</h3>
-<div class="page-numbers">
-	// JS will insert page numbers here
-</div>
-<div class="row" id="question-set-list">
-	 //JS will insert page content here
-	{if $form.emptySearch == true}
-		<div class="columns large-12 small-12"><i>Please enter one or more search terms to find sets</i></div>
-	{else}
-		{if $form.totalAmount <= 0}
-			<div class="columns large-12 small-12"><i>No results found with these search terms.</i></div>
-		{else}
-			{call .listsets data="all" /}
-		{/if}
-	{/if}
-</div>
-<div class="page-numbers">
-	// JS will insert page numbers here
+<div id="set-search-results">
+    {call .results data="all" /}
 </div>
 {/template}
 
+
+
 /**
  * @param sets
+ * @param form
+ * param success
  */
-{template .listsets}
-    <ul class="panels">
-        {foreach $set in $sets}
-            {call .listset}
-                {param set: $set /}
-            {/call}
-        {/foreach}
-    </ul>
+{template .results}
+    {if $form.totalAmount}
+    <div class="row">
+        <div class="columns large-12 small-12 result-number-text">
+            <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
+        </div>
+    </div>
+    {/if}
+    
+    <div class="row">
+        <div class="page-numbers columns large-12 small-12">
+            {if $form.emptySearch == false and $form.totalAmount > 0}
+                {call shared.util.pageNumbers}
+                   {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+                {/call}
+            {/if}
+        </div>
+    </div>
+        
+    <div class="row" id="question-set-list">
+        //JS will insert page content here
+        {if $form.emptySearch == true}
+            <div class="columns large-12 small-12"><i>Please enter one or more search terms to find sets</i></div>
+        {else}
+            {if $form.totalAmount <= 0}
+                <div class="columns large-12 small-12"><i>No results found with these search terms.</i></div>
+            {else}
+                <ul class="panels">
+                    {foreach $set in $sets}
+                        {call .listset}
+                            {param set: $set /}
+                        {/call}
+                    {/foreach}
+                </ul>
+            {/if}
+        {/if}
+    </div>
+    
+    <div class="row">
+        <div class="page-numbers columns large-12 small-12">
+            {if $form.emptySearch == false and $form.totalAmount > 0}
+                {call shared.util.pageNumbers}
+                   {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+                {/call}
+            {/if}
+        </div>
+    </div>
+
+    
+    
 {/template}
 
 /**

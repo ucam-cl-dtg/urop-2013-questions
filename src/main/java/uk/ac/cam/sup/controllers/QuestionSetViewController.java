@@ -30,7 +30,6 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.queries.UserQuery;
-import uk.ac.cam.sup.util.SearchTerm;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -83,8 +82,7 @@ public class QuestionSetViewController extends GeneralController {
 		return ImmutableMap.of(
 				"success", true,
 				"set", qs.toMap(),
-				"questions", questions,
-				"st", new SearchTerm()
+				"questions", questions
 		);
 	}
 	

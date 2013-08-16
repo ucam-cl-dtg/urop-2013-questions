@@ -1,6 +1,6 @@
 function configureAdvancedSearchExpand() {
 	$(document).on('click', '#advanced-search-expand', function() {
-		var duration = 400;
+		var duration = 1000;
 		$(this).toggleClass('expanded');
 		if ($(this).hasClass('expanded')) {
 			$(this).text('Basic search...');
@@ -27,6 +27,7 @@ function configureAdvancedSearchExpand() {
 function configureSetSearchButton() {
 	$(document).on('click', '#set-search-button', function(e) {
 		e.preventDefault();
+
 		var amount = Number($(".page-numbers").find("select.results-per-page-select").val());
 		if(amount == Number("NaN") || amount < 1) amount = 25;
 		setSearch(1, 25);
@@ -76,14 +77,13 @@ function configureSetSearchPages() {
 }
 
 function setSearch(page, amount){
-	var $setList = $("#question-set-list");
+	var $setList = $("#set-search-results");
 	
 	var $form = $("#set-search-form");
 	var $button = $("#set-search-button");
 	var datasent;
 	
-	$setList.empty();
-	$setList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
+	applyTemplate($setList, 'shared.util.loading', {});
 	
 	$form.ajaxSubmit({
 		beforeSerialize: function($form, options) {
@@ -102,14 +102,9 @@ function setSearch(page, amount){
 			data.push({name: "amount", value: amount});
 		},
 		success: function(data) {
-			if(Number(data.form.totalAmount) > 0){
-				$setList.empty();
-				applyTemplate($setList, 'questions.view.set.listsets', data);
+			applyTemplate($setList, 'questions.view.set.results', data);
+			if (data.form.totalAmount > 0) {
 				displayPageNumbersSetSearch(data.form.page, data.form.totalAmount, data.form.amount);
-			} else {
-				$setList.empty();
-				$(".page-numbers").empty();
-				$setList.append($("<div class='columns large-12 small-12'><i>No results found with these search terms.</i></div>"));
 			}
 			router.navigate("sets?"+$form.serialize() + "&page=" + page + "&amount=" + amount);
 		},

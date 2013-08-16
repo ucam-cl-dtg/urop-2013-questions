@@ -14,7 +14,7 @@
 			<url>http://htmleasy-maven.googlecode.com/svn/trunk/</url>
 		</repository>
 		<repository>
-			<id>codedance</id>
+			<id>codedance on Github</id>
 			<url>https://github.com/codedance/maven-repository/raw/master</url>
 		</repository>
 	</repositories>

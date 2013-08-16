@@ -59,6 +59,7 @@ public class QuestionQuery extends Query<Question> {
 		for(Tag tag : tags) {
 			tagNames.add(tag.getName());
 		}
+		modified = true;
 		return withTagNames(tagNames);
 	}
 	public QuestionQuery withTagNames(List<String> tagNames) {
@@ -72,6 +73,7 @@ public class QuestionQuery extends Query<Question> {
 		criteria.createAlias("tags", "t");
 		criteria.add(oredTagList);
 		//criteria.setFetchMode("t", FetchMode.JOIN);
+		modified = true;
 		return this;
 	}
 	
@@ -81,6 +83,7 @@ public class QuestionQuery extends Query<Question> {
 		for(User owner : owners) {
 			ownerIDs.add(owner.getId());
 		}
+		modified = true;
 		return withUserIDs(ownerIDs);
 	}
 	public QuestionQuery withUserIDs(List<String> ownerIDs) {
@@ -92,34 +95,40 @@ public class QuestionQuery extends Query<Question> {
 			oredUserList.add(Restrictions.like("owner.id", owner).ignoreCase());
 		}
 		criteria.add(oredUserList);
+		modified = true;
 		return this;
 	}
 	
 	public QuestionQuery withStar(){
 		log.debug("Filtering withStar...");
 		criteria.add(Restrictions.eq("isStarred", true));
+		modified = true;
 		return this;
 	}
 	public QuestionQuery withoutStar(){
 		log.debug("Filtering withoutStar...");
 		criteria.add(Restrictions.eqOrIsNull("isStarred", false));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionQuery bySupervisor(){
 		log.debug("Filtering bySupervisor (no student questions)...");
 		criteria.createAlias("owner", "o_sup").add(Restrictions.eq("o_sup.supervisor", true));
+		modified = true;
 		return this;
 	}
 	public QuestionQuery byStudent(){
 		log.debug("Filtering byStudent (no supervisor questions)...");
 		criteria.createAlias("owner", "o_stu").add(Restrictions.eq("o_stu.supervisor", false));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionQuery after(Date begin){
 		log.debug("Filtering after a date...");
 		criteria.add(Restrictions.ge("timeStamp", begin));
+		modified = true;
 		return this;
 	}
 	public QuestionQuery before(Date date){
@@ -132,17 +141,20 @@ public class QuestionQuery extends Query<Question> {
 		
 		log.debug("Filtering before a date...");
 		criteria.add(Restrictions.le("timeStamp", date));
+		modified = true;
 		return this;
 	}
 	
 	public QuestionQuery minUsages(int uCount){
 		log.debug("Filtering by minUsages...");
 		criteria.add(Restrictions.ge("usageCount", uCount));
+		modified = true;
 		return this;
 	}
 	public QuestionQuery maxUsages(int uCount){
 		log.debug("Filtering by maxUsages...");
 		criteria.add(Restrictions.le("usageCount", uCount));
+		modified = true;
 		return this;
 	}
 	
@@ -150,6 +162,7 @@ public class QuestionQuery extends Query<Question> {
 	public QuestionQuery withParent(int parentID) {
 		log.debug("Filtering by parentID...");
 		criteria.add(Restrictions.eq("parent.id", parentID));
+		modified = true;
 		return this;
 	}
 	
@@ -161,18 +174,20 @@ public class QuestionQuery extends Query<Question> {
 			oredParentList.add(Restrictions.eq("parent.id", pid));
 		}
 		criteria.add(oredParentList);
+		modified = true;
 		return this;
 	}
 	
 	public QuestionQuery minDuration(int minutes){
 		log.debug("Filtering by minDuration...");
 		criteria.add(Restrictions.ge("expectedDuration", minutes));
-		
+		modified = true;
 		return this;
 	}
 	public QuestionQuery maxDuration(int minutes){
 		log.debug("Filtering by maxDuration...");
 		criteria.add(Restrictions.le("expectedDuration", minutes));
+		modified = true;
 		return this;
 	}
 }

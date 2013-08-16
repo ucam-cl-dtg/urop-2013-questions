@@ -264,7 +264,6 @@ public abstract class SearchForm<T extends Mappable> {
 			}
 		}
 		
-		
 		if(query.isModified()){
 			return query
 					.maxResults(amountInt)
