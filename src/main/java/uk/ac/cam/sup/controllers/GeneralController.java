@@ -42,7 +42,8 @@ public abstract class GeneralController {
 	protected User getCurrentUser(){
 		// FIXME: Should be able to put APIFilter.USER_ATTR in place of "userId"
 		//        but for some reason it isn't available on the class path.
-		String uID = (String) request.getAttribute("userId");
+		//String uID = (String) request.getAttribute("userId");
+		String uID = "test123";
 		User curUser;
 		try {
 			curUser = UserQuery.get(uID);
@@ -57,6 +58,14 @@ public abstract class GeneralController {
 		}
 		return curUser;
 		
+	}
+	
+	protected String getDashboardURL(){
+		return (String) request.getSession().getServletContext().getInitParameter("dashboardUrl");
+	}
+	
+	protected String getApiKey(){
+		return (String) request.getSession().getServletContext().getInitParameter("apiKey");
 	}
 	
 }

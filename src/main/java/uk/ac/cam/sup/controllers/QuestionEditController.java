@@ -1,6 +1,7 @@
 package uk.ac.cam.sup.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +21,11 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
+import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
+import uk.ac.cam.cl.dtg.ldap.LDAPUser;
+import uk.ac.cam.cl.dtg.teaching.api.NotificationException;
+import uk.ac.cam.cl.dtg.teaching.api.NotificationApi.NotificationApiWrapper;
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionAdd;
@@ -75,6 +81,8 @@ public class QuestionEditController extends GeneralController{
 			
 			q = q.edit(editor, qe);
 			
+			sendQuestionEditedNotification(qe.getId(), q.getId(), editor.getId());
+						
 			if(qe.getSetId() == -1) {
 				return ImmutableMap.of("success", true, "question", q);
 			}else{
@@ -94,11 +102,51 @@ public class QuestionEditController extends GeneralController{
 			return ImmutableMap.of("success", false, "error", "NullPointerException");
 		} catch (Exception e){
 			log.debug("There was an exception: " + e.getMessage());
-			return ImmutableMap.of("success", false, "error", e.getMessage());
+			e.printStackTrace();
+			return ImmutableMap.of("success", false, "error", (e.getMessage()==null ? "Unspecified exception of type " + e.getClass() : e.getMessage()));
 		}
 		
 	}
 
+	private void sendQuestionEditedNotification(int oldQuestionID, int newQuestionID, String userID){
+		String userName;
+		try {
+			LDAPUser user = LDAPQueryManager.getUser(userID);
+			userName = user.getcName();
+		} catch(LDAPObjectNotFoundException e){
+			userName = userID;
+		}
+
+		String message;
+		
+		if(oldQuestionID != newQuestionID){
+			message = userName + " edited question " + oldQuestionID + ", which you are using in one or more of your sets."
+					+ " Click to view the new version of the question.";
+		} else {
+			message = userName + " made a minor edit to question " + oldQuestionID
+					+ ", which you are using in one or more of your sets. The changes have been applied automatically to your sets.";
+		}
+			
+		String link = "/q/" + newQuestionID;
+		Set<String> userSet = new HashSet<String>();
+		String users = "";
+		List<QuestionSet> sets = QuestionSetQuery.all().have(oldQuestionID).list();
+		for(QuestionSet set: sets){
+			userSet.add(set.getOwner().getId());
+		}
+		for(String s: userSet){
+			users = users + s + ",";
+		}
+
+		NotificationApiWrapper n = new NotificationApiWrapper(getDashboardURL(), getApiKey());
+
+		try{
+			n.createNotification(message, "questions", link, users);
+		} catch(NotificationException e){
+			log.error("Could not create notification: \"" + message + "\" for users " + users + ".\nMessage: " + e.getMessage());
+		}
+	}
+	
 	@POST
 	@Path("/save")
 	@Produces("application/json")
