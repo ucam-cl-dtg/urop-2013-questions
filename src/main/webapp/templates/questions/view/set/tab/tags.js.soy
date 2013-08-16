@@ -1,0 +1,37 @@
+{namespace questions.view.set.tab.tags}
+
+/**
+ * @param id
+ * @param tags
+ */
+{template .full}
+<div class="tag-search-panel row">
+    <div class="columns large-12 small-12 clearfix">
+        <div style="float:right; width:140px;">
+            <a data-bypass class="medium success button full-width" href="#" id="add-tags">Add</a>
+        </div>
+        <div style="margin-right:152px;">
+            <input type="text" id="tags-input" data-setid="{$id}" style="width:100%" />
+        </div>
+    </div>
+</div>
+<div class="tags-cloud">
+    <ul class="tags text-center" data-setid="{$id}">
+        {call .list}
+            {param tags: $tags /}
+        {/call}
+    </ul>
+</div>
+{/template}
+
+
+/**
+ * @param? tags
+ */
+{template .list}
+    {if $tags}
+        {foreach $tag in $tags}
+            <li class="tag">{$tag.name}<span class="delete-tag" data-name="{$tag.name}">x</span></li>
+        {/foreach}
+    {/if}
+{/template}

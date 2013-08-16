@@ -4,8 +4,11 @@ moduleScripts['questions'] = {
 			configureInputField,
 			configureQuestionStarToggler,
 			configureInPlaceAnchors,
+			configureDataEditor,
+			configureDataRenderer,
+			reloadMathJax,
 	    ],
-		'set': {
+	    'set': {
 			'full': [
 			    configureRemoveQuestionButton,
 			    configureEditSetForm,
@@ -15,19 +18,39 @@ moduleScripts['questions'] = {
 			    configureEditQuestionForm,
 			    configureCreateQuestionForm,
 			    configureInPlaceAnchors,
+			    configureSetTags,
 			    configureDataEditor,
+			    configureDataRenderer,
+			    
 			],
 			'list': [
 			    configureQuestionSetLoader,
-			]
-    	}
-
+			    configureSetSearchFields,
+			    configureSetSearchPages,
+			],
+    	},
+		'user': {
+			'full': [
+			    configureUserPage,
+			 ],
+		},
+	},
+	'form' : {
+		'set' : {
+			'create' : [
+			    configureDataEditor,
+			    configureSetCreator
+			],
+		}
+		    
 	},
     'search' : {
     	'main': [
 	        searchSetup,
-	        questionShortSetup,
 	    ]
 	},
 	
-}
+};
+
+configureAdvancedSearchExpand();
+configureSetSearchButton();

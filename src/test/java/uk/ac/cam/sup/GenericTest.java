@@ -10,6 +10,8 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public abstract class GenericTest {
 	protected static Session session;
@@ -33,10 +35,10 @@ public abstract class GenericTest {
 		r = new Question(b);
 		s = new Question(c);
 		
-		Tag t = new Tag("Algorithms");
-		Tag u = new Tag("Sorting");
-		Tag v = new Tag("asdf");
-		Tag w = new Tag("Dynamic programming");
+		Tag t = TagQuery.get("Algorithms");
+		Tag u = TagQuery.get("Sorting");
+		Tag v = TagQuery.get("asdf");
+		Tag w = TagQuery.get("Dynamic programming");
 		
 		QuestionSet pq = new QuestionSet(a);
 		pq.addQuestion(p);

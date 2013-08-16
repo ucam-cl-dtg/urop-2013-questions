@@ -3,37 +3,206 @@
 /**
  * Displays a list of sets
  * @param sets
+ * @param form
  */
 {template .list}
-<h3>Filter by</h3>
-<div class="row">
-	<div class="columns large-8 small-12">
-		<div class="button-bar">
-			<ul class="button-group">
-				<li><a href="#" class="medium secondary button">Star</a></li>
-				<li><a href="#" class="medium secondary button">Supervisor</a></li>
-				<li><a href="#" class="medium secondary button">Student</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="columns large-4 small-12">
-		<input type="text" placeholder="Search..." class="input-search">
-	</div>
-</div>
+<form method="GET" action="sets" id="set-search-form">
+    <div class="basic-search search" {if $form.page}data-page="{$form.page}"{else}data-page="1"{/if} 
+    								{if $form.amount} data-amount="{$form.amount}"{else} data-amount="25"{/if}
+    								{if $form.totalAmount}data-totalAmount="{$form.totalAmount}"{else}data-totalAmount="0"{/if}>
+        <div class="row">
+        	<div class="columns large-6 small-8 search-bar search">
+        	   <h3>Search sets...</h3>
+        	   <h5 class="search-tags-label">Tags</h5>
+        	   <input type="text" name="tags" {if $form.tags}value="{$form.tags}"{/if} placeholder="Tags..." class="input-search" />
+        	</div>
+        	<div class="columns large-4 small-0">
 
-<h3>Question sets</h3>
-<div class="row">
-	<ul class="panels">
-		{foreach $set in $sets}
-			{call .listset}
-				{param set: $set /}
-			{/call}
-		{/foreach}
-	</ul>
-	<div class="columns large-12">
-		<a class="large button expand">Show more</a>
-	</div>
+        	</div>
+        </div>
+    </div>
+    
+    <div class="advanced-search search">
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Authors</h5></div>
+                <div>
+                    <input type="text" name="authors" {if $form.authors}value="{$form.authors}"{/if} placeholder="Authors..." />
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Expected duration</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>From:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="number" name="minduration" {if $form.minDuration}value="{$form.minDuration}"{/if} />
+                        </div>
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>To:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="number" name="maxduration" {if $form.maxDuration}value="{$form.maxDuration}"{/if}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns large-6 small-12">
+                <div><h5>Date created</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>From:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="text" name="after" id="set-search-field-after" {if $form.after}value="{$form.after}"{/if} />
+                        </div>
+                        <div class="columns large-2 small-2 text-right">
+                            <h6>To:</h6>
+                        </div>
+                        <div class="columns large-4 small-10 text-right">
+                            <input type="text" name="before" id="set-search-field-before" {if $form.before}value="{$form.before}"{/if} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="columns large-6 small-12">
+                <div><h5>Created by supervisor</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-12 small-12">
+                            <label for="supervisor-radio-x" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="DONT_CARE"
+                                    {if $form.supervisor != 'YES' and $form.supervisor != 'NO'}checked {/if}
+                                    id="supervisor-radio-x" /> Don't care
+                            </label>
+                            <label for="supervisor-radio-y" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="YES"
+                                    {if $form.supervisor == 'YES'}checked {/if}
+                                    id="supervisor-radio-y" /> Yes
+                            </label>
+                            <label for="supervisor-radio-n" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="supervisor" value="NO" 
+                                    {if $form.supervisor == 'NO'}checked {/if}
+                                    id="supervisor-radio-n" /> No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns large-6 small-12">
+                <div><h5>Starred</h5></div>
+                <div>
+                    <div class="row">
+                        <div class="columns large-12 small-12">
+                            <label for="starred-radio-x" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="DONT_CARE" 
+                                    {if $form.starred != 'YES' and $form.starred != 'NO'}checked {/if}
+                                    id="starred-radio-x" /> Don't care
+                            </label>
+                            <label for="starred-radio-y" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="YES" 
+                                    {if $form.starred == 'YES'}checked {/if}
+                                    id="starred-radio-y" /> Yes
+                            </label>
+                            <label for="starred-radio-n" style="float: left; margin-right: 10px;">
+                                <input type="radio" name="starred" value="NO" 
+                                    {if $form.starred == 'NO'}checked {/if}
+                                    id="starred-radio-n" /> No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="search-buttons search">
+        <div class="row">
+            <div class="columns large-4 small-8">
+                <a id="advanced-search-expand">Advanced search...</a>
+            </div>
+            <div class="columns large-2 small-4 text-right">
+               <input type="submit" value="Search" id="set-search-button" class="medium button success" />
+            </div>
+            
+            <div class="columns large-6 small-0"></div>
+        </div>
+    </div>
+</form>
+
+<h3>Results</h3>
+<div id="set-search-results">
+    {call .results data="all" /}
 </div>
+{/template}
+
+
+
+/**
+ * @param sets
+ * @param form
+ * param success
+ */
+{template .results}
+    {if $form.totalAmount}
+    <div class="row">
+        <div class="columns large-12 small-12 result-number-text">
+            <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
+        </div>
+    </div>
+    {/if}
+    
+    <div class="row">
+        <div class="page-numbers columns large-12 small-12">
+            {if $form.emptySearch == false and $form.totalAmount > 0}
+                {call shared.util.pageNumbers}
+                   {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+                {/call}
+            {/if}
+        </div>
+    </div>
+        
+    <div class="row" id="question-set-list">
+        //JS will insert page content here
+        {if $form.emptySearch == true}
+            <div class="columns large-12 small-12"><i>Please enter one or more search terms to find sets</i></div>
+        {else}
+            {if $form.totalAmount <= 0}
+                <div class="columns large-12 small-12"><i>No results found with these search terms.</i></div>
+            {else}
+                <ul class="panels">
+                    {foreach $set in $sets}
+                        {call .listset}
+                            {param set: $set /}
+                        {/call}
+                    {/foreach}
+                </ul>
+            {/if}
+        {/if}
+    </div>
+    
+    <div class="row">
+        <div class="page-numbers columns large-12 small-12">
+            {if $form.emptySearch == false and $form.totalAmount > 0}
+                {call shared.util.pageNumbers}
+                   {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+                {/call}
+            {/if}
+        </div>
+    </div>
+
+    
+    
 {/template}
 
 /**
@@ -47,19 +216,13 @@
 				<div class="columns large-5 small-5 text-right">
 					<div class="icon-button-wrapper">
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-question-list" data-qid="{$set.id}">&#112;</a>
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="sets/{$set.id}">&#88;</a>
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/sets/{$set.id}">&#88;</a>
 						<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $set.starred}_empty{/if}"></i></span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="question-list">
-//		<ul class="sub-panel">
-//			{call .listquestions}
-//				{param questions: $set.questions /}
-//			{/call}
-//		</ul>
-		</div>
+		<div class="question-list"></div>
 	</li>
 {/template}
 
@@ -78,7 +241,7 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}">&#88;</a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}">&#88;</a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
 				</div>
 			</div>

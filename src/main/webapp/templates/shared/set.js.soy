@@ -6,7 +6,7 @@
  * @param? class
  */
 {template .single}
-	<li class="panel-wrapper columns large-12">
+	<li class="panel-wrapper columns large-12 small-12">
 		{if $contains}<div class="list-panel {if $class}{$class}{/if} success" data-sid="{$set.id}">
 		{else}<div class="list-panel set-list unused" data-sid="{$set.id}">
 		{/if}
@@ -14,7 +14,7 @@
 				<div class="columns large-7 small-7">{$set.name}</div>
 				<div class="columns large-5 small-5 text-right">
 					<div class="icon-button-wrapper">
-						<a href="#sets/{$set.id}" class="icon-button panel-icon-button websymbols-icon icon-button-array"><i class="icon-arrow_doubled_right icon"></i></a>
+						<a href="{$ij.URLPrefix}/sets/{$set.id}" data-bypass class="icon-button panel-icon-button websymbols-icon icon-button-array"><i class="icon-arrow_doubled_right icon"></i></a>
 					</div>
 				</div>
 			</div>
@@ -53,13 +53,20 @@
  */
 {template .setSelectionQuestionEdit}
 	<ul class="panels">
-	<p><b>Choose the sets in which to edit the question below:</b></p> 
-		{foreach $set in $sets}
-			{call .single}
-				{param set: $set /}
-				{param contains: true /}
-				{param class: 'qedit-set-list' /}
-			{/call}
-		{/foreach}
-	</ul>
+	{if $sets and $sets.length > 0}
+		<div class="columns large-12 small-12"><i>Choose the sets in which to edit the question below:</i></div> 
+			{foreach $set in $sets}
+				{call .single}
+					{param set: $set /}
+					{param contains: true /}
+					{param class: 'qedit-set-list' /}
+				{/call}
+			{/foreach}
+		</ul>
+	{else}
+		<div class="columns large-12 small-12">
+			<i>You are not using this question in any sets. Please perform a minor 
+			edit or add this question to at least one of your sets.</i>
+		</div>
+	{/if}
 {/template}

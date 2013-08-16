@@ -8,6 +8,7 @@ import javax.ws.rs.FormParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
@@ -33,10 +34,10 @@ public class QuestionSetFork {
 		return this.questions;
 	}
 	
-	public final QuestionSetFork validate() throws Exception {
+	public final QuestionSetFork validate() throws FormValidationException {
 		
 		if (targetId == null) {
-			throw new Exception("Target not specified");
+			throw new FormValidationException("Target not specified");
 		}
 		
 		if (questionList == null) {

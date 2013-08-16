@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -23,14 +22,18 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.form.QuestionSetEdit;
-
-import com.google.inject.OutOfScopeException;
+import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.util.Mappable;
 
 @Entity
 @Table(name="QuestionSets")
-public class QuestionSet extends Model {
+public class QuestionSet extends Model implements Mappable {
+	private static Logger log = LoggerFactory.getLogger(QuestionSet.class);
+	
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy="increment")
@@ -57,8 +60,8 @@ public class QuestionSet extends Model {
 	private Set<Tag> tags = new HashSet<Tag>();
 	
 	@OneToMany
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private Set<QuestionPlacement> questions = new TreeSet<QuestionPlacement>();
+	@Cascade(CascadeType.ALL)
+	private Set<QuestionPlacement> questions = new HashSet<QuestionPlacement>();
 	
 	@SuppressWarnings("unused")
 	private QuestionSet() {}
@@ -86,7 +89,7 @@ public class QuestionSet extends Model {
 	}
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
-	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	public void removeTagByString(String tag){tags.remove(TagQuery.get(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
 		for(Tag t : tags){
@@ -98,7 +101,9 @@ public class QuestionSet extends Model {
 	public List<Question> getQuestions(){
 		List<Question> result = new ArrayList<Question>();
 		while (result.size() < questions.size()) { result.add(null); }
+		log.debug("Trying to get questions of set " + id + " which has " + questions.size() + " questions...");
 		for(QuestionPlacement q: questions) {
+			log.debug("    -> trying to set question in place " + (q.getPlace()-1) + "...");
 			result.set(q.getPlace()-1, q.getQuestion());
 		}
 		return result;
@@ -121,11 +126,15 @@ public class QuestionSet extends Model {
 				return qp.getQuestion();
 			}
 		}
-		throw new OutOfScopeException("index: " + place + " size: " + questions.size());
+		throw new IndexOutOfBoundsException("index: " + place + " size: " + questions.size());
 	}
 	
 	public synchronized void addQuestion(Question question) {
-		if (getQuestions().contains(question)) { return; }
+		if (getQuestions().contains(question)) { 
+			log.debug("Question " + question.getId() + " is already in set " + id + ". Doing nothing.");
+			return; 
+		}
+		log.debug("Adding question " + question.getId() + " to set " + id);
 		question.use();
 		QuestionPlacement qp = new QuestionPlacement(question, questions.size()+1);
 		questions.add(qp);
@@ -275,8 +284,11 @@ public class QuestionSet extends Model {
 	
 	public void edit(QuestionSetEdit qse) throws Exception {
 		this.name = qse.getName();
-		this.plan = qse.getPlan();
+		this.plan.updateWith(qse.getPlan());
 		
+		for (QuestionPlacement qp: this.questions) {
+			qp.delete();
+		}
 		this.questions.clear();
 		
 		for (int i = 0; i < qse.getQuestions().size(); i++) {

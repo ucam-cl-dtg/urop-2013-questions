@@ -5,6 +5,9 @@ The second term must be either a string representing the template name or
 a function that returns the template name. The function will receive the json returned
 by the request as the first parameter.
 */
+SOY_GLOBALS = {URLPrefix: CONTEXT_PATH, UploadPrefix: '/api/uploads/'};
+
+ROUTER_OPTIONS.pushState=true;
 
 $(document).ready(function() {
 	router = Router({
@@ -19,7 +22,7 @@ $(document).ready(function() {
 		
 		"q/:id" : "questions.view.questionFull",
 		"q/:id/:target" : "questions.view.questionFull",
-		"q/search(?(:params(/))*)" : "questions.search.main",
+		"q/search((?)(:params(/))*)" : "questions.search.main",
 		"q/add/:setid" : "questions.form.question.add",
 		
 		"sets": "questions.view.set.list",

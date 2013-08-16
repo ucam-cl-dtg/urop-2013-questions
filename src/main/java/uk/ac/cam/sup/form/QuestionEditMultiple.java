@@ -1,6 +1,6 @@
 package uk.ac.cam.sup.form;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.ws.rs.FormParam;
 
@@ -15,7 +15,7 @@ import uk.ac.cam.sup.models.QuestionSet;
  */
 public class QuestionEditMultiple extends QuestionEdit{
 	@FormParam("sets")
-	private Set<QuestionSet> sets;
+	private List<QuestionSet> sets;
 	
 	private boolean validated = false;
 	
@@ -31,7 +31,7 @@ public class QuestionEditMultiple extends QuestionEdit{
 		return this;
 	}
 	
-	public Set<QuestionSet> getSets() throws FormValidationException{
+	public List<QuestionSet> getSets() throws FormValidationException{
 		if(!validated){throw new FormValidationException("Form not yet validated!");}
 		return sets;
 	}

@@ -18,12 +18,7 @@
 			</ul>
 		</div>
 		<h4>Select set...</h4>
-		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-			<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-			
-			<input type="hidden" name="questions" />
-			<input type="submit" value="Add to set" id="export-questions-button" />
-		</form>
+		<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
 {/template}
 
 /**
@@ -41,7 +36,7 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button use-question-from-set"><i class="icon icon-plus"></i></a>
+					<a data-bypass class="icon-button panel-icon-button use-question-from-set"><i class="icon icon-plus"></i></a>
 				</div>
 			</div>
 		</div>
@@ -53,9 +48,26 @@
  * @param sets
  */
 {template .options}
-<select name="targetSetId">
-	{foreach $set in $sets}
-		<option value="{$set.id}">{$set.name}</option>
-	{/foreach}
-</select>
+
+{if $sets.length > 0}
+<div class="clearfix">
+    <form class="custom" id="add-questions-to-set-form" method="POST" action="sets/fork">
+        <div class="button-container-search">
+            <input type="submit" value="Add to set" id="export-questions-button" class="button success medium"/>
+        </div>
+        <div class="text-field-container-search">
+            <select name="targetSetId">
+    	       {foreach $set in $sets}
+    		      <option value="{$set.id}">{$set.name}</option>
+    	       {/foreach}
+            </select>
+        </div>
+        <input type="hidden" name="questions" />
+    </form>
+</div>
+{else}
+    <p>You don't have any sets. <a href="{$ij.URLPrefix}/sets/add">Create one</a> first.</p>
+{/if}
+    
+    
 {/template}

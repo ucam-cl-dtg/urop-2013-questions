@@ -19,12 +19,12 @@
 			<div class="columns large-3 small-3 text-right">
 				<div class="icon-button-wrapper">
 					{if $setid}
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
+						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
 					{/if}
 					{if $showAddButton}
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
 					{/if}
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array module-loader" data-target="q/{$question.id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}"><i class="icon-arrow_doubled_right icon"></i></a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
 				</div>
 			</div>		
@@ -49,29 +49,4 @@
 		{/call}
 	{/foreach}
 	</ul>
-{/template}
-
-/**
- * @param maplist
- */
-{template .useDialog}
-	<div style="max-height: 200px; max-width: 600px; y-overflow: auto; x-overflow: none; display: inline-block">
-	<table style="min-width: 300px">
-		{foreach $map in $maplist}
-			{if $map.containsQuestion == true}	
-				<tr style="background-color:#B4FF9C">
-					<td contains="true"
-			{else}
-				<tr style="background-color:#D8D8D8">
-					<td contains="false"
-			{/if}
-					class="select-set" data-sid={$map.set.id}><a href="TODO">{$map.set.name}</a>
-					
-					</td>
-					<td>
-						<a href="/app/#sets/{$map.set.id}" title="Go to question set {$map.set.id}: {$map.set.name}">&gt;</a>
-					</td>
-				</tr>
-		{/foreach}
-	</table></div>
 {/template}

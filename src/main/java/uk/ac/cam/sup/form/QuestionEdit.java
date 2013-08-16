@@ -56,7 +56,7 @@ public class QuestionEdit extends QuestionForm {
 		if(!validated){
 			throw new FormValidationException("Form was not yet validated");
 		}
-		if(super.getSetId() != -1){
+		if(setId != -1){
 			throw new FormValidationException("This form doesn't contain multpile sets to edit!");
 		}
 		return sets;
@@ -66,26 +66,25 @@ public class QuestionEdit extends QuestionForm {
 		super.validate();
 		sets = new ArrayList<QuestionSet>();
 		
+		if (isMinor == null) {
+			isMinor = false;
+		}
+		
 		try {
-			if(super.getSetId() == -1 && !this.isMinor){
+			if(setId == -1 && !this.isMinor) {
 
-				try{
+				try {
 					String[] arraySets = strSets.split(",");
 				
 					for(int i = 0; i < arraySets.length; i++){
 						sets.add(QuestionSetQuery.get(Integer.parseInt(arraySets[i])));
 					}
-				}catch(Exception e){
+				} catch(Exception e) {
 					throw new FormValidationException("Error while trying to parse the set list!\n" + e.getMessage());
 				}
 			}
-			if (id == null || (super.getSetId() == -1 && !isMinor && (sets.size() < 1 || sets==null)) || QuestionQuery.get(id) == null) {
-				throw new FormValidationException("Question " + id + " or set(s) " + super.getSetId() + " does not exist");
-			}
-			
-			
-			if (isMinor == null) {
-				isMinor = false;
+			if (id == null || (setId == -1 && !isMinor && (sets.size() < 1 || sets==null)) || QuestionQuery.get(id) == null) {
+				throw new FormValidationException("Question " + id + " or set(s) " + setId + " does not exist");
 			}
 			
 			validated = true;
@@ -93,11 +92,21 @@ public class QuestionEdit extends QuestionForm {
 			return this;
 		} catch (NullPointerException e) {
 			log.error("Null pointer exception when validating QuestionEdit form!\n"
-					+ "Will list if variables are null:\n"
-					+ "super.getSetID(): " + (super.getSetId() == null) 
-					+ "this.isMinor: " + (this.isMinor == null)
-					+ "sets: " + (sets == null));
+					+ "Will list if variables are null:"
+					+ "\nsetId: " + (setId == null) 
+					+ "\nsets: " + (sets == null));
+			e.printStackTrace();
 			throw new FormValidationException("Null pointer exception when validating the QuestionEdit form!\n" + e.getMessage());
 		}
+	}
+	
+	public QuestionEdit parse() throws Exception {
+		super.parse();
+		return this;
+	}
+
+	@Override
+	protected boolean forceLoad() {
+		return false;
 	}
 }

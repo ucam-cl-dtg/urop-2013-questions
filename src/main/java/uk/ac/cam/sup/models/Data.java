@@ -1,7 +1,11 @@
 package uk.ac.cam.sup.models;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,7 +17,11 @@ public class Data implements Cloneable {
 	
 	@Enumerated(EnumType.STRING)
 	private DataType type = DataType.PLAIN_TEXT;
+	
+	@Column(length = 1024)
 	private String data = "";
+	
+	@Column(length = 1024)
 	private String description = "";
 	
 	public Data(){}
@@ -39,15 +47,15 @@ public class Data implements Cloneable {
 		this.description = description;
 	}
 	
-	public Data(String type, String data, byte[] file, String description, boolean forceLoad) {
+	public Data(String type, String data, byte[] file, String description, String extension, boolean forceLoad) throws Exception {
 		this.type = DataType.valueOf(type);
-		if (this.type == DataType.FILE) {
-			String[] name = this.description.split(".");
-			String extension = name[name.length-1];
-			String filename = "data-"+UUID.randomUUID().toString()+extension;
+		if (this.type == DataType.EMPTY) {
+			this.data = "";
+			this.description = "";
+		} else if (this.type == DataType.FILE) {
 			
 			try {
-				// TODO: load
+				String filename = saveFile(file, extension);
 				this.data = filename;
 			} catch (Exception e) {
 				if (forceLoad) {
@@ -64,10 +72,43 @@ public class Data implements Cloneable {
 		}
 	}
 	
+	private static String saveFile(byte[] file, String extension) throws Exception {
+		if (file.length == 0) {
+			throw new Exception("File empty");
+		}
+		
+		String directory = "uploads/";
+		new File(directory).mkdirs();
+		String filename = "data-"+UUID.randomUUID().toString()+"."+extension;
+		
+		File destinationFile = new File(directory+filename);
+        OutputStream outputStream = new FileOutputStream(destinationFile);
+
+        outputStream.write(file);
+        outputStream.close();
+		
+		return filename;
+	}
+	
 	public Data(Data old) {
 		this.type = old.type;
 		this.data = old.data;
 		this.description = old.description;
+	}
+	
+	public Data updateWith(Data update) {
+		if (this.type == DataType.FILE 
+				&& update.type == DataType.FILE
+				&& update.data == null
+		) {
+			this.description = update.description;
+		} else {
+			this.data = update.data;
+			this.description = update.description;
+			this.type = update.type;
+		}
+		
+		return this;
 	}
 	
 	public String getType() {

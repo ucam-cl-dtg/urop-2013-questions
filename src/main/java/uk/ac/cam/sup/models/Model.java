@@ -1,21 +1,22 @@
 package uk.ac.cam.sup.models;
 
 import org.hibernate.Session;
-import org.hibernate.exception.GenericJDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.HibernateUtil;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public class Model {
-	Logger log = LoggerFactory.getLogger(Model.class);
+	private static Logger log = LoggerFactory.getLogger(Model.class);
 	
 	public final void save() {
 		Session session = HibernateUtil.getTransactionSession();
 		try {
+			log.debug("Trying to SAVE model " + this.getClass().toString());
 			session.save(this);
-		} catch (GenericJDBCException e) {
-			session.getTransaction().commit();
+			log.debug("     Success on model save!");
+		} catch (Exception e) {
+			session.getTransaction().rollback();
 			log.warn("Exception on model save: "+e.getMessage());
 		}
 	}
@@ -24,8 +25,8 @@ public class Model {
 		Session session = HibernateUtil.getTransactionSession();
 		try {
 			session.update(this);
-		} catch (GenericJDBCException e) {
-			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
 			log.warn("Exception on model update: "+e.getMessage());
 		}
 	}
@@ -34,8 +35,8 @@ public class Model {
 		Session session = HibernateUtil.getTransactionSession();
 		try {
 			session.saveOrUpdate(this);
-		} catch (GenericJDBCException e) {
-			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
 			log.warn("Exception on model saveOrUpdate: "+e.getMessage());
 		}
 	}
@@ -44,8 +45,8 @@ public class Model {
 		Session session = HibernateUtil.getTransactionSession();
 		try {
 			session.delete(this);
-		} catch (GenericJDBCException e) {
-			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
 			log.warn("Exception on model delete: "+e.getMessage());
 		}
 	}

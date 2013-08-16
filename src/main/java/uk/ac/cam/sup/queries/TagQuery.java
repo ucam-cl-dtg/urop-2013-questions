@@ -8,14 +8,14 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import uk.ac.cam.sup.HibernateUtil;
-import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public class TagQuery {
 	
 	private Criteria criteria;
 	private TagQuery(Criteria criteria) {
+		
 		this.criteria = criteria;
 	}
 	
@@ -30,6 +30,10 @@ public class TagQuery {
 					.createCriteria(Tag.class)
 					.addOrder(Order.asc("name"))
 		);
+	}
+	
+	public static Tag get(String name) {
+		return Tag.get(name);
 	}
 	
 	public TagQuery contains(String pattern) {
@@ -47,11 +51,22 @@ public class TagQuery {
 		return this;
 	}
 	
-	public TagQuery notContainedIn(Question q) {
-		Set<Tag> tags = q.getTags();
+	public TagQuery notContainedIn(Set<Tag> tags) {
 		for(Tag tag: tags) {
-			criteria.add(Restrictions.not(Restrictions.eq("name", tag.getName())));
+			criteria.add(Restrictions.not(
+					Restrictions.eq("name", tag.getName()).ignoreCase()
+			));
 		}
+		return this;
+	}
+	
+	public TagQuery maxResults(int amount){
+		criteria.setMaxResults(amount);
+		return this;
+	}
+	
+	public TagQuery offset(int offset){
+		criteria.setFirstResult(offset);
 		return this;
 	}
 

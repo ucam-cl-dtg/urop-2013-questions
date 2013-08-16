@@ -26,14 +26,16 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.util.DataType;
+import uk.ac.cam.sup.util.Mappable;
 
 @Entity()
 @Table(name="Questions")
-public class Question extends Model implements Cloneable {
+public class Question extends Model implements Cloneable, Mappable {
 	@Transient
 	private static Logger log = LoggerFactory.getLogger(Question.class);
 	
@@ -60,10 +62,10 @@ public class Question extends Model implements Cloneable {
 	private int expectedDuration = 0;
 	
 	@Embedded @Column(nullable=false)
-	private Data content = new Data(false, null);
+	private Data content = new Data(DataType.EMPTY, null);
 	
 	@Embedded @Column(nullable=false)
-	private Data notes = new Data(false, null);
+	private Data notes = new Data(DataType.EMPTY, null);
 	
 	@SuppressWarnings("unused")
 	private Question() {}
@@ -105,7 +107,7 @@ public class Question extends Model implements Cloneable {
 	public Set<Tag> getTags(){return tags;}
 	public void addTag(Tag tag){tags.add(tag);}
 	public void removeTag(Tag tag){tags.remove(tag);}
-	public void removeTagByString(String tag){tags.remove(new Tag(tag));}
+	public void removeTagByString(String tag){tags.remove(TagQuery.get(tag));}
 	public Set<String> getTagsAsString() {
 		Set<String> result = new HashSet<String>();
 		for(Tag t : tags){
@@ -142,7 +144,7 @@ public class Question extends Model implements Cloneable {
 		result.content = new Data(content);
 		
 		if (this.getOwner().getSupervisor() && !qs.getOwner().getSupervisor()) {
-			result.notes = new Data(false, null);
+			result.notes = new Data(DataType.EMPTY, null);
 		} else {
 			result.notes = new Data(notes);
 		}
@@ -204,13 +206,7 @@ public class Question extends Model implements Cloneable {
 		boolean inPlace = false;
 		
 		List<Question> forks;
-		try {
-			forks = QuestionQuery.all().withParent(qe.getId()).list();
-		} catch (NotYetTouchedException e) {
-			log.error("The forks of a question could not be retrieved. Caution: returning null! Message: " + e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
+		forks = QuestionQuery.all().withParent(qe.getId()).list();
 		if(forks == null){forks = new ArrayList<Question>();}
 		
 		if(editor.equals(owner)) {
@@ -222,7 +218,7 @@ public class Question extends Model implements Cloneable {
 		} else {
 			List<User> userlist = new ArrayList<User>();
 			userlist.add(editor);
-			if(QuestionSetQuery.all().withUsers(userlist).have(qe.getId()).list().size() < 1){
+			if(QuestionSetQuery.all().withOwners(userlist).have(qe.getId()).list().size() < 1){
 				throw new InvalidInputException("No sets available in which to edit this question!");
 			}
 		}

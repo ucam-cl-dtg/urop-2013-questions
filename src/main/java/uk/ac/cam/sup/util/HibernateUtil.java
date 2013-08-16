@@ -1,4 +1,4 @@
-package uk.ac.cam.sup;
+package uk.ac.cam.sup.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

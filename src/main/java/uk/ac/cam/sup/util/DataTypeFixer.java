@@ -2,8 +2,6 @@ package uk.ac.cam.sup.util;
 
 import java.util.List;
 
-import uk.ac.cam.sup.HibernateUtil;
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
@@ -11,7 +9,8 @@ import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class DataTypeFixer {
 	
-	public static void main(String[] args) throws NotYetTouchedException {
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
 		List<QuestionSet> qslist = QuestionSetQuery.all().list();
 		for (QuestionSet qs: qslist) {
 			if (qs.getPlan().isString()) {
@@ -23,7 +22,7 @@ public class DataTypeFixer {
 		}
 		HibernateUtil.commit();
 		
-		List<Question> qlist = QuestionQuery.all().touch().list();
+		List<Question> qlist = QuestionQuery.all().list();
 		for (Question q: qlist) {
 			if (q.getNotes().isString()) {
 				q.getNotes().setType(DataType.PLAIN_TEXT);

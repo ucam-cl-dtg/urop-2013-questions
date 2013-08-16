@@ -5,18 +5,22 @@
  * @param setId
  */
 {template .add}
-<form method="POST" action="/q/save">
+<form method="POST" action="q/save" class="custom" enctype="multipart/form-data">
 	<div class="row">
 		<div class="columns large-2 small-12 text-right"><h5>Content</h5></div>
 		<div class="columns large-10 small-12">
-			<textarea name="content" placeholder="Content"></textarea>
+			{call shared.data.edit}
+				{param name: 'content' /}
+			{/call}
 		</div>
 	</div>
 	
 	<div class="row">
 		<div class="columns large-2 small-12 text-right"><h5>Notes</h5></div>
 		<div class="columns large-10 small-12">
-			<textarea name="notes" placeholder="Notes"></textarea>
+			{call shared.data.edit}
+				{param name: 'notes' /}
+			{/call}
 		</div>
 	</div>
 	

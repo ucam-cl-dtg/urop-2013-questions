@@ -12,12 +12,16 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
+import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
+import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.queries.UserQuery;
 
 public class QuestionSetQueryTest extends GenericTest {
 	
@@ -33,9 +37,9 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void allElementsReturnedByWithTagsHaveOneOfTheTagsSpecified() {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Algorithms"));
-		tags.add(new Tag("Sorting"));
-		tags.add(new Tag("Discrete Mathematics"));
+		tags.add(TagQuery.get("Algorithms"));
+		tags.add(TagQuery.get("Sorting"));
+		tags.add(TagQuery.get("Discrete Mathematics"));
 		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: result) {
 			boolean contains = false;
@@ -54,8 +58,8 @@ public class QuestionSetQueryTest extends GenericTest {
 	@Test
 	public void noElementsAreOmittedByWithTagsFilter () {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Algorithms"));
-		tags.add(new Tag("Discrete Mathematics"));
+		tags.add(TagQuery.get("Algorithms"));
+		tags.add(TagQuery.get("Discrete Mathematics"));
 		List<?> all = QuestionSetQuery.all().list();
 		List<?> result = QuestionSetQuery.all().withTags(tags).list();
 		for (Object q: all) {
@@ -73,7 +77,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		List<User> users = new ArrayList<User>();
 		users.add(new User("mr595"));
 		users.add(new User("as123"));
-		List<?> result = QuestionSetQuery.all().withUsers(users).list();
+		List<?> result = QuestionSetQuery.all().withOwners(users).list();
 		for (Object q: result) {
 			boolean contains = false;
 			for (User u: users) {
@@ -94,7 +98,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		user.add(new User("mr595"));
 		user.add(new User("as123"));
 		List<?> all = QuestionSetQuery.all().list();
-		List<?> result = QuestionSetQuery.all().withUsers(user).list();
+		List<?> result = QuestionSetQuery.all().withOwners(user).list();
 		for (Object q: all) {
 			User owner = ((QuestionSet)q).getOwner();
 			for (User u: user) {
@@ -285,5 +289,11 @@ public class QuestionSetQueryTest extends GenericTest {
 				fail(((QuestionSet)o).getName() + " was omitted");
 			}
 		}
+	}
+	
+	@Test
+	public void countingRowsWorks() throws ModelNotFoundException, QueryAlreadyOrderedException{
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get("u1"));
+		assertTrue(qsq.size() > 0);
 	}
 }

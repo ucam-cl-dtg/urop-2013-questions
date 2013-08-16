@@ -2,96 +2,239 @@
 
 /**
  * This shows the main search screen of questions
- * param st The search terms
- * @param? questions
+ * 
+ * param? questions
  * @param? set
  * @param success
+ * @param questions
+ * @param form
  * @param? error
  */
 {template .main}
 {if $success == false}
-	{$error} 
+	An error occurred!<br>
+	{$error}<br>
+	<a href="{$ij.URLPrefix}/q/search">Click here</a> to go to the search main page. 
 {else}
-<h3> Add to {if $set}{$set.name}{else}a set{/if}</h3>
-<div class="row">
-	<div class="columns large-4 small-12">
-		<form class="custom" id="add-questions-to-set-form" method="POST" action="/sets/fork">
-			{if $set}
-				<input type="hidden" name="targetSetId" value="{$set.id}" />
-			{else}
-				<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
-			{/if}
-			
-			<input type="hidden" name="questions" value="" />
-			<input type="submit" value="Add to set" id="add-questions-to-set-button" />
-		</form>
-	</div>
-	<div class="columns large-4 small-12" id="searchbar">
-		<form method="get" action="/q/search" id="questions-searchform">
-			//{if not $value}
-				<input type="text" id="txtSearch" value="" placeholder="Search..." /><br>
-			//{else}
-				//<input type="text" id="{$name}" value="{$value}" placeholder="{$title}..." /><br>
-			//{/if}
-			/*{call .searchInput}
-				{param value: $st.tags /}
-				{param name: $st.tagsName /}
-				{param title: $st.tagsTitle /}
-			{/call}*/
-			<input type="submit" value="Search" id="foobar" />
-		</form>
-	</div>
+<div class="clearfix">
+    <div id="search-export-questions-form" style="">
+        <h3>Add to {if $set}{$set.name}{else}a set{/if}</h3>
+        {if $set}
+            <form class="custom" id="add-questions-to-set-form" method="POST" action="sets/fork">
+                <input type="hidden" name="targetSetId" value="{$set.id}" />
+                <input type="hidden" name="questions" value="" />
+                <input type="submit" value="Add to set" id="export-questions-button" class="button medium success"/>
+            </form>
+        {else}
+            <div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+        {/if}
+    </div>
+    
+    <div class="search-form-wrapper">
+        <form method="GET" action="q/search">
+            <div class="">
+                <div class="row">
+                    <div class="columns large-6 small-8 search-bar search">
+                       <h3>Search questions...</h3>
+                       <h5 class="search-tags-label">Tags</h5>
+                       <input type="text" name="tags" placeholder="Tags..."
+                           {if $form}{if $form.tags}value="{$form.tags}"{/if}{/if}
+                       class="input-search" />
+                    </div>
+                    <div class="columns large-4 small-0">
+        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="advanced-search search">
+                <div class="row">
+                    <div class="columns large-6 small-12">
+                        <div><h5>Authors</h5></div>
+                        <div>
+                            <input type="text" name="authors" 
+                                {if $form}{if $form.authors}value="{$form.authors}"{/if}{/if}
+                            placeholder="Authors..." />
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="columns large-6 small-12">
+                        <div><h5>Expected duration</h5></div>
+                        <div>
+                            <div class="row">
+                                <div class="columns large-2 small-2 text-right">
+                                    <h6>From:</h6>
+                                </div>
+                                <div class="columns large-4 small-10 text-right">
+                                    <input type="number" name="minduration" 
+                                        {if $form}{if $form.minDuration} value="{$form.minDuration}" {/if} {/if}
+                                    />
+                                </div>
+                                <div class="columns large-2 small-2 text-right">
+                                    <h6>To:</h6>
+                                </div>
+                                <div class="columns large-4 small-10 text-right">
+                                    <input type="number" name="maxduration" 
+                                        {if $form}{if $form.maxDuration} value="{$form.maxDuration}" {/if}{/if}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns large-6 small-12">
+                        <div><h5>Date created</h5></div>
+                        <div>
+                            <div class="row">
+                                <div class="columns large-2 small-2 text-right">
+                                    <h6>From:</h6>
+                                </div>
+                                <div class="columns large-4 small-10 text-right">
+                                    <input type="text" name="after" id="question-search-field-after" 
+                                        {if $form}{if $form.after}value="{$form.after}"{/if} {/if}
+                                    />
+                                </div>
+                                <div class="columns large-2 small-2 text-right">
+                                    <h6>To:</h6>
+                                </div>
+                                <div class="columns large-4 small-10 text-right">
+                                    <input type="text" name="before" id="question-search-field-before" 
+                                        {if $form}{if $form.before}value="{$form.before}"{/if} {/if}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="columns large-6 small-12">
+                        <div><h5>Created by supervisor</h5></div>
+                        <div>
+                            <div class="row">
+                                <div class="columns large-12 small-12">
+                                    <label for="supervisor-radio-x" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="supervisor" value="DONT_CARE"
+                                            {if $form}{if $form.supervisor != 'YES' and $form.supervisor != 'NO'}checked {/if}{/if}
+                                            id="supervisor-radio-x" /> Don't care
+                                    </label>
+                                    <label for="supervisor-radio-y" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="supervisor" value="YES"
+                                            {if $form}{if $form.supervisor == 'YES'}checked {/if}{/if}
+                                            id="supervisor-radio-y" /> Yes
+                                    </label>
+                                    <label for="supervisor-radio-n" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="supervisor" value="NO" 
+                                            {if $form}{if $form.supervisor == 'NO'}checked {/if}{/if}
+                                            id="supervisor-radio-n" /> No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns large-6 small-12">
+                        <div><h5>Starred</h5></div>
+                        <div>
+                            <div class="row">
+                                <div class="columns large-12 small-12">
+                                    <label for="starred-radio-x" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="starred" value="DONT_CARE" 
+                                            {if $form}{if $form.starred != 'YES' and $form.starred != 'NO'}checked {/if}{/if}
+                                            id="starred-radio-x" /> Don't care
+                                    </label>
+                                    <label for="starred-radio-y" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="starred" value="YES" 
+                                            {if $form}{if $form.starred == 'YES'}checked {/if}{/if}
+                                            id="starred-radio-y" /> Yes
+                                    </label>
+                                    <label for="starred-radio-n" style="float: left; margin-right: 10px;">
+                                        <input type="radio" name="starred" value="NO" 
+                                            {if $form}{if $form.starred == 'NO'}checked {/if}{/if}
+                                            id="starred-radio-n" /> No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="search-buttons search">
+                <div class="row">
+                    <div class="columns large-4 small-8">
+                        <a id="advanced-search-expand">Advanced search...</a>
+                    </div>
+                    <div class="columns large-2 small-4 text-right">
+                       <input type="submit" value="Search" id="question-search-button" class="medium button success" />
+                    </div>
+                    
+                    <div class="columns large-6 small-0"></div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 	
-<h3>Questions</h3>
-<div id="questionList" class="row">
-	{call shared.question.multiple}
-		{param questions: $questions /}
-		{param showAddButton: true /}
-	{/call}
+<h3>Results</h3>
+<div id="question-search-results">
+    {call .results data="all" /}
 </div>
-	
+
 {/if}
 {/template}
 
 /**
- * Will render a single input for the search
- * @param name
- * @param title
- * @param? value
- */
-{template .searchInput}
-	{if not $value}
-		<input type="text" id="{$name}" value="" placeholder="{$title}..." /><br>
-	{else}
-		<input type="text" id="{$name}" value="{$value}" placeholder="{$title}..." /><br>
-	{/if}
-{/template}
-
-/**
- * @param questions
+ * @param? questions
+ * @param success
+ * @param? form
  */
 {template .results}
-	{call shared.question.multiple}
-		{param questions: $questions /}
-		{param showAddButton: true /}
-	{/call}
-{/template}
-
-/**
- * @param item
- */
-{template .searchCriteria}
-<li class='token-input-criteria-token-facebook' title='{$item.helpText}' data-type='{$item.type}'>{$item.value}<input type=
-{if $item.displayType == 'text'}
- 'text' class='search-item-input-field' />
-{elseif $item.displayType == 'boolean'}
- 'checkbox' class='search-item-checkbox'></input>
-{elseif $item.displayType == 'number'}
- 'number' class='search-item-number'></input>
-{elseif $item.displayType == 'date'}
- 'text' class='search-item-date'></input>
+{if $form.totalAmount}
+<div class="row">
+    <div class="columns large-12 small-12 result-number-text">
+        <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
+    </div>
+</div>
 {/if}
-</li>
 
+<div class="row">
+    <div class="page-numbers columns large-12 small-12">
+        {if $form.emptySearch == false and $form.totalAmount > 0}
+            {call shared.util.pageNumbers}
+               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+            {/call}
+        {/if}
+    </div>
+</div>
+
+<div id="question-list" class="row">
+    {if $success == true}
+        
+        {if $form.emptySearch}
+            <div class="column large-12 small-12"><i>Please enter one or more search terms to find questions</i></div>
+        {elseif $form.totalAmount > 0}
+            {call shared.question.multiple}
+                {param questions: $questions /}
+                {param showAddButton: true /}
+            {/call}
+        {else}
+            <div class="column large-12 small-12"><i>No questions were found with these search parameters.</i></div>
+        {/if}
+    {else}
+        <div class="column large-12 small-12">An error occurred! Please check your input.</div>
+    {/if}
+</div>
+
+<div class="row">
+    <div class="page-numbers columns large-12 small-12">
+        {if $form.emptySearch == false and $form.totalAmount > 0}
+            {call shared.util.pageNumbers}
+               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+            {/call}
+        {/if}
+    </div>
+</div>
+	
 {/template}

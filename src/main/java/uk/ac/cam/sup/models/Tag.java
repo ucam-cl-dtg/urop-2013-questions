@@ -4,22 +4,47 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.Criteria;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.criterion.Restrictions;
+
+import uk.ac.cam.sup.util.HibernateUtil;
 
 @Entity
 @Table(name="Tags")
 public class Tag extends Model implements Comparable<Tag>{
-	@Id private String name;
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy="increment")
+	private Integer id;
+	
+	private String name;
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	@SuppressWarnings("unused")
 	private Tag(){}
-	public Tag(String name) {
+	private Tag(String name) {
 		this.name = name;
+	}
+	
+	public static Tag get(String name) {
+		Criteria criteria = HibernateUtil.getTransactionSession()
+			.createCriteria(Tag.class)
+			.add(Restrictions.eq("name", name).ignoreCase());
+		Tag t = (Tag) criteria.uniqueResult();
+		
+		if (t == null) {
+			t = new Tag(name);
+			t.saveOrUpdate();
+		}
+		
+		return t;
 	}
 	
 	public int compareTo(Tag tag){

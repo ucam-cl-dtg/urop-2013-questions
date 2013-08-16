@@ -2,22 +2,22 @@ package uk.ac.cam.sup;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
 
-import uk.ac.cam.sup.exceptions.NotYetTouchedException;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
+import uk.ac.cam.sup.queries.TagQuery;
 
 public class QuestionQueryTest extends GenericTest {
 
 	@Test
-	public void dontFilter() throws NotYetTouchedException {
+	public void dontFilter() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		List<Question> l = qq.list();
@@ -42,7 +42,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByStarred() throws NotYetTouchedException {
+	public void filterByStarred() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.withStar();
@@ -66,12 +66,12 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByTag() throws NotYetTouchedException {
+	public void filterByTag() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		List<Tag> tags = new LinkedList<Tag>();
-		Tag tag1 = new Tag("Algorithms");
-		Tag tag2 = new Tag("Sorting");
+		Tag tag1 = TagQuery.get("Algorithms");
+		Tag tag2 = TagQuery.get("Sorting");
 		tags.add(tag1);
 		tags.add(tag2);
 		qq.withTags(tags);
@@ -89,7 +89,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByUser() throws NotYetTouchedException {
+	public void filterByUser() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		List<User> users = new LinkedList<User>();
@@ -111,7 +111,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByStudent() throws NotYetTouchedException {
+	public void filterByStudent() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.byStudent();
@@ -129,7 +129,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterBySupervisor() throws NotYetTouchedException {
+	public void filterBySupervisor() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.bySupervisor();
@@ -147,7 +147,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByDate() throws NotYetTouchedException {
+	public void filterByDate() {
 
 		Date begin = new Date(5000L);
 		Date end = new Date(10000L);
@@ -170,7 +170,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByUsageCount() throws NotYetTouchedException {
+	public void filterByUsageCount() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.minUsages(30).maxUsages(80);
@@ -190,7 +190,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 
 	@Test
-	public void filterByParent() throws NotYetTouchedException {
+	public void filterByParent() {
 
 		QuestionQuery qq = QuestionQuery.all();
 		qq.withParent(p.getId());
@@ -207,7 +207,7 @@ public class QuestionQueryTest extends GenericTest {
 	}
 	
 	@Test
-	public void filterByDuration() throws NotYetTouchedException{
+	public void filterByDuration() {
 		
 		QuestionQuery qq = QuestionQuery.all();
 		qq.maxDuration(60);

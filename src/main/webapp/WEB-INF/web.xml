@@ -1,60 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app [
+<!ENTITY frontend SYSTEM "frontend.xml">
+]>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+
+	<context-param>
+		<param-name>cssNamespace</param-name>
+		<param-value></param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>cssFiles</param-name>
+		<param-value>/css/questions.css</param-value>
+	</context-param>
 	
-	<!-- Include this for the raven filter -->
-	<filter>
-		<filter-name>ravenFilter</filter-name>
-		<filter-class>uk.ac.cam.ucs.webauth.RavenFilter</filter-class>
+	<context-param>
+		<param-name>apiKey</param-name>
+		<param-value>4870v534lmomthfssb27ho4vjtidhujlmmssasuf</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>dashboardUrl</param-name>
+		<param-value>http://www.cl.cam.ac.uk/research/dtg/berrycider/dashboard</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jsFiles</param-name>
+		<param-value>
+		  http://code.jquery.com/ui/1.10.3/jquery-ui.js,
+		  http://malsup.github.com/jquery.form.js,/js/showdown.js,
+		  http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,
+		  /js/search.js,
+		  /js/searchSet.js,
+		  /js/questionFull.js,
+		  /js/questionSet.js,
+		  /js/dataEditor.js,
+		  /js/dataRenderer.js,
+		  /js/user.js,
+		  /js/util.js,
+		  /js/questions.js,
+		  /soy/js/1/questions.js,
+		  /soy/js/1/questions.search.js,
+		  /soy/js/1/questions.view.js,
+		  /soy/js/1/questions.form.question.js,
+		  /soy/js/1/questions.form.set.js,
+		  /soy/js/1/questions.view.set.tab.js,
+		  /soy/js/1/questions.view.set.js,
+		  /soy/js/1/questions.view.user.js,
+		  /soy/js/1/questions.misc.js
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>resteasy.servlet.mapping.prefix</param-name>
+		<param-value>/api</param-value>
+	</context-param>
+
+    <filter>
+		<filter-name>apiauth</filter-name>
+		<filter-class>uk.ac.cam.cl.dtg.teaching.APIFilter</filter-class>
+		<init-param>
+			<param-name>allowGlobal</param-name>
+			<param-value>false</param-value>
+		</init-param>
 	</filter>
 
-	<!-- Include this for the Hibernate filter -->
 	<filter>
 		<filter-name>Hibernate</filter-name>
-		<filter-class>uk.ac.cam.sup.HibernateSessionRequestFilter</filter-class>
+		<filter-class>uk.ac.cam.sup.util.HibernateSessionRequestFilter
+		</filter-class>
 	</filter>
 
 	<filter>
 		<filter-name>Htmleasy</filter-name>
-		<filter-class>com.googlecode.htmleasy.HtmleasyFilterDispatcher</filter-class>
+		<filter-class>com.googlecode.htmleasy.HtmleasyFilterDispatcher
+		</filter-class>
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>uk.ac.cam.sup.QuestionsApp</param-value>
 		</init-param>
 	</filter>
-
-	<!-- Include for raven filter (url-pattern set to /* for securing all
-	pages of the website with raven -->
+	
 	<filter-mapping>
-		<filter-name>ravenFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>apiauth</filter-name>
+		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>Hibernate</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>Htmleasy</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>
 
-	<servlet>
-		<servlet-name>soy</servlet-name>
-		<servlet-class>com.papercut.silken.SilkenServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-		<init-param>
-			<param-name>disableCaching</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>soy</servlet-name>
-		<url-pattern>/soy/*</url-pattern>
-	</servlet-mapping>
+	&frontend;
 </web-app>
