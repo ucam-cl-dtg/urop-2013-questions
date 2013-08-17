@@ -135,7 +135,7 @@
 	</dependencies>
 
 	<scm>
-		<developerConnection>scm:git:ssh://git@github.com/ucam-cl-dtg/urop-2013-handins</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/ucam-cl-dtg/urop-2013-questions</developerConnection>
 	</scm>
 
 	<build>
