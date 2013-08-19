@@ -53,7 +53,7 @@ function searchSetup() {
 	});
 }
 
-function getTokenFormatter(item){
+/*function getTokenFormatter(item){
 	var $criteria = $(questions.search.searchCriteria({item: item}));
 	var $inputField = $criteria.find(".search-item-input-field");
 	
@@ -82,7 +82,7 @@ function getTokenFormatter(item){
 	}
 	
 	return $criteria;
-}
+}*/
 
 function search(page, amount){
 	if(!(page >=  1)){
@@ -146,4 +146,43 @@ function displayResults(json){
 	}, json);
 	$qlist.append($newList.children());
 	
+}
+
+function configureAutoCompleteBasic(){
+	$('.basic-search input[name="tags"]').tokenInput(prepareURL("tags/autocomplete/10"), {
+		method: "post",
+		queryParam: "q",
+		tokenValue: "value",
+		propertyToSearch: "value",
+		theme: "facebook",
+		minChars: 1,
+		hintText: "Begin typing your search terms...",
+		noResultsText: "No results found",
+		resultsLimit: 10,
+		preventDuplicates: true,
+		
+		resultsFormatter: function(item){ return "<li><div class='st-value'>" + item.value + "</div></li>"; },
+		tokenFormatter: function(item) { return "<li>" + item.value + "</li>"; }
+    
+	});
+}
+
+function configureAutoCompleteAdv(){
+	console.log($('.basic-search input[name="authors"]'));
+	$('.advanced-search input[name="authors"]').tokenInput(prepareURL("users/autocomplete/10"), {
+		method: "post",
+		queryParam: "q",
+		tokenValue: "value",
+		propertyToSearch: "value",
+		theme: "facebook",
+		minChars: 1,
+		hintText: "Begin typing your search terms...",
+		noResultsText: "No results found",
+		resultsLimit: 10,
+		preventDuplicates: true,
+		
+		resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + " (" + item.crsid + ")</div><div class='email'>" + item.crsid + "@cam.ac.uk</div></div></li>" },
+		tokenFormatter: function(item) { return "<li><p>" + item.name + " (" + item.crsid + ")</p></li>" }
+    
+	});
 }
