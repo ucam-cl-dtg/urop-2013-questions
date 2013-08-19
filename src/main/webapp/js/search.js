@@ -168,7 +168,6 @@ function configureAutoCompleteBasic(){
 }
 
 function configureAutoCompleteAdv(){
-	console.log($('.basic-search input[name="authors"]'));
 	$('.advanced-search input[name="authors"]').tokenInput(prepareURL("users/autocomplete/10"), {
 		method: "post",
 		queryParam: "q",
@@ -185,4 +184,28 @@ function configureAutoCompleteAdv(){
 		tokenFormatter: function(item) { return "<li><p>" + item.name + " (" + item.crsid + ")</p></li>" }
     
 	});
+}
+
+function populateSearchFields(){
+	var tags = initialRequestData.form.tags.split(",");
+	var authors = initialRequestData.form.authors.split(",");
+	var tmp;
+	
+	for(var i = 0; i < tags.length; i++){
+		tmp = $.trim(tags[i]);
+		if(tmp.length > 0){
+			$('.basic-search input[name="tags"]').tokenInput("add", {value: tmp});
+		}
+	}
+	
+	for(var i = 0; i < authors.length; i++){
+		tmp = $.trim(authors[i]);
+		if(tmp.length > 0){
+			$.post(prepareURL("users/autocomplete/1"), {q: tmp}, function(json){
+				console.log(json);
+				$('.advanced-search input[name="authors"]').tokenInput("add", {crsid: json[0].crsid, name: json[0].name, value: json[0].value});
+			});
+		}
+	}
+	//$('.basic-search input[name="tags"]').tokenInput("add", {})
 }

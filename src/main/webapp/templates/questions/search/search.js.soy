@@ -204,6 +204,8 @@
         {if $form.emptySearch == false and $form.totalAmount > 0}
             {call shared.util.pageNumbers}
                {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+               {param curPage: $form.page /}
+               {param resultsPerPage: $form.amount /}
             {/call}
         {/if}
     </div>
@@ -232,6 +234,8 @@
         {if $form.emptySearch == false and $form.totalAmount > 0}
             {call shared.util.pageNumbers}
                {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+               {param curPage: $form.page /}
+               {param resultsPerPage: $form.amount /}
             {/call}
         {/if}
     </div>

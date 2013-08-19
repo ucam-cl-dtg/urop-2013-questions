@@ -7,3 +7,11 @@ function insertPageNumbers($container, className, page, maxPage, amount){
 	applyTemplate($newNumbers, "shared.util.pageNumbers", data);
 	$container.append($newNumbers.children());
 }
+
+var initialRequestData;
+function saveJSON(template) {
+	return function(data) {
+		initialRequestData = data;
+		return template;
+	};
+}

@@ -29,6 +29,7 @@ moduleScripts['questions'] = {
 			    configureSetSearchPages,
 			    configureAutoCompleteBasic,
 			    configureAutoCompleteAdv,
+			    populateSearchFields,
 			],
     	},
 		'user': {
@@ -51,6 +52,7 @@ moduleScripts['questions'] = {
 	        searchSetup,
 	        configureAutoCompleteBasic,
 	        configureAutoCompleteAdv,
+	        populateSearchFields,
 	    ]
 	},
 	
