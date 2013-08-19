@@ -178,7 +178,7 @@
 </div>
 	
 <h3>Results</h3>
-<div id="question-search-results">
+<div id="search-results">
     {call .results data="all" /}
 </div>
 
@@ -191,54 +191,54 @@
  * @param? form
  */
 {template .results}
-{if $form.totalAmount}
-<div class="row">
-    <div class="columns large-12 small-12 result-number-text">
-        <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
-    </div>
-</div>
-{/if}
-
-<div class="row">
-    <div class="page-numbers columns large-12 small-12">
-        {if $form.emptySearch == false and $form.totalAmount > 0}
-            {call shared.util.pageNumbers}
-               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
-               {param curPage: $form.page /}
-               {param resultsPerPage: $form.amount /}
-            {/call}
-        {/if}
-    </div>
-</div>
-
-<div id="question-list" class="row">
-    {if $success == true}
-        
-        {if $form.emptySearch}
-            <div class="column large-12 small-12"><i>Please enter one or more search terms to find questions</i></div>
-        {elseif $form.totalAmount > 0}
-            {call shared.question.multiple}
-                {param questions: $questions /}
-                {param showAddButton: true /}
-            {/call}
-        {else}
-            <div class="column large-12 small-12"><i>No questions were found with these search parameters.</i></div>
-        {/if}
-    {else}
-        <div class="column large-12 small-12">An error occurred! Please check your input.</div>
-    {/if}
-</div>
-
-<div class="row">
-    <div class="page-numbers columns large-12 small-12">
-        {if $form.emptySearch == false and $form.totalAmount > 0}
-            {call shared.util.pageNumbers}
-               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
-               {param curPage: $form.page /}
-               {param resultsPerPage: $form.amount /}
-            {/call}
-        {/if}
-    </div>
-</div>
+	{if $form.totalAmount}
+	<div class="row">
+	    <div class="columns large-12 small-12 result-number-text">
+	        <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
+	    </div>
+	</div>
+	{/if}
+	
+	<div class="row">
+	    <div class="page-numbers columns large-12 small-12">
+	        {if $form.emptySearch == false and $form.totalAmount > 0}
+	            {call shared.util.pageNumbers}
+	               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+	               {param curPage: $form.page /}
+	               {param resultsPerPage: $form.amount /}
+	            {/call}
+	        {/if}
+	    </div>
+	</div>
+	
+	<div id="results-list" class="row">
+	    {if $success == true}
+	        
+	        {if $form.emptySearch}
+	            <div class="column large-12 small-12"><i>Please enter one or more search terms to find questions</i></div>
+	        {elseif $form.totalAmount > 0}
+	            {call shared.question.multiple}
+	                {param questions: $questions /}
+	                {param showAddButton: true /}
+	            {/call}
+	        {else}
+	            <div class="column large-12 small-12"><i>No questions were found with these search parameters.</i></div>
+	        {/if}
+	    {else}
+	        <div class="column large-12 small-12">An error occurred! Please check your input.</div>
+	    {/if}
+	</div>
+	
+	<div class="row">
+	    <div class="page-numbers columns large-12 small-12">
+	        {if $form.emptySearch == false and $form.totalAmount > 0}
+	            {call shared.util.pageNumbers}
+	               {param maxPage: ceiling($form.totalAmount/$form.amount) /}
+	               {param curPage: $form.page /}
+	               {param resultsPerPage: $form.amount /}
+	            {/call}
+	        {/if}
+	    </div>
+	</div>
 	
 {/template}

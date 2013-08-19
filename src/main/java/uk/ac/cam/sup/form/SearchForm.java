@@ -261,6 +261,7 @@ public abstract class SearchForm<T extends Mappable> {
 				totalAmount = query.size();
 			} catch (QueryAlreadyOrderedException e) {
 				totalAmount = -1;
+				e.printStackTrace();
 			}
 		}
 		
@@ -284,9 +285,9 @@ public abstract class SearchForm<T extends Mappable> {
 		b.put("before", before);
 		b.put("supervisor", supervisor);
 		b.put("starred", starred);
-		b.put("page", page);
-		b.put("amount", amount);
 		if(totalAmount == null) getSearchResults();
+		b.put("page", pageInt);
+		b.put("amount", amountInt);
 		b.put("totalAmount", totalAmount);
 		b.put("emptySearch", emptySearch);
 		

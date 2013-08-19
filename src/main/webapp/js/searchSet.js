@@ -28,9 +28,9 @@ function configureSetSearchButton() {
 	$(document).on('click', '#set-search-button', function(e) {
 		e.preventDefault();
 
-		var amount = Number($(".page-numbers").find("select.results-per-page-select").val());
+		var amount = Number($("#search-results").find(".page-numbers").find("select.results-per-page-select").val());
 		if(amount == Number("NaN") || amount < 1) amount = 25;
-		setSearch(1, 25);
+		setSearch(1, amount);
 	});
 }
 
@@ -63,13 +63,13 @@ function configureSetSearchPages() {
 	
 	displayPageNumbersSetSearch(page, totalAmount, amount);
 	
-	$(".page-numbers").on("click", "a.page-number", function(){
+	$("#search-results").on("click", "a.page-number", function(){
 		var p = $(this).attr("data-p");
 		var spp = $(this).parent().siblings(".results-per-page-select").val();
 		setSearch(p, spp);
 		return false;
 	});
-	$(".page-numbers").on("change", ".results-per-page-select", function(){
+	$("#search-results").on("change", ".results-per-page-select", function(){
 		var spp = $(this).val();
 		setSearch(1, spp);
 		return false;
@@ -77,7 +77,7 @@ function configureSetSearchPages() {
 }
 
 function setSearch(page, amount){
-	var $setList = $("#set-search-results");
+	var $setList = $("#search-results");
 	
 	var $form = $("#set-search-form");
 	var $button = $("#set-search-button");
@@ -91,7 +91,7 @@ function setSearch(page, amount){
 				$form.find('input')
 					.not('[type=radio]').not('[name=tags]').not('[type=submit]')
 					.val('');
-				
+				$('.advanced-search input[name="authors"]').tokenInput("clear");
 				$form.find('input[type=radio]').removeAttr('checked');
 				$form.find('input[type=radio][value=DONT_CARE]').attr('checked','');
 			}
@@ -107,6 +107,7 @@ function setSearch(page, amount){
 				displayPageNumbersSetSearch(data.form.page, data.form.totalAmount, data.form.amount);
 			}
 			router.navigate("sets?"+$form.serialize() + "&page=" + page + "&amount=" + amount);
+			lastSearchURL = "sets?"+$form.serialize();
 		},
 		error: function(data) {
 			errorNotification("An error occurred!");
@@ -118,5 +119,5 @@ function setSearch(page, amount){
 function displayPageNumbersSetSearch(page, totalAmount, amountPerPage){
 	if(Number(totalAmount) <= 0){return;}
 	var maxPage = Math.ceil(totalAmount / amountPerPage);
-	insertPageNumbers($(".page-numbers"), "set-search-page-number", page, maxPage, amountPerPage);
+	insertPageNumbers($("#search-results").find(".page-numbers"), "set-search-page-number", page, maxPage, amountPerPage);
 }
