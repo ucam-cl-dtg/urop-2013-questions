@@ -25,7 +25,7 @@ moduleScripts['questions'] = {
 			],
 			'list': [
 			    configureQuestionSetLoader,
-			    configureSetSearchFields,
+			    configureDatePickerFields,
 			    configureSetSearchPages,
 			    configureAutoCompleteBasic,
 			    configureAutoCompleteAdv,
@@ -53,6 +53,7 @@ moduleScripts['questions'] = {
 	        configureAutoCompleteBasic,
 	        configureAutoCompleteAdv,
 	        populateSearchFields,
+	        configureDatePickerFields,
 	    ]
 	},
 	

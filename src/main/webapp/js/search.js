@@ -202,10 +202,8 @@ function populateSearchFields(){
 		tmp = $.trim(authors[i]);
 		if(tmp.length > 0){
 			$.post(prepareURL("users/autocomplete/1"), {q: tmp}, function(json){
-				console.log(json);
 				$('.advanced-search input[name="authors"]').tokenInput("add", {crsid: json[0].crsid, name: json[0].name, value: json[0].value});
 			});
 		}
 	}
-	//$('.basic-search input[name="tags"]').tokenInput("add", {})
 }

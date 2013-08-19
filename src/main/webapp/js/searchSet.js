@@ -34,17 +34,17 @@ function configureSetSearchButton() {
 	});
 }
 
-function configureSetSearchFields() {
-	$('#set-search-field-after').datepicker({
+function configureDatePickerFields() {
+	$('#search-field-after').datepicker({
 		onClose: function(selectedDate) {
-			$('#set-search-field-before').datepicker('option', 'minDate', selectedDate);
+			$('#search-field-before').datepicker('option', 'minDate', selectedDate);
 		},
 		dateFormat: "dd/mm/yy"
 	});
 	
-	$('#set-search-field-before').datepicker({
+	$('#search-field-before').datepicker({
 		onClose: function(selectedDate) {
-			$('#set-search-field-after').datepicker('option', 'maxDate', selectedDate);
+			$('#search-field-after').datepicker('option', 'maxDate', selectedDate);
 		},
 		dateFormat: "dd/mm/yy"
 	});
