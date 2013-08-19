@@ -162,9 +162,11 @@ function configureAutoCompleteAdv(){
 }
 
 function populateSearchFields(){
-	var tags = initialRequestData.form.tags.split(",");
-	var authors = initialRequestData.form.authors.split(",");
+	data = initialRequestData.form;
+	var tags = data.tags.split(",");
+	var authors = data.authors.split(",");
 	var tmp;
+	var adv = false;
 	
 	for(var i = 0; i < tags.length; i++){
 		tmp = $.trim(tags[i]);
@@ -176,9 +178,17 @@ function populateSearchFields(){
 	for(var i = 0; i < authors.length; i++){
 		tmp = $.trim(authors[i]);
 		if(tmp.length > 0){
+			adv = true;
 			$.post(prepareURL("users/autocomplete/1"), {q: tmp}, function(json){
 				$('.advanced-search input[name="authors"]').tokenInput("add", {crsid: json[0].crsid, name: json[0].name, value: json[0].value});
 			});
 		}
 	}
+	
+	if(adv || data.minDuration.length > 0 || data.maxDuration.length > 0
+			|| data.after.length > 0 || data.before.length > 0
+			|| data.starred != "DONT_CARE" || data.supervisor != "DONT_CARE") {
+		toggleSearchMode();
+	}
+	
 }
