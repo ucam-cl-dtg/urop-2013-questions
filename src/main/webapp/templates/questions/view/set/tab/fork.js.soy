@@ -1,0 +1,25 @@
+{namespace questions.view.set.tab.fork}
+
+/**
+ * Fork set tab
+ * @param name
+ * @param id
+ */
+{template .full}
+<form action="sets/fork" method="post">
+	<div class="row">
+		<div class="columns large-12 small-12">
+			<h4>Name for the fork</h4>
+			<input type="text" placeholder="Name..." name="name" value="{$name}"/>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="columns large-12 small-12 text-right">
+			<input type="hidden" value="{$id}" name="setid" />
+			<input type="submit" value="Fork" class="button success medium" id="set-fork-button"/>
+		</div>
+	</div>
+</form>
+
+{/template}

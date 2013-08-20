@@ -21,7 +21,7 @@ moduleScripts['questions'] = {
 			    configureSetTags,
 			    configureDataEditor,
 			    configureDataRenderer,
-			    
+			    configureForkSetForm
 			],
 			'list': [
 			    configureQuestionSetLoader,

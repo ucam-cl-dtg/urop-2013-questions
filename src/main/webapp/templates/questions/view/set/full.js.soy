@@ -52,6 +52,14 @@
 					</div>
 				</section>
 				
+				
+				<section id="set-fork-tab" {if $target=='fork'}class="active"{/if}>
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/fork" data-bypass class="in-place-anchor">Fork set</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.fork.full data="all" /}
+					</div>
+				</section>
+				
 				{if $editable}
 				<section id="set-edit-tab" {if $target=='edit'}class="active"{/if}>
 					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/edit" data-bypass class="in-place-anchor">Edit</a></p>
@@ -64,6 +72,13 @@
 					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/add" data-bypass class="in-place-anchor">Add questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.createquestion.full data="all" /}
+					</div>
+				</section>
+				
+				<section id="set-delete-tab" {if $target=='delete'}class="active"{/if}>
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/delete" data-bypass class="in-place-anchor">Delete</a></p>
+					<div class="content" data-section-content>
+						{call questions.view.set.tab.delete.full data="all" /}
 					</div>
 				</section>
 				{/if}
