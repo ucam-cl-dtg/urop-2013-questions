@@ -31,7 +31,7 @@ import uk.ac.cam.sup.util.Mappable;
 
 @Entity
 @Table(name="QuestionSets")
-public class QuestionSet extends Model implements Mappable {
+public class QuestionSet extends Model implements Mappable, Cloneable {
 	private static Logger log = LoggerFactory.getLogger(QuestionSet.class);
 	
 	@Id
@@ -79,6 +79,7 @@ public class QuestionSet extends Model implements Mappable {
 	public void toggleStarred(){isStarred = !isStarred;}
 	
 	public User getOwner(){return owner;}
+	public void setOwner(User owner){this.owner = owner;}
 	
 	public Data getPlan(){return plan;}
 	public void setPlan(Data plan){this.plan = plan;}
@@ -245,6 +246,24 @@ public class QuestionSet extends Model implements Mappable {
 		return id;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+		QuestionSet newSet = (QuestionSet) super.clone();
+		newSet.name = new String(name);
+		newSet.plan = (Data) this.plan.clone();
+		
+		newSet.questions = new HashSet<QuestionPlacement>();
+		for (QuestionPlacement qp: questions) {
+			newSet.questions.add((QuestionPlacement)qp.clone());
+		}
+		
+		newSet.tags = new HashSet<Tag>();
+		newSet.tags.addAll(tags);
+		
+		newSet.timeStamp = new Date();
+		
+		return newSet;
+	}
+	
 	public Map<String,Object> toMap(boolean shadow) {
 		Map<String,Object> r = toShortMap(shadow);
 		
@@ -297,5 +316,18 @@ public class QuestionSet extends Model implements Mappable {
 			this.questions.add(qp);
 		}
 		this.update();
+	}
+	
+	public QuestionSet fork(User u, String name) throws CloneNotSupportedException {
+		QuestionSet fork = (QuestionSet) this.clone();
+		if (this.owner.getSupervisor() && !u.getSupervisor()) {
+			fork.plan = new Data();
+		}
+		
+		fork.owner = u;
+		fork.name = name;
+		fork.id = 0;
+		
+		return fork;
 	}
 }

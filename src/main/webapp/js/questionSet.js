@@ -1,6 +1,5 @@
 function reloadView (set) {
 	set.editable = $('.star-question-button').attr('data-enabled');
-	console.log(set);
 	applyTemplate($("#set-plan-tab").children(".content"), "questions.view.set.tab.plan.full", set);
 	applyTemplate($("#set-questions-tab").children(".content"), "questions.view.set.tab.questions.full", set);
 	applyTemplate($("#set-tags-tab").children(".content"), "questions.view.set.tab.tags.full", set);
@@ -305,6 +304,57 @@ function configureSetTags() {
 		}).fail(function(data) {
 			errorNotification('Something went wrong');
 			console.log(data);
+		});
+	});
+}
+
+function configureForkSetForm() {
+	$('#set-fork-tab').on('click', '#set-fork-button', function(e) {
+		e.preventDefault();
+		var $form = $(this).parents('form');
+		var $button = $(this);
+		
+		$form.ajaxSubmit({
+			beforeSubmit: function(data, $form, options) {
+				options.url = prepareURL($form.attr('action'));
+			},
+			success: function(data) {
+				if (data.success) {
+					router.navigate('sets/'+data.set.id, {trigger: true});
+					successNotification("Successfully forked the set");
+				} else {
+					errorNotification(data.error);
+				}
+			},
+			error: function(data) {
+				errorNotification("Something went wrong");
+				console.log(data);
+			}
+		});
+	});
+}
+
+function configureDeleteSetForm() {
+	$('#set-delete-tab').on('click', '#set-delete-button', function(e) {
+		e.preventDefault();
+		var $form = $(this).parents('form');
+		
+		$form.ajaxSubmit({
+			beforeSubmit: function(data, $form, options) {
+				options.url = prepareURL($form.attr('action'));
+			},
+			success: function(data) {
+				if (data.success) {
+					router.navigate('users/me', {trigger: true});
+					successNotification("Successfully deleted set");
+				} else {
+					errorNotification(data.error);
+				}
+			},
+			error: function(data) {
+				errorNotification("Something went wrong");
+				console.log(data);
+			}
 		});
 	});
 }

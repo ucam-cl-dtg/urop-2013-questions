@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="Placement")
 public class QuestionPlacement extends Model 
-		implements Comparable<QuestionPlacement> {
+		implements Comparable<QuestionPlacement>, Cloneable {
 	
 	@Id
 	@GeneratedValue(generator="increment")
@@ -57,6 +57,13 @@ public class QuestionPlacement extends Model
 	
 	public void moveDown() {
 		this.place ++;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		QuestionPlacement newQP = (QuestionPlacement) super.clone();
+		newQP.id = 0;
+
+		return newQP;
 	}
 	
 }

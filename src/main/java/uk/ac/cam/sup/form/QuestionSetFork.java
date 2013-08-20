@@ -1,71 +1,76 @@
 package uk.ac.cam.sup.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.FormParam;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.cam.sup.exceptions.FormValidationException;
-import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
-import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
 public class QuestionSetFork {
-	private Logger log = LoggerFactory.getLogger(QuestionSetFork.class);
 	
-	@FormParam("targetSetId")
-	private Integer targetId;
+	@FormParam("setid") private String setId;
+	@FormParam("name")  private String name;
 	
-	@FormParam("questions")
-	private String questionList;
+	private Integer setIdInteger;
+	QuestionSet questionSet;
 	
-	private QuestionSet target;
-	private List<Question> questions;
+	private boolean validated = false;
 	
-	public QuestionSet getTarget() {
-		return this.target;
-	}
-	
-	public List<Question> getQuestions() {
-		return this.questions;
-	}
-	
-	public final QuestionSetFork validate() throws FormValidationException {
-		
-		if (targetId == null) {
-			throw new FormValidationException("Target not specified");
+	public QuestionSetFork validate() throws FormValidationException {
+		if (setId == null) {
+			throw new FormValidationException("setId is null");
 		}
 		
-		if (questionList == null) {
-			questionList = "";
+		if (setId.equals("")) {
+			throw new FormValidationException("No setId provided");
+		}
+		
+		if (name == null) {
+			name = "";
+		}
+		
+		validated = true;
+		return this;
+	}
+	
+	public QuestionSetFork parse() throws FormValidationException {
+		if ( ! this.validated) {
+			throw new FormValidationException("Form was not yet validated");
+		}
+		
+		try {
+			setIdInteger = Integer.parseInt(setId);
+		} catch (Exception e) {
+			throw new FormValidationException("Malformed setId");
+		}
+		
+		try {
+			questionSet = QuestionSetQuery.get(setIdInteger);
+		} catch (Exception e) {
+			throw new FormValidationException("Problem retrieving requested set");
+		}
+		
+		if (questionSet == null) {
+			throw new FormValidationException("Requested set doesn't exist");
 		}
 		
 		return this;
 	}
 	
-	public final QuestionSetFork parse() {
-		log.debug("Getting target set with ID " + targetId);
-		target = QuestionSetQuery.get(targetId);
-		
-		questions = new ArrayList<Question>();
-		String[] split = questionList.split(",");
-		log.debug("Split question list into array of length " + split.length + " (list: \"" + questionList + "\")");
-		for (String s: split) {
-			int id;
-			try {
-				id = Integer.parseInt(s);
-			} catch (Exception e) {
-				continue;
-			}
-			Question q = QuestionQuery.get(id);
-			if (q != null) { questions.add(q); }
+	public QuestionSet getSet() throws FormValidationException {
+		if ( ! this.validated) {
+			throw new FormValidationException("Form was not yet validated");
 		}
 		
-		return this;
+		return questionSet;
+	}
+
+	public String getName() throws FormValidationException {
+		if ( ! this.validated) {
+			throw new FormValidationException("Form was not yet validated");
+		}
+		
+		return name;
 	}
 	
 }

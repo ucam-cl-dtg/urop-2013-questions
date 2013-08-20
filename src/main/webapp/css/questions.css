@@ -115,6 +115,15 @@ div.result-number-text {
 	margin-bottom: 0;
 }
 
+.warning p {
+	width: 100%;
+	background:#FBE3E4;
+	color:#8a1f11;
+	border:1px solid #FBC2C4;
+	padding: 1em;
+	font-size: 1.5em;
+}
+
 .button.right-aligned {
 	position: absolute;
 	right: 0px;
