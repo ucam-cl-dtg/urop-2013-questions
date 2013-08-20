@@ -24,6 +24,7 @@ import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
 import uk.ac.cam.sup.form.QuestionSetExport;
+import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.form.QuestionSetTagForm;
 import uk.ac.cam.sup.form.QuestionsAddRemove;
 import uk.ac.cam.sup.models.Question;
@@ -128,6 +129,21 @@ public class QuestionSetEditController extends GeneralController {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		return ImmutableMap.of("success", true);
+	}
+	
+	@POST
+	@Path("/fork")
+	@Produces("application/json")
+	public Map<String,?> forkSet(@Form QuestionSetFork form) {
+		try {
+			form.validate().parse();
+			QuestionSet fork = form.getSet().fork(getCurrentUser(), form.getName());
+			fork.save();
+			
+			return ImmutableMap.of("success", true, "set", fork.toMap());
+		} catch (CloneNotSupportedException | FormValidationException e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
 	}
 	
 	@POST
