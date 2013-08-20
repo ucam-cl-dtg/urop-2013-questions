@@ -155,18 +155,9 @@ public class QuestionEditController extends GeneralController{
 		User author = getCurrentUser();
 		Question q;
 		QuestionSet qs;
-
+		
 		try {
 			qa.validate().parse();
-			qs = QuestionSetQuery.get(qa.getSetId());
-			if (qs == null) {
-				throw new Exception("Set does not exist");
-			}
-			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
-				throw new Exception("You're not the owner of this set");
-			}
-			
-			System.out.println(qa.getContent());
 			
 			q = new Question(author);
 			q.setContent(qa.getContent());
@@ -174,14 +165,26 @@ public class QuestionEditController extends GeneralController{
 			q.setExpectedDuration(qa.getExpectedDuration());
 			q.save();
 			
+			if(qa.getSetId() != -1){
+				qs = QuestionSetQuery.get(qa.getSetId());
+				if (qs == null) {
+					throw new Exception("Set does not exist");
+				}
+				if (!qs.getOwner().getId().equals(getCurrentUserID())) {
+					throw new Exception("You're not the owner of this set");
+				}
+				
+				qs.addQuestion(q);
+				qs.update();
+				
+				return ImmutableMap.of("success", true, "question", q, "set", qs);
+			}
 			
-			qs.addQuestion(q);
-			qs.update();
+			return ImmutableMap.of("success", true, "question", q);
+			
 		} catch (Exception e) {
-			return ImmutableMap.of("success", false, "error", e.getMessage());
+			return ImmutableMap.of("success", false, "error", "Message: " + e.getMessage());
 		}
-
-		return ImmutableMap.of("success", true, "question", q, "set", qs);
 	}
 
 	@GET
