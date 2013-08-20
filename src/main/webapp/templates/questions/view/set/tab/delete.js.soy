@@ -1,0 +1,24 @@
+{namespace questions.view.set.tab.delete}
+
+/**
+ * Fork set tab
+ * @param id
+ */
+{template .full}
+<div class="row">
+	<div class="columns large-12 small-12">
+		<div class="warning">
+			<p>
+				Are you sure you want to delete this set? This <strong>cannot</strong> be undone!
+			</p>
+		</div>
+	</div>
+	<div class="columns large-12 small-12">
+		<form action="sets/delete" method="post">
+			<input type="hidden" name="setid" value="{$id}" />
+			<input id="set-delete-button" type="submit" class="button small" value="Yes, I'm sure, delete the set" />
+		</form>
+	</div>
+</div>
+
+{/template}

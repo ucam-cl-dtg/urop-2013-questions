@@ -23,6 +23,7 @@ import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
+import uk.ac.cam.sup.form.QuestionSetExport;
 import uk.ac.cam.sup.form.QuestionSetFork;
 import uk.ac.cam.sup.form.QuestionSetTagForm;
 import uk.ac.cam.sup.form.QuestionsAddRemove;
@@ -133,7 +134,51 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/fork")
 	@Produces("application/json")
-	public Map<String,?> forkQuestion(@Form QuestionSetFork form) throws Exception {
+	public Map<String,?> forkSet(@Form QuestionSetFork form) {
+		try {
+			form.validate().parse();
+			QuestionSet fork = form.getSet().fork(getCurrentUser(), form.getName());
+			fork.save();
+			
+			return ImmutableMap.of("success", true, "set", fork.toMap());
+		} catch (CloneNotSupportedException | FormValidationException e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+	}
+	
+	@POST
+	@Path("/delete")
+	@Produces("application/json")
+	public Map<String,?> deleteSet(@FormParam("setid") String setId) {
+		int id;
+		try {
+			id = Integer.parseInt(setId);
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", "setid provided is not a number");
+		}
+		
+		QuestionSet qs = QuestionSetQuery.get(id);
+		if (qs == null) {
+			return ImmutableMap.of("success", false, "error", "Set with this ID doesn't exist");
+		}
+		
+		if ( ! qs.getOwner().getId().equals(getCurrentUserID())) {
+			return ImmutableMap.of("success", false, "error", "You're not the owner of this set");
+		}
+		
+		try {
+			qs.delete();
+		} catch (Exception e) {
+			return ImmutableMap.of("success", false, "error", e.getMessage());
+		}
+		
+		return ImmutableMap.of("success", true);
+	}
+	
+	@POST
+	@Path("/export")
+	@Produces("application/json")
+	public Map<String,?> exportQuestions(@Form QuestionSetExport form) throws Exception {
 		QuestionSet qs;
 		
 		try {
