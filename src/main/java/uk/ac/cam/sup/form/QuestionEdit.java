@@ -71,8 +71,8 @@ public class QuestionEdit extends QuestionForm {
 		}
 		
 		try {
-			if(setId == -1 && !this.isMinor) {
-
+			if(setId == -1 && !this.isMinor && strSets != null && strSets.length() >= 1) {
+				
 				try {
 					String[] arraySets = strSets.split(",");
 				
@@ -83,7 +83,7 @@ public class QuestionEdit extends QuestionForm {
 					throw new FormValidationException("Error while trying to parse the set list!\n" + e.getMessage());
 				}
 			}
-			if (id == null || (setId == -1 && !isMinor && (sets.size() < 1 || sets==null)) || QuestionQuery.get(id) == null) {
+			if (setId != -1 && (id == null || QuestionQuery.get(id) == null)) {
 				throw new FormValidationException("Question " + id + " or set(s) " + setId + " does not exist");
 			}
 			

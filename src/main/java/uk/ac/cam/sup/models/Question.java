@@ -133,9 +133,17 @@ public class Question extends Model implements Cloneable, Mappable {
 		return (this.id == null ? 0 : this.id);
 	}
 	
-	private Question fork(QuestionSet qs){
-		Question result = new Question(this.owner);
+	private Question fork(QuestionSet qs, User forker){
+		Question result = fork(forker);
 		
+		qs.swapFor(this, result);
+		qs.update();
+		
+		return result;
+	}
+	
+	private Question fork(User forker){
+		Question result = new Question(forker);
 		result.isStarred = isStarred;
 		result.timeStamp = new Date();
 		result.parent = this;
@@ -143,16 +151,13 @@ public class Question extends Model implements Cloneable, Mappable {
 		result.expectedDuration = expectedDuration;
 		result.content = new Data(content);
 		
-		if (this.getOwner().getSupervisor() && !qs.getOwner().getSupervisor()) {
+		if (this.getOwner().getSupervisor() && !forker.getSupervisor()) {
 			result.notes = new Data(DataType.EMPTY, null);
 		} else {
 			result.notes = new Data(notes);
 		}
 		
-		qs.swapFor(this, result);
-		
 		result.save();
-		qs.update();
 		
 		return result;
 	}
@@ -167,7 +172,7 @@ public class Question extends Model implements Cloneable, Mappable {
 	
 	private Question forkAndEdit(User editor, QuestionEdit qe) throws FormValidationException {
 		log.debug("Fork and edit for question " + qe.getId());
-		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()));
+		Question q = this.fork(QuestionSetQuery.get(qe.getSetId()), editor);
 		q.owner = editor;
 		
 		qe.store(q);
@@ -184,19 +189,20 @@ public class Question extends Model implements Cloneable, Mappable {
 		} else {
 			sets = qe.getSets();
 		}
-		if(sets == null || sets.size() < 1){
+		/*if(sets == null || sets.size() < 1){
 			throw new InvalidInputException("No sets found to edit the question in.");
-		}
-		Question q = this.fork(sets.get(0));
-		sets.remove(0);
+		}*/
 		
-		q.owner = editor;
+		Question q = this.fork(editor);
+		
 		qe.store(q);
 		q.update();
 		
-		for(QuestionSet qs: sets){
-			qs.swapFor(this, q);
-			qs.update();
+		if (sets != null) {
+			for (QuestionSet qs : sets) {
+				qs.swapFor(this, q);
+				qs.update();
+			}
 		}
 		return q;
 	}
@@ -211,17 +217,18 @@ public class Question extends Model implements Cloneable, Mappable {
 		
 		if(editor.equals(owner)) {
 			if(qe.isMinor()
-					|| forks.size() < 1 && 
-						(this.usageCount <= 1 || (qe.getSetId() == -1 && this.usageCount <= qe.getSets().size()))){
+					|| (forks.size() < 1 && 
+						(this.usageCount <= 0 || (qe.getSetId() == -1 && this.usageCount <= qe.getSets().size())))){
+				
 				inPlace = true;
 			}
-		} else {
+		}/* else {
 			List<User> userlist = new ArrayList<User>();
 			userlist.add(editor);
 			if(QuestionSetQuery.all().withOwners(userlist).have(qe.getId()).list().size() < 1){
 				throw new InvalidInputException("No sets available in which to edit this question!");
 			}
-		}
+		}*/
 		
 		if (inPlace) {
 			return this.inPlaceEdit(qe);

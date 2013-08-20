@@ -157,16 +157,16 @@ function configureInputField() {
 	
 	$("#revisions-submit-form").on("submit", function(e) {
 		e.preventDefault();
-		var isMinor = $(this).find("#minor").val();
+		//var isMinor = $(this).find("#minor").val();
 		var sets = [];
 		$(".qedit-set-list.success").each(function(){
 			sets.push($(this).attr("data-sid"));
 		});
 		
-		if(isMinor == "false" && i == 0){
+		/*if(isMinor == "false" && i == 0){
 			errorNotification("Please either choose a set to edit this question in or only apply a minor change!");
 			return false;
-		}
+		}*/
 		
 		$("#content-section").attr("data-needsupdate", "true");
 		
