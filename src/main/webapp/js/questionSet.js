@@ -320,10 +320,33 @@ function configureForkSetForm() {
 			},
 			success: function(data) {
 				if (data.success) {
-					reloadView(data.set);
-					router.navigate('sets/'+data.set.id);
-					$('#set-fork-tab').toggleClass('active');
+					router.navigate('sets/'+data.set.id, {trigger: true});
 					successNotification("Successfully forked the set");
+				} else {
+					errorNotification(data.error);
+				}
+			},
+			error: function(data) {
+				errorNotification("Something went wrong");
+				console.log(data);
+			}
+		});
+	});
+}
+
+function configureDeleteSetForm() {
+	$('#set-delete-tab').on('click', '#set-delete-button', function(e) {
+		e.preventDefault();
+		var $form = $(this).parents('form');
+		
+		$form.ajaxSubmit({
+			beforeSubmit: function(data, $form, options) {
+				options.url = prepareURL($form.attr('action'));
+			},
+			success: function(data) {
+				if (data.success) {
+					router.navigate('users/me', {trigger: true});
+					successNotification("Successfully deleted set");
 				} else {
 					errorNotification(data.error);
 				}

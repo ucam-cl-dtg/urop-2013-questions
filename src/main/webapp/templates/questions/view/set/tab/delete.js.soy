@@ -2,6 +2,7 @@
 
 /**
  * Fork set tab
+ * @param id
  */
 {template .full}
 <div class="row">
@@ -13,7 +14,10 @@
 		</div>
 	</div>
 	<div class="columns large-12 small-12">
-		<input type="submit" class="button small" value="Yes, I'm sure, delete the set" />
+		<form action="sets/delete" method="post">
+			<input type="hidden" name="setid" value="{$id}" />
+			<input id="set-delete-button" type="submit" class="button small" value="Yes, I'm sure, delete the set" />
+		</form>
 	</div>
 </div>
 
