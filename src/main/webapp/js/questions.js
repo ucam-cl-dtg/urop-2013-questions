@@ -43,9 +43,15 @@ moduleScripts['questions'] = {
 		'set' : {
 			'create' : [
 			    configureDataEditor,
-			    configureSetCreator
+			    configureSetCreator,
 			],
-		}
+		},
+	    'question' : {
+	    	'create' : [
+                configureDataEditor,
+                configureQuestionCreator,
+	    	],
+	    },
 		    
 	},
     'search' : {

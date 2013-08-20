@@ -232,7 +232,7 @@ function configureSetCreator() {
 				opts.url = prepareURL($form.attr('action'));
 			},
 			success: function(data) {
-				console.log(data);
+				//console.log(data);
 				if (data.success) {
 					loadModule($('.main'), 'sets/'+data.set.id, 'questions.view.set.full', function() {
 						router.navigate('sets/'+data.set.id);

@@ -279,4 +279,13 @@ public class QuestionViewController extends GeneralController {
 
 		return r;
 	}
+	
+	/*
+	 * Dummy controllers. Don't return anything. Only there to satisfy the router.
+	 */
+	@GET
+	@Path("/add")
+	public Map<String,String> dummy1(){
+		return ImmutableMap.of();
+	}
 }

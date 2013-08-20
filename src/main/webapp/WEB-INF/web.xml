@@ -40,6 +40,7 @@
 		  /js/dataRenderer.js,
 		  /js/user.js,
 		  /js/util.js,
+		  /js/addQuestionForm.js,
 		  /js/questions.js,
 		  /soy/js/1/questions.js,
 		  /soy/js/1/questions.search.js,
