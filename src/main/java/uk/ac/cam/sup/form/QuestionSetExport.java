@@ -14,8 +14,8 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 
-public class QuestionSetFork {
-	private Logger log = LoggerFactory.getLogger(QuestionSetFork.class);
+public class QuestionSetExport {
+	private Logger log = LoggerFactory.getLogger(QuestionSetExport.class);
 	
 	@FormParam("targetSetId")
 	private Integer targetId;
@@ -34,7 +34,7 @@ public class QuestionSetFork {
 		return this.questions;
 	}
 	
-	public final QuestionSetFork validate() throws FormValidationException {
+	public final QuestionSetExport validate() throws FormValidationException {
 		
 		if (targetId == null) {
 			throw new FormValidationException("Target not specified");
@@ -47,7 +47,7 @@ public class QuestionSetFork {
 		return this;
 	}
 	
-	public final QuestionSetFork parse() {
+	public final QuestionSetExport parse() {
 		log.debug("Getting target set with ID " + targetId);
 		target = QuestionSetQuery.get(targetId);
 		

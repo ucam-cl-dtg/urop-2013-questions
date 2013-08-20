@@ -23,7 +23,7 @@ import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.form.QuestionRemove;
 import uk.ac.cam.sup.form.QuestionSetAdd;
 import uk.ac.cam.sup.form.QuestionSetEdit;
-import uk.ac.cam.sup.form.QuestionSetFork;
+import uk.ac.cam.sup.form.QuestionSetExport;
 import uk.ac.cam.sup.form.QuestionSetTagForm;
 import uk.ac.cam.sup.form.QuestionsAddRemove;
 import uk.ac.cam.sup.models.Question;
@@ -131,9 +131,9 @@ public class QuestionSetEditController extends GeneralController {
 	}
 	
 	@POST
-	@Path("/fork")
+	@Path("/export")
 	@Produces("application/json")
-	public Map<String,?> forkQuestion(@Form QuestionSetFork form) throws Exception {
+	public Map<String,?> exportQuestions(@Form QuestionSetExport form) throws Exception {
 		QuestionSet qs;
 		
 		try {
