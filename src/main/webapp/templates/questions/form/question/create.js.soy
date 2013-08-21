@@ -15,8 +15,15 @@
 				{call shared.data.edit}
 					{param name: 'notes' /}
 				{/call}
-				<div class="relative-position create-button-container">
-					<input class="right-aligned medium success button" type="Submit" value="Create new question" name="submit" id="create-question-button" />
+				<div class="row">
+					<div class="columns large-6 small-6 clearfix">
+						<label for="edit-expDur" class="inline-block">
+							Duration (min): <input class="exp-dur-number-field" max="2000000000" min="-2000000000" type="number" id="edit-expDur" name="expectedDuration" value="0" />
+						</label>
+					</div>
+					<div class="columns large-6 small-6 clearfix text-right">
+						<input id="create-question-button" type="submit" value="Create new question" class="medium success button" class="inline-block" />
+					</div>
 				</div>
 			</form>
 		</div>

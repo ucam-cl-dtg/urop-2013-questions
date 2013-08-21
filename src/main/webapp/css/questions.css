@@ -132,3 +132,18 @@ div.result-number-text {
 div.relative-position {
 	position: relative;
 }
+
+.inline-block {
+	display: inline-block;
+}
+
+input.exp-dur-number-field {
+	display: inline-block;
+	width: 80px;
+	margin-left: 12px;
+}
+
+span.edit-minor-span{
+	display:inline-block;
+	margin-right: 12px;
+}
