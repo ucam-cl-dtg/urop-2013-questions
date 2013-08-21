@@ -192,7 +192,7 @@ public abstract class SearchForm<T extends Mappable> {
 			int day = Integer.parseInt(split[0]);
 			int month = Integer.parseInt(split[1]);
 			int year = Integer.parseInt(split[2]);
-			c.set(year, month, day);
+			c.set(year, month-1, day, 0, 0, 0);
 			beforeDate = c.getTime();
 			emptySearch = false;
 		} catch(Exception e) {
@@ -204,7 +204,7 @@ public abstract class SearchForm<T extends Mappable> {
 			int day = Integer.parseInt(split[0]);
 			int month = Integer.parseInt(split[1]);
 			int year = Integer.parseInt(split[2]);
-			c.set(year, month, day);
+			c.set(year, month-1, day, 0, 0, 0);
 			afterDate = c.getTime();
 			emptySearch = false;
 		} catch(Exception e) {

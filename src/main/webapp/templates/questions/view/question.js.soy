@@ -66,6 +66,9 @@
 				<p class="title" data-section-title><a data-bypass href="{$ij.URLPrefix}/q/{$question.id}/history" class="in-place-anchor">History</a></p>
 				<div class="content" data-section-content>
 					<div class="row">
+					<div class="columns large-12 small-12">
+						{if $question.soyTimeStamp}<i>Timestamp of this question: {$question.soyTimeStamp}</i>{/if}
+					</div>
 						<ul class="panels" id="history-list" data-qid={$question.id}>
 							<li class="columns large-12">
 								<h4>Previous versions</h4>

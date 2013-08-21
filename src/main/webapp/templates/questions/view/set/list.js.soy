@@ -61,13 +61,15 @@
                             <h6>From:</h6>
                         </div>
                         <div class="columns large-4 small-10 text-right">
-                            <input type="text" name="after" id="search-field-after" {if $form.after}value="{$form.after}"{/if} />
+                            <input type="text" name="after" id="search-field-after" title="Sets created after and on this date" 
+                            {if $form.after} value="{$form.after}"{/if} />
                         </div>
                         <div class="columns large-2 small-2 text-right">
                             <h6>To:</h6>
                         </div>
                         <div class="columns large-4 small-10 text-right">
-                            <input type="text" name="before" id="search-field-before" {if $form.before}value="{$form.before}"{/if} />
+                            <input type="text" name="before" id="search-field-before" title="Sets created before (but NOT on) this date" 
+                            {if $form.before} value="{$form.before}"{/if} />
                         </div>
                     </div>
                 </div>
