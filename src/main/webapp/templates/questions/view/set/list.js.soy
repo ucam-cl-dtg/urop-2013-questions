@@ -117,7 +117,7 @@
                             <label for="starred-radio-n" style="float: left; margin-right: 10px;">
                                 <input type="radio" name="starred" value="NO" 
                                     {if $form.starred == 'NO'}checked {/if}
-                                    id="starred-radio-n" /> No
+                                    id="starred-radio-n" /> Noby
                             </label>
                         </div>
                     </div>
@@ -216,9 +216,10 @@
 	<li class="panel-wrapper columns large-12">
 		<div class="list-panel">
 			<div class="row list-inner-panel">
-				<div class="columns large-7 small-7">{$set.name} by {$set.owner.id}</div>
+				<div class="columns large-7 small-7">{$set.name}</div>
 				<div class="columns large-5 small-5 text-right">
 					<div class="icon-button-wrapper">
+						<a class="icon-button" href="{$ij.URLPrefix}/users/{$set.owner.id}"><i>{$set.owner.id}</i></a>
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-question-list" data-qid="{$set.id}">&#112;</a>
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/sets/{$set.id}">&#88;</a>
 						<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $set.starred}_empty{/if}"></i></span>

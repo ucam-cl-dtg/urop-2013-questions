@@ -127,7 +127,7 @@ public class QuestionEditController extends GeneralController{
 					+ ", which you are using in one or more of your sets. The changes have been applied automatically to your sets.";
 		}
 			
-		String link = "/q/" + newQuestionID;
+		String link = "q/" + newQuestionID;
 		Set<String> userSet = new HashSet<String>();
 		String users = "";
 		List<QuestionSet> sets = QuestionSetQuery.all().have(oldQuestionID).list();
