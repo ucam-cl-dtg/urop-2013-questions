@@ -26,7 +26,7 @@ $(document).ready(function() {
 		"q/add" : "questions.form.question.create",
 		"q/add/:setid" : "questions.form.question.add",
 		
-		"sets": saveJSON("questions.view.set.list"),
+		"sets((?)(:params(/))*)": saveJSON("questions.view.set.list"),
     	"sets/:id" : "questions.view.set.full",
     	"sets/:id/:target" : "questions.view.set.full",
     	"sets/:id/import(?:params)" : "questions.search.main",

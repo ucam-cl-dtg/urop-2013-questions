@@ -147,3 +147,16 @@ span.edit-minor-span{
 	display:inline-block;
 	margin-right: 12px;
 }
+
+.content-relative-positioned {
+	position: relative;
+}
+
+.this-absolute-positioned {
+	position: absolute;
+}
+
+.bottom-right {
+	right: 0px;
+	bottom: 10px
+}
