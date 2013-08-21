@@ -15,9 +15,9 @@
 					{param data: $question.content /}
 				{/call}
 			</div>
-			//<div class="columns large-2 small-2 text-right"><a href="/user/{$owner.id}"><i>{$owner.id}</i></a> <a class="use-question" data-qid="{$id}" href="/app/#q/">Use...</a></div>
-			<div class="columns large-3 small-3 text-right">
+			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
+				<a href="{$ij.URLPrefix}/users/{$question.owner.id}" class="author"><i>{$question.owner.id}</i></a>
 					{if $setid}
 						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}/edit/{$setid}"><i class="icon icon-pen"></i></a>
 					{/if}
