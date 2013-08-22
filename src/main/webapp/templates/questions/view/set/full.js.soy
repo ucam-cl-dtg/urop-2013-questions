@@ -103,5 +103,5 @@
 	{else}
 		icon-star_empty
 	{/if}
-	"></i></span>{$name} {if $owner.id}by {$owner.id}{/if}</h3>
+	"></i></span>{$name} {if $owner.id}by <a href="{$ij.URLPrefix}/users/{$owner.id}">{$owner.id}</a>{/if}</h3>
 {/template}

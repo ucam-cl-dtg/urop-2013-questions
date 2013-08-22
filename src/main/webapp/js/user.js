@@ -29,7 +29,6 @@ function loadUserSets(page, amount){
 	var $pageNums = $(".sets-page-numbers");
 	var $setList = $("#user-set-list");
 	
-	$("#sets-search-link").empty();
 	$pageNums.empty();
 	$setList.empty();
 	$setList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
@@ -48,6 +47,7 @@ function loadUserSets(page, amount){
 		var maxPage = Math.floor(json.totalSets / amount);
 		if(json.totalSets % amount > 1){maxPage = Number(maxPage) + Number(1);}
 		insertPageNumbers($pageNums, "sets-page-num", page, maxPage, amount);
+		$("#sets-search-link").empty();
 		$("#sets-search-link").append("<a href='" + CONTEXT_PATH + "/sets?authors=" + crsid + "'>Click here to search within these sets</a>");
 		
 		var $newList = $("<div></div>");
@@ -67,7 +67,6 @@ function loadUserQuestions(page, amount){
 	var $pageNums = $(".questions-page-numbers");
 	var $setList = $("#user-question-list");
 	
-	$("#questions-search-link").empty();
 	$pageNums.empty();
 	$setList.empty();
 	$setList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
@@ -86,6 +85,7 @@ function loadUserQuestions(page, amount){
 		var maxPage = Math.floor(json.totalQuestions / amount);
 		if(json.totalQuestions % amount > 1){maxPage = Number(maxPage) + Number(1);}
 		insertPageNumbers($pageNums, "questions-page-num", page, maxPage, amount);
+		$("#questions-search-link").empty();
 		$("#questions-search-link").append("<a href='" + CONTEXT_PATH + "/q/search?authors=" + crsid + "'>Click here to search within these questions</a>");
 		
 		var $newList = $("<div></div>");
