@@ -287,7 +287,8 @@ function configureSetTags() {
         tokenFormatter: function(item) { return "<li>" + item.name + "</li>"; }         
 	});
 	
-	$('#set-tags-tab .tag-search-panel').on('click', '#add-tags', function() {
+	$('#set-tags-tab .tag-search-panel').on('click', '#add-tags', function(e) {
+		e.preventDefault();
 		var data = {
 				setid: $(this).parents('.question-set').attr('data-set-id'),
 				tags: $('#tags-input').val()
@@ -305,6 +306,7 @@ function configureSetTags() {
 			errorNotification('Something went wrong');
 			console.log(data);
 		});
+		return false;
 	});
 }
 
@@ -312,7 +314,7 @@ function configureForkSetForm() {
 	$('#set-fork-tab').on('click', '#set-fork-button', function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
-		var $button = $(this);
+		//var $button = $(this);
 		
 		$form.ajaxSubmit({
 			beforeSubmit: function(data, $form, options) {

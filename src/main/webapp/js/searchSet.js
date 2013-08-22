@@ -1,8 +1,9 @@
 function configureAdvancedSearchExpand() {
-	$(document).on('click', '#advanced-search-expand', function() {
-		toggleSearchMode();
-	});
+	
 }
+$(document).on('click', '#advanced-search-expand', function() {
+	toggleSearchMode();
+});
 
 function toggleSearchMode(){
 	$this = $("#advanced-search-expand");
@@ -30,14 +31,15 @@ function toggleSearchMode(){
 }
 
 function configureSetSearchButton() {
-	$(document).on('click', '#set-search-button', function(e) {
-		e.preventDefault();
-
-		var amount = Number($("#search-results").find(".page-numbers").find("select.results-per-page-select").val());
-		if(amount == Number("NaN") || amount < 1) amount = 25;
-		setSearch(1, amount);
-	});
+	
 }
+$(document).on('click', '#set-search-button', function(e) {
+	e.preventDefault();
+
+	var amount = Number($("#search-results").find(".page-numbers").find("select.results-per-page-select").val());
+	if(amount == Number("NaN") || amount < 1) amount = 25;
+	setSearch(1, amount);
+});
 
 function configureDatePickerFields() {
 	$('#search-field-after').datepicker({
