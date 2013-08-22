@@ -162,6 +162,10 @@ function configureAutoCompleteAdv(){
 }
 
 function populateSearchFields(){
+	if (!initialRequestData) {
+		return false;
+	}
+	
 	data = initialRequestData.form;
 	var tags = data.tags.split(",");
 	var authors = data.authors.split(",");
