@@ -15,10 +15,10 @@ function configureDataEditor() {
 		
 		if($editor.children('input[type=file]').get().length > 0) {
 			$file = $editor.children('input[type=file]');
-			desc = $editor.children('textarea[name='+name+'_desc]').text();
+			desc = $editor.children('textarea[name='+name+'_desc]').val();
 		}
 		
-		var data = {data: {type: type, data: text, description: desc}, name: name};
+		var data = {data: {type: type, data: text, description: (desc ? desc : "")}, name: name};
 		$editor.html(soy.renderAsFragment(shared.data.editor, data));
 		
 		if (type == "FILE" && $file) {
