@@ -10,15 +10,30 @@
 {template .full}
 		<form method="POST" action="sets/update" id="set-edit" class="custom" enctype="multipart/form-data">
 		<h4>Basic information</h4>
-		<div>
-			<input type="text" placeholder="Name" value="{$name}" name="name" />
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-set-label-container">
+					<h5>Name</h5>
+				</div>
+				<div class="create-set-textfield-container">
+					<input type="text" placeholder="Name" value="{$name}" name="name" />
+				</div>
+			</div>
 		</div>
+		
 		{if $plan}
-		<div>
-			{call shared.data.edit}
-				{param name: 'plan' /}
-				{param data: $plan /}
-			{/call}
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-set-label-container">
+					<h5>Plan</h5>
+				</div>
+				<div class="create-set-textfield-container">
+					{call shared.data.edit}
+						{param name: 'plan' /}
+						{param data: $plan /}
+					{/call}
+				</div>
+			</div>
 		</div>
 		{/if}
 		
@@ -36,7 +51,7 @@
 		<div class="text-right">
 			<input type="hidden" value="{$id}" name="setid" />
 			<input type="hidden" value="" name="questions" />
-			<input type="submit" value="Submit revisions" id="edit-set-submit-button" />
+			<input type="submit" value="Submit revisions" id="edit-set-submit-button" class="medium success button" />
 		</div>
 		</form>
 {/template}

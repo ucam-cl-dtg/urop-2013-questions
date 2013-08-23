@@ -7,38 +7,54 @@
  */
 {template .question}
 	<form method="POST" action="q/update" id="revisions-submit-form" class="custom" enctype="multipart/form-data" accept-charset="utf-8">
+		<input type="hidden" name="id" value="{$question.id}" id="form-qid"/>
 		<div class="row">
-			<div class="columns large-12 small-12">
-				<input type="hidden" name="id" value="{$question.id}" id="form-qid"/>
-			
-				{call shared.data.edit}
-					{param name: 'content' /}
-					{param data: $question.content /}
-				{/call}
-				{if $question.notes}
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-label-container">
+					<h5>Content</h5>
+				</div>
+				<div class="create-question-textfield-container">
 					{call shared.data.edit}
-						{param name: 'notes' /}
-						{param data: $question.notes /}
+						{param name: 'content' /}
+						{param data: $question.content /}
 					{/call}
-				{else}
-					{call shared.data.edit}
-						{param name: 'notes' /}
-					{/call}
-				{/if}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-label-container">
+					<h5>Notes</h5>
+				</div>
+				<div class="create-question-textfield-container">
+					{if $question.notes}
+						{call shared.data.edit}
+							{param name: 'notes' /}
+							{param data: $question.notes /}
+						{/call}
+					{else}
+						{call shared.data.edit}
+							{param name: 'notes' /}
+						{/call}
+					{/if}
+				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="columns large-6 small-6 clearfix">
-				<label for="edit-expDur" class="inline-block">
-					Duration (min): <input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" class="exp-dur-number-field" />
-				</label>
-			</div>
-			<div class="columns large-6 small-6 clearfix text-right">
-				<span class="edit-minor-span">
-					<label for="edit-minor"><input id="edit-minor" type="checkbox" name="minor" checked="true" value="true" /> Minor edit</label>
-				</span>
-
-				<input type="submit" value="Submit" class="medium success button" class="inline-block" />
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-button-container text-right">
+					<span class="edit-minor-span">
+						<label for="edit-minor"><input id="edit-minor" type="checkbox" name="minor" checked="true" value="true" /> Minor edit</label>
+					</span>
+					<input id="create-question-button" type="submit" value="Save" class="medium success button" class="inline-block" />
+				</div>
+				<div class="create-question-label-container">
+					<h5>Duration</h5>
+				</div>
+				<div class="create-question-duration-container clearfix">
+					<input type="number" id="edit-expDur" name="expectedDuration" value="{$question.expectedDuration}" class="exp-dur-number-field" />					
+				</div>
 			</div>
 		</div>
 	</form>

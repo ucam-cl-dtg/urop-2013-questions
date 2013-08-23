@@ -24,7 +24,17 @@
 					<a href="{$ij.URLPrefix}/q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false" data-bypass>Content</a>
 				</p>
 				<div class="content" data-section-content>
-					<h4>Question</h4>
+					<div class="clearfix">
+						{if $question.expectedDuration != null}
+						<div id="content-tab-expected-duration" style="float:right">
+							{call .expDur}
+								{param expdur: $question.expectedDuration /}
+							{/call}
+						</div>
+						{/if}					
+						<div style=""><h4>Question</h4></div>
+					</div>
+					
 					<div id="question-content">
 						{call shared.data.display}
 							{param data: $question.content /}
@@ -141,4 +151,11 @@
 			<li class="tag">{$tag.name}<span class="delete-tag" data-name="{$tag.name}">x</span></li>
 		{/foreach}
 	{/if}
+{/template}
+
+/**
+ * @param expdur
+ */
+{template .expDur}
+	<i>Expected duration: {$expdur} minute{if $expdur != 1}s{/if}</i>
 {/template}

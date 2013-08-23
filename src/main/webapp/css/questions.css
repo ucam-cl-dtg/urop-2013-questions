@@ -160,3 +160,30 @@ span.edit-minor-span{
 	right: 0px;
 	bottom: 10px
 }
+
+div.create-question-label-container {
+	float: left; 
+	width: 70px;
+}
+
+div.create-question-textfield-container {
+	margin-left: 82px;
+}
+
+div.create-question-button-container {
+	float: right; 
+	width: 200px;
+}
+
+div.create-question-duration-container {
+	margin-left: 70px;
+	width: 100px;
+}
+
+div.create-set-label-container {
+	float: left; 
+	width: 45px;
+}
+div.create-set-textfield-container {
+	margin-left: 57px;
+}

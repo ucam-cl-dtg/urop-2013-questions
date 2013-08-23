@@ -188,9 +188,10 @@ function configureEditQuestionForm() {
 }
 
 function configureCreateQuestionForm() {
-	$('#set-createquestion-tab form').on('click', '#add-question-button', function(e) {
+	$('#set-createquestion-tab form').on('click', '#create-question-button', function(e) {
 		e.preventDefault();
 		var $form = $(this).parents('form');
+		console.log($form);
 		$form.ajaxSubmit({
 			beforeSubmit: function (data, $form, opts) {
 				opts.url = prepareURL($form.attr('action'));

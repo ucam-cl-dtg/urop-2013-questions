@@ -1,31 +1,50 @@
 {namespace questions.form.question}
 
 /**
- * Form to 
+ * Form to create new question
+ * @param? setId
+ * @param? h
  */
 {template .create}
-	<h3>Create a new question</h3>
-	<div class="row">
-		<div class="columns large-12 small-12">
-			<form class="custom" method="post" action="q/save" enctype="multipart/form-data">
-				<input type="hidden" name="setId" value="-1" />
-				{call shared.data.edit}
-					{param name: 'content' /}
-				{/call}
-				{call shared.data.edit}
-					{param name: 'notes' /}
-				{/call}
-				<div class="row">
-					<div class="columns large-6 small-6 clearfix">
-						<label for="edit-expDur" class="inline-block">
-							Duration (min): <input class="exp-dur-number-field" max="2000000000" min="-2000000000" type="number" id="edit-expDur" name="expectedDuration" value="0" />
-						</label>
-					</div>
-					<div class="columns large-6 small-6 clearfix text-right">
-						<input id="create-question-button" type="submit" value="Create new question" class="medium success button" class="inline-block" />
-					</div>
+	<h{if $h}{$h}{else}3{/if}>Create a new question</h{if $h}{$h}{else}3{/if}>
+	<form class="custom" method="POST" action="q/save" enctype="multipart/form-data">
+		<input type="hidden" name="setId" value="{if $setId != null}{$setId}{else}-1{/if}" />
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-label-container">
+					<h5>Content</h5>
 				</div>
-			</form>
+				<div class="create-question-textfield-container">
+					{call shared.data.edit}
+						{param name: 'content' /}
+					{/call}
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-label-container">
+					<h5>Notes</h5>
+				</div>
+				<div class="create-question-textfield-container">
+					{call shared.data.edit}
+						{param name: 'notes' /}
+					{/call}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-12 small-12 clearfix">
+				<div class="create-question-button-container text-right">
+					<input id="create-question-button" type="submit" value="Create new question" class="medium success button" class="inline-block" />
+				</div>
+				<div class="create-question-label-container">
+					<h5>Duration</h5>
+				</div>
+				<div class="create-question-duration-container clearfix">
+					<input class="exp-dur-number-field" max="2000000000" min="-2000000000" type="number" id="edit-expDur" name="expectedDuration" value="10" />					
+				</div>
+			</div>
+		</div>
+	</form>
 {/template}
