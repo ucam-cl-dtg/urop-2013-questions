@@ -27,39 +27,38 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-
     <session-factory>
 
-        <!-- Database connection settings -->
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/questions</property>
-        <property name="connection.username">questions</property>
-        <property name="connection.password">questions</property>
-        
-        <property name="current_session_context_class">thread</property>
-        <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/questions</property>
+		<property name="connection.username">questions</property>
+		<property name="connection.password">questions</property>
 
-        <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
 
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		
+		<!-- Session per thread -->
+		<property name="current_session_context_class">thread</property>
+		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
 
-        <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">false</property>
+		<!-- Leave printing of SQL to the logger -->
+		<property name="show_sql">false</property>
 
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+		<!-- Only validate the database schema on startup -->
+		<property name="hbm2ddl.auto">validate</property>
 
-        <mapping class="uk.ac.cam.sup.models.User" />
-        <mapping class="uk.ac.cam.sup.models.Question" />
-        <mapping class="uk.ac.cam.sup.models.Tag" />
-        <mapping class="uk.ac.cam.sup.models.QuestionSet" />
-        <mapping class="uk.ac.cam.sup.models.QuestionPlacement" />
-
-    </session-factory>
-
+		<!-- Mapped classes -->
+		<mapping class="uk.ac.cam.sup.models.User" />
+		<mapping class="uk.ac.cam.sup.models.Question" />
+		<mapping class="uk.ac.cam.sup.models.Tag" />
+		<mapping class="uk.ac.cam.sup.models.QuestionSet" />
+		<mapping class="uk.ac.cam.sup.models.QuestionPlacement" />
+	</session-factory>
 </hibernate-configuration>
