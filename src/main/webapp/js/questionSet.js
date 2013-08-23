@@ -143,7 +143,7 @@ function configureSetStarToggler() {
 }
 
 function configureQuestionSetLoader() {
-	$('#question-set-list').on('click', '.expand-question-list', function() {
+	$('#search-results').on('click', '.expand-question-list', function() {
 		if ($(this).hasClass('loaded')) {
 			$(this).parents('.panel-wrapper').find('.sub-panel').slideToggle();
 		} else {
