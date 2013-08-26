@@ -14,6 +14,7 @@ import uk.ac.cam.sup.controllers.QuestionSetEditController;
 import uk.ac.cam.sup.controllers.QuestionSetViewController;
 import uk.ac.cam.sup.controllers.QuestionViewController;
 import uk.ac.cam.sup.controllers.TagController;
+import uk.ac.cam.sup.controllers.UTF8Interceptor;
 import uk.ac.cam.sup.controllers.UserController;
 
 import com.googlecode.htmleasy.HtmleasyProviders;
@@ -33,6 +34,7 @@ public class QuestionsApp extends Application {
 		myServices.add(UserController.class);
 		myServices.add(FileController.class);
 		
+		myServices.add(UTF8Interceptor.class);
 		// Add Htmleasy Providers
 		myServices.addAll(HtmleasyProviders.getClasses());
 		
