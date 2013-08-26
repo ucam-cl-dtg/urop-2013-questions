@@ -129,6 +129,15 @@ public class QuestionEditController extends GeneralController{
 			
 		String link = "q/" + newQuestionID;
 		Set<String> userSet = new HashSet<String>();
+		
+		// If this question is not in a question set then the query below won't
+		// have any results. Therefore we start off with the assumption that the
+		// editor should be in the list of notified people. Thus if the question
+		// is not in a question set this will be the owner of the question. If
+		// the questions is in a question set then this will be a duplicate of a
+		// result returned by the following query.
+		userSet.add(userID);
+		
 		String users = "";
 		List<QuestionSet> sets = QuestionSetQuery.all().have(oldQuestionID).list();
 		for(QuestionSet set: sets){
