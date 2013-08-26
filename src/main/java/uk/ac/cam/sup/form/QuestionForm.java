@@ -143,7 +143,7 @@ public abstract class QuestionForm {
 		return this;
 	}
 	
-	public QuestionForm parse() throws Exception {
+	public QuestionForm parse() throws FormValidationException, IOException  {
 		if (!validated) {
 			throw new FormValidationException("Form was not validated");
 		}

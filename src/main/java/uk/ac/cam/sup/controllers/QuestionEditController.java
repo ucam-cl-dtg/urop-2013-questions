@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -179,10 +180,10 @@ public class QuestionEditController extends GeneralController{
 			if(qa.getSetId() != -1){
 				qs = QuestionSetQuery.get(qa.getSetId());
 				if (qs == null) {
-					throw new Exception("Set does not exist");
+					return ImmutableMap.of("success", false, "error", "Question set "+qa.getSetId()+" does not exist");
 				}
 				if (!qs.getOwner().getId().equals(getCurrentUserID())) {
-					throw new Exception("You're not the owner of this set");
+					return ImmutableMap.of("success", false, "error", "Question set "+qa.getSetId()+" is owned by a different user");
 				}
 				
 				qs.addQuestion(q);
@@ -193,8 +194,10 @@ public class QuestionEditController extends GeneralController{
 			
 			return ImmutableMap.of("success", true, "question", q);
 			
-		} catch (Exception e) {
+		} catch (FormValidationException e) {
 			return ImmutableMap.of("success", false, "error", "Message: " + e.getMessage());
+		} catch (IOException e) {
+			return ImmutableMap.of("success", false, "error", "Message: Failed to store uploaded file. " + e.getMessage());
 		}
 	}
 
