@@ -138,15 +138,17 @@ public class QuestionEditController extends GeneralController{
 		// result returned by the following query.
 		userSet.add(userID);
 		
-		String users = "";
 		List<QuestionSet> sets = QuestionSetQuery.all().have(oldQuestionID).list();
 		for(QuestionSet set: sets){
 			userSet.add(set.getOwner().getId());
 		}
+		
+		StringBuffer usersBuf = new StringBuffer();
 		for(String s: userSet){
-			users = users + s + ",";
+			usersBuf = usersBuf.append(","+s);
 		}
-
+		String users = usersBuf.substring(1);
+		
 		NotificationApiWrapper n = new NotificationApiWrapper(getDashboardURL(), getApiKey());
 
 		try{
