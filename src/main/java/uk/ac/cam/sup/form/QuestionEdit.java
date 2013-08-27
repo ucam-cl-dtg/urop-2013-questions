@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.form;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class QuestionEdit extends QuestionForm {
 		}
 	}
 	
-	public QuestionEdit parse() throws Exception {
+	public QuestionEdit parse() throws FormValidationException, IOException {
 		super.parse();
 		return this;
 	}

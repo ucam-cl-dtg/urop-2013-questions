@@ -2,6 +2,7 @@ package uk.ac.cam.sup.models;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
@@ -47,7 +48,7 @@ public class Data implements Cloneable {
 		this.description = description;
 	}
 	
-	public Data(String type, String data, byte[] file, String description, String extension, boolean forceLoad) throws Exception {
+	public Data(String type, String data, byte[] file, String description, String extension, boolean forceLoad) throws IOException {
 		this.type = DataType.valueOf(type);
 		if (this.type == DataType.EMPTY) {
 			this.data = "";
@@ -57,7 +58,7 @@ public class Data implements Cloneable {
 			try {
 				String filename = saveFile(file, extension);
 				this.data = filename;
-			} catch (Exception e) {
+			} catch (IOException e) {
 				if (forceLoad) {
 					throw e;
 				} else {
@@ -72,9 +73,9 @@ public class Data implements Cloneable {
 		}
 	}
 	
-	private static String saveFile(byte[] file, String extension) throws Exception {
+	private static String saveFile(byte[] file, String extension) throws IOException {
 		if (file.length == 0) {
-			throw new Exception("File empty");
+			throw new IOException("File empty");
 		}
 		
 		String directory = "uploads/";
@@ -83,10 +84,14 @@ public class Data implements Cloneable {
 		
 		File destinationFile = new File(directory+filename);
         OutputStream outputStream = new FileOutputStream(destinationFile);
-
-        outputStream.write(file);
-        outputStream.close();
-		
+        try {
+        	outputStream.write(file);
+        	outputStream.close();
+        }
+        catch (IOException e) {
+        	destinationFile.delete();
+        	throw e;
+        }
 		return filename;
 	}
 	

@@ -1,5 +1,7 @@
 package uk.ac.cam.sup.form;
 
+import java.io.IOException;
+
 import javax.ws.rs.FormParam;
 
 import org.apache.log4j.Logger;
@@ -143,7 +145,7 @@ public abstract class QuestionForm {
 		return this;
 	}
 	
-	public QuestionForm parse() throws Exception {
+	public QuestionForm parse() throws FormValidationException, IOException  {
 		if (!validated) {
 			throw new FormValidationException("Form was not validated");
 		}
