@@ -1,9 +1,8 @@
 function configureAdvancedSearchExpand() {
-	
+	$(document).on('click', '#advanced-search-expand', function() {
+		toggleSearchMode();
+	});
 }
-$(document).on('click', '#advanced-search-expand', function() {
-	toggleSearchMode();
-});
 
 function toggleSearchMode(){
 	$this = $("#advanced-search-expand");
@@ -17,29 +16,21 @@ function toggleSearchMode(){
 	
 	$('.search-tags-label').slideToggle(duration);
 	$('.search').toggleClass('expanded', duration);
+	$('.border-left').toggleClass('expanded', duration);
 	$('.advanced-search').slideToggle({duration: duration, queue: false});
 	
-	if ($this.hasClass('expanded')) {
-		$this.parents('.columns')
-			.toggleClass('large-4', {duration: duration/2, easing: 'easeInQuad'})
-			.toggleClass('large-10', {duration: duration/2, easing: 'easeOutQuad'});
-	} else {
-		$this.parents('.columns')
-			.toggleClass('large-10', {duration: duration/2, easing: 'easeInQuad'})
-			.toggleClass('large-4', {duration: duration/2, easing: 'easeOutQuad'});
-	}
+	$('.search-buttons').toggleClass('large-6 expanded', {duration: duration});
 }
 
 function configureSetSearchButton() {
+	$(document).on('click', '#set-search-button', function(e) {
+		e.preventDefault();
 	
+		var amount = Number($("#search-results").find(".page-numbers").find("select.results-per-page-select").val());
+		if(amount == Number("NaN") || amount < 1) amount = 25;
+		setSearch(1, amount);
+	});
 }
-$(document).on('click', '#set-search-button', function(e) {
-	e.preventDefault();
-
-	var amount = Number($("#search-results").find(".page-numbers").find("select.results-per-page-select").val());
-	if(amount == Number("NaN") || amount < 1) amount = 25;
-	setSearch(1, amount);
-});
 
 function configureDatePickerFields() {
 	$('#search-field-after').datepicker({

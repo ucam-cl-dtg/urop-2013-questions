@@ -35,7 +35,7 @@
             <div class="basic-search search">
                 <div class="row">
                     <div class="columns large-6 small-8 search-bar search">
-                       <h3>Search questions...</h3>
+                       <h3>Search questions</h3>
                        <h5 class="search-tags-label">Tags</h5>
                        <input type="text" name="tags" placeholder="Tags..."
                            {if $form}{if $form.tags}value="{$form.tags}"{/if}{/if}
@@ -49,7 +49,7 @@
             
             <div class="advanced-search search">
                 <div class="row">
-                    <div class="columns large-6 small-12">
+                    <div class="columns large-12 small-12 border-both">
                         <div><h5>Authors</h5></div>
                         <div>
                             <input type="text" name="authors" 
@@ -61,7 +61,7 @@
                 </div>
                 
                 <div class="row">
-                    <div class="columns large-6 small-12">
+                    <div class="columns large-6 small-12 border-left">
                         <div><h5>Expected duration</h5></div>
                         <div>
                             <div class="row">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="columns large-6 small-12">
+                    <div class="columns large-6 small-12 border-right">
                         <div><h5>Date created</h5></div>
                         <div>
                             <div class="row">
@@ -110,7 +110,7 @@
                 </div>
                 
                 <div class="row">
-                    <div class="columns large-6 small-12">
+                    <div class="columns large-6 small-12 border-left">
                         <div><h5>Created by supervisor</h5></div>
                         <div>
                             <div class="row">
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="columns large-6 small-12">
+                    <div class="columns large-6 small-12 border-right">
                         <div><h5>Starred</h5></div>
                         <div>
                             <div class="row">
@@ -161,16 +161,18 @@
                 </div>
             </div>
             
-            <div class="search-buttons search">
-                <div class="row">
-                    <div class="columns large-4 small-8">
+            
+            <div class="row">
+                <div class="search-advanced-button search">
+                    <div class="columns large-6 small-12 search-buttons search-advanced-button">
                         <a id="advanced-search-expand">Advanced search...</a>
                     </div>
-                    <div class="columns large-2 small-4 text-right">
-                       <input type="submit" value="Search" id="question-search-button" class="medium button success" />
-                    </div>
-                    
-                    <div class="columns large-6 small-0"></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="columns large-6 small-12 text-right search-buttons">
+                    <input type="submit" value="Search" id="question-search-button" class="medium button success" />
                 </div>
             </div>
         </form>
@@ -195,7 +197,7 @@
 		{if $form.totalAmount}
 		<div class="row">
 		    <div class="columns large-12 small-12 result-number-text">
-		        <i>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</i> 
+		        <p>There {if $form.totalAmount > 1}were{else}was{/if} {$form.totalAmount} hit{if $form.totalAmount > 1}s{/if} for these search terms.</p> 
 		    </div>
 		</div>
 		{/if}
@@ -219,14 +221,14 @@
 	    {if $success == true}
 	        {if $form}
 		        {if $form.emptySearch}
-		            <div class="column large-12 small-12"><i>Please enter one or more search terms to find questions</i></div>
+		            <div class="column large-12 small-12"><p>Please enter one or more search terms to find questions</p></div>
 		        {elseif $form.totalAmount > 0}
 		            {call shared.question.multiple}
 		                {param questions: $questions /}
 		                {param showAddButton: true /}
 		            {/call}
 		        {else}
-		            <div class="column large-12 small-12"><i>No questions were found with these search parameters.</i></div>
+		            <div class="column large-12 small-12"><p>No questions were found with these search parameters.</p></div>
 		        {/if}
 	       	{/if}
 	    {else}

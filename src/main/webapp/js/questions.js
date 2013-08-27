@@ -28,6 +28,7 @@ moduleScripts['questions'] = {
 			    configureQuestionSetLoader,
 			    configureDatePickerFields,
 			    configureSetSearchPages,
+			    configureSetSearchButton,
 			    configureAutoCompleteBasic,
 			    configureAutoCompleteAdv,
 			    populateSearchFields,
