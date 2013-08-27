@@ -187,3 +187,7 @@ div.create-set-label-container {
 div.create-set-textfield-container {
 	margin-left: 57px;
 }
+
+.float-right {
+	float: right;
+}

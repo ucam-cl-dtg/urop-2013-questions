@@ -68,4 +68,17 @@ public abstract class GeneralController {
 		return (String) request.getSession().getServletContext().getInitParameter("apiKey");
 	}
 	
+	protected String getCurrentUrl() {
+		request.getServerName();
+		return request.getRequestURL().toString();
+	}
+	
+	protected String getServerName() {
+		return request.getServerName();
+	}
+	
+	protected int getServerPort() {
+		return request.getServerPort();
+	}
+	
 }
