@@ -66,10 +66,11 @@ public class QuestionSetViewController extends GeneralController {
 		Map<String,Object> result = qs.toMap(!isCurrentUserSupervisor());
 		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
 		result.put("editable", editable);
-		
+
 		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
+				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrlRemoveApi();
 		result.put("deadLineLink", deadLineLink);
+		
 		return result;
 	}
 	

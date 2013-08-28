@@ -69,8 +69,13 @@ public abstract class GeneralController {
 	}
 	
 	protected String getCurrentUrl() {
-		request.getServerName();
 		return request.getRequestURL().toString();
+	}
+	
+	protected String getCurrentUrlRemoveApi(){
+		String curURL = getCurrentUrl();
+		curURL = curURL.substring(0, curURL.indexOf("/api/")) + curURL.substring(curURL.indexOf("/api/") + 4);
+		return curURL;
 	}
 	
 	protected String getServerName() {
