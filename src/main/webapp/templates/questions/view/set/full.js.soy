@@ -33,7 +33,7 @@
 				</section>
 				{/if}
 
-				<section id="set-questions-tab" {if $target=='questions'}class="active"{/if}>
+				<section id="set-questions-tab" {if $target=='questions' or not $target}class="active"{/if}>
 					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/questions" data-bypass class="in-place-anchor">Questions</a></p>
 					<div class="content" data-section-content>
 						{call questions.view.set.tab.questions.full data="all" /}

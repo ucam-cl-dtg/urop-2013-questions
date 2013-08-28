@@ -67,9 +67,9 @@ public class QuestionSetViewController extends GeneralController {
 		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
 		result.put("editable", editable);
 		
-		//String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
-		//		+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
-		//result.put("deadLineLink", deadLineLink);
+		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
+				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
+		result.put("deadLineLink", deadLineLink);
 		return result;
 	}
 	
