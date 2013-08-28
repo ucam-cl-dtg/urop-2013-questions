@@ -81,7 +81,7 @@ public class QuestionEditController extends GeneralController{
 			}
 			
 			q = q.edit(editor, qe);
-			
+			log.info("Calling method to send notification...");
 			sendQuestionEditedNotification(qe.getId(), q.getId(), editor.getId());
 						
 			if(qe.getSetId() == -1) {
@@ -152,8 +152,13 @@ public class QuestionEditController extends GeneralController{
 		
 		NotificationApiWrapper n = new NotificationApiWrapper(getDashboardURL(), getApiKey());
 
+		//TODO: remove this logging message
+		log.info("Now trying to send notification via supervision-api. \nDashboardURL: " 
+				+ getDashboardURL() + ".  \nAPIKey: " + getApiKey() + ".  \nMessage: " + message
+				+ ".  \nLink: " + link + ".  \nUsers: " + users + ".  \nsection: questions.");
 		try{
 			n.createNotification(message, "questions", link, users);
+			log.info("Apparently successfully created notification!");
 		} catch(NotificationException e){
 			log.error("Could not create notification: \"" + message + "\" for users " + users + ".\nMessage: " + e.getMessage());
 		}

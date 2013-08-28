@@ -68,7 +68,7 @@ public class QuestionSetViewController extends GeneralController {
 		result.put("editable", editable);
 		
 		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
+				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrlRemoveApi();
 		result.put("deadLineLink", deadLineLink);
 		return result;
 	}
