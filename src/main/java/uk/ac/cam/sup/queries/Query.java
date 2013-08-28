@@ -76,10 +76,9 @@ public abstract class Query<T extends Mappable> {
 			criteria.setProjection(null);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 			return result;*/
-			ScrollableResults sr = criteria.scroll();
+			ScrollableResults sr = criteria.scroll(ScrollMode.SCROLL_INSENSITIVE);
 			sr.last();
 			int result = sr.getRowNumber() + 1;
-			
 			return result;
 		} catch(HibernateException e) {
 			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!",e);
