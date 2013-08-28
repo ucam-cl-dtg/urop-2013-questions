@@ -55,6 +55,7 @@ function loadUserSets(page, amount){
 		
 		$setList.empty();
 		$setList.append($newList.children());
+		reloadData();
 		
 	});
 	
@@ -93,6 +94,8 @@ function loadUserQuestions(page, amount){
 		
 		$setList.empty();
 		$setList.append($newList.children());
+		reloadData();
 		
 	});
+	
 }

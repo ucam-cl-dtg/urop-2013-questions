@@ -6,7 +6,6 @@ moduleScripts['questions'] = {
 			configureInPlaceAnchors,
 			configureDataEditor,
 			configureDataRenderer,
-			reloadMathJax,
 	    ],
 	    'set': {
 			'full': [
@@ -37,6 +36,7 @@ moduleScripts['questions'] = {
 		'user': {
 			'full': [
 			    configureUserPage,
+			    configureDataRenderer,
 			 ],
 		},
 	},
@@ -62,6 +62,7 @@ moduleScripts['questions'] = {
 	        configureAutoCompleteAdv,
 	        populateSearchFields,
 	        configureDatePickerFields,
+	        configureDataRenderer,
 	    ]
 	},
 	

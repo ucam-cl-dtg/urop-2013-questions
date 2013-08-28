@@ -27,6 +27,7 @@ public class QuestionLoader extends Loader<Question> {
 		
 		q.setContent(new Data(DataType.PLAIN_TEXT, "http://www.cl.cam.ac.uk/teaching/exams/pastpapers/"+groups[1]));
 		q.addTag(TagQuery.get(topic.getName()));
+		q.addTag(TagQuery.get("Past papers"));
 		q.setTimeStamp(parseDate(groups[1]));
 		q.setExpectedDuration(30);
 		

@@ -24,7 +24,7 @@
 	{if $data.type == 'PLAIN_TEXT'}
         {$data.data}
     {elseif $data.type == 'MARKDOWN'}
-        <span class="latex-content markdown-content">{$data.data}</span>
+        <div class="latex-content markdown-content">{$data.data}</div>
     {elseif $data.type == 'FILE'}
         <a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description}</a>
     {else}

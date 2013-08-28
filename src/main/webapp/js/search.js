@@ -92,6 +92,7 @@ function search(page, amount){
 			}
 			router.navigate("q/search?"+$form.serialize() + "&page=" + page + "&amount=" + amount);
 			lastSearchURL = "q/search?"+$form.serialize();
+			reloadData();
 		},
 		error: function(data) {
 			
