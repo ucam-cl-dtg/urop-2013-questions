@@ -70,6 +70,10 @@ public class QuestionSetViewController extends GeneralController {
 		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
 				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrlRemoveApi();
 		result.put("deadLineLink", deadLineLink);
+		//String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
+		//		+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
+		//result.put("deadLineLink", deadLineLink);
+		
 		return result;
 	}
 	

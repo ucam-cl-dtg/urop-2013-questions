@@ -9,8 +9,6 @@
 		<div>{$data.data}</div>
 	{elseif $data.type == 'MARKDOWN'}
 		<div class="latex-content markdown-content">{$data.data}</div>
-	{elseif $data.type == 'LATEX'}
-		<div class="latex-content">{$data.data}</div>
 	{elseif $data.type == 'FILE'}
 		<div><a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description}</a></div>
 	{else}
@@ -27,8 +25,6 @@
         {$data.data}
     {elseif $data.type == 'MARKDOWN'}
         <span class="latex-content markdown-content">{$data.data}</span>
-    {elseif $data.type == 'LATEX'}
-        {$data.data}
     {elseif $data.type == 'FILE'}
         <a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description}</a>
     {else}
@@ -44,8 +40,7 @@
 <div>
 	<select name="{$name}_type" class="data-editor-type">
 		<option value="PLAIN_TEXT" {if $data}{if $data.type == 'PLAIN_TEXT'}selected{/if}{/if}>Plain text</option>
-		<option value="MARKDOWN" {if $data}{if $data.type == 'MARKDOWN'}selected{/if}{/if}>Markdown</option>
-		<option value="LATEX" {if $data}{if $data.type == 'LATEX'}selected{/if}{/if}>LaTeX</option>
+		<option value="MARKDOWN" {if $data}{if $data.type == 'MARKDOWN'}selected{/if}{/if}>Markdown + LaTeX</option>
 		<option value="FILE" {if $data}{if $data.type == 'FILE'}selected{/if}{/if}>File</option>
 		<option value="EMPTY" {if $data}{if $data.type == 'EMPTY'}selected{/if}{/if}>Empty</option>
 	</select>
@@ -65,8 +60,6 @@
 		{call .plaintextedit data="all" /}
 	{elseif $data.type == 'MARKDOWN'}
 		{call .markdownedit data="all" /}
-	{elseif $data.type == 'LATEX'}
-		{call .latexedit data="all" /}
 	{elseif $data.type == 'FILE'}
 		{call .fileedit data="all" /}
 	{/if}
@@ -92,17 +85,6 @@
  * @param? data
  */
 {template .markdownedit}
-<textarea name="{$name}_text" placeholder="{$name}" style="font-family: monospace">
-	{if $data}{$data.data}{/if}
-</textarea>
-{/template}
-
-/**
- * Displays a LaTeX editor
- * @param name
- * @param? data
- */
-{template .latexedit}
 <textarea name="{$name}_text" placeholder="{$name}" style="font-family: monospace">
 	{if $data}{$data.data}{/if}
 </textarea>
