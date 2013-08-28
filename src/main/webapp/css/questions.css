@@ -55,7 +55,7 @@ div.result-number-text {
 	position: relative;
 	background-color: white;
 	top: 1px;
-	z-index: 9999;
+	z-index: 99;
 }
 
 .search-bar.expanded {
