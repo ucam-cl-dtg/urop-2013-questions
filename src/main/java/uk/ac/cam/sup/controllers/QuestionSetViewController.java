@@ -63,9 +63,13 @@ public class QuestionSetViewController extends GeneralController {
 		if (qs == null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-		Map<String,Object> result = qs.toMap(isCurrentUserSupervisor());
+		Map<String,Object> result = qs.toMap(!isCurrentUserSupervisor());
 		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
 		result.put("editable", editable);
+		
+		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
+				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrl();
+		result.put("deadLineLink", deadLineLink);
 		return result;
 	}
 	
