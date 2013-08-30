@@ -10,7 +10,7 @@ function configureDataEditor() {
 		var name = $editor.attr('data-name');
 		
 		if($editor.children('textarea[name='+name+'_text]').get().length > 0) {
-			text = $editor.children('textarea').text();
+			text = $editor.children('textarea').val();
 		}
 		
 		if($editor.children('input[type=file]').get().length > 0) {
