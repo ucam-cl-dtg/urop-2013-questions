@@ -10,4 +10,22 @@ public class QueryAlreadyOrderedException extends Exception {
 	public QueryAlreadyOrderedException(String message){
 		super(message);
 	}
+
+	public QueryAlreadyOrderedException() {
+		super();
+	}
+
+	public QueryAlreadyOrderedException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+	public QueryAlreadyOrderedException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public QueryAlreadyOrderedException(Throwable cause) {
+		super(cause);
+	}
+		
 }

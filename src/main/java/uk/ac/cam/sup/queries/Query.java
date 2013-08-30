@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
@@ -74,15 +76,13 @@ public abstract class Query<T extends Mappable> {
 			criteria.setProjection(null);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 			return result;*/
-			ScrollableResults sr = criteria.scroll();
+			ScrollableResults sr = criteria.scroll(ScrollMode.SCROLL_INSENSITIVE);
 			sr.last();
 			int result = sr.getRowNumber() + 1;
-			
 			return result;
-		} catch(Exception e) {
-			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!");
+		} catch(HibernateException e) {
+			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!",e);
 		}
-		
 	}
 	
 	public boolean isModified(){return modified;}
