@@ -46,7 +46,7 @@
 		  /js/user.js,
 		  /js/util.js,
 		  /js/addQuestionForm.js,
-		  /js/questions.js,
+		  /js/questions_inits.js,
 		  /soy/js/1/questions.js,
 		  /soy/js/1/questions.search.js,
 		  /soy/js/1/questions.view.js,
