@@ -63,7 +63,7 @@ class DatabaseOps:
         self.cur.execute("SELECT id from TAGS where name=%s",[name])
         ids = self.cur.fetchone()
         if not ids:
-            id = nextVal("tags","id",cur)
+            id = self.nextVal("tags","id")
             self.cur.execute("INSERT INTO TAGS(id,name) VALUES (%s,%s)",[id,name])
             return id
         else:
