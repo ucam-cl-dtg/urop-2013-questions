@@ -109,9 +109,9 @@ public class DevelopmentController extends GeneralController {
 		try {
 			u = UserQuery.get(uid);
 			if(u.getSupervisor()){
-				u.setSupervisor(false);
+				//u.setSupervisor(false);
 			} else {
-				u.setSupervisor(true);
+				//u.setSupervisor(true);
 			}
 		} catch (ModelNotFoundException e) {
 			newUser = true;

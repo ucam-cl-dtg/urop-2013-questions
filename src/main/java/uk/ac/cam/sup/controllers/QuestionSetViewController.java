@@ -172,7 +172,7 @@ public class QuestionSetViewController extends GeneralController {
 		try {
 			u = UserQuery.get(crsid);
 		} catch (ModelNotFoundException e) {
-			u = new User(crsid, false);
+			u = new User(crsid);
 			u.save();
 		}
 		List<QuestionSet> sets = QuestionSetQuery.all().withUser(u).maxResults(amount).offset((page-1)*amount).list();

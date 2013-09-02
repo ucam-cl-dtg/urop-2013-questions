@@ -6,6 +6,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
+	<listener>
+		<listener-class>
+			uk.ac.cam.sup.util.ServletContextInitializer
+		</listener-class>
+	</listener>
+
 	<context-param>
 		<param-name>cssNamespace</param-name>
 		<param-value></param-value>

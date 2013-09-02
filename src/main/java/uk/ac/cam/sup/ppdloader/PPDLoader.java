@@ -69,7 +69,7 @@ public class PPDLoader {
 		String directory = "uploads/";
 		new File(directory).mkdirs();
 		
-		User bot = new User("bot1000", true);
+		User bot = new User("bot1000");
 		bot.saveOrUpdate();
 		
 		TopicLoader tl = new TopicLoader();

@@ -50,7 +50,7 @@ public abstract class GenericTest {
 		rs.addQuestion(s);
 		rs.setName("Set r,s");
 
-		b.setSupervisor(true);
+		//b.setSupervisor(true);
 		p.addTag(t);
 		p.addTag(u);
 		p.addTag(v);
