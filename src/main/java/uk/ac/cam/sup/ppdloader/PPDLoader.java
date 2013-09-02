@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.ppdloader;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -9,7 +10,9 @@ import java.util.Set;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
+import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.util.HibernateUtil;
 
 public class PPDLoader {
 	public static Set<Question> loadAllQuestions() throws Exception {
@@ -62,21 +65,26 @@ public class PPDLoader {
 		System.out.println("Downloaded "+(i-1)+" files");
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {	
+		String directory = "uploads/";
+		new File(directory).mkdirs();
+		
+		User bot = new User("bot1000", true);
+		bot.saveOrUpdate();
+		
 		TopicLoader tl = new TopicLoader();
 		
 		for (Topic t: tl.getResults()) {
 			QuestionLoader ql = new QuestionLoader(t);
 			
 			for (Question q: ql.getResults()) {
-				System.out.print(q.getContent().getData()+" - ");
-				System.out.print(q.getTimeStamp().toString()+" - ");
-				System.out.print(q.getTagsAsString().toArray(new String[0])[0]);
-				if (q.getNotes().getData() != null) {
-					System.out.print(" - " + q.getNotes().getData());
-				}
-				System.out.println();
+				System.out.println(q.getContent().getData());
+				q.save();
 			}
+			
+			HibernateUtil.commit();
+			
+			return;
 		}
 		
 	}
