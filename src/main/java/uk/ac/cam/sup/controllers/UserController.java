@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
 import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
 import uk.ac.cam.cl.dtg.ldap.LDAPUser;
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
@@ -22,6 +23,7 @@ import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.UserQuery;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 @Path("/users")
 public class UserController extends GeneralController {
@@ -48,22 +50,17 @@ public class UserController extends GeneralController {
 			amount = 1;
 		}
 		
-		
-		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(new User(crsid));
-		int totalSets;
+		Builder<String,Object> builder = ImmutableMap.builder();
 		try {
-			totalSets = qsq.size();
-		} catch (QueryAlreadyOrderedException e) {
-			return ImmutableMap.of("success", false, "error", e.getMessage());
+			builder.putAll(fetchUserSets(crsid, page, amount))
+				.put("success", true)
+				.put("crsid", crsid);
+		} catch (QueryAlreadyOrderedException | ModelNotFoundException e) {
+			builder.put("success", false)
+				.put("error", e.getMessage());
 		}
 		
-		List<Map<String,?>> sets = qsq.maxResults(amount).offset(amount * (page-1)).maplist();
-		
-		return ImmutableMap.of(
-				"success", true,
-				"crsid", crsid,
-				"sets", sets,
-				"totalSets", totalSets);
+		return builder.build();
 	}
 	
 	@GET
@@ -80,31 +77,69 @@ public class UserController extends GeneralController {
 			amount = 1;
 		}
 		
-		List<String> users = new ArrayList<String>();
-		users.add(crsid);
-		
-		QuestionQuery qq = QuestionQuery.all().withUserIDs(users);
-		int totalQuestions;
+		Builder<String,Object> builder = ImmutableMap.builder();
 		try {
-			totalQuestions = qq.size();
+			builder.putAll(fetchUserQuestions(crsid, page, amount))
+				.put("success", true)
+				.put("crsid", crsid);
 		} catch (QueryAlreadyOrderedException e) {
-			return ImmutableMap.of("success", false, "error", e.getMessage());
+			builder.put("success", false)
+				.put("error", e.getMessage());
 		}
 		
-		List<Map<String,?>> questions = qq.maxResults(amount).offset(amount * (page-1)).maplist();
-		
-		return ImmutableMap.of(
-				"success", true,
-				"crsid", crsid,
-				"questions", questions,
-				"totalQuestions", totalQuestions);
+		return builder.build();
 	}
 	
 	@GET
 	@Path("/me")
 	@Produces("application/json")
 	public Map<String,?> produceMyContent() {
-		return getUserID(getCurrentUserID());
+		Builder<String,Object> builder = ImmutableMap.builder();
+		
+		try {
+			builder.putAll(fetchUserQuestions(getCurrentUserID(), 1, 25))
+				.putAll(fetchUserSets(getCurrentUserID(), 1, 25))
+				.put("success", true)
+				.put("crsid", getCurrentUserID());
+		} catch (QueryAlreadyOrderedException | ModelNotFoundException e) {
+			builder.put("success", false)
+				.put("error", e.getMessage());
+		}
+		
+		return builder.build();
+	}
+	
+	private Map<String,?> fetchUserQuestions(String crsid, int page, int amount) throws QueryAlreadyOrderedException {
+		List<String> users = new ArrayList<String>();
+		users.add(crsid);
+		
+		QuestionQuery qq = QuestionQuery.all().withUserIDs(users);
+		int totalQuestions = qq.size();
+		
+		List<Map<String,?>> questions = qq.maxResults(amount).offset(amount * (page-1)).maplist();
+		return ImmutableMap.of(
+				"questions", questions,
+				"totalQuestions", totalQuestions,
+				"questionsPage", page,
+				"questionsAmount", amount
+		);
+	}
+	
+	private Map<String,?> fetchUserSets(String crsid, int page, int amount) 
+			throws QueryAlreadyOrderedException, ModelNotFoundException {
+		List<String> users = new ArrayList<String>();
+		users.add(crsid);
+		
+		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(UserQuery.get(crsid));
+		int totalSets = qsq.size();
+		
+		List<Map<String,?>> questions = qsq.maxResults(amount).offset(amount * (page-1)).maplist();
+		return ImmutableMap.of(
+				"sets", questions,
+				"totalSets", totalSets,
+				"setsPage", page,
+				"setsAmount", amount
+		);
 	}
 	
 	@POST

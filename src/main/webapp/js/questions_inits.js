@@ -1,12 +1,14 @@
 moduleScripts['questions'] = {
     'view' : {
-    	'questionFull': [
-			configureInputField,
-			configureQuestionStarToggler,
-			configureInPlaceAnchors,
-			configureDataEditor,
-			configureDataRenderer,
-	    ],
+    	'question': {
+    		'full': [
+				configureInputField,
+				configureQuestionStarToggler,
+				configureInPlaceAnchors,
+				configureDataEditor,
+				configureDataRenderer,
+			],
+    	},
 	    'set': {
 			'full': [
 			    configureRemoveQuestionButton,

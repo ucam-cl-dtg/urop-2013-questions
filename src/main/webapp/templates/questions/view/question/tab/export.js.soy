@@ -1,0 +1,26 @@
+{namespace questions.view.question.tab.export}
+
+/**
+ * @param question
+ */
+{template .full}
+	{call shared.util.loading /}
+	<div class="row">
+		<div class="columns large-9 small-9 page-number-selector page-numbers-export">
+			// Page numbers will be inserted here by JS
+		</div>
+		<div class="columns large-3 small-3 clearfix">
+			<a href="#" class="success button" id="save-export-state-button">Save</a>
+		</div>
+	</div>
+	<div class="row">
+		<ul class="panels" id="sets-list" data-disp="0" data-qid={$question.id}>
+			// Question Sets will be inserted here by JS 
+		</ul>
+	</div>
+	<div class="row">
+		<div class="columns large-6 small-6 page-number-selector page-numbers-export">
+			// Page numbers will be inserted here by JS
+		</div>
+	</div>
+{/template}

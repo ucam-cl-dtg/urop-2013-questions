@@ -1,0 +1,16 @@
+{namespace questions.view.question.tab.edit}
+
+/**
+ * @param question
+ */
+{template .full}
+	<div class="row notifications"></div>
+	
+	{call shared.edit.question data="all" /}
+	
+	{call shared.util.loading /}
+	
+	<div id="set-div-to-edit" class="row">
+	 	// This will show the question sets which contain the question.
+	</div>
+{/template}

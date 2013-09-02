@@ -20,8 +20,8 @@ $(document).ready(function() {
 
 		"": "questions.main",
 		
-		"q/:id" : "questions.view.questionFull",
-		"q/:id/:target" : "questions.view.questionFull",
+		"q/:id" : "questions.view.question.full",
+		"q/:id/:target" : "questions.view.question.full",
 		"q/search((?)(:params(/))*)" : saveJSON("questions.search.main"),
 		"q/add" : "questions.form.question.create",
 		
