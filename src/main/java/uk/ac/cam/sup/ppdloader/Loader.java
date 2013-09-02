@@ -70,5 +70,5 @@ public abstract class Loader<T> {
 		}
 	}
 	
-	protected abstract T parseGroups(String[] groups);
+	protected abstract T parseGroups(String[] groups) throws Exception;
 }

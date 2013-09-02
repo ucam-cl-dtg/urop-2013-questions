@@ -125,16 +125,9 @@ function configureInputField() {
 	$("#edit-minor").change(function(data) {
 		//var $checkBox = $(this);
 		var $setListDiv = $(".main").find("#set-div-to-edit");
-		
-		if(data.target.value){
-			
-			if($setListDiv.children().hasClass("set-list-to-edit")){
-				$setListDiv.children(".set-list-to-edit").slideToggle();
-			}else{
-				populateSetListToEdit($setListDiv);
-			}
-			
-		}else{
+		if ( ! $setListDiv.children().hasClass("set-list-to-edit")) {
+			populateSetListToEdit($setListDiv);
+		} else {
 			$setListDiv.children(".set-list-to-edit").slideToggle();
 		}
 	});
@@ -202,7 +195,9 @@ function configureInputField() {
 				console.log(data);
 			}
 		});
-	});	
+	});
+	
+	populateSetListToEdit($('#set-div-to-edit'));
 }
 
 function loadMoreHistory(depth, $button){
@@ -344,6 +339,6 @@ function populateSetListToEdit($setListDiv){
 				$newList.find(".panels").addClass("set-list-to-edit");
 				$setListDiv.empty();
 				$setListDiv.append($newList.children());
-				$setListDiv.find(".panels").slideToggle();
+				$setListDiv.find(".panels").slideDown();
 			});
 }

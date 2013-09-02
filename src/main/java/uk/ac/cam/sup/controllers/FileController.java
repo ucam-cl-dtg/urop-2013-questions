@@ -2,6 +2,7 @@ package uk.ac.cam.sup.controllers;
 
 import java.io.File;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -9,6 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
+
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 @Path("/uploads")
 public class FileController {
@@ -24,7 +27,10 @@ public class FileController {
 			return response.build();
 		}
 		
-		File file = new File("uploads/"+filename);
+		ServletContext context = ResteasyProviderFactory.getContextData(ServletContext.class);
+		String rootLocation = context.getInitParameter("storageLocation")+"local/data/questions/";
+		
+		File file = new File(rootLocation+filename);
 		
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition", "attachment; filename=\""+filename+"\"");
