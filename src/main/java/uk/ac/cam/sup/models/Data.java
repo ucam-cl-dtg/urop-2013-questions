@@ -19,10 +19,10 @@ public class Data implements Cloneable {
 	@Enumerated(EnumType.STRING)
 	private DataType type = DataType.PLAIN_TEXT;
 	
-	@Column(length = 1024)
+	@Column(columnDefinition = "TEXT")
 	private String data = "";
 	
-	@Column(length = 1024)
+	@Column(columnDefinition = "TEXT")
 	private String description = "";
 	
 	public Data(){}
