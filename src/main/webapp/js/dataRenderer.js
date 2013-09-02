@@ -14,6 +14,10 @@ function reloadMarkDown() {
 
 	$('.markdown-content').each(function() {
 		$(this).html(converter.makeHtml($(this).html()));
+		
+		var links = $(this).find("a");
+		links.attr("data-bypass", true);
+		links.attr("target", "_blank");
 	});
 }
 
