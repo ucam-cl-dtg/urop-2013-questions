@@ -13,24 +13,18 @@
 		{else}
 			icon-star_empty
 		{/if}
-		"></i></span>Question #{$question.id} by <a href="{$ij.URLPrefix}/users/{$question.owner.id}">{$question.owner.id}</a></h3> 
+		"></i></span>Question #{$question.id}</h3> 
 	</div>
 </div>
 <div class="row">
 	<div class="columns large-12 small-12">
 		<div class="section-container tabs" data-section="tabs">
-			<section {if $target=='content'}class="active"{/if}>
+			<section {if $target=='overview'}class="active"{/if}>
 				<p class="title" data-section-title>
-					<a href="{$ij.URLPrefix}/q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false" data-bypass>Content</a>
+					<a href="{$ij.URLPrefix}/q/{$question.id}/overview" class="in-place-anchor" id="overview-section" data-needsupdate="false" data-bypass>Overview</a>
 				</p>
-				<div class="content" data-section-content>
-					{call questions.view.question.tab.content.full data="all" /}
-				</div>
-			</section>
-			<section {if $target=='tags'}class="active"{/if}>
-				<p class="title" data-section-title><a href="{$ij.URLPrefix}/q/{$question.id}/tags" class="in-place-anchor" data-bypass>Tags</a></p>
-				<div class="content" data-section-content>
-					{call questions.view.question.tab.tags.full data="all" /}
+				<div class="content" data-section-content id="question-tab-overview">
+					{call questions.view.question.tab.overview.full data="all" /}
 				</div>
 			</section>
 			<section {if $target=='history'}class="active"{/if}>

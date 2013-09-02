@@ -213,3 +213,35 @@ div.create-set-textfield-container {
 .float-right {
 	float: right;
 }
+
+#question-tab-overview .row {
+	padding-top: 10px !important;
+}
+
+.information-list {
+	list-style-type: none;
+}
+
+.information-list li {
+	padding: 5px;
+}
+
+.tag-small, .add-tag-small {
+	margin: 0 5px !important;
+	font-size: 1em !important;
+	padding-top: 4px !important;
+	margin-bottom: 5px !important;
+}
+
+.add-tag-small {
+	background-color: #aaa;
+	cursor: pointer;
+}
+
+.delete-tag {
+	cursor: pointer;
+}
+
+.small-tags-list {
+	float: left;
+}

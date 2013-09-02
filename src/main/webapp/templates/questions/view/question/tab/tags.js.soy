@@ -16,7 +16,7 @@
 	</div>
 	<div class="tags-cloud">
 		<ul class="tags text-center" data-qid="{$question.id}">
-			{call .tags}
+			{call .list}
 				{param tags: $question.tags /}
 			{/call}
 		</ul>
@@ -26,7 +26,7 @@
 /**
  * @param? tags
  */
-{template .tags}
+{template .list}
 	{if $tags}
 		{foreach $tag in $tags}
 			<li class="tag">{$tag.name}<span class="delete-tag" data-name="{$tag.name}">x</span></li>

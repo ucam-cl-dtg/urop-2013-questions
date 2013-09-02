@@ -17,11 +17,11 @@ function configureInputField() {
         tokenFormatter: function(item) { return "<li>" + item.name + "</li>"; }         
 	});
 	
+	var $newtags = $(document.createElement("div"));
 	var $addTagsButton = $("#add-tags");
-	var $tagList = $(".main").find(".tags");
+	var $tagList = $("#question-tags-list");
 	$addTagsButton.click(function(){
-		var $newtags = $("<div></div>");
-		
+
 		if($inputField.val().trim().length < 1){
 			errorNotification("Please do not try to add empty tags.");
 			return false;
@@ -31,8 +31,17 @@ function configureInputField() {
 			.done(function(data){
 				if(data.success){
 					if(data.amount > 0){
-						applyTemplate($newtags, "questions.view.tags", data);
-						$tagList.append($newtags.children());
+						applyTemplate($newtags, "questions.view.question.tab.overview.tags", data);
+						$newtags.children('.tag-small').each(function(i,tag) {
+							$(tag).hide();
+							$tagList.append(tag);
+							$(tag).fadeIn();
+						});
+						$tagList.find('.add-tag-small')
+							.detach()
+							.appendTo($tagList)
+							.fadeIn();
+						$('.tag-search-panel').slideUp();
 						successNotification("Successfully added " + data.amount + " tag(s)");
 					} else {
 						showNotification("No tags were added. This questions was probably already associated with these tags.");
@@ -50,6 +59,19 @@ function configureInputField() {
 		$.post(prepareURL("q/deltag"), {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
 		$(this).parent().remove();
 		return false;
+	});
+	
+	$("#question-tab-overview").on("click", ".delete-tag", function() {
+		$.post(prepareURL("q/deltag"), {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
+		$(this).parent().fadeOut(function() {
+			$(this).remove();
+		})
+		return false;
+	});
+	
+	$("#question-tab-overview").on("click", ".add-tag-small", function() {
+		$(this).closest('.row').siblings('.tag-search-panel').slideDown();
+		$(this).fadeOut();
 	});
 	
 	$("#show-more-history").click(function(){
@@ -161,7 +183,7 @@ function configureInputField() {
 			return false;
 		}*/
 		
-		$("#content-section").attr("data-needsupdate", "true");
+		$("#overview-section").attr("data-needsupdate", "true");
 		
 		$(this).ajaxSubmit({
 			beforeSubmit: function(data, $form, opts) {
