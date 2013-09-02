@@ -63,7 +63,7 @@ moduleScripts['questions'] = {
 	        populateSearchFields,
 	        configureDatePickerFields,
 	        configureDataRenderer,
-	    ]
+	    ],
 	},
 	
 };

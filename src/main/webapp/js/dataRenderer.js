@@ -1,12 +1,12 @@
 function reloadMathJax() {
-	var elems = $('.latex-content').get();
-	
-	function loop(n) {
-		if (n < elems.length) {
-			MathJax.Hub.Typeset(elems[n], function() { loop(n+1); });
-		}
-	}
-	loop(0);
+	var i = 0;
+	var curId;
+	$(".latex-content").each(function(){
+		curId = "latex-content-" + i;
+		$(this).attr("id", curId);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,curId]);
+		i++;
+	});
 }
 
 function reloadMarkDown() {
