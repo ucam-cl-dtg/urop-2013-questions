@@ -1,0 +1,27 @@
+{namespace questions.view.question.tab.history}
+
+/**
+ * @param question
+ */
+{template .full}
+	<div class="row">
+		<ul class="panels" id="history-list" data-qid={$question.id}>
+			<li class="columns large-12">
+				<h4>Previous versions</h4>
+			</li>
+			// Questions will be inserted here by JS
+		</ul>
+		<div class="columns large-12">
+			<a class="large button expand" id="show-more-history">Show more</a>
+		</div>
+		<ul class="panels" id="forks-list" data-qid={$question.id} data-disp=0>
+			<li class="columns large-12">
+				<h4>Forks</h4>
+			</li>
+			// Questions will be inserted here by JS
+		</ul>
+		<div class="columns large-12">
+			<a class="large button expand" id="show-more-forks">Show more</a>
+		</div>
+	</div>
+{/template}

@@ -208,14 +208,15 @@ function loadMoreHistory(depth, $button){
 	
 	var $historyList = $(".main").find("#history-list");
 	var $newQuestions = $("<div></div>");
+	var exhausted = false;
 	
 	loadModule($newQuestions,
 			"q/parents?qid=" + $historyList.attr("data-qid") + "&depth=" + depth,
 			function(json) {
 				
 				if(json.exhausted) {
-					$button.parent().append($("<p align='center'><i>--- End of History ---</i></p>"));
-					$button.remove();
+					$button.val("No more history");
+					exhausted = true;
 				}
 				$historyList.attr("data-qid", json.last);
 				
@@ -224,7 +225,9 @@ function loadMoreHistory(depth, $button){
 			}, 
 			function() {
 				$historyList.append($newQuestions.find(".panels").children());
-				$button.removeClass("disabled");
+				if ( ! exhausted) {
+					$button.removeClass("disabled");
+				}
 			});
 	 
 }
@@ -236,14 +239,15 @@ function loadMoreForks(amount, $button){
 	$button.addClass("disabled");
 		
 	var $forksList = $(".main").find("#forks-list");
-	var $newQuestions = $("<div></div>");
+	var $newQuestions = $(document.createElement("div"));
+	var exhausted = false;
 	
 	loadModule($newQuestions,
 			"q/forks?qid=" + $forksList.attr("data-qid") + "&disp=" + $forksList.attr("data-disp") + "&amount=" + amount,
 			function(json) {
 				if(json.exhausted) {
-					$button.parent().append($("<p align='center'><i>--- End of forks list ---</i></p>"));
-					$button.remove();
+					$button.text("No more forks");
+					exhausted = true;
 				}
 				$forksList.attr("data-disp", json.disp);
 				
@@ -252,7 +256,9 @@ function loadMoreForks(amount, $button){
 			},
 			function() {
 				$forksList.append($newQuestions.find(".panels").children());
-				$button.removeClass("disabled");
+				if ( ! exhausted) {
+					$button.removeClass("disabled");
+				}
 			});
 }
 
@@ -271,16 +277,21 @@ function loadSetTabPageNumbers(curPage, setsPerPage){
 	});
 }
 function loadSetTabPage(page, amount){
-	var $newSets = $("<div></div>");
-	var $setsList = $(".main").find("#sets-list");
-	$setsList.empty();
-	$setsList.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
+	var $newSets = $(document.createElement("div"));
+	var $setsList = $("#sets-list");
+	var $exportTabContent = $("#question-tab-export");
+	
+	$exportTabContent.children(".loading").show();
+	$exportTabContent.children(".row:not(.loading)").hide();
+
 	loadModule($newSets,
 			"sets/mysets/limited?page=" + page + "&amount=" + amount + "&contains=" + $setsList.attr("data-qid"),
 			"shared.set.multipleHighlight",
 			function() {
 				$setsList.empty();
 				$setsList.append($newSets.find(".panels").children());
+				$exportTabContent.children(".row:not(.loading)").show();
+				$exportTabContent.children(".loading").hide();
 			});
 }
 
@@ -328,9 +339,12 @@ function updateEditTab(){
 }
 
 function populateSetListToEdit($setListDiv){
-	var $newList = $("<div></div>");
+	var $newList = $(document.createElement("div"));
+	var $loading = $("#question-tab-edit .loading");
+	
+	$loading.slideDown();
 	$setListDiv.empty();
-	$setListDiv.append("<div class='columns large-12 small-12'><i>Loading...</i></div>");
+
 	loadModule($newList,
 			"sets/mysets/qlimited?qid=" + $("#form-qid").val(),
 			"shared.set.setSelectionQuestionEdit",
@@ -340,5 +354,6 @@ function populateSetListToEdit($setListDiv){
 				$setListDiv.empty();
 				$setListDiv.append($newList.children());
 				$setListDiv.find(".panels").slideDown();
+				$loading.slideUp();
 			});
 }

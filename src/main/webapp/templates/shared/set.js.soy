@@ -26,11 +26,13 @@
  * @param sets
  */
 {template .multiple}
-	{foreach $set in $sets}
-		{call .single}
-			{param set: $set /}
-		{/call}
-	{/foreach}
+	<ul class="panels">
+		{foreach $set in $sets}
+			{call .single}
+				{param set: $set /}
+			{/call}
+		{/foreach}
+	</ul>
 {/template}
 
 /**
@@ -54,8 +56,8 @@
 {template .setSelectionQuestionEdit}
 	<ul class="panels">
 	{if $sets and $sets.length > 0}
-		<div class="columns large-12 small-12"><i>Choose the sets in which to edit 
-		 the question below, or choose none to edit it outside the context of a set:</i></div> 
+		<div class="columns large-12 small-12">Choose the sets in which to edit 
+		 the question below, or choose none to edit it outside the context of a set:</div> 
 			{foreach $set in $sets}
 				{call .single}
 					{param set: $set /}
@@ -66,8 +68,8 @@
 		</ul>
 	{else}
 		<div class="columns large-12 small-12">
-			<i>You are not using this question in any sets. This will perform a major
-			edit to this question outside the context of any sets.</i>
+			You are not using this question in any sets. This will perform a major
+			edit to this question outside the context of any sets.
 		</div>
 	{/if}
 {/template}

@@ -1,0 +1,58 @@
+{namespace questions.view.question}
+
+/**
+ * @param question
+ * @param? target
+ */
+{template .full}
+<div class="row">
+	<div class="columns large-12 small-12">
+		<h3><span class="fixed-width-icon star-question-button" data-question-id="{$question.id}"><i class="icon{' '}
+		{if $question.starred}
+			icon-star
+		{else}
+			icon-star_empty
+		{/if}
+		"></i></span>Question #{$question.id} by <a href="{$ij.URLPrefix}/users/{$question.owner.id}">{$question.owner.id}</a></h3> 
+	</div>
+</div>
+<div class="row">
+	<div class="columns large-12 small-12">
+		<div class="section-container tabs" data-section="tabs">
+			<section {if $target=='content'}class="active"{/if}>
+				<p class="title" data-section-title>
+					<a href="{$ij.URLPrefix}/q/{$question.id}/content" class="in-place-anchor" id="content-section" data-needsupdate="false" data-bypass>Content</a>
+				</p>
+				<div class="content" data-section-content>
+					{call questions.view.question.tab.content.full data="all" /}
+				</div>
+			</section>
+			<section {if $target=='tags'}class="active"{/if}>
+				<p class="title" data-section-title><a href="{$ij.URLPrefix}/q/{$question.id}/tags" class="in-place-anchor" data-bypass>Tags</a></p>
+				<div class="content" data-section-content>
+					{call questions.view.question.tab.tags.full data="all" /}
+				</div>
+			</section>
+			<section {if $target=='history'}class="active"{/if}>
+				<p class="title" data-section-title><a data-bypass href="{$ij.URLPrefix}/q/{$question.id}/history" class="in-place-anchor">History</a></p>
+				<div class="content" data-section-content>
+					{call questions.view.question.tab.history.full data="all" /}
+				</div>
+			</section>
+			<section {if $target=='export'}class="active"{/if}>
+				<p class="title" data-section-title><a data-bypass href="{$ij.URLPrefix}/q/{$question.id}/export" class="in-place-anchor">Export</a></p>
+				<div class="content" data-section-content id="question-tab-export">
+					{call questions.view.question.tab.export.full data="all" /}
+				</div>
+			</section>
+			<section {if $target=='edit'}class="active"{/if}>
+				<p class="title" data-section-title><a data-bypass href="/q/{$question.id}/edit" class="in-place-anchor" id="edit-section" data-needsupdate="false">Edit</a></p>
+				<div class="content" data-section-content id="question-tab-edit">
+					{call questions.view.question.tab.edit.full data="all" /}
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+{/template}

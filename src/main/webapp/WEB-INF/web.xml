@@ -49,12 +49,13 @@
 		  /js/questions_inits.js,
 		  /soy/js/1/questions.js,
 		  /soy/js/1/questions.search.js,
-		  /soy/js/1/questions.view.js,
 		  /soy/js/1/questions.form.question.js,
 		  /soy/js/1/questions.form.set.js,
 		  /soy/js/1/questions.view.set.tab.js,
 		  /soy/js/1/questions.view.set.js,
 		  /soy/js/1/questions.view.user.js,
+		  /soy/js/1/questions.view.question.tab.js,
+		  /soy/js/1/questions.view.question.js,
 		  /soy/js/1/questions.misc.js
 		</param-value>
 	</context-param>

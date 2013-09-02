@@ -2,8 +2,16 @@
 
 /**
  * @param crsid
- * param questions
- * param sets
+ * @param sets
+ * @param totalSets
+ * @param setsPage
+ * @param setsAmount
+ * @param questions
+ * @param totalQuestions
+ * @param questionsPage
+ * @param questionsAmount
+ * param success
+ * param? error
  */
 {template .full}
 <div class="user-content" id="user-content-div" data-crsid="{$crsid}">
@@ -18,51 +26,15 @@
 			<div class="section-container tabs" data-section="tabs">
 				<section id="user-content-sets">
 					<p class="title" data-section-title><a href="#">Sets</a></p>
-					<div class="content" data-section-content>
-						<div class="row content-relative-positioned">
-							<div class="columns large-8 small-8 sets-page-numbers">
-								// JS will insert page numbers here
-							</div>
-							<div class="columns large-4 small-4 text-right this-absolute-positioned bottom-right" id="sets-search-link">
-								
-							</div>
-						</div>
-						<div class="row">
-							<ul class="panels" id="user-set-list">
-								// JS will insert the sets here.
-								<div class='columns large-12 small-12'><i>No sets were found here</i></div>
-							</ul>
-						</div>
-						<div class="row">
-							<div class="columns large-12 small-12 sets-page-numbers">
-								// JS will insert page numbers here
-							</div>
-						</div>
+					<div class="content" data-section-content id="user-set-content">
+						{call .sets data="all" /}
 					</div>
 				</section>
 				
 				<section id="user-content-sets">
 					<p class="title" data-section-title><a href="#">Questions</a></p>
-					<div class="content" data-section-content>
-						<div class="row content-relative-positioned">
-							<div class="columns large-8 small-8 questions-page-numbers">
-								// JS will insert page numbers here
-							</div>
-							<div class="columns large-4 small-4 text-right this-absolute-positioned bottom-right" id="questions-search-link">
-								// JS will insert link here
-							</div>
-						</div>
-						<div class="row">
-							<ul class="panels" id="user-question-list">
-								// JS will insert the sets here.
-								<div class='columns large-12 small-12'><i>No questions were found here</i></div>
-							</ul>
-						</div>
-						<div class="row">
-							<div class="columns large-12 small-12 questions-page-numbers">
-								// JS will insert page numbers here
-							</div>
-						</div>
+					<div class="content" data-section-content id="user-question-content">
+						{call .questions data="all" /}
 					</div>
 				</section>
 				
@@ -70,4 +42,106 @@
 		</div>
 	</div>
 </div>
+{/template}
+
+/**
+ * @param crsid
+ * @param sets
+ * @param totalSets
+ * @param setsPage
+ * @param setsAmount
+ * @param? error
+ */
+{template .sets}
+{if $sets.length < 1 or $error}
+	<div class="row">
+		<div class="columns large-12 small-12">
+			{if not $error}
+				<p>No sets found</p>
+			{else}
+				<p class="error">{$error}</p>
+			{/if}
+		</div>
+	</div>
+{else}
+	<div class="row content-relative-positioned">
+		<div class="columns large-8 small-8 sets-page-numbers">
+			{call shared.util.pageNumbers}
+				{param curPage: $setsPage /}
+				{param maxPage: ceiling($totalSets/$setsAmount) /}
+				{param resultsPerPage: $setsAmount /}
+			{/call}
+		</div>
+		<div class="columns large-4 small-4 text-right this-absolute-positioned bottom-right" id="sets-search-link">
+			<a href="/questions/q/search?authors={$crsid}">Search within these sets</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class='columns large-12 small-12' id="user-set-list">
+			{call shared.set.multiple}
+				{param sets: $sets /}
+			{/call}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns large-12 small-12 sets-page-numbers">
+			{call shared.util.pageNumbers}
+				{param curPage: $setsPage /}
+				{param maxPage: ceiling($totalSets/$setsAmount) /}
+				{param resultsPerPage: $setsAmount /}
+			{/call}
+		</div>
+	</div>
+{/if}
+{/template}
+
+/**
+ * @param crsid
+ * @param questions
+ * @param totalQuestions
+ * @param questionsPage
+ * @param questionsAmount
+ * @param? error
+ */
+{template .questions}
+{if $questions.length < 1}
+	<div class="row">
+		<div class="columns large-12 small-12">
+			{if not $error}
+				<p>No sets found</p>
+			{else}
+				<p class="error">{$error}</p>
+			{/if}
+		</div>
+	</div>
+{else}
+	<div class="row content-relative-positioned">
+		<div class="columns large-8 small-8 questions-page-numbers">
+			{call shared.util.pageNumbers}
+				{param curPage: $questionsPage /}
+				{param maxPage: ceiling($totalQuestions/$questionsAmount) /}
+				{param resultsPerPage: $questionsAmount /}
+			{/call}
+		</div>
+		<div class="columns large-4 small-4 text-right this-absolute-positioned bottom-right" id="questions-search-link">
+			<a href="/questions/q/search?authors={$crsid}">Search within these questions</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns large-12 small-12" id="user-question-list">
+			{call shared.question.multiple}
+				{param questions: $questions /}
+			{/call}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns large-12 small-12 questions-page-numbers">
+			{call shared.util.pageNumbers}
+				{param curPage: $questionsPage /}
+				{param maxPage: ceiling($totalQuestions/$questionsAmount) /}
+				{param resultsPerPage: $questionsAmount /}
+			{/call}
+		</div>
+	</div>
+{/if}
 {/template}
