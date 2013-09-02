@@ -220,9 +220,13 @@ public class QuestionSetViewController extends GeneralController {
 			List<Tag> tags = TagQuery.all().notContainedIn(QuestionSetQuery.get(setid).getTags())
 					.contains(tag).maxResults(10).list();
 			
+			boolean contains = false;
 			for (Tag t : tags) {
 				results.add(ImmutableMap.of("name", t.getName()));
+				if(t.getName().equalsIgnoreCase(tag)) contains = true;
 			}
+			
+			if(!contains) results.add(ImmutableMap.of("name", tag));
 			
 			// The result needs to remain like this - don't change. (Unless you're gonna fix what you break...)
 			return results;
