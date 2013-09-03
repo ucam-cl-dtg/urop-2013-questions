@@ -38,6 +38,11 @@
 	</context-param>
 
 	<context-param>
+		<param-name>uploadsDir</param-name>
+		<param-value>/local/data/questions/</param-value>
+	</context-param>
+
+	<context-param>
 		<param-name>jsFiles</param-name>
 		<param-value>
 		  http://code.jquery.com/ui/1.10.3/jquery-ui.js,

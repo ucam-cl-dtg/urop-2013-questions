@@ -13,10 +13,10 @@ public class ServletContextInitializer implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		log.info("Initializing apiKey and dashboardUrl fields in ServContext...");
-		ServletContext context;
-		context = sce.getServletContext();
+		ServletContext context = sce.getServletContext();
 		ServContext.setApiKey(context.getInitParameter("apiKey"));
 		ServContext.setDashboardUrl(context.getInitParameter("dashboardUrl"));
+		ServContext.setUploadsDir(context.getInitParameter("uploadsDir"));
 	}
 
 	@Override
@@ -24,6 +24,7 @@ public class ServletContextInitializer implements ServletContextListener {
 		log.info("Destroying ServletContext - setting apiKey and dashboardUrl in ServContext to null.");
 		ServContext.setApiKey(null);
 		ServContext.setDashboardUrl(null);
+		ServContext.setUploadsDir(null);
 	}
 
 }

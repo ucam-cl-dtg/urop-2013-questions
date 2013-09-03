@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
+import uk.ac.cam.sup.util.ServContext;
+
 @Path("/uploads")
 public class FileController {
 	
@@ -27,8 +29,8 @@ public class FileController {
 			return response.build();
 		}
 		
-		ServletContext context = ResteasyProviderFactory.getContextData(ServletContext.class);
-		String rootLocation = context.getInitParameter("storageLocation")+"local/data/questions/";
+		//ServletContext context = ResteasyProviderFactory.getContextData(ServletContext.class);
+		String rootLocation = ServContext.getUploadsDir();//context.getInitParameter("storageLocation")+"local/data/questions/";
 		
 		File file = new File(rootLocation+filename);
 		
