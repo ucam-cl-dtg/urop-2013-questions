@@ -237,7 +237,7 @@ function loadMoreHistory(depth, $button){
 			function(json) {
 				
 				if(json.exhausted) {
-					$button.val("No more history");
+					$button.text("No more previous versions");
 					exhausted = true;
 				}
 				$historyList.attr("data-qid", json.last);

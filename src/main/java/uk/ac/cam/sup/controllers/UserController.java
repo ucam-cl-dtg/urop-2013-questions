@@ -33,8 +33,20 @@ public class UserController extends GeneralController {
 	@GET
 	@Path("/{crsid}")
 	@Produces("application/json")
-	public Map<String,?> getUserID(@PathParam("crsid") String crsid){
-		return ImmutableMap.of("success", true, "crsid", crsid); 
+	public Map<String,?> produceUserContent(@PathParam("crsid") String crsid){
+		Builder<String,Object> builder = ImmutableMap.builder();
+		
+		try {
+			builder.putAll(fetchUserQuestions(crsid, 1, 25))
+				.putAll(fetchUserSets(crsid, 1, 25))
+				.put("success", true)
+				.put("crsid", crsid);
+		} catch (QueryAlreadyOrderedException | ModelNotFoundException e) {
+			builder.put("success", false)
+				.put("error", e.getMessage());
+		}
+		
+		return builder.build();
 	}
 	
 	@GET
@@ -94,19 +106,7 @@ public class UserController extends GeneralController {
 	@Path("/me")
 	@Produces("application/json")
 	public Map<String,?> produceMyContent() {
-		Builder<String,Object> builder = ImmutableMap.builder();
-		
-		try {
-			builder.putAll(fetchUserQuestions(getCurrentUserID(), 1, 25))
-				.putAll(fetchUserSets(getCurrentUserID(), 1, 25))
-				.put("success", true)
-				.put("crsid", getCurrentUserID());
-		} catch (QueryAlreadyOrderedException | ModelNotFoundException e) {
-			builder.put("success", false)
-				.put("error", e.getMessage());
-		}
-		
-		return builder.build();
+		return produceUserContent(getCurrentUserID());
 	}
 	
 	private Map<String,?> fetchUserQuestions(String crsid, int page, int amount) throws QueryAlreadyOrderedException {

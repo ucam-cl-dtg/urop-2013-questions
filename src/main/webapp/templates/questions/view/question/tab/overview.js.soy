@@ -70,15 +70,11 @@
  */
 {template .tags}
 	{if $tags}
-		{if $tags.length > 0}
-			{foreach $tag in $tags}
-				<span class="label round tag-small">{$tag.name}
-					&thinsp; <i class="delete-tag icon icon-cross_mark" data-name="{$tag.name}" />
-				</span>
-			{/foreach}
-		{else}
-			none
-		{/if}
+		{foreach $tag in $tags}
+			<span class="label round tag-small">{$tag.name}
+				&thinsp; <i class="delete-tag icon icon-cross_mark" data-name="{$tag.name}" />
+			</span>
+		{/foreach}
 	{/if}
 	<span class="label round add-tag-small">Add tags
 		&thinsp; <i class="delete-tag icon icon-plus" />
