@@ -113,7 +113,7 @@ public class QuestionEditController extends GeneralController{
 		String userName;
 		try {
 			LDAPUser user = LDAPQueryManager.getUser(userID);
-			userName = user.getcName();
+			userName = user.getDisplayName();
 		} catch(LDAPObjectNotFoundException e){
 			userName = userID;
 		}
