@@ -157,7 +157,7 @@ public class UserController extends GeneralController {
 			for(User u : users){
 				try {
 					LDAPUser user = LDAPQueryManager.getUser(u.getId());
-					crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getcName()));
+					crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getDisplayName()));
 				} catch(LDAPObjectNotFoundException e){
 					crsidResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", "Annonymous"));
 				}
@@ -174,7 +174,7 @@ public class UserController extends GeneralController {
 						LDAPUser user = LDAPQueryManager.getUser(u.getId());
 						surname = user.getSurname();
 						if(surname.toLowerCase().startsWith(st.toLowerCase()) && !crsidResults.contains(u)){
-							surnameResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getcName()));
+							surnameResults.add(ImmutableMap.of("value", u.getId(), "crsid", u.getId(), "name", user.getDisplayName()));
 						}
 					} catch(LDAPObjectNotFoundException e){
 						// Don't do anything if something goes wrong in previous step, as it is unknown if the last name starts with st

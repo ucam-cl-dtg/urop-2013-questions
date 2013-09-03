@@ -113,7 +113,7 @@ public class QuestionEditController extends GeneralController{
 		String userName;
 		try {
 			LDAPUser user = LDAPQueryManager.getUser(userID);
-			userName = user.getcName();
+			userName = user.getDisplayName();
 		} catch(LDAPObjectNotFoundException e){
 			userName = userID;
 		}
@@ -131,17 +131,39 @@ public class QuestionEditController extends GeneralController{
 		String link = "q/" + newQuestionID;
 		Set<String> userSet = new HashSet<String>();
 		
+		// NOTE: I don't think this is the best way to do it - therefore the editor
+		// won't be notified by default anymore. If people have major problems with
+		// this, simply change it again.
+		//
 		// If this question is not in a question set then the query below won't
 		// have any results. Therefore we start off with the assumption that the
 		// editor should be in the list of notified people. Thus if the question
 		// is not in a question set this will be the owner of the question. If
 		// the questions is in a question set then this will be a duplicate of a
 		// result returned by the following query.
-		userSet.add(userID);
+		//userSet.add(userID);
+		
+		Question oldQ = QuestionQuery.get(oldQuestionID);
+		if(oldQ != null){
+			String ownerID = oldQ.getOwner().getId(); 
+			userSet.add(ownerID);
+		}
+		
 		
 		List<QuestionSet> sets = QuestionSetQuery.all().have(oldQuestionID).list();
 		for(QuestionSet set: sets){
 			userSet.add(set.getOwner().getId());
+		}
+		
+		// Remove the editor from the list of users to notify, as they should
+		// know that they have edited a question.
+		if(userSet.contains(userID)) {
+			userSet.remove(userID);
+		}
+		
+		if(userSet.size() < 1){
+			// Abort if there is no one to send a notification to.
+			return;
 		}
 		
 		StringBuffer usersBuf = new StringBuffer();
@@ -153,12 +175,12 @@ public class QuestionEditController extends GeneralController{
 		NotificationApiWrapper n = new NotificationApiWrapper(getDashboardURL(), getApiKey());
 
 		//TODO: remove this logging message
-		log.info("Now trying to send notification via supervision-api. \nDashboardURL: " 
+		log.debug("Now trying to send notification via supervision-api. \nDashboardURL: " 
 				+ getDashboardURL() + ".  \nAPIKey: " + getApiKey() + ".  \nMessage: " + message
 				+ ".  \nLink: " + link + ".  \nUsers: " + users + ".  \nsection: questions.");
 		try{
 			n.createNotification(message, "questions", link, users);
-			log.info("Apparently successfully created notification!");
+			log.debug("Apparently successfully created notification!");
 		} catch(NotificationException e){
 			log.error("Could not create notification: \"" + message + "\" for users " + users + ".\nMessage: " + e.getMessage());
 		}

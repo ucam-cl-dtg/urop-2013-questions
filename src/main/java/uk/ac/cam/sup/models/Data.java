@@ -12,6 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import uk.ac.cam.sup.util.DataType;
+import uk.ac.cam.sup.util.ServContext;
 
 @Embeddable
 public class Data implements Cloneable {
@@ -78,8 +79,8 @@ public class Data implements Cloneable {
 			throw new IOException("File empty");
 		}
 		
-		String directory = "uploads/";
-		new File(directory).mkdirs();
+		String directory = ServContext.getUploadsDir();
+		//new File(directory).mkdirs();
 		String filename = "data-"+UUID.randomUUID().toString()+"."+extension;
 		
 		File destinationFile = new File(directory+filename);
