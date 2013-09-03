@@ -339,7 +339,6 @@ function configureQuestionStarToggler() {
 function updateContentTab(json){
 	applyTemplate($("#question-content"), "shared.data.display", {data: json.question.content});
 	applyTemplate($("#question-notes"), "shared.data.display", {data: json.question.notes});
-	applyTemplate($("#content-tab-expected-duration"), "questions.view.expDur", {expdur: json.question.expectedDuration});
 	reloadData();
 	
 }

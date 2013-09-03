@@ -1,15 +1,11 @@
 package uk.ac.cam.sup.controllers;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.cl.dtg.teaching.api.DashboardApi.DashboardApiWrapper;
-import uk.ac.cam.cl.dtg.teaching.api.DashboardApi.Settings;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.UserQuery;

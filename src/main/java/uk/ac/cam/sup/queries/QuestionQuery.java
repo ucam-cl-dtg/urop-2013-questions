@@ -132,13 +132,6 @@ public class QuestionQuery extends Query<Question> {
 		return this;
 	}
 	public QuestionQuery before(Date date){
-		try{
-			Question q = get(1);
-			System.out.println("Date provided: " + date + "      Question date: " + q.getTimeStamp());
-		}catch(Exception e){
-			System.out.println("Exception " + e.getMessage());
-		}
-		
 		log.debug("Filtering before a date...");
 		criteria.add(Restrictions.le("timeStamp", date));
 		modified = true;
