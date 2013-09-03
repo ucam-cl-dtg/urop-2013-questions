@@ -81,7 +81,7 @@
 		<filter-class>uk.ac.cam.cl.dtg.teaching.APIFilter</filter-class>
 		<init-param>
 			<param-name>allowGlobal</param-name>
-			<param-value>false</param-value>
+			<param-value>true</param-value>
 		</init-param>
 	</filter>
 
