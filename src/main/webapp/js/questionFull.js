@@ -46,7 +46,7 @@ function configureInputField() {
 					} else {
 						showNotification("No tags were added. This questions was probably already associated with these tags.");
 					}
-					$('li.token-input-token-facebook').remove();
+					$inputField.tokenInput("clear");
 				} else {
 					errorNotification(data.error);
 				}
@@ -55,17 +55,11 @@ function configureInputField() {
 		return false;
 	});
 	
-	$(".tags-cloud").on("click", ".delete-tag", function(){
-		$.post(prepareURL("q/deltag"), {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
-		$(this).parent().remove();
-		return false;
-	});
-	
 	$("#question-tab-overview").on("click", ".delete-tag", function() {
 		$.post(prepareURL("q/deltag"), {"qid": $tagList.attr("data-qid"), "tag": $(this).attr("data-name")});
 		$(this).parent().fadeOut(function() {
 			$(this).remove();
-		})
+		});
 		return false;
 	});
 	

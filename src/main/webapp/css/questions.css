@@ -214,7 +214,7 @@ div.create-set-textfield-container {
 	float: right;
 }
 
-#question-tab-overview .row {
+#question-tab-overview .row, #set-overview-tab .row {
 	padding-top: 10px !important;
 }
 
@@ -244,4 +244,20 @@ div.create-set-textfield-container {
 
 .small-tags-list {
 	float: left;
+}
+
+#set-delete-div {
+	display: none;
+}
+
+#set-delete-cancel {
+	margin-right: 10px;
+}
+
+.expand-sub-panel {
+	cursor: pointer;
+}
+
+.big-menu .list-sub-panel {
+	background-color: transparent;
 }

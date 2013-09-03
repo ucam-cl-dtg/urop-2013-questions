@@ -1,58 +1,65 @@
-{namespace questions.view.question.tab.overview}
+{namespace questions.view.set.tab.overview}
 
 /**
- * @param question
+ * Full tab
+ * @param plan
+ * @param id
+ * @param soyTimeStamp
+ * @param owner
+ * @param expectedDuration
+ * @param tags
+ * @param questions
+ * @param starred
  */
 {template .full}
+/*
+{if $deadLineLink != null and $deadLineLink.length > 0}
+	<div>
+		<a href="{$deadLineLink}" class="medium button" data-absolute>Create deadline with this set</a>
+	</div>
+{/if}
+*/
 	<div class="row">
-		<div class="columns large-12 small-12" id="question-content">
+		<div class="columns large-12 small-12">
 			{call shared.data.display}
-				{param data: $question.content /}
+				{param data: $plan /}
 			{/call}
 		</div>
 	</div>
 	
-	{if $question.notes.type != 'EMPTY'}
 	<div class="row">
-		<div class="columns large-12 small-12" id="question-notes">
-			<h4>Solution notes</h4>
-			{call shared.data.display}
-				{param data: $question.notes /}
-			{/call}
-		</div>
-	</div>
-	{/if}
-	
-	<div class="row">
-		<div class="columns large-12 small-12" id="question-info">
+		<div class="columns large-12 small-12" id="set-info">
 			<h4>Additional information</h4>
 			<ul class="information-list">
 				<li><i class="icon icon-user fixed-width-icon" />
 					<strong> Owner: </strong> 
-					<a href="{$ij.URLPrefix}/users/{$question.owner.id}">{$question.owner.id}</a>
+					<a href="{$ij.URLPrefix}/users/{$owner.id}">{$owner.id}</a>
 				</li>
 				
 				<li><i class="icon icon-clock fixed-width-icon" /> 
-					<strong> Created:</strong> {$question.soyTimeStamp}
+					<strong> Created:</strong> {$soyTimeStamp}
 				</li>
 				
-				{if $question.starred}
+				{if $starred}
 				<li><i class="icon icon-star fixed-width-icon" />
-					This version of the question was marked by its author as up-to-date.
+					This set was marked by its owner as up-to-date.
 				</li>
 				{/if}
+				
+				<li><i class="icon icon-list fixed-width-icon" />
+					<strong> Number of questions:</strong> {$questions.length}
 				
 				<li><i class="icon icon-stopwatch fixed-width-icon" /> 
 					<strong> Expected duration: </strong>
 					{call shared.utils.estimatedDuration}
-						{param mins: $question.expectedDuration /}
+						{param mins: $expectedDuration /}
 					{/call}
 				</li>
 				
-				<li id="question-tags-list" data-qid="{$question.id}"><i class="icon icon-hashtag fixed-width-icon" />
+				<li id="set-tags-list" data-setid="{$id}"><i class="icon icon-hashtag fixed-width-icon" />
 					<strong> Tags: </strong>
 					{call .tags}
-						{param tags: $question.tags /}
+						{param tags: $tags /}
 					{/call}
 				</li>
 			</ul>
@@ -62,10 +69,10 @@
 	<div class="tag-search-panel row" style="display: none">
 		<div class="columns large-12 small-12 clearfix">
 			<div class="button-container-tags-tab">
-				<a class="medium success button full-width" href="#" id="add-tags">Add</a>
+				<a class="medium button full-width" href="#" id="add-tags">Add</a>
 			</div>
 			<div class="text-field-container-tags-tab">
-				<input type="text" id="tags-input" data-qid="{$question.id}" />
+				<input type="text" id="tags-input" data-setid="{$id}" />
 			</div>
 		</div>
 	</div>

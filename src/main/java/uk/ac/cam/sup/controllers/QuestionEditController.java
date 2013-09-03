@@ -205,13 +205,6 @@ public class QuestionEditController extends GeneralController{
 			return ImmutableMap.of("success", false, "error", "Message: Failed to store uploaded file. " + e.getMessage());
 		}
 	}
-
-	@GET
-	@Path("/pastpapers")
-	@Produces("application/json")
-	public Set<Question> producePastPapers() throws Exception {
-		return PPDLoader.loadAllQuestions();
-	}
 	
 	@POST
 	@Path("/addtags")

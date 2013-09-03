@@ -23,7 +23,7 @@ $(document).ready(function() {
 		"q/:id" : "questions.view.question.full",
 		"q/:id/:target" : "questions.view.question.full",
 		"q/search((?)(:params(/))*)" : saveJSON("questions.search.main"),
-		"q/add" : "questions.form.question.create",
+		"q/add" : "questions.form.question.createpage",
 		
 		"sets((?)(:params(/))*)": saveJSON("questions.view.set.list"),
     	"sets/:id" : "questions.view.set.full",

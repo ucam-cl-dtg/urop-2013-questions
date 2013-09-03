@@ -3,10 +3,8 @@
 /**
  * Form to create new question
  * @param? setId
- * @param? h
  */
 {template .create}
-	<h{if $h}{$h}{else}3{/if}>Create a new question</h{if $h}{$h}{else}3{/if}>
 	<form class="custom" method="POST" action="q/save" enctype="multipart/form-data">
 		<input type="hidden" name="setId" value="{if $setId != null}{$setId}{else}-1{/if}" />
 		<div class="row">
@@ -47,4 +45,13 @@
 			</div>
 		</div>
 	</form>
+{/template}
+
+/**
+ * Form to create new question
+ * @param? setId
+ */
+{template .createpage}
+	<h3>Create a new question</h3>
+	{call .create data="all" /}
 {/template}

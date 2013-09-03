@@ -72,3 +72,4 @@ moduleScripts['questions'] = {
 
 configureAdvancedSearchExpand();
 configureSetSearchButton();
+configureExpanders();
