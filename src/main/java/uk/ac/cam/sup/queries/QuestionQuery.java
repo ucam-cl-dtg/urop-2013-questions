@@ -132,12 +132,6 @@ public class QuestionQuery extends Query<Question> {
 		return this;
 	}
 	public QuestionQuery before(Date date){
-		try{
-			Question q = get(1);
-		}catch(Exception e){
-			log.error("Exception " + e.getMessage());
-		}
-		
 		log.debug("Filtering before a date...");
 		criteria.add(Restrictions.le("timeStamp", date));
 		modified = true;
