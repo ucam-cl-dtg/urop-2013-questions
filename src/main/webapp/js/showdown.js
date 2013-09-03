@@ -156,7 +156,18 @@ this.makeHtml = function(text) {
 	// The choice of character is arbitray; anything that isn't
 	// magic in Markdown will work.
 	text = text.replace(/~/g,"~T");
+	
+	// remove and store all maths
+	var maths = [];
+	var m;
+	var re = /\${1,2}[^$]+\${1,2}/g;
+	do {
+		m = re.exec(text);
+		if (m) maths.push(m[0]);
+	} while (m);
 
+	text = text.replace(re, "~L");
+	
 	// attacklab: Replace $ with ~D
 	// RegExp interprets $ as a special character
 	// when it's in a replacement string
@@ -207,6 +218,11 @@ this.makeHtml = function(text) {
 	Showdown.forEach(g_output_modifiers, function(x){
 		text = _ExecuteExtension(x, text);
 	});
+	
+	// restore maths
+	for (var i = 0; i < maths.length; i++) {
+		text = text.replace(/~L/, maths[i]);
+	}
 
 	return text;
 };
