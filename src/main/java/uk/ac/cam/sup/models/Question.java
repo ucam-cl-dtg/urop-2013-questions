@@ -274,6 +274,7 @@ public class Question extends Model implements Cloneable, Mappable {
 			r.put("notes", this.notes);
 		}
 		
+		r.put("title", "Question #" + this.id);
 		
 		return r;
 	}
