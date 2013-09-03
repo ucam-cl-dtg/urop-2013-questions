@@ -1,10 +1,12 @@
 package uk.ac.cam.sup.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -260,8 +262,8 @@ public class Question extends Model implements Cloneable, Mappable {
 		Map<String,Object> r =	new HashMap<String,Object>();
 		r.put("id", this.id);
 		r.put("parentid", (parent == null ? null : this.parent.getId()));
-		//r.put("timeStamp", this.timeStamp);
-		r.put("soyTimeStamp", timeStamp.toString());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.UK);
+		r.put("soyTimeStamp", dateFormat.format(timeStamp));
 		r.put("owner", this.owner);
 		r.put("content", this.content);
 		r.put("starred", this.isStarred);
