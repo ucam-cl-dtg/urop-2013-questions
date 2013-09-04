@@ -271,7 +271,7 @@ public class Question extends Model implements Cloneable, Mappable {
 		r.put("tags", this.tags);
 		
 		if (shadow && this.owner.getSupervisor()) {
-			r.put("notes", null);
+			r.put("notes", new Data(DataType.EMPTY, null));
 		} else {
 			r.put("notes", this.notes);
 		}

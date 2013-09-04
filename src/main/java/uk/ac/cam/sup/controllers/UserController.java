@@ -40,7 +40,8 @@ public class UserController extends GeneralController {
 			builder.putAll(fetchUserQuestions(crsid, 1, 25))
 				.putAll(fetchUserSets(crsid, 1, 25))
 				.put("success", true)
-				.put("crsid", crsid);
+				.put("crsid", crsid)
+				.put("userName", new User(crsid).getName());
 		} catch (QueryAlreadyOrderedException | ModelNotFoundException e) {
 			builder.put("success", false)
 				.put("error", e.getMessage());

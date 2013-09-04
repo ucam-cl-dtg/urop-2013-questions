@@ -25,6 +25,10 @@ public abstract class GeneralController {
 	protected String getCurrentUserID(){
 		return getCurrentUser().getId();
 	}
+	protected String getCurrentUserName(){
+		User u = new User(getCurrentUserID());
+		return u.getName();
+	}
 	
 	/**
 	 * Gets boolean value of user's supervisor bit

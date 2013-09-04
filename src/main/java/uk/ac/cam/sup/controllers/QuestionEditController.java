@@ -110,14 +110,8 @@ public class QuestionEditController extends GeneralController{
 	}
 
 	private void sendQuestionEditedNotification(int oldQuestionID, int newQuestionID, String userID){
-		String userName;
-		try {
-			LDAPUser user = LDAPQueryManager.getUser(userID);
-			userName = user.getDisplayName();
-		} catch(LDAPObjectNotFoundException e){
-			userName = userID;
-		}
-
+		String userName = new User(userID).getName();
+		
 		String message;
 		
 		if(oldQuestionID != newQuestionID){
