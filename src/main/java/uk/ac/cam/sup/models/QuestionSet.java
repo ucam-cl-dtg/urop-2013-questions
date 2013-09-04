@@ -1,11 +1,13 @@
 package uk.ac.cam.sup.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -279,8 +281,8 @@ public class QuestionSet extends Model implements Mappable, Cloneable {
 		r.put("id", this.id);
 		r.put("name", this.name);
 		r.put("owner", this.owner);
-		//r.put("timeStamp", this.timeStamp); // for direct soy access use soyTimeStamp
-		r.put("soyTimeStamp", this.timeStamp.toString());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.UK);
+		r.put("soyTimeStamp", dateFormat.format(timeStamp));
 		r.put("expectedDuration", this.getExpectedDuration());
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);
