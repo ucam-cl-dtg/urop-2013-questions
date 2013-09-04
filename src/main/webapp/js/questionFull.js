@@ -337,8 +337,7 @@ function configureQuestionStarToggler() {
 }
 
 function updateContentTab(json){
-	applyTemplate($("#question-content"), "shared.data.display", {data: json.question.content});
-	applyTemplate($("#question-notes"), "shared.data.display", {data: json.question.notes});
+	applyTemplate($("#question-tab-overview"), "questions.view.question.tab.overview.full", {question: json.question});
 	reloadData();
 	
 }

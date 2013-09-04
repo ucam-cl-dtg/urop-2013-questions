@@ -281,3 +281,7 @@ div.create-set-textfield-container {
 .monospace {
 	font-family: monospace;
 }
+
+.grey-text {
+	color: #999;
+}

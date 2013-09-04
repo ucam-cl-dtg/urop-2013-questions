@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	
-	{if $question.notes.type != 'EMPTY'}
+	{if $question.notes != null and $question.notes.type != 'EMPTY'}
 	<div class="row">
 		<div class="columns large-12 small-12" id="question-notes">
 			<h4>Solution notes</h4>
