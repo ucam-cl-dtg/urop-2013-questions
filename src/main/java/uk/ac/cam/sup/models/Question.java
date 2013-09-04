@@ -102,9 +102,10 @@ public class Question extends Model implements Cloneable, Mappable {
 	
 	public Data getContent(){return content;}
 	public void setContent(Data c){content = c;}
-	
+		
 	public Data getNotes(){return notes;}
 	public void setNotes(Data n){notes = n;}
+	
 	
 	public void setTags(Set<Tag> tags){this.tags = tags;}
 	public Set<Tag> getTags(){return tags;}

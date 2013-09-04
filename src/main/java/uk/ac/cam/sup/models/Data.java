@@ -28,25 +28,17 @@ public class Data implements Cloneable {
 	
 	public Data(){}
 	
-	@Deprecated
-	public Data(boolean isString, String data) {
-		if (isString) {
-			this.type = DataType.PLAIN_TEXT;
-		} else {
-			this.type = DataType.EMPTY;
-		}
-		this.data = data;
-	}
-	
 	public Data(DataType type, String data) {
-		this.type = type;
-		this.data = data;
+		setDataAndType(type, data);
 	}
 	
 	public Data(DataType type, String data, String description) {
-		this.type = type;
-		this.data = data;
-		this.description = description;
+		if(type == DataType.FILE) {
+			this.description = description;
+		} else {
+			this.description = "";
+		}
+		setDataAndType(type, data);
 	}
 	
 	public Data(String type, String data, byte[] file, String description, String extension, boolean forceLoad) throws IOException {
@@ -69,9 +61,28 @@ public class Data implements Cloneable {
 
 			this.description = description;
 		} else {
-			this.data = data;
+			setDataAndType(type, data);
 			this.description = "";
 		}
+	}
+	
+	private void setDataAndType(DataType type, String data){
+		if(type == DataType.PLAIN_TEXT || type == DataType.MARKDOWN || type == DataType.FILE) {
+			if(data == null || data.length() < 1){
+				this.type = DataType.EMPTY;
+				this.data = "";
+			} else {
+				this.type = type;
+				this.data = data;
+			}
+		} else if(type == DataType.EMPTY) {
+			this.description = "";
+			this.data = "";
+			this.type = type;
+		}
+	}
+	private void setDataAndType(String type, String data){
+		setDataAndType(DataType.valueOf(type), data);
 	}
 	
 	private static String saveFile(byte[] file, String extension) throws IOException {
@@ -154,8 +165,7 @@ public class Data implements Cloneable {
 	}
 	
 	public void setData(DataType type, String data) {
-		this.type = type;
-		this.data = data;
+		setDataAndType(type, data);
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
