@@ -220,8 +220,8 @@
 				<div class="columns large-5 small-5 text-right">
 					<div class="icon-button-wrapper">
 						<a class="icon-button" href="{$ij.URLPrefix}/users/{$set.owner.id}">{$set.owner.name}</a>
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array expand-question-list" data-qid="{$set.id}">&#112;</a>
-						<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/sets/{$set.id}">&#88;</a>
+						<a class="icon-button panel-icon-button icon icon-list icon-button-array expand-question-list" data-qid="{$set.id}"></a>
+						<a class="icon-button panel-icon-button icon icon-arrow_doubled_right icon-button-array" href="{$ij.URLPrefix}/sets/{$set.id}"></a>
 						<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $set.starred}_empty{/if}"></i></span>
 					</div>
 				</div>
@@ -232,12 +232,12 @@
 {/template}
 
 /**
- * @param? questions
+ * @param? set
  */
 {template .listquestions}
 <ul class="sub-panel">
-{if $questions and $questions.length > 0}
-	{foreach $question in $questions}
+{if $set.questions and $set.questions.length > 0}
+	{foreach $question in $set.questions}
 	<li class="list-sub-panel">
 		<div class="row list-inner-sub-panel">
 			<div class="columns large-7 small-7">
@@ -247,7 +247,7 @@
 			</div>
 			<div class="columns large-5 small-5 text-right">
 				<div class="icon-button-wrapper">
-					<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}">&#88;</a>
+					<a class="icon-button-array icon-button panel-icon-button icon icon-arrow_doubled_right" href="{$ij.URLPrefix}/q/{$question.id}"></a>
 					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
 				</div>
 			</div>
