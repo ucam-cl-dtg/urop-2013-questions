@@ -273,3 +273,11 @@ div.create-set-textfield-container {
 	float: left;
 	margin-right: 10px;
 }
+
+.data-editor textarea {
+	height: 20em;
+	padding-botton: 1em;
+}
+.monospace {
+	font-family: monospace;
+}
