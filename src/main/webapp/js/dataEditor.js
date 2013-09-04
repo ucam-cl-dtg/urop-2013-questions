@@ -18,7 +18,10 @@ function configureDataEditor() {
 			desc = $editor.children('textarea[name='+name+'_desc]').val();
 		}
 		
-		var data = {data: {type: type, data: text, description: (desc ? desc : "")}, name: name};
+		if(text == null) text = "";
+		if(desc == null) desc = "";
+		
+		var data = {data: {type: type, data: text, description: desc}, name: name};
 		$editor.html(soy.renderAsFragment(shared.data.editor, data));
 		
 		if (type == "FILE" && $file) {
