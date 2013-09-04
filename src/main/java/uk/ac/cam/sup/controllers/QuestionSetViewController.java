@@ -66,16 +66,13 @@ public class QuestionSetViewController extends GeneralController {
 		}
 
 		String deadlineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrlRemoveApi();
+				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
 		
 		Builder<String,Object> builder = ImmutableMap.builder();
 		builder.put("success", true)
 			.put("set", qs.toMap(!isCurrentUserSupervisor()))
-			.put("editable", getCurrentUserID().equals(qs.getOwner().getId()));
-		
-		if (isCurrentUserSupervisor()) {
-			builder.put("deadlineLink", deadlineLink);
-		}
+			.put("editable", getCurrentUserID().equals(qs.getOwner().getId()))
+			.put("deadlineLink", deadlineLink);
 		
 		return builder.build();
 	}

@@ -21,9 +21,6 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
-import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
-import uk.ac.cam.cl.dtg.ldap.LDAPUser;
 import uk.ac.cam.cl.dtg.teaching.api.NotificationApi.NotificationApiWrapper;
 import uk.ac.cam.cl.dtg.teaching.api.NotificationException;
 import uk.ac.cam.sup.exceptions.FormValidationException;
@@ -108,14 +105,8 @@ public class QuestionEditController extends GeneralController{
 	}
 
 	private void sendQuestionEditedNotification(int oldQuestionID, int newQuestionID, String userID){
-		String userName;
-		try {
-			LDAPUser user = LDAPQueryManager.getUser(userID);
-			userName = user.getDisplayName();
-		} catch(LDAPObjectNotFoundException e){
-			userName = userID;
-		}
-
+		String userName = new User(userID).getName();
+		
 		String message;
 		
 		if(oldQuestionID != newQuestionID){
