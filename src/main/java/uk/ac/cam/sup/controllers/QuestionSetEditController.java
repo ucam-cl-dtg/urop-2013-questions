@@ -1,6 +1,7 @@
 package uk.ac.cam.sup.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -295,13 +296,18 @@ public class QuestionSetEditController extends GeneralController {
 				throw new WebApplicationException(Response.Status.NOT_FOUND);
 			}
 			List<Tag> tags = form.getTagsList();
+			Set<Tag> alltags = qs.getTags();
+			Set<Tag> addedTags = new HashSet<Tag>();
 			
 			for (Tag t: tags) {
-				qs.addTag(t);
+				if ( ! alltags.contains(t)) {
+					qs.addTag(t);
+					addedTags.add(t);
+				}
 			}
 			qs.update();
 			
-			return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
+			return ImmutableMap.of("success", true, "tags", addedTags, "amount", addedTags.size());
 		} catch (WebApplicationException e) {
 			throw e;
 		} catch (Exception e) {

@@ -15,3 +15,10 @@ function saveJSON(template) {
 		return template;
 	};
 }
+
+function configureExpanders() {
+	$(document).on('click', '.expander', function(e) {
+		$(this).siblings('#'+$(this).attr('for')).slideToggle();
+		console.log($(this).attr('for'));
+	});
+}

@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -34,7 +33,6 @@ import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.ppdloader.PPDLoader;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
@@ -216,13 +214,6 @@ public class QuestionEditController extends GeneralController{
 		} catch (IOException e) {
 			return ImmutableMap.of("success", false, "error", "Message: Failed to store uploaded file. " + e.getMessage());
 		}
-	}
-
-	@GET
-	@Path("/pastpapers")
-	@Produces("application/json")
-	public Set<Question> producePastPapers() throws Exception {
-		return PPDLoader.loadAllQuestions();
 	}
 	
 	@POST

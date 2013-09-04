@@ -34,6 +34,5 @@ public class FileController {
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition", "attachment; filename=\""+filename+"\"");
 		return response.build();
-	}
-	
+	}	
 }

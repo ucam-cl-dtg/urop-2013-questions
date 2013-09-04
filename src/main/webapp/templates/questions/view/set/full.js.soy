@@ -2,85 +2,53 @@
 
 /**
  * Displays a questionset
- * @param name
- * @param plan
- * @param expectedDuration
- * @param questions
- * @param id
- * @param tags
- * @param starred
+ * @param set
  * @param editable
- * @param? owner
  * @param? target
- * @param? deadLineLink
+ * @param? deadlineLink
  */
 {template .full}
-<div class="question-set" data-set-id="{$id}">
+<div class="question-set" data-set-id="{$set.id}">
 	<div class="row">
 		<div class="columns large-12 small-12 question-set-name">
-			{call .name data="all" /}
+			{call .name data="$set"}
+				{param editable: $editable /}
+			{/call}
 		</div>
 	</div>
 	<div class="row">
 		<div class="columns large-12 small-12">
 			<div class="section-container tabs" data-section="tabs">
-				{if $plan}
-				<section id="set-plan-tab" {if $target=='plan'}class="active"{/if}">
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/plan" data-bypass class="in-place-anchor">Plan</a></p>
+				<section id="set-overview-tab" {if $target=='overview'}class="active"{/if}">
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$set.id}/overview" data-bypass class="in-place-anchor">Overview</a></p>
 					<div class="content" data-section-content>
-						{call questions.view.set.tab.plan.full data="all" /}
+						{call questions.view.set.tab.overview.full data="$set" /}
 					</div>
 				</section>
-				{/if}
 
-				<section id="set-questions-tab" {if $target=='questions' or not $target}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/questions" data-bypass class="in-place-anchor">Questions</a></p>
+				<section id="set-questions-tab" {if $target=='questions'}class="active"{/if}>
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$set.id}/questions" data-bypass class="in-place-anchor">Questions</a></p>
 					<div class="content" data-section-content>
-						{call questions.view.set.tab.questions.full data="all" /}
+						{call questions.view.set.tab.questions.full data="$set"}
+							{param editable: $editable /}
+						{/call}
 					</div>
 				</section>
 				
-				<section id="set-tags-tab" {if $target=='tags'}class="active"{/if}>
-                    <p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/tags" data-bypass class="in-place-anchor">Tags</a></p>
-                    <div class="content" data-section-content>
-                        {call questions.view.set.tab.tags.full data="all" /}
-                    </div>
-                </section>
-				
-				<section id="set-use-tab" {if $target=='export'}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/export" data-bypass class="in-place-anchor">Export</a></p>
+				<section id="set-use-tab" {if $target=='use'}class="active"{/if}>
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$set.id}/use" data-bypass class="in-place-anchor">Use</a></p>
 					<div class="content" data-section-content>
-						{call questions.view.set.tab.use.full data="all" /}
-					</div>
-				</section>
-				
-				
-				<section id="set-fork-tab" {if $target=='fork'}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/fork" data-bypass class="in-place-anchor">Fork set</a></p>
-					<div class="content" data-section-content>
-						{call questions.view.set.tab.fork.full data="all" /}
+						{call questions.view.set.tab.use.full data="$set"}
+							{param deadlineLink: $deadlineLink /}
+						{/call}
 					</div>
 				</section>
 				
 				{if $editable}
 				<section id="set-edit-tab" {if $target=='edit'}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/edit" data-bypass class="in-place-anchor">Edit</a></p>
+					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$set.id}/edit" data-bypass class="in-place-anchor">Edit</a></p>
 					<div class="content" data-section-content>
-						{call questions.view.set.tab.edit.full data="all" /}
-					</div>
-				</section>
-
-				<section id="set-createquestion-tab" {if $target=='add'}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/add" data-bypass class="in-place-anchor">Add questions</a></p>
-					<div class="content" data-section-content>
-						{call questions.view.set.tab.createquestion.full data="all" /}
-					</div>
-				</section>
-				
-				<section id="set-delete-tab" {if $target=='delete'}class="active"{/if}>
-					<p class="title" data-section-title><a href="{$ij.URLPrefix}/sets/{$id}/delete" data-bypass class="in-place-anchor">Delete</a></p>
-					<div class="content" data-section-content>
-						{call questions.view.set.tab.delete.full data="all" /}
+						{call questions.view.set.tab.edit.full data="$set" /}
 					</div>
 				</section>
 				{/if}
@@ -95,7 +63,6 @@
  * @param starred
  * @param name
  * @param editable
- * @param? owner
  */
 {template .name}
 	<h3><span class="fixed-width-icon star-question-button" data-set-id="{$id}" data-enabled="{$editable}"><i class="icon{' '}
@@ -104,5 +71,5 @@
 	{else}
 		icon-star_empty
 	{/if}
-	"></i></span>{$name} {if $owner}by <a href="{$ij.URLPrefix}/users/{$owner.id}">{$owner.name}</a>{/if}</h3>
+	"></i></span>{$name}</h3>
 {/template}

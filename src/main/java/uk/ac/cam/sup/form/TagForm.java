@@ -17,7 +17,7 @@ public abstract class TagForm {
 	
 	public TagForm validate() throws FormValidationException {
 		if(tags == null || tags.trim().length() < 1){
-			throw new FormValidationException("You tried to add an empty tag!");
+			throw new FormValidationException("You've submitted an empty tag!");
 		}
 		
 		return this;

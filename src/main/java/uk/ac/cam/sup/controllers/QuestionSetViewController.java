@@ -32,6 +32,7 @@ import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.queries.UserQuery;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 @Path("/sets")
 public class QuestionSetViewController extends GeneralController {
@@ -63,15 +64,17 @@ public class QuestionSetViewController extends GeneralController {
 		if (qs == null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-		Map<String,Object> result = qs.toMap(!isCurrentUserSupervisor());
-		Boolean editable = getCurrentUser().getId().equals(qs.getOwner().getId());
-		result.put("editable", editable);
 
-		String deadLineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/supervisor/newDeadline?url=" + getCurrentUrlRemoveApi();
-		result.put("deadLineLink", deadLineLink);
+		String deadlineLink = "http://" + getServerName() + ":" + getServerPort()
+				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
 		
-		return result;
+		Builder<String,Object> builder = ImmutableMap.builder();
+		builder.put("success", true)
+			.put("set", qs.toMap(!isCurrentUserSupervisor()))
+			.put("editable", getCurrentUserID().equals(qs.getOwner().getId()))
+			.put("deadlineLink", deadlineLink);
+		
+		return builder.build();
 	}
 	
 	@GET
@@ -99,11 +102,12 @@ public class QuestionSetViewController extends GeneralController {
 			@PathParam("target") String target
 	) {
 		if (target.equals("import")) { return produceImportPageData(id); }
-		@SuppressWarnings("unchecked")
-		Map<String,Object> result = (Map<String, Object>) produceSingleSet(id);
 		
-		result.put("target", target);
-		return result;
+		Builder<String,Object> builder = ImmutableMap.builder();
+		builder.putAll(produceSingleSet(id));
+		builder.put("target", target);
+		
+		return builder.build();
 	}
 	
 	@GET

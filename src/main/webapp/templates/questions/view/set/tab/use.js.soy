@@ -3,22 +3,104 @@
 /**
  * Use tab
  * @param questions
+ * @param name
+ * @param id
+ * @param? deadlineLink
  */
 {template .full}
-		<h4>Select questions...</h4>
-		<div class="row">
-			<ul class="panels">
-				{foreach $question in $questions}
-					{call .question}
-						{param id: $question.id /}
-						{param content: $question.content /}
-					{/call}
-				{/foreach}
-				
-			</ul>
-		</div>
-		<h4>Select set...</h4>
-		<div class="async-loader" data-path="sets/mysets" template-name="questions.view.set.tab.use.options"></div>
+	<div class="row">
+		<ul class="panels big-menu">
+			<li class="panel-wrapper columns large-12" id="export-questions-panel">
+				<div class="list-panel">
+					<div class="row list-inner-panel">
+						<div class="columns large-7 small-7">
+							<h4 class="expand-sub-panel">
+								<i class="icon icon-upload fixed-width-icon" /> 
+								Export questions to another set
+							</h4>
+						</div>
+					</div>
+				</div>
+				<ul class="sub-panel hidden">
+					<li class="list-sub-panel">
+						<div class="list-inner-sub-panel">
+							<h5>Select questions...</h5>
+							<div class="row">
+								<ul class="panels">
+									{foreach $question in $questions}
+										{call .question}
+											{param id: $question.id /}
+											{param content: $question.content /}
+										{/call}
+									{/foreach}
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="list-sub-panel">
+						<div class="list-inner-sub-panel">
+							<h5>Select set...</h5>
+							<div class="async-loader" 
+								data-path="sets/mysets" 
+								template-name="questions.view.set.tab.use.options"></div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			
+			<li class="panel-wrapper columns large-12">
+				<div class="list-panel">
+					<div class="row list-inner-panel">
+						<div class="columns large-7 small-7">
+							<h4 class="expand-sub-panel">
+								<i class="icon icon-sheet fixed-width-icon" /> 
+								Create a new copy of the entire set
+							</h4>
+						</div>
+					</div>
+				</div>
+				<ul class="sub-panel hidden">
+					<li class="list-sub-panel">
+						<div class="list-inner-sub-panel">
+							<form action="sets/fork" method="post">
+								<div class="row">
+									<div class="columns large-12 small-12">
+										<h5>Name for the copy</h5>
+										<input type="text" placeholder="Name..." name="name" value="{$name}"/>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="columns large-12 small-12 text-right">
+										<input type="hidden" value="{$id}" name="setid" />
+										<input type="submit" value="Fork" class="button medium" id="set-fork-button"/>
+									</div>
+								</div>
+							</form>
+						</div>
+					</li>
+				</ul>
+			</li>
+			
+			{if $deadlineLink}
+			<li class="panel-wrapper columns large-12">
+				<div class="list-panel">
+					<div class="row list-inner-panel">
+						<div class="columns large-7 small-7">
+							<a href="{$deadlineLink}" data-absolute>
+								<h4>
+									<i class="icon icon-ringbell fixed-width-icon" /> 
+									Set a deadline...
+								</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/if}
+		</ul>
+	</div>
+	
 {/template}
 
 /**
@@ -53,7 +135,7 @@
 <div class="clearfix">
     <form class="custom" id="add-questions-to-set-form" method="POST" action="sets/export">
         <div class="button-container-search">
-            <input type="submit" value="Add to set" id="export-questions-button" class="button success medium"/>
+            <input type="submit" value="Add to set" id="export-questions-button" class="button medium"/>
         </div>
         <div class="text-field-container-search">
             <select name="targetSetId">
