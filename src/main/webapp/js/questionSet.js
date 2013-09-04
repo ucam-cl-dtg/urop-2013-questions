@@ -1,4 +1,5 @@
-function reloadView(set) {
+function reloadView(set, dlLink) {
+	set.deadlineLink = dlLink;
 	set.editable = $('.star-question-button').attr('data-enabled');
 	applyTemplate($("#set-overview-tab").children(".content"),
 			"questions.view.set.tab.overview.full", set);
@@ -51,13 +52,13 @@ function configureEditSetForm() {
 				if (data.success) {
 					var executed = false;
 					if ($(".list-panel-delete").size() == 0) {
-						reloadView(data.set);
+						reloadView(data.set, data.deadlineLink);
 						successNotification("Set edited successfully");
 					}
 					$(".list-panel.delete").slideToggle(400, function() {
 						if (!executed) {
 							executed = true;
-							reloadView(data.set);
+							reloadView(data.set, data.deadlineLink);
 							successNotification("Set edited successfully");
 						}
 					});

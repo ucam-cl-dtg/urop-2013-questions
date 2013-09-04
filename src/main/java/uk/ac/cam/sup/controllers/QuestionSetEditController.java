@@ -257,7 +257,10 @@ public class QuestionSetEditController extends GeneralController {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
-		return ImmutableMap.of("success", true, "set", qs.toMap(false));
+		String dlLink = "http://" + getServerName() + ":" + getServerPort()
+				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
+		
+		return ImmutableMap.of("success", true, "set", qs.toMap(false), "deadlineLink", dlLink);
 	}
 	
 	@POST
