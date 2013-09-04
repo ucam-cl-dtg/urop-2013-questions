@@ -221,12 +221,12 @@ public abstract class SearchForm<T extends Mappable> {
 		return this;
 	}
 	
-	public final List<T> getSearchResults() {
+	public final List<Map<String,?>> getSearchResults() {
 		Query<T> query = getQueryObject();
 		
 		if (query == null) {
 			totalAmount = 0;
-			return new ArrayList<T>();
+			return new ArrayList<Map<String,?>>();
 		}
 		
 		if (tagList.size() > 0) {
@@ -266,12 +266,19 @@ public abstract class SearchForm<T extends Mappable> {
 		}
 		
 		if(query.isModified()){
-			return query
+			List<T> queryResult = query
 					.maxResults(amountInt)
 					.offset(amountInt * (pageInt - 1))
 					.list();
+			List<Map<String, ?>> result = new ArrayList<Map<String,?>>();
+			
+			for (T element: queryResult) {
+				result.add(element.toMap());
+			}
+			
+			return result;
 		} else {
-			return new ArrayList<T>();
+			return new ArrayList<Map<String,?>>();
 		}
 	}
 	

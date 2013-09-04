@@ -86,7 +86,7 @@ function search(page, amount){
 			data.push({name: "amount", value: amount});
 		},
 		success: function(data) {
-			applyTemplate($questionList, 'questions.search.results', data);
+			applyTemplate($questionList, function(data) { console.log(data); return 'questions.search.results'} , data);
 			if (data.form.totalAmount > 0) {
 				displayPageNumbers(page, Number(data.form.totalAmount), amount);
 			}

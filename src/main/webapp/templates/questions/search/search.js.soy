@@ -223,10 +223,13 @@
 		        {if $form.emptySearch}
 		            <div class="column large-12 small-12"><p>Please enter one or more search terms to find questions</p></div>
 		        {elseif $form.totalAmount > 0}
-		            {call shared.question.multiple}
-		                {param questions: $questions /}
-		                {param showAddButton: true /}
-		            {/call}
+		        	<ul class="panels">
+			            {foreach $question in $questions}
+			            	{call .singleresult}
+			            		{param question: $question /}
+			            	{/call}
+			            {/foreach}
+		            </ul>
 		        {else}
 		            <div class="column large-12 small-12"><p>No questions were found with these search parameters.</p></div>
 		        {/if}
@@ -250,4 +253,56 @@
 	    </div>
 	</div>
 	
+{/template}
+
+/**
+ * @param question
+ */
+{template .singleresult}
+<li class="panel-wrapper columns large-12" data-question-id="{$question.id}">
+	<div class="list-panel">
+		<div class="row list-inner-panel">
+			<div class="columns large-7 small-7">
+				{call shared.data.preview}
+					{param data: $question.content /}
+				{/call}
+			</div>
+			<div class="columns large-5 small-5 text-right">
+				<div class="icon-button-wrapper">
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array add-question-to-set"><i class="icon-plus icon"></i></a>
+					<a class="icon-button panel-icon-button websymbols-icon icon-button-array" href="{$ij.URLPrefix}/q/{$question.id}"><i class="icon-arrow_doubled_right icon"></i></a>
+					<span class="icon-button panel-icon-button"><i class="icon icon-star{if not $question.starred}_empty{/if}"></i></span>
+				</div>
+			</div>		
+		</div>
+		<div class="row">
+			<div class="columns large-12 small-12">
+				<ul class="panel-icons-list">
+					<li>
+						<i class="icon icon-user"/><strong> Author:</strong>
+						<a href="{$ij.URLPrefix}/users/{$question.owner.id}">{$question.owner.name}</a>
+					</li>
+					<li><i class="icon icon-clock"/><strong> Created:</strong> {$question.soyTimeStamp}</li>
+					<li><i class="icon icon-hashtag"/><strong> Tags:</strong>
+						{call .tags}{param tags: $question.tags /}{/call}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</li>
+{/template}
+
+/**
+ * @param? tags
+ */
+{template .tags}
+	{if $tags and $tags.length > 0}
+		{for $i in range(0,$tags.length-2)}
+			{$tags[$i].name},&thinsp;
+		{/for}
+		{$tags[$tags.length-1].name}
+	{else}
+		none
+	{/if}
 {/template}
