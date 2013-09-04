@@ -2,7 +2,6 @@ package uk.ac.cam.sup.controllers;
 
 import java.io.File;
 
-import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,8 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import uk.ac.cam.sup.util.ServContext;
 

@@ -22,11 +22,8 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
-import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
-import uk.ac.cam.cl.dtg.ldap.LDAPUser;
-import uk.ac.cam.cl.dtg.teaching.api.NotificationException;
 import uk.ac.cam.cl.dtg.teaching.api.NotificationApi.NotificationApiWrapper;
+import uk.ac.cam.cl.dtg.teaching.api.NotificationException;
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
 import uk.ac.cam.sup.form.QuestionAdd;
@@ -168,7 +165,6 @@ public class QuestionEditController extends GeneralController{
 		
 		NotificationApiWrapper n = new NotificationApiWrapper(getDashboardURL(), getApiKey());
 
-		//TODO: remove this logging message
 		log.debug("Now trying to send notification via supervision-api. \nDashboardURL: " 
 				+ getDashboardURL() + ".  \nAPIKey: " + getApiKey() + ".  \nMessage: " + message
 				+ ".  \nLink: " + link + ".  \nUsers: " + users + ".  \nsection: questions.");
