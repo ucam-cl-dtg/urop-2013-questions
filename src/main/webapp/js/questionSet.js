@@ -156,7 +156,10 @@ function configureQuestionSetLoader() {
 		} else {
 			var source = 'sets/' + $(this).attr('data-qid');
 			var $questionList = $(this).parents('.panel-wrapper').children('.question-list');
-			loadModule($questionList, source, 'questions.view.set.listquestions', function() {
+			loadModule($questionList, source, function(data) {
+				console.log(data);
+				return 'questions.view.set.listquestions';
+			}, function() {
 				$(this).find('.sub-panel').slideToggle();
 			});
 			$(this).toggleClass('loaded');

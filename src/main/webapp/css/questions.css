@@ -261,3 +261,23 @@ div.create-set-textfield-container {
 .big-menu .list-sub-panel {
 	background-color: transparent;
 }
+
+.panel-icons-list {
+	font-size: 0.875em;
+	list-style-type: none;
+	padding: 0;
+	margin: 5px 0 0;
+}
+
+.panel-icons-list li {
+	float: left;
+	margin-right: 10px;
+}
+
+.data-editor textarea {
+	height: 20em;
+	padding-botton: 1em;
+}
+.monospace {
+	font-family: monospace;
+}

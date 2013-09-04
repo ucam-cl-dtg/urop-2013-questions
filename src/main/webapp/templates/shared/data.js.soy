@@ -74,7 +74,7 @@
  * @param? data
  */
 {template .plaintextedit}
-<textarea name="{$name}_text" placeholder="{$name}">
+<textarea name="{$name}_text" placeholder="{$name}" class="data-editor">
 	{if $data}{$data.data}{/if}
 </textarea>
 {/template}
@@ -85,7 +85,7 @@
  * @param? data
  */
 {template .markdownedit}
-<textarea name="{$name}_text" placeholder="{$name}" style="font-family: monospace">
+<textarea name="{$name}_text" placeholder="{$name}" class="monospace">
 	{if $data}{$data.data}{/if}
 </textarea>
 {/template}
