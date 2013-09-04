@@ -86,7 +86,7 @@ div.result-number-text {
 .search-advanced-button {
 	border-bottom: 0;
 }
-
+cent
 .border-left {
 	border-width: 0 0 0 1px;
 	border-left-width: 1px;
@@ -115,7 +115,7 @@ div.result-number-text {
 	padding: 10px 0px 0px 0px;
 }
 
-@media only screen and (max-width: 1200px) and (min-width: 768px) {
+@media only screen and (max-widcentth: 1200px) and (min-width: 768px) {
     #search-export-questions-form {
         width: 100% !important;
         padding-left: 0 !important;

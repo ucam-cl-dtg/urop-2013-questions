@@ -232,10 +232,11 @@
 {/template}
 
 /**
- * @param questions
+ * @param? questions
  */
 {template .listquestions}
 <ul class="sub-panel">
+{if $questions and $questions.length > 0}
 	{foreach $question in $questions}
 	<li class="list-sub-panel">
 		<div class="row list-inner-sub-panel">
@@ -253,5 +254,8 @@
 		</div>
 	</li>
 	{/foreach}
+{else}
+	{call shared.question.noQuestionsPanel /}
+{/if}
 </ul>
 {/template}
