@@ -48,3 +48,19 @@
 	{/foreach}
 	</ul>
 {/template}
+
+/**
+ * Displays a panel saying that no question was found.
+ * @param? customText
+ */
+{template .noQuestionsPanel}
+<li class="list-sub-panel">
+	<div class="row list-inner-sub-panel">
+		<div class="row list-inner-panel">
+			<div class="columns large-12 small-12 text-center bold-disabled">
+				{if $customText}{$customText}{else}No questions found{/if}
+			</div>		
+		</div>
+	</div>
+</li>
+{/template}
