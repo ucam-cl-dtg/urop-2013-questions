@@ -138,3 +138,9 @@ label:hover h2, label:hover h3 {
     background-color: #e0e0e0;
 }
 
+dt.deprecated:after {
+    content: " [Deprecated]";
+    font-family: sans-serif;
+    font-size: 0.7em;
+    font-weight: bold;
+}
