@@ -76,15 +76,15 @@
                                     <dt>success</dt>
                                     <dd>true/false</dd>
                                     
-                                    <dt>error (if success == false)</dt>
-                                    <dd>An error message.</dd>
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
                                     
-                                    <dt>questions (if success == true)</dt>
-                                    <dd>The result list of questions which correspond to the search terms. The maximum length
+                                    <dt>questions</dt>
+                                    <dd>(If success is true). The result list of questions which correspond to the search terms. The maximum length
                                      of this list is the value which was passed with the parameter amount.</dd>
                                      
                                     <dt>form</dt>
-                                    <dd>A map of essentially the search terms which were passed to produce this list of questions.</dd>
+                                    <dd>(If success is true). A map of essentially the search terms which were passed to produce this list of questions.</dd>
                                 </dl>
                             </div>
                         </li>
@@ -92,7 +92,7 @@
                         <li class="request post">
                             <input type="checkbox" id="req-q-save" />
                             <label for="req-q-save">
-                                <h3>/q/save</h3>
+                                <h3>/q/save !TODO!</h3>
                             </label>
 
                             <div class="content">
@@ -116,7 +116,7 @@
                         <li class="request get">
                             <input type="checkbox" id="req-q-update" />
                             <label for="req-q-update">
-                                <h3>/q/update</h3>
+                                <h3>/q/update !TODO!</h3>
                             </label>
 
                             <div class="content">
@@ -137,29 +137,165 @@
                             </div>
                         </li>
 
-                        <li class="request post global">
+                        <li class="request get global">
                             <input type="checkbox" id="req-q-id" />
                             <label for="req-q-id">
                                 <h3>/q/[id]</h3>
                             </label>
 
                             <div class="content">
-                                <h4>Search for questions</h4>
-                                <p class="description">Some description</p>
+                                <h4>Return data for a single question</h4>
+                                <p class="description">Returns all relevant information for a particular question.</p>
 
                                 <h5>Parameters</h5>
                                 <dl>
-                                    <dt>tags</dt>
-                                    <dd>CSV string for tags</dd>
+                                    <dt>id (path parameter)</dt>
+                                    <dd>The id of the question to be returned.</dd>
                                 </dl>
 
                                 <h5>Response</h5>
                                 <dl>
                                     <dt>success</dt>
                                     <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>question</dt>
+                                    <dd>(If success is true). All data of the question with the specified id. Will not return the solution notes
+                                    if the requesting user is a student</dd>
                                 </dl>
                             </div>
                         </li>
+                        
+                        <li class="request get global">
+                            <input type="checkbox" id="req-q-parents" />
+                            <label for="req-q-parents">
+                                <h3>/q/parents</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Get parents of a question</h4>
+                                <p class="description">Returns all parents of a question up to a specified depth. Does not
+                                include the question passed as parameter itself.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>qid</dt>
+                                    <dd>The question of which to return the parents.</dd>
+                                    
+                                    <dt>depth</dt>
+                                    <dd>The depth (=amount) of parents to return.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>questions</dt>
+                                    <dd>The list of parents</dd>
+                                    
+                                    <dt>exhausted</dt>
+                                    <dd>A boolean indicating whether the oldest parent in the returned list has at least one
+                                    more parent itself, in which case exhausted=false.</dd>
+                                    
+                                    <dt>last</dt>
+                                    <dd>The question if of the oldest parent in the returned list</dd>
+                                </dl>
+                            </div>
+                        </li>
+                        
+                        <li class="request get global">
+                            <input type="checkbox" id="req-q-forks" />
+                            <label for="req-q-forks">
+                                <h3>/q/forks</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Get forks of a question</h4>
+                                <p class="description">Returns all forks of a question up to a specified amount. An offset allows
+                                returning of specific segments of the entire forks list.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>qid</dt>
+                                    <dd>The question of which to find forks.</dd>
+                                    
+                                    <dt>disp</dt>
+                                    <dd>Essentially the offset of the segment of forks to be returned. For example, if disp=2 and amount=3,
+                                    it will return the third, fourth and fifth fork of the specified question.</dd>
+                                    
+                                    <dt>amount</dt>
+                                    <dd>The (maximum) amount of forks to be returned.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>questions</dt>
+                                    <dd>(If success is true). The list of forks found.</dd>
+                                    
+                                    <dt>exhausted</dt>
+                                    <dd>(If success is true). Indicates whether there are any more forks after the ones returned in
+                                    questions. false indicates that there are more forks still in the database, true indicates that
+                                    there are no more forks after the last one returned.</dd>
+                                    
+                                    <dt>disp</dt>
+                                    <dd>(If success is true). Indicates the new offset (see the disp parameter for more details).</dd>
+                                </dl>
+                            </div>
+                        </li>
+                        
+                        <li class="request get">
+                            <input type="checkbox" id="req-q-id-edit-setid" />
+                            <label for="req-q-id-edit-setid">
+                                <h3>/[id]/edit/[setid]</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Get information needed to edit a question in context of a set</h4>
+                                <p class="description">Returns all data which one would need to edit a specified question in context of a
+                                specified set.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>id (path parameter)</dt>
+                                    <dd>The id of the question to edit</dd>
+                                    
+                                    <dt>setid (path parameter)</dt>
+                                    <dd>The id of the set inside which to edit the question.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>id</dt>
+                                    <dd>The id of the edited question.</dd>
+                                    
+                                    <dt>setId</dt>
+                                    <dd>The id of the set inside which the question was edited.</dd>
+                                    
+                                    <dt>content</dt>
+                                    <dd>The question's content.</dd>
+                                    
+                                    <dt>notes</dt>
+                                    <dd>The question's solution notes. These are always empty if a supervisor question is requested with student permissions.</dd>
+                                    
+                                    <dt>expectedDuration</dt>
+                                    <dd>The question's expected duration.</dd>
+                                </dl>
+                            </div>
+                        </li>
+                        
+                        
                     </ul>
                 </div>
             </div>
