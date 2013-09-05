@@ -1,11 +1,140 @@
-body {
+body, html {
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 0;
+}
+
+h1 {
+    margin: 0px;
+    padding: 20px;
+}
+
+h2 {
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    margin: 10px 10px 0;
+    padding: 5px;
 }
 
 .request.get h3:before {
-    content: 'GET ';
+    content: 'GET';
+    background-color: #006a96;
 }
 
-.request.get h3:before {
-    content: 'POST ';
+.request.post h3:before {
+    content: 'POST';
+    background-color: #960029;
 }
+
+.request h3:before, .request h3:after {
+    padding: 5px;
+    margin-right: 5px;
+    float: left;
+    position: relative;
+    top: -5px;
+    color: white;
+    width: 50pt;
+    text-align: center;
+    -webkit-border-radius: 2px;
+
+}
+
+.request.global h3:after {
+    content: "Global";
+    float: left;
+    background-color: #3a8200;
+}
+
+.request:not(.global) h3:after {
+    content: "User";
+    float: left;
+    background-color: #d1a700
+}
+
+.request h3 {
+    background-color: #ddd;
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    padding: 10px;
+}
+
+.requests {
+    margin: 0 10px;
+    padding-top: 10px;
+    border-style: solid;
+    border-color: #ccc;
+    background-color: #eee;
+    border-width: 0 1px 1px 1px;
+}
+
+.request-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li.request {
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0 10px 10px;
+    background-color: white;
+}
+
+.request .content {
+    margin: 10px;
+    background-color: white;
+}
+
+h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+h5 {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+
+.description {
+    margin-top: 2px;
+}
+
+dl {
+    margin: 5px 0 20px;
+}
+
+
+dt {
+    font-family: monospace;
+    margin: 10px 0 0;
+}
+
+dd {
+    margin: 0 0 10px 30px;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+input:not(:checked) ~ .requests, input:not(:checked) ~ .content {
+    display: none;
+}
+
+label:hover h2, label:hover h3 {
+    background-color: #e0e0e0;
+}
+

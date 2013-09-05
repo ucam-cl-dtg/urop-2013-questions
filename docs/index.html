@@ -13,31 +13,116 @@
 
         <div id="main-wrapper">
             <div class="category">
-                <h2>Questions &ndash; /q</h2>
-                <ul class="requests">
-                    <li class="request get global">
-                        <div class="header">
-                            <h3>/q/search</h3>
-                        </div>
+                <input type="checkbox" id="req-q" checked />
+                <label for="req-q">
+                    <h2>Questions &ndash; /q</h2>
+                </label>
 
-                        <div class="content">
-                            <h4>Search for questions</h4>
-                            <p>Some description</p>
+                <div class="requests">
+                    <ul class="request-list">
+                        <li class="request get global">
+                            <input type="checkbox" id="req-q-search" />
+                            <label for="req-q-search">
+                                <h3>/q/search</h3>
+                            </label>
 
-                            <h5>Parameters</h5>
-                            <dl>
-                                <dt>tags</dt>
-                                <dd>CSV string for tags</dd>
-                            </dl>
+                            <div class="content">
+                                <h4>Search for questions</h4>
+                                <p class="description">Some description</p>
 
-                            <h5>Response</h5>
-                            <dl>
-                                <dt>success</dt>
-                                <dd>true/false</dd>
-                            </dl>
-                        </div>
-                    </li>
-                </ul>
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+                                    <dd>CSV string for tags</dd>
+
+                                    <dt>success</dt>
+                                    <dd>CSV string for tags</dd>
+
+                                    <dt>authors</dt>
+                                    <dd>CSV string for tags</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post">
+                            <input type="checkbox" id="req-q-save" />
+                            <label for="req-q-save">
+                                <h3>/q/save</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Search for questions</h4>
+                                <p class="description">Some description</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+                                    <dd>CSV string for tags</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request get">
+                            <input type="checkbox" id="req-q-update" />
+                            <label for="req-q-update">
+                                <h3>/q/update</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Search for questions</h4>
+                                <p class="description">Some description</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+                                    <dd>CSV string for tags</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post global">
+                            <input type="checkbox" id="req-q-id" />
+                            <label for="req-q-id">
+                                <h3>/q/[id]</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Search for questions</h4>
+                                <p class="description">Some description</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+                                    <dd>CSV string for tags</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                </dl>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
