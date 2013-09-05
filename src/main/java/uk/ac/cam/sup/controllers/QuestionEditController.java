@@ -25,6 +25,7 @@ import uk.ac.cam.cl.dtg.teaching.api.NotificationApi.NotificationApiWrapper;
 import uk.ac.cam.cl.dtg.teaching.api.NotificationException;
 import uk.ac.cam.sup.exceptions.FormValidationException;
 import uk.ac.cam.sup.exceptions.InvalidInputException;
+import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.form.QuestionEdit;
 import uk.ac.cam.sup.form.QuestionTagAdd;
@@ -36,6 +37,7 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
+import uk.ac.cam.sup.queries.UserQuery;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -108,7 +110,12 @@ public class QuestionEditController extends GeneralController{
 	}
 
 	private void sendQuestionEditedNotification(int oldQuestionID, int newQuestionID, String userID){
-		String userName = new User(userID).getName();
+		String userName;
+		try {
+			userName = UserQuery.get(userID).getName();
+		} catch (ModelNotFoundException e1) {
+			userName = new User(userID).getName();
+		}
 		
 		String message;
 		

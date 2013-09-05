@@ -36,7 +36,13 @@ public abstract class GeneralController {
 		String id = getCurrentUserID();
 		if(id == null) return null;
 		else {
-			User u = new User(id);
+			User u;
+			try {
+				u = UserQuery.get(id);
+			} catch (ModelNotFoundException e) {
+				u = new User(id);
+			}
+			
 			return u.getName();
 		}
 	}

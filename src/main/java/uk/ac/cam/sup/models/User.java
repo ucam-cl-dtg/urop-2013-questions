@@ -20,7 +20,8 @@ import uk.ac.cam.sup.util.ServContext;
 public class User extends Model {
 	private static Logger log = LoggerFactory.getLogger(User.class);
 	
-	@Transient private Boolean supervisor = null;
+	private boolean supervisor;
+	@Transient private boolean supervisorUpToDate = false;
 	@Transient private String name = null;
 	@Transient private Map<String,Object> settings = null;
 	@Id private String id;
@@ -36,10 +37,12 @@ public class User extends Model {
 	public void setId(String i) {id = i;}
 	
 	public boolean getSupervisor(){
-		if(supervisor != null) return supervisor;
+		if(supervisorUpToDate) return supervisor;
 		try{
+			boolean oldSup = supervisor;
 			supervisor = (Boolean)getSettings().get("supervisor");
-			if(supervisor == null) throw new Exception("Supervisor status of user  was null!");
+			supervisorUpToDate = true;
+			if(oldSup != supervisor) this.update();
 			return supervisor;
 		} catch(Exception e){
 			log.error("Error while trying to retrive supervisor status of user " + id + ". Message: " + e.getMessage());
