@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -257,6 +258,7 @@ public class QuestionViewController extends GeneralController {
 	 * @param id
 	 * @param setId
 	 * @return
+	 * @throws IOException 
 	 */
 	@GET
 	@Path("/{id}/edit/{setid}")
@@ -264,7 +266,9 @@ public class QuestionViewController extends GeneralController {
 	public Map<String, ?> produceEditForm(
 			@PathParam("id") int id,
 			@PathParam("setid") int setId
-	) {
+	) throws IOException {
+		disallowGlobal();
+		
 		Question q = QuestionQuery.get(id);
 		if (q == null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

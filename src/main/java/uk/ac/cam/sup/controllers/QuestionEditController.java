@@ -49,12 +49,15 @@ public class QuestionEditController extends GeneralController{
 	 * 
 	 * @param qe
 	 * @return
+	 * @throws IOException 
 	 */
 	@POST
 	@Path("/update")
 	@Produces("application/json")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Map<String,?> updateQuestion(@MultipartForm QuestionEdit qe) {
+	public Map<String,?> updateQuestion(@MultipartForm QuestionEdit qe) throws IOException {
+		disallowGlobal();
+		
 		User editor = getCurrentUser();
 		Question q;
 		QuestionSet qs;
@@ -178,7 +181,9 @@ public class QuestionEditController extends GeneralController{
 	@Path("/save")
 	@Produces("application/json")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Map<String,?> addQuestion(@MultipartForm QuestionAdd qa) {
+	public Map<String,?> addQuestion(@MultipartForm QuestionAdd qa) throws IOException {
+		disallowGlobal();
+		
 		User author = getCurrentUser();
 		Question q;
 		QuestionSet qs;
@@ -288,7 +293,9 @@ public class QuestionEditController extends GeneralController{
 	@POST
 	@Path("/togglestar")
 	@Produces("application/json")
-	public Map<String,?> toggleStar(@FormParam("id") int id) {
+	public Map<String,?> toggleStar(@FormParam("id") int id) throws IOException {
+		disallowGlobal();
+		
 		Question q;
 		try{
 			q = QuestionQuery.get(id);
