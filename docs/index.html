@@ -163,6 +163,456 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="category">
+                <input type="checkbox" id="req-sets" checked />
+                <label for="req-sets">
+                    <h2>Sets &ndash; /sets</h2>
+                </label>
+
+                <div class="requests">
+                    <ul class="request-list">
+                        <li class="request get global">
+                            <input type="checkbox" id="req-sets-n" />
+                            <label for="req-sets-n">
+                                <h3>/</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Search for sets</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+                                    <dd>string with tags you want to search for (comma-separated)</dd>
+
+                                    <dt>authors</dt>
+                                    <dd>string with users (CRSids) you want to search for (comma-separated)</dd>
+
+                                    <dt>minduration</dt>
+                                    <dd>minimum estimated duration you want the sets to have</dd>
+
+                                    <dt>maxduration</dt>
+                                    <dd>maximum estimated duration you want the sets to have</dd>
+
+                                    <dt>after</dt>
+                                    <dd>earliest date of creation of a set (in form dd/mm/yy)</dd>
+
+                                    <dt>before</dt>
+                                    <dd>latest date of creation of a set (in form dd/mm/yy)</dd>
+
+                                    <dt>supervisor</dt>
+                                    <dd>should a set be created by a supervisor (YES, NO or DONT_CARE)</dd>
+
+                                    <dt>starred</dt>
+                                    <dd>should a set be starred (YES, NO or DONT_CAE)</dd>
+
+                                    <dt>page</dt>
+                                    <dd>which page of results you want to get</dd>
+
+                                    <dt>amount</dt>
+                                    <dd>how many results do you want on one page</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>sets</dt>
+                                    <dd>list of sets returned by the search query</dd>
+
+                                    <dt>form</dt>
+                                    <dd>echo of your search terms</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request get global">
+                            <input type="checkbox" id="req-sets-id" />
+                            <label for="req-sets-id">
+                                <h3>/[id]</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Get a single set</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>[id]</dt>
+                                    <dd>id of a set</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>set</dt>
+                                    <dd>information about requested set</dd>
+
+                                    <dt>editable</dt>
+                                    <dd>boolean indicating whether you are allowed to edit this set</dd>
+
+                                    <dt>deadlineLink</dt>
+                                    <dd>link to create a deadline with this set</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-fork" />
+                            <label for="req-sets-fork">
+                                <h3>/fork</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Create a copy of a given set with a new name</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>setid</dt>
+                                    <dd>id of a set to be forked</dd>
+
+                                    <dt>name</dt>
+                                    <dd>name for the fork</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>set</dt>
+                                    <dd>information about newly created set</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-delete" />
+                            <label for="req-sets-delete">
+                                <h3>/delete</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Delete set from the database</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>setid</dt>
+                                    <dd>id of a set to be deleted</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-export" />
+                            <label for="req-sets-export">
+                                <h3>/export</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Add multiple questions to one set</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>targetSetId</dt>
+                                    <dd>destination set</dd>
+
+                                    <dt>questions</dt>
+                                    <dd>string containing IDs of questions to add to the set (comma-separated)</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-save" />
+                            <label for="req-sets-save">
+                                <h3>/save</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Add new set to the database</h4>
+                                <p class="description">
+                                    This has to be sent as a multipart form.
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>name</dt>
+                                    <dd>name for the new set</dd>
+
+                                    <dt>plan_type</dt>
+                                    <dd>datatype for supervision plan (PLAIN_TEXT, MARKDOWN, FILE, EMPTY)</dd>
+
+                                    <dt>plan_text</dt>
+                                    <dd>text for supervision plan (only for PLAIN_TEXT and MARKDOWN)</dd>
+
+                                    <dt>plan_file</dt>
+                                    <dd>file with supervision plan (as byte array; only for FILE)</dd>
+
+                                    <dt>plan_desc</dt>
+                                    <dd>description of file with supervision plan (only for FILE)</dd>
+
+                                    <dt>plan_ext</dt>
+                                    <dd>extension of the file with supervision plan (only for FILE)</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>set</dt>
+                                    <dd>returns information about the set created</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-update" />
+                            <label for="req-sets-update">
+                                <h3>/update</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Modify a set</h4>
+                                <p class="description">
+                                    This has to be sent as a multipart form.
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>setid</dt>
+                                    <dd>ID of the set you want to modify</dd>
+
+                                    <dt>name</dt>
+                                    <dd>new name for the set</dd>
+
+                                    <dt>plan_type</dt>
+                                    <dd>datatype for supervision plan (PLAIN_TEXT, MARKDOWN, FILE, EMPTY)</dd>
+
+                                    <dt>plan_text</dt>
+                                    <dd>text for supervision plan (only for PLAIN_TEXT and MARKDOWN)</dd>
+
+                                    <dt>plan_file</dt>
+                                    <dd>file with supervision plan (as byte array; only for FILE)</dd>
+
+                                    <dt>plan_desc</dt>
+                                    <dd>description of file with supervision plan (only for FILE)</dd>
+
+                                    <dt>plan_ext</dt>
+                                    <dd>extension of the file with supervision plan (only for FILE)</dd>
+
+                                    <dt>questions</dt>
+                                    <dd>new list of questions (comma-separated IDs)</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>set</dt>
+                                    <dd>returns information about the set created</dd>
+
+                                    <dt class="deprecated">deadlineLink</dt>
+                                    <dd>link to create a deadline with this set</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-togglestar" />
+                            <label for="req-sets-togglestar">
+                                <h3>/togglestar</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Toggle star</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>id</dt>
+                                    <dd>ID of the set in which you want to toggle the star</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>setid</dt>
+                                    <dd>ID of the modified set</dd>
+
+                                    <dt>starred</dt>
+                                    <dd>new state of the star (boolean)</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-addtags" />
+                            <label for="req-sets-addtags">
+                                <h3>/addtags</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Add tags</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>setid</dt>
+                                    <dd>ID of the set you want to modify</dd>
+
+                                    <dt>tags</dt>
+                                    <dd>comma-separated list of tags you want to add</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>tags</dt>
+                                    <dd>added tags</dd>
+
+                                    <dt>amount</dt>
+                                    <dd>number of added tags</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+                        <li class="request post user">
+                            <input type="checkbox" id="req-sets-removetags" />
+                            <label for="req-sets-removetags">
+                                <h3>/removetags</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Add tags</h4>
+                                <p class="description">
+
+                                </p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>setid</dt>
+                                    <dd>ID of the set you want to modify</dd>
+
+                                    <dt>tags</dt>
+                                    <dd>comma-separated list of tags you want to remove</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>boolean indicating whether request was successful or not</dd>
+
+                                    <dt>error</dt>
+                                    <dd>error message (only if success is false)</dd>
+
+                                    <dt>set</dt>
+                                    <dd>information about modified set</dd>
+                                </dl>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <input type="checkbox" id="req-uploads" checked />
+                    <label for="req-uploads">
+                        <h2>Uploads &ndash; /uploads</h2>
+                    </label>
+
+                    <div class="requests">
+                        <ul class="request-list">
+                            <li class="request get global">
+                                <input type="checkbox" id="req-uploads-file" />
+                                <label for="req-uploads-file">
+                                    <h3>/[filename]</h3>
+                                </label>
+
+                                <div class="content">
+                                    <h4>Retrieve file uploaded to the site</h4>
+                                    <p class="description"></p>
+
+                                    <h5>Parameters</h5>
+                                    <dl>
+                                        <dt>[filename]</dt>
+                                        <dd>name of the file you want to retrieve</dd>
+                                    </dl>
+
+                                    <h5>Response</h5>
+                                    HTTP response with an attachment being the requested file.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
