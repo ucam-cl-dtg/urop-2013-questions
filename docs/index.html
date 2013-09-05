@@ -28,24 +28,63 @@
 
                             <div class="content">
                                 <h4>Search for questions</h4>
-                                <p class="description">Some description</p>
+                                <p class="description">Allows for a search in the database with a set of search terms.
+                                All parameters terms will be ANDed. All individual search terms for one particular
+                                parameter are ORed (only applies to tags and authors, where a list is possible).</p>
 
                                 <h5>Parameters</h5>
                                 <dl>
                                     <dt>tags</dt>
-                                    <dd>CSV string for tags</dd>
-
-                                    <dt>success</dt>
-                                    <dd>CSV string for tags</dd>
-
-                                    <dt>authors</dt>
-                                    <dd>CSV string for tags</dd>
+	                                <dd>Comma-separated list of tags. All questions with at least one of these will be
+	                                 found but questions are sorted in a descending manner by the amount of tags from 
+	                                 the search query they contain.</dd>
+	                                 
+	                                <dt>authors</dt>
+	                                <dd>Comma-separated list of user IDs. Retrieves questions which were created by one
+	                                of the users in the list.</dd>
+	                                
+	                                <dt>minduration</dt>
+	                                <dd>Minimum duration of a question in minutes (integer value).</dd>
+	                                
+	                                <dt>maxduration</dt>
+	                                <dd>Maximum duration of a question in minutes (integer value).</dd>
+	                                
+	                                <dt>after</dt>
+	                                <dd>Questions created after a specific date. Format: DD/MM/YYYY.</dd>
+	                                
+	                                <dt>before</dt>
+	                                <dd>Questions created before a specific date. Format: DD/MM/YYYY.</dd>
+	                                
+	                                <dt>supervisor</dt>
+	                                <dd>Provides possibility to retrieve only questions which are created by supervisors
+	                                or students. Possible values: YES/NO/DONT_CARE </dd>
+	                                
+	                                <dt>starred</dt>
+	                                <dd>Provides possibility to retrieve only questions which are starred or not starred.
+	                                Possible values: YES/NO/DONT_CARE</dd>
+	                                
+	                                <dt>page</dt>
+	                                <dd>The page of results. Essentially part of the offset of the results displayed in relation
+	                                to all results in the database. The total offset is calculated with (page-1)*amount.</dd>
+	                                
+	                                <dt>amount</dt>
+	                                <dd>The amount of results to return. See description for page parameter for more details.</dd>
                                 </dl>
 
                                 <h5>Response</h5>
                                 <dl>
                                     <dt>success</dt>
                                     <dd>true/false</dd>
+                                    
+                                    <dt>error (if success == false)</dt>
+                                    <dd>An error message.</dd>
+                                    
+                                    <dt>questions (if success == true)</dt>
+                                    <dd>The result list of questions which correspond to the search terms. The maximum length
+                                     of this list is the value which was passed with the parameter amount.</dd>
+                                     
+                                    <dt>form</dt>
+                                    <dd>A map of essentially the search terms which were passed to produce this list of questions.</dd>
                                 </dl>
                             </div>
                         </li>
