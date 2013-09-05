@@ -1,0 +1,11 @@
+body {
+    font-family: sans-serif;
+}
+
+.request.get h3:before {
+    content: 'GET ';
+}
+
+.request.get h3:before {
+    content: 'POST ';
+}
