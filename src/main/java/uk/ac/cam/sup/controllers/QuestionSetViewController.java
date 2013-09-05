@@ -1,5 +1,7 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +67,16 @@ public class QuestionSetViewController extends GeneralController {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 
-		String deadlineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
+		String deadlineLink;
+		try{
+			deadlineLink = "http://" + getServerName() + ":" + getServerPort()
+					+ "/dashboard/deadlines/manage?url=" + URLEncoder.encode(getCurrentUrlRemoveApi(), "UTF-8")
+					+ "&title=" + URLEncoder.encode(qs.getName(), "UTF-8");
+		} catch (UnsupportedEncodingException e){
+			log.error("Problems encoding url (UnsupportedEncodingException)! Message: " + e.getMessage());
+			deadlineLink = "";
+		}
+		
 		
 		Builder<String,Object> builder = ImmutableMap.builder();
 		builder.put("success", true)

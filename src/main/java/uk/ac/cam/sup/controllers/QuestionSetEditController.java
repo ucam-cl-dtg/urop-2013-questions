@@ -1,5 +1,7 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -257,8 +259,17 @@ public class QuestionSetEditController extends GeneralController {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
-		String dlLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
+		String dlLink;
+		try{
+			dlLink = "http://" + getServerName() + ":" + getServerPort()
+					+ "/dashboard/deadlines/manage?url=" + URLEncoder.encode(getCurrentUrlRemoveApi(), "UTF-8")
+					+ "&title=" + URLEncoder.encode(qs.getName(), "UTF-8");
+		} catch (UnsupportedEncodingException e){
+			log.error("Problems encoding url (UnsupportedEncodingException)! Message: " + e.getMessage());
+			dlLink = "";
+		}
+		
+		System.err.println("Str: " + dlLink);
 		
 		return ImmutableMap.of("success", true, "set", qs.toMap(false), "deadlineLink", dlLink);
 	}
