@@ -50,7 +50,7 @@ moduleScripts['questions'] = {
 			],
 		},
 	    'question' : {
-	    	'create' : [
+	    	'createpage' : [
                 configureDataEditor,
                 configureQuestionCreator,
 	    	],
