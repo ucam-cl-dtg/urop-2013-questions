@@ -37,6 +37,10 @@ public abstract class Query<T extends Mappable & Identifiable> {
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
 		List<Map<String,?>> list = criteria.list();
+		if (list.size() == 0) {
+			return new ArrayList<T>();
+		}
+		
 		List<Integer> ids = new ArrayList<Integer>();
 		for (Map<String,?> element: list) {
 			ids.add((Integer) element.get("id"));
