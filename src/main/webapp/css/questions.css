@@ -285,3 +285,16 @@ div.create-set-textfield-container {
 .grey-text {
 	color: #999;
 }
+
+.list-padding ol {
+	padding-left: 40px;
+}
+.list-padding ul {
+	padding-left: 40px;
+}
+.small-list-padding ol {
+	padding-left: 15px;
+}
+.small-list-padding ul {
+	padding-left: 15px;
+}

@@ -1,5 +1,8 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,13 +68,22 @@ public class QuestionSetViewController extends GeneralController {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 
-		String deadlineLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
+		String deadlineLink;
+		try{
+			deadlineLink = "http://" + getServerName() + ":" + getServerPort()
+					+ "/dashboard/deadlines/manage?url=" + URLEncoder.encode(getCurrentUrlRemoveApi(), "UTF-8")
+					+ "&title=" + URLEncoder.encode(qs.getName(), "UTF-8");
+		} catch (UnsupportedEncodingException e){
+			log.error("Problems encoding url (UnsupportedEncodingException)! Message: " + e.getMessage());
+			deadlineLink = "";
+		}
+		
 		
 		Builder<String,Object> builder = ImmutableMap.builder();
 		builder.put("success", true)
 			.put("set", qs.toMap(!isCurrentUserSupervisor()))
-			.put("editable", getCurrentUserID().equals(qs.getOwner().getId()))
+			//.put("editable", getCurrentUserID().equals(qs.getOwner().getId()))
+			.put("editable", qs.getOwner().getId().equals(getCurrentUserID()))
 			.put("deadlineLink", deadlineLink);
 		
 		return builder.build();
@@ -113,7 +125,9 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/mysets")
 	@Produces("application/json")
-	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID){
+	public Map<String,?> produceMySets(@QueryParam("contains") Integer questionID) throws IOException{
+		disallowGlobal();
+		
 		User user = getCurrentUser();
 		List<User> userlist = new ArrayList<User>();
 		userlist.add(user);
@@ -139,7 +153,9 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/mysets/amount")
 	@Produces("application/json")
-	public Map<String,?> produceMySetCount(){
+	public Map<String,?> produceMySetCount() throws IOException{
+		disallowGlobal();
+		
 		try{
 			int amount = QuestionSetQuery.all().withUser(getCurrentUser()).size();
 			return ImmutableMap.of("success", true, "amount", amount);
@@ -155,7 +171,9 @@ public class QuestionSetViewController extends GeneralController {
 	public Map<String,?> produceSelectionOfMySets(
 			@QueryParam("contains") Integer qid,
 			@QueryParam("page") Integer page,
-			@QueryParam("amount") Integer amount) {
+			@QueryParam("amount") Integer amount) throws IOException {
+		disallowGlobal();
+		
 		return produceSelectionOfUserSets(getCurrentUserID(), qid, page, amount);
 	}
 	
@@ -185,7 +203,10 @@ public class QuestionSetViewController extends GeneralController {
 		
 		for(QuestionSet s: sets){
 			resultSets.add(ImmutableMap.of(
-					"set", s.toMap(!(getCurrentUser().getSupervisor() || getCurrentUser().getId().equals(u.getId()))),
+					// This is an ok test because getCurrentUser() only ever evaluates to null if isCurrentUserSupervisor()
+					// evaluates to true. Therefore the second test will only ever be made when the first one is false - which
+					// means that getCurrentUser() is not null.
+					"set", s.toMap(!(isCurrentUserSupervisor() || u.getId().equals(getCurrentUser().getId()))),
 					"containsQuestion", s.getQuestions().contains(q)));
 		}
 		
@@ -195,7 +216,9 @@ public class QuestionSetViewController extends GeneralController {
 	@GET
 	@Path("/mysets/qlimited")
 	@Produces("application/json")
-	public Map<String,?> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) {
+	public Map<String,?> produceOnlySetsWithQuestion(@QueryParam("qid") Integer qid) throws IOException {
+		disallowGlobal();
+		
 		QuestionSetQuery qsq = QuestionSetQuery.all().withUser(getCurrentUser()).have(qid);
 		qsq.getCriteria().addOrder(Order.asc("name"));
 		

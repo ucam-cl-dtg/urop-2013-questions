@@ -1,6 +1,9 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 
 import org.slf4j.Logger;
@@ -14,6 +17,8 @@ import uk.ac.cam.sup.queries.UserQuery;
 public abstract class GeneralController {
 	@Context
 	private HttpServletRequest request;
+	@Context
+	private HttpServletResponse response;
 	
 	private static Logger log = LoggerFactory.getLogger(GeneralController.class);
 	
@@ -23,20 +28,32 @@ public abstract class GeneralController {
 	 * @return
 	 */
 	protected String getCurrentUserID(){
-		return getCurrentUser().getId();
+		User u = getCurrentUser();
+		if(u == null) return null;
+		else return u.getId();
 	}
 	protected String getCurrentUserName(){
-		User u = new User(getCurrentUserID());
-		return u.getName();
+		String id = getCurrentUserID();
+		if(id == null) return null;
+		else {
+			User u = new User(id);
+			return u.getName();
+		}
 	}
 	
+	protected boolean globalUser(){
+		if(getCurrentUser() == null) return true;
+		else return false;
+	}
 	/**
 	 * Gets boolean value of user's supervisor bit
 	 * 
 	 * @return
 	 */
 	protected boolean isCurrentUserSupervisor() {
-		return getCurrentUser().getSupervisor();
+		User u = getCurrentUser();
+		if(u == null) return true;
+		else return u.getSupervisor();
 	}
 	/**
 	 * Gets the currently logged in user as User object.
@@ -47,7 +64,9 @@ public abstract class GeneralController {
 		// FIXME: Should be able to put APIFilter.USER_ATTR in place of "userId"
 		//        but for some reason it isn't available on the class path.
 		String uID = (String) request.getAttribute("userId");
-		//String uID = "test123";
+		
+		if(uID == null) return null;
+		
 		User curUser;
 		try {
 			curUser = UserQuery.get(uID);
@@ -90,4 +109,17 @@ public abstract class GeneralController {
 		return request.getServerPort();
 	}
 	
+	
+	protected void sendUnauthorized() throws IOException{
+		try {
+			response.sendError(401, "You are not authorized to perform this action.");
+		} catch (IOException e) {
+			log.error("IOException occurred while trying to send 401 due to global key. Message: " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	protected void disallowGlobal() throws IOException{
+		if(globalUser()) sendUnauthorized();
+	}
 }

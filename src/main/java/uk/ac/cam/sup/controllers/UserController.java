@@ -1,5 +1,6 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +107,9 @@ public class UserController extends GeneralController {
 	@GET
 	@Path("/me")
 	@Produces("application/json")
-	public Map<String,?> produceMyContent() {
+	public Map<String,?> produceMyContent() throws IOException {
+		disallowGlobal();
+
 		return produceUserContent(getCurrentUserID());
 	}
 	

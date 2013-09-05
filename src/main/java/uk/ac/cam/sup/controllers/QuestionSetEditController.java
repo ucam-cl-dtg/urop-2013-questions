@@ -1,5 +1,8 @@
 package uk.ac.cam.sup.controllers;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,7 +48,11 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/addremove")
 	@Produces("application/json")
-	public Map<String,?> addRemoveQuestionToSet(@Form QuestionsAddRemove form){
+	public Map<String,?> addRemoveQuestionToSet(@Form QuestionsAddRemove form) throws IOException{
+		disallowGlobal();
+		
+		String uid = getCurrentUserID();
+		
 		Set<Map<String,?>> sets;
 		int qid;
 		
@@ -74,9 +81,11 @@ public class QuestionSetEditController extends GeneralController {
 				qs = QuestionSetQuery.get(sid);
 				add = (Boolean)map.get("add");
 				if(add){
+					if(!qs.getOwner().getId().equals(uid)) throw new Exception("User is not owner of set!");
 					qs.addQuestion(q);
 					qs.update();
 				}else if(!add){
+					if(!qs.getOwner().getId().equals(uid)) throw new Exception("User is not owner of set!");
 					qs.removeQuestion(q);
 					qs.update();
 				}else{
@@ -103,7 +112,11 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/remove")
 	@Produces("application/json")
-	public Map<String,?> removeQuestionFromSet(@Form QuestionRemove form) {
+	public Map<String,?> removeQuestionFromSet(@Form QuestionRemove form) throws IOException {
+		disallowGlobal();
+		
+		String uid = getCurrentUserID();
+		
 		int qid,sid;
 		try {
 			qid = form.getQid();
@@ -114,19 +127,20 @@ public class QuestionSetEditController extends GeneralController {
 		}
 		
 		
-		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + getCurrentUserID() + ")");
+		log.debug("Trying to remove question " + qid + " from set " + sid + ". (Initiated by user " + uid + ")");
 		try {
 			QuestionSet qs = QuestionSetQuery.get(sid);
 			if (qs == null) {
 				throw new WebApplicationException(Response.Status.NOT_FOUND);
 			}
-
+			if (!qs.getOwner().getId().equals(uid)) throw new Exception("User " + uid + " not authorized to remove "
+					+ "question from set " + qs.getId() + ", which belongs to user " + qs.getOwner());
 			qs.removeQuestion(QuestionQuery.get(qid));
 			qs.update();
 		} catch (WebApplicationException e) {
 			throw e;
 		} catch(Exception e) {
-			log.warn("Error when trying to remove question!\n" + e.getStackTrace());
+			log.warn("Error when trying to remove question!\nMessage: " + e.getMessage());
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		return ImmutableMap.of("success", true);
@@ -135,7 +149,9 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/fork")
 	@Produces("application/json")
-	public Map<String,?> forkSet(@Form QuestionSetFork form) {
+	public Map<String,?> forkSet(@Form QuestionSetFork form) throws IOException {
+		disallowGlobal();
+		
 		try {
 			form.validate().parse();
 			QuestionSet fork = form.getSet().fork(getCurrentUser(), form.getName());
@@ -150,7 +166,9 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/delete")
 	@Produces("application/json")
-	public Map<String,?> deleteSet(@FormParam("setid") String setId) {
+	public Map<String,?> deleteSet(@FormParam("setid") String setId) throws IOException {
+		disallowGlobal();
+		
 		int id;
 		try {
 			id = Integer.parseInt(setId);
@@ -180,6 +198,8 @@ public class QuestionSetEditController extends GeneralController {
 	@Path("/export")
 	@Produces("application/json")
 	public Map<String,?> exportQuestions(@Form QuestionSetExport form) throws Exception {
+		disallowGlobal();
+		
 		QuestionSet qs;
 		
 		try {
@@ -212,7 +232,9 @@ public class QuestionSetEditController extends GeneralController {
 	@Path("/save")
 	@Produces("application/json")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Map<String,?> saveSet(@MultipartForm QuestionSetAdd form) throws Exception {
+	public Map<String,?> saveSet(@MultipartForm QuestionSetAdd form) throws IOException {
+		disallowGlobal();
+		
 		log.debug("Trying to add new set for user '" + getCurrentUserID() + "..."); 
 		QuestionSet qs;
 		
@@ -236,7 +258,9 @@ public class QuestionSetEditController extends GeneralController {
 	@Path("/update")
 	@Produces("application/json")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Map<String,?> updateSet(@MultipartForm QuestionSetEdit form) throws Exception {
+	public Map<String,?> updateSet(@MultipartForm QuestionSetEdit form) throws WebApplicationException, IOException {
+		disallowGlobal();
+		
 		QuestionSet qs;
 		
 		try {
@@ -246,7 +270,8 @@ public class QuestionSetEditController extends GeneralController {
 				throw new WebApplicationException(Response.Status.NOT_FOUND);
 			}
 			if (!qs.getOwner().getId().equals(getCurrentUserID())) {
-				throw new Exception("You're not the owner of this set");
+				sendUnauthorized();
+				return null;
 			}
 			
 			qs.edit(form);
@@ -257,8 +282,17 @@ public class QuestionSetEditController extends GeneralController {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		
-		String dlLink = "http://" + getServerName() + ":" + getServerPort()
-				+ "/dashboard/deadlines/manage?url=" + getCurrentUrlRemoveApi();
+		String dlLink;
+		try{
+			dlLink = "http://" + getServerName() + ":" + getServerPort()
+					+ "/dashboard/deadlines/manage?url=" + URLEncoder.encode(getCurrentUrlRemoveApi(), "UTF-8")
+					+ "&title=" + URLEncoder.encode(qs.getName(), "UTF-8");
+		} catch (UnsupportedEncodingException e){
+			log.error("Problems encoding url (UnsupportedEncodingException)! Message: " + e.getMessage());
+			dlLink = "";
+		}
+		
+		System.err.println("Str: " + dlLink);
 		
 		return ImmutableMap.of("success", true, "set", qs.toMap(false), "deadlineLink", dlLink);
 	}
@@ -266,7 +300,9 @@ public class QuestionSetEditController extends GeneralController {
 	@POST
 	@Path("/togglestar")
 	@Produces("application/json")
-	public Map<String,?> toggleStar(@FormParam("id") int id) {
+	public Map<String,?> toggleStar(@FormParam("id") int id) throws IOException {
+		disallowGlobal();
+		
 		QuestionSet qs;
 		
 		try {

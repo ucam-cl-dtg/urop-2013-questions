@@ -6,11 +6,11 @@
  */
 {template .display}
 	{if $data.type == 'PLAIN_TEXT'}
-		<div>{$data.data}</div>
+		<div>{$data.data |changeNewlineToBr}</div>
 	{elseif $data.type == 'MARKDOWN'}
-		<div class="latex-content markdown-content">{$data.data}</div>
+		<div class="latex-content markdown-content list-padding">{$data.data}</div>
 	{elseif $data.type == 'FILE'}
-		<div><a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description}</a></div>
+		<div><a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description |changeNewlineToBr}</a></div>
 	{else}
 		<div class="grey-text">Nothing here.</div>
 	{/if}
@@ -22,11 +22,11 @@
  */
 {template .preview}
 	{if $data.type == 'PLAIN_TEXT'}
-        {$data.data}
+        {$data.data |changeNewlineToBr}
     {elseif $data.type == 'MARKDOWN'}
-        <div class="latex-content markdown-content">{$data.data}</div>
+        <div class="latex-content markdown-content small-list-padding">{$data.data}</div>
     {elseif $data.type == 'FILE'}
-        <a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description}</a>
+        <a href="{$ij.URLPrefix}{$ij.UploadPrefix}{$data.data}" data-bypass>{$data.description |changeNewlineToBr}</a>
     {else}
     {/if}
 {/template}
