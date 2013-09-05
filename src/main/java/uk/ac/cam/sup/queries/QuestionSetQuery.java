@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
@@ -20,18 +22,28 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 	//private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
 	
 	private QuestionSetQuery(Criteria criteria) {
+		super(QuestionSet.class);
 		this.criteria = criteria;
 	}
 	
 	public static QuestionSetQuery all() {
-		QuestionSetQuery qsq = new QuestionSetQuery (
-				HibernateUtil.getTransactionSession()
-					.createCriteria(QuestionSet.class)
-					.createAlias("owner", "o")
-					.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-					.addOrder(Order.desc("isStarred"))
-					.addOrder(Order.desc("timeStamp"))
-		);
+		ProjectionList projectionList = Projections.projectionList()
+				.add(Projections.groupProperty("id"))
+				.add(Projections.count("id").as("count"))
+				.add(Projections.property("id").as("id"))
+				.add(Projections.groupProperty("isStarred"))
+				.add(Projections.groupProperty("timeStamp"));
+			
+		Criteria c = HibernateUtil.getTransactionSession()
+				.createCriteria(QuestionSet.class)
+				.setProjection(projectionList)
+				.addOrder(Order.desc("isStarred"))
+				.addOrder(Order.desc("count"))
+				.addOrder(Order.desc("timeStamp"))
+				.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+			
+		QuestionSetQuery qsq = new QuestionSetQuery(c);
+		
 		return qsq;
 	}
 	

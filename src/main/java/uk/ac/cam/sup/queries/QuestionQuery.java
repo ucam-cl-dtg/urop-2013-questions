@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +23,13 @@ import uk.ac.cam.sup.util.HibernateUtil;
 public class QuestionQuery extends Query<Question> {
 	private static Logger log = LoggerFactory.getLogger(QuestionQuery.class);
 	
-	private QuestionQuery(Criteria c){
-		log.debug("Constructing new criteria");
-		criteria = c; 
+	private QuestionQuery(Criteria criteria){
+		super(Question.class);
+		
+		log.debug("Constructing new criteria");;
+		this.criteria = criteria;
 	}
-	
+
 	public static Question get(int id) {
 		Session session = HibernateUtil.getTransactionSession();
 		log.debug("Trying to get question with id " + id);
@@ -39,15 +43,25 @@ public class QuestionQuery extends Query<Question> {
 	}
 	
 	public static QuestionQuery all(){
-		// The .setResultTransformer(...) part is responsible for putting Questions back together,
-		// which, for ex., contain 2 or more of the tags searched for. (Otherwise you would get
-		// back 1 instance of the same object with every of the different tags specified).
 		log.debug("New QuestionQuery required. Constructing & returning");
-		QuestionQuery qq = new QuestionQuery(HibernateUtil.getTransactionSession()
-				.createCriteria(Question.class)	
-				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-				.addOrder(Order.desc("isStarred"))
-				.addOrder(Order.desc("timeStamp")));
+		
+		ProjectionList projectionList = Projections.projectionList()
+			.add(Projections.groupProperty("id"))
+			.add(Projections.count("id").as("count"))
+			.add(Projections.property("id").as("id"))
+			.add(Projections.groupProperty("isStarred"))
+			.add(Projections.groupProperty("timeStamp"));
+		
+		Criteria c = HibernateUtil.getTransactionSession()
+			.createCriteria(Question.class)
+			.setProjection(projectionList)
+			.addOrder(Order.desc("isStarred"))
+			.addOrder(Order.desc("count"))
+			.addOrder(Order.desc("timeStamp"))
+			.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		
+		QuestionQuery qq = new QuestionQuery(c);
+		
 		log.debug("Successfully created, now returning");
 		return qq;
 	}

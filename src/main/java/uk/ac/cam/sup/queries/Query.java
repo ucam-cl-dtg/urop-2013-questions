@@ -1,6 +1,8 @@
 package uk.ac.cam.sup.queries;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,23 +11,50 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
+import org.hibernate.criterion.Restrictions;
 
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
+import uk.ac.cam.sup.util.HibernateUtil;
+import uk.ac.cam.sup.util.Identifiable;
 import uk.ac.cam.sup.util.Mappable;
 
-public abstract class Query<T extends Mappable> {
+public abstract class Query<T extends Mappable & Identifiable> {
+	
 	protected Criteria criteria;
 	protected boolean modified = false;
+	protected Class<T> queriedClass;
 	
-	public static Query<?> all(Class<?> qclass) {
+	protected Query(Class<T> queryClass) {
+		queriedClass = queryClass;
+	}
+	
+	public static <T extends Mappable & Identifiable> Query<T> all(Class<T> qclass) {
 		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
-		return criteria.list();
+		List<Map<String,?>> list = criteria.list();
+		List<Integer> ids = new ArrayList<Integer>();
+		for (Map<String,?> element: list) {
+			ids.add((Integer) element.get("id"));
+		}
+		final List<Integer> idList = new ArrayList<Integer>(ids);
+		
+		List<T> result = HibernateUtil.getTransactionSession()
+				.createCriteria(queriedClass)
+				.add(Restrictions.in("id", ids))
+				.list();
+		
+		Collections.sort(result, new Comparator<T>() {
+			public int compare(T arg0, T arg1) {
+				return idList.indexOf(arg0.getId())-idList.indexOf(arg1.getId());
+			}
+		});
+		
+		return result;
 	}
 	
 	public List<Map<String,?>> maplist(boolean shadowed) {

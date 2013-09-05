@@ -298,7 +298,7 @@
  */
 {template .tags}
 	{if $tags and $tags.length > 0}
-		{for $i in range(0,$tags.length-2)}
+		{for $i in range(0,$tags.length-1)}
 			{$tags[$i].name},&thinsp;
 		{/for}
 		{$tags[$tags.length-1].name}

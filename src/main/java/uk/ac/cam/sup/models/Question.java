@@ -34,11 +34,12 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.QuestionSetQuery;
 import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.util.DataType;
+import uk.ac.cam.sup.util.Identifiable;
 import uk.ac.cam.sup.util.Mappable;
 
 @Entity()
 @Table(name="Questions")
-public class Question extends Model implements Cloneable, Mappable {
+public class Question extends Model implements Cloneable, Mappable, Identifiable {
 	@Transient
 	private static Logger log = LoggerFactory.getLogger(Question.class);
 	

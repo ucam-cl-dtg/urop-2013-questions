@@ -27,6 +27,7 @@ import uk.ac.cam.sup.queries.QuestionQuery;
 import uk.ac.cam.sup.queries.TagQuery;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 @Path("/q")
 public class QuestionViewController extends GeneralController {
@@ -45,11 +46,12 @@ public class QuestionViewController extends GeneralController {
 		try {
 			form.validate().parse();
 			
-			return ImmutableMap.of(
-					"success", true,
-					"questions", form.getSearchResults(),
-					"form", form.toMap()
-			);
+			Builder<String,Object> builder = ImmutableMap.builder();
+			builder	.put("questions", form.getSearchResults())
+					.put("form", form.toMap())
+					.put("success", true);
+			
+			return builder.build();
 		} catch (NullPointerException e) {
 			return ImmutableMap.of("success", false, "error", "Null pointer exception");
 		} catch (Exception e) {

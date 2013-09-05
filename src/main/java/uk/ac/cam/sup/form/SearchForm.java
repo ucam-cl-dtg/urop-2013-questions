@@ -16,13 +16,14 @@ import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.Query;
 import uk.ac.cam.sup.queries.TagQuery;
 import uk.ac.cam.sup.queries.UserQuery;
+import uk.ac.cam.sup.util.Identifiable;
 import uk.ac.cam.sup.util.Mappable;
 import uk.ac.cam.sup.util.TripleChoice;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
-public abstract class SearchForm<T extends Mappable> {
+public abstract class SearchForm<T extends Mappable & Identifiable> {
 	@QueryParam("tags")
 	protected String tags;
 	protected List<Tag> tagList = new ArrayList<Tag>();
