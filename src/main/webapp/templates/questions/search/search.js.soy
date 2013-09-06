@@ -279,10 +279,10 @@
 			<div class="columns large-12 small-12">
 				<ul class="panel-icons-list">
 					<li>
-						<i class="icon icon-user"/><strong> Author:</strong>
+						<i class="icon icon-user"/><strong> Author: </strong>
 						<a href="{$ij.URLPrefix}/users/{$question.owner.id}">{$question.owner.name}</a>
 					</li>
-					<li><i class="icon icon-clock"/><strong> Created:</strong> {$question.soyTimeStamp}</li>
+					<li><i class="icon icon-clock"/><strong> Created:</strong> {$question.timeStamp}</li>
 					<li><i class="icon icon-hashtag"/><strong> Tags:</strong>
 						{call .tags}{param tags: $question.tags /}{/call}
 					</li>

@@ -85,9 +85,9 @@ public class QuestionEditController extends GeneralController{
 			sendQuestionEditedNotification(qe.getId(), q.getId(), editor.getId());
 						
 			if(qe.getSetId() == -1) {
-				return ImmutableMap.of("success", true, "question", q);
+				return ImmutableMap.of("success", true, "question", q.toMap(!isCurrentUserSupervisor()));
 			}else{
-				return ImmutableMap.of("success", true, "question", q, "set", qs);
+				return ImmutableMap.of("success", true, "question", q.toMap(!isCurrentUserSupervisor()), "set", qs.toMap(!isCurrentUserSupervisor()));
 			}
 		} catch (WebApplicationException e) {
 			throw e;
@@ -216,10 +216,10 @@ public class QuestionEditController extends GeneralController{
 				qs.addQuestion(q);
 				qs.update();
 				
-				return ImmutableMap.of("success", true, "question", q, "set", qs);
+				return ImmutableMap.of("success", true, "question", q.toMap(false), "set", qs.toMap(!isCurrentUserSupervisor()));
 			}
 			
-			return ImmutableMap.of("success", true, "question", q);
+			return ImmutableMap.of("success", true, "question", q.toMap(false));
 			
 		} catch (FormValidationException e) {
 			return ImmutableMap.of("success", false, "error", "Message: " + e.getMessage());
@@ -288,7 +288,7 @@ public class QuestionEditController extends GeneralController{
 			}
 			question.removeTagByString(tag);
 			question.update();
-			return ImmutableMap.of("success", true, "question", question);
+			return ImmutableMap.of("success", true, "question", question.toMap(!isCurrentUserSupervisor()));
 		} catch (WebApplicationException e) {
 			throw e;
 		} catch(Exception e){

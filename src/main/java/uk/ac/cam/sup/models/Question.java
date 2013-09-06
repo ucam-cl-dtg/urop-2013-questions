@@ -265,7 +265,7 @@ public class Question extends Model implements Cloneable, Mappable, Identifiable
 		r.put("id", this.id);
 		r.put("parentid", (parent == null ? null : this.parent.getId()));
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.UK);
-		r.put("soyTimeStamp", dateFormat.format(timeStamp));
+		r.put("timeStamp", dateFormat.format(timeStamp));
 		r.put("owner", this.owner);
 		r.put("content", this.content);
 		r.put("starred", this.isStarred);
