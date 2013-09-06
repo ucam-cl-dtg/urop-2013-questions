@@ -33,7 +33,7 @@
 
                                 <h5>Parameters</h5>
                                 <dl>
-                                    <dt>id (path parameter)</dt>
+                                    <dt>[id]</dt>
                                     <dd>The id of the question to be returned.</dd>
                                 </dl>
 
@@ -218,10 +218,10 @@
 
                                 <h5>Parameters</h5>
                                 <dl>
-                                    <dt>id (path parameter)</dt>
+                                    <dt>[id]</dt>
                                     <dd>The id of the question to edit</dd>
                                     
-                                    <dt>setid (path parameter)</dt>
+                                    <dt>[setid]</dt>
                                     <dd>The id of the set inside which to edit the question.</dd>
                                 </dl>
 
@@ -948,6 +948,186 @@
                         </ul>
                     </div>
                 </div>
+                
+                <div class="category">
+                    <input type="checkbox" id="req-users" checked />
+                    <label for="req-users">
+                        <h2>Users &ndash; /users</h2>
+                    </label>
+
+                    <div class="requests">
+                        <ul class="request-list">
+                            <li class="request get global">
+                                <input type="checkbox" id="req-users-crsid" />
+                                <label for="req-users-crsid">
+                                    <h3>/users/[crsid]</h3>
+                                </label>
+
+                                <div class="content">
+                                    <h4>Get content of a user</h4>
+                                    <p class="description">Returns all sets and questions of the user with CRSID [crsid].</p>
+
+                                    <h5>Parameters</h5>
+                                    <dl>
+                                        <dt>[crsid]</dt>
+                                        <dd>CRSID of the user of whom to retrieve the sets and questions.</dd>
+                                    </dl>
+
+                                    <h5>Response</h5>
+                                    <dl>
+                                    	<dt>success</dt>
+                                    	<dd>Boolean indicating whether request was successful or not.</dd>
+                                    	
+                                    	<dt>error</dt>
+                                	    <dd>(If success is false). An error message.</dd>
+                                    
+                                  		<dt>questions</dt>
+                                 	   	<dd>(If success is true). The list of questions owned by the user (with length amount and offset
+                                 	   	(page-1)*amount).</dd>
+                                    
+                                    	<dt>totalQuestions</dt>
+                                    	<dd>(If success is true). The number of questions the user owns in total. Might be more than the number
+                                    	of questions actually returned.</dd>
+                                    	
+                                    	<dt>questionsPage</dt>
+                                    	<dd>(If success is true). The page of results returned.</dd>
+                                    	
+                                    	<dt>questionsAmount</dt>
+                                    	<dd>(If success is true). The amount of questions per page (maximum amount to be returned).</dd>
+                                    	
+                                    	<dt>sets</dt>
+                                    	<dd>Same as 'questions' but for sets.</dd>
+                                    	
+                                    	<dt>totalSets</dt>
+                                    	<dd>Same as 'totalQuestions' but for sets.</dd>
+                                    	
+                                    	<dt>setsPage</dt>
+                                    	<dd>Same as 'questionsPage' but for sets.</dd>
+                                    	
+                                    	<dt>setsAmount</dt>
+                                    	<dd>Same as 'questionsAmount' but for sets.</dd>
+                                    	
+                                    	<dt>crsid</dt>
+                                    	<dd>CRSID of the user who's content was returned.</dd>
+                                    	
+                                    	<dt>userName</dt>
+                                    	<dd>The display name of the user as it is in the Cambridge lookup service. Falls back to
+                                    	registered name if display name is not available. Falls back on CRSID if none of the two are
+                                    	available.</dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            
+                            <li class="request get global">
+                                <input type="checkbox" id="req-users-crsid-questions" />
+                                <label for="req-users-crsid-questions">
+                                    <h3>/users/[crsid]/questions</h3>
+                                </label>
+
+                                <div class="content">
+                                    <h4>Get questions of a user</h4>
+                                    <p class="description">Returns all questions of the user with CRSID [crsid].</p>
+
+                                    <h5>Parameters</h5>
+                                    <dl>
+                                        <dt>[crsid]</dt>
+                                        <dd>CRSID of the user of whom to retrieve the questions from.</dd>
+                                    </dl>
+
+                                    <h5>Response</h5>
+                                    <dl>
+                                    	<dt>success</dt>
+                                    	<dd>Boolean indicating whether request was successful or not.</dd>
+                                    	
+                                    	<dt>error</dt>
+                                	    <dd>(If success is false). An error message.</dd>
+                                    
+                                  		<dt>sets</dt>
+                                    	<dd>(If success is true). The list of questions owned by the user (with length amount and offset
+                                    	(page-1)*amount).</dd>
+                                    	
+                                    	<dt>totalSets</dt>
+                                    	<dd>(If success is true). The number of questions the user owns in total. Might be more than the number
+                                    	of questions actually returned.</dd>
+                                    	
+                                    	<dt>setsPage</dt>
+                                    	<dd>(If success is true). The page of results returned.</dd>
+                                    	
+                                    	<dt>setsAmount</dt>
+                                    	<dd>(If success is true). The amount of questions per page (maximum amount to be returned).</dd>
+                                    	
+                                    	<dt>crsid</dt>
+                                    	<dd>CRSID of the user who's questions were returned.</dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            
+                            <li class="request get global">
+                                <input type="checkbox" id="req-users-crsid-sets" />
+                                <label for="req-users-crsid-sets">
+                                    <h3>/users/[crsid]/sets</h3>
+                                </label>
+
+                                <div class="content">
+                                    <h4>Get sets of a user</h4>
+                                    <p class="description">Returns all sets of the user with CRSID [crsid].</p>
+
+                                    <h5>Parameters</h5>
+                                    <dl>
+                                        <dt>[crsid]</dt>
+                                        <dd>CRSID of the user of whom to retrieve the sets from.</dd>
+                                    </dl>
+
+                                    <h5>Response</h5>
+                                    <dl>
+                                    	<dt>success</dt>
+                                    	<dd>Boolean indicating whether request was successful or not.</dd>
+                                    	
+                                    	<dt>error</dt>
+                                	    <dd>(If success is false). An error message.</dd>
+                                    
+                                  		<dt>sets</dt>
+                                    	<dd>(If success is true). The list of sets owned by the user (with length amount and offset
+                                    	(page-1)*amount).</dd>
+                                    	
+                                    	<dt>totalSets</dt>
+                                    	<dd>(If success is true). The number of sets the user owns in total. Might be more than the number
+                                    	of sets actually returned.</dd>
+                                    	
+                                    	<dt>setsPage</dt>
+                                    	<dd>(If success is true). The page of results returned.</dd>
+                                    	
+                                    	<dt>setsAmount</dt>
+                                    	<dd>(If success is true). The amount of sets per page (maximum amount to be returned).</dd>
+                                    	
+                                    	<dt>crsid</dt>
+                                    	<dd>CRSID of the user who's sets were returned.</dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            
+                            <li class="request get">
+                                <input type="checkbox" id="req-users-me" />
+                                <label for="req-users-me">
+                                    <h3>/users/me</h3>
+                                </label>
+
+                                <div class="content">
+                                    <h4>Get content of the user who is authenticated with this request</h4>
+                                    <p class="description">Exactly the same as if one were to make a request to /users/[crsid] where [crsid]
+                                    in this case is the CRSID of whoever is authenticated when making this request.</p>
+
+                                    <h5>Parameters</h5>
+                                    None.
+
+                                    <h5>Response</h5>
+                                    See /users/[crsid].
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </body>
