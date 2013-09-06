@@ -129,7 +129,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void allElementsReturnedBySupervisorFilterHaveAStar() {
 		List<?> result = QuestionSetQuery.all().bySupervisor().list();
 		for (Object o: result) {
@@ -137,7 +137,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void noElementsAreOmittedBySupervisorFilter() {
 		List<?> result = QuestionSetQuery.all().bySupervisor().list();
 		List<?> all = QuestionSetQuery.all().list();
@@ -149,7 +149,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void allElementsReturnedByStudentFilterHaveAStar() {
 		List<?> result = QuestionSetQuery.all().byStudent().list();
 		for (Object o: result) {
@@ -157,7 +157,7 @@ public class QuestionSetQueryTest extends GenericTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void noElementsAreOmittedByStudentFilter() {
 		List<?> result = QuestionSetQuery.all().byStudent().list();
 		List<?> all = QuestionSetQuery.all().list();
