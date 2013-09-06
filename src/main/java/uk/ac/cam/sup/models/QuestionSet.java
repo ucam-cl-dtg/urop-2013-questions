@@ -284,7 +284,7 @@ public class QuestionSet extends Model implements Mappable, Cloneable, Identifia
 		r.put("name", this.name);
 		r.put("owner", this.owner);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.UK);
-		r.put("soyTimeStamp", dateFormat.format(timeStamp));
+		r.put("timeStamp", dateFormat.format(timeStamp));
 		r.put("expectedDuration", this.getExpectedDuration());
 		r.put("starred", this.isStarred);
 		r.put("tags", this.tags);

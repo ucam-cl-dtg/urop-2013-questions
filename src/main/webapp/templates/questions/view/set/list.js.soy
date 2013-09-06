@@ -232,7 +232,7 @@
 						<i class="icon icon-user"/><strong> Author: </strong>
 						<a href="{$ij.URLPrefix}/users/{$set.owner.id}">{$set.owner.name}</a>
 					</li>
-					<li><i class="icon icon-clock"/><strong> Created:</strong> {$set.soyTimeStamp}</li>
+					<li><i class="icon icon-clock"/><strong> Created:</strong> {$set.timeStamp}</li>
 					<li><i class="icon icon-hashtag"/><strong> Tags:</strong>
 						{call .tags}{param tags: $set.tags /}{/call}
 					</li>

@@ -157,7 +157,7 @@ public class QuestionSetEditController extends GeneralController {
 			QuestionSet fork = form.getSet().fork(getCurrentUser(), form.getName());
 			fork.save();
 			
-			return ImmutableMap.of("success", true, "set", fork.toMap());
+			return ImmutableMap.of("success", true, "set", fork.toMap(!isCurrentUserSupervisor()));
 		} catch (CloneNotSupportedException | FormValidationException e) {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
@@ -225,7 +225,7 @@ public class QuestionSetEditController extends GeneralController {
 			return ImmutableMap.of("success", false, "error", e.getMessage());
 		}
 		log.debug("Apparently successfully added question(s) to set " + qs.getId());
-		return ImmutableMap.of("success", true, "set", qs);
+		return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
 	}
 	
 	@POST
@@ -251,7 +251,7 @@ public class QuestionSetEditController extends GeneralController {
 		}
 		
 		log.debug("Successfully added set " + form.getName() + " for user " + getCurrentUserID());
-		return ImmutableMap.of("success", true, "set", qs);
+		return ImmutableMap.of("success", true, "set", qs.toMap(!isCurrentUserSupervisor()));
 	}
 	
 	@POST
