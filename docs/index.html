@@ -20,6 +20,38 @@
 
                 <div class="requests">
                     <ul class="request-list">
+						
+						<li class="request get global">
+                            <input type="checkbox" id="req-q-id" />
+                            <label for="req-q-id">
+                                <h3>/q/[id]</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Return data for a single question</h4>
+                                <p class="description">Returns all relevant information for a particular question.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>id (path parameter)</dt>
+                                    <dd>The id of the question to be returned.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>question</dt>
+                                    <dd>(If success is true). All data of the question with the specified id. Will not return the solution notes
+                                    if the requesting user is a student</dd>
+                                </dl>
+                            </div>
+                        </li>
+                        
                         <li class="request get global">
                             <input type="checkbox" id="req-q-search" />
                             <label for="req-q-search">
@@ -85,85 +117,6 @@
                                      
                                     <dt>form</dt>
                                     <dd>(If success is true). A map of essentially the search terms which were passed to produce this list of questions.</dd>
-                                </dl>
-                            </div>
-                        </li>
-
-                        <li class="request post">
-                            <input type="checkbox" id="req-q-save" />
-                            <label for="req-q-save">
-                                <h3>/q/save !TODO!</h3>
-                            </label>
-
-                            <div class="content">
-                                <h4>Search for questions</h4>
-                                <p class="description">Some description</p>
-
-                                <h5>Parameters</h5>
-                                <dl>
-                                    <dt>tags</dt>
-                                    <dd>CSV string for tags</dd>
-                                </dl>
-
-                                <h5>Response</h5>
-                                <dl>
-                                    <dt>success</dt>
-                                    <dd>true/false</dd>
-                                </dl>
-                            </div>
-                        </li>
-
-                        <li class="request get">
-                            <input type="checkbox" id="req-q-update" />
-                            <label for="req-q-update">
-                                <h3>/q/update !TODO!</h3>
-                            </label>
-
-                            <div class="content">
-                                <h4>Search for questions</h4>
-                                <p class="description">Some description</p>
-
-                                <h5>Parameters</h5>
-                                <dl>
-                                    <dt>tags</dt>
-                                    <dd>CSV string for tags</dd>
-                                </dl>
-
-                                <h5>Response</h5>
-                                <dl>
-                                    <dt>success</dt>
-                                    <dd>true/false</dd>
-                                </dl>
-                            </div>
-                        </li>
-
-                        <li class="request get global">
-                            <input type="checkbox" id="req-q-id" />
-                            <label for="req-q-id">
-                                <h3>/q/[id]</h3>
-                            </label>
-
-                            <div class="content">
-                                <h4>Return data for a single question</h4>
-                                <p class="description">Returns all relevant information for a particular question.</p>
-
-                                <h5>Parameters</h5>
-                                <dl>
-                                    <dt>id (path parameter)</dt>
-                                    <dd>The id of the question to be returned.</dd>
-                                </dl>
-
-                                <h5>Response</h5>
-                                <dl>
-                                    <dt>success</dt>
-                                    <dd>true/false</dd>
-                                    
-                                    <dt>error</dt>
-                                    <dd>(If success is false). An error message.</dd>
-                                    
-                                    <dt>question</dt>
-                                    <dd>(If success is true). All data of the question with the specified id. Will not return the solution notes
-                                    if the requesting user is a student</dd>
                                 </dl>
                             </div>
                         </li>
@@ -293,9 +246,256 @@
                                     <dd>The question's expected duration.</dd>
                                 </dl>
                             </div>
+                        </li>                        
+
+                        <li class="request post">
+                            <input type="checkbox" id="req-q-save" />
+                            <label for="req-q-save">
+                                <h3>/q/save</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Create a new question</h4>
+                                <p class="description">Allows to create an entirely new question both inside and outside of a set.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>content_type</dt>
+                                    <dd>The type of the questions content. Possible values: EMPTY, PLAIN_TEXT, MARKDOWN, FILE.</dd>
+                                    
+                                    <dt>content_text</dt>
+                                    <dd>The question's content when content_type is PLAIN_TEXT or MARKDOWN.</dd>
+                                    
+                                    <dt>content_file</dt>
+                                    <dd>The file to be uploaded when the content_type is FILE.</dd>
+                                    
+                                    <dt>content_desc</dt>
+                                    <dd>File description if content_type is FILE.</dd>
+                                    
+                                    <dt>content_ext</dt>
+                                    <dd>File extension of file to be uploaded to content, if a file is uploaded.</dd>
+                                    
+                                    <dt>notes_type</dt>
+                                    <dd>Same as content_type but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_text</dt>
+                                    <dd>Same as content_text but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_file</dt>
+                                    <dd>Same as content_file but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_desc</dt>
+                                    <dd>Same as content_desc but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_ext</dt>
+                                    <dd>Same as content_ext but for the solution notes of the question.</dd>
+                                    
+                                    <dt>setId</dt>
+                                    <dd>The set ID to which to add the new question to. -1 to not add the question to any set initially.</dd>
+                                    
+                                    <dt>expectedDuration</dt>
+                                    <dd>Expected duration of the question.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). Error message.</dd>
+                                    
+                                    <dt>question</dt>
+                                    <dd>(If success is true). The newly created question with all data needed to display it.</dd>
+                                    
+                                    <dt>set</dt>
+                                    <dd>(If success is true and the setId parameter was not -1). The set in which the question was created.</dd>
+                                </dl>
+                            </div>
                         </li>
-                        
-                        
+
+
+
+                        <li class="request post">
+                            <input type="checkbox" id="req-q-update" />
+                            <label for="req-q-update">
+                                <h3>/q/update</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Update a question</h4>
+                                <p class="description">Allows for a question to be updated. Might perform a fork in the background.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+ 									<dt>content_type</dt>
+                                    <dd>The type of the questions content. Possible values: EMPTY, PLAIN_TEXT, MARKDOWN, FILE.</dd>
+                                    
+                                    <dt>content_text</dt>
+                                    <dd>The question's content when content_type is PLAIN_TEXT or MARKDOWN.</dd>
+                                    
+                                    <dt>content_file</dt>
+                                    <dd>The file to be uploaded when the content_type is FILE.</dd>
+                                    
+                                    <dt>content_desc</dt>
+                                    <dd>File description if content_type is FILE.</dd>
+                                    
+                                    <dt>content_ext</dt>
+                                    <dd>File extension of file to be uploaded to content, if a file is uploaded.</dd>
+                                    
+                                    <dt>notes_type</dt>
+                                    <dd>Same as content_type but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_text</dt>
+                                    <dd>Same as content_text but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_file</dt>
+                                    <dd>Same as content_file but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_desc</dt>
+                                    <dd>Same as content_desc but for the solution notes of the question.</dd>
+                                    
+                                    <dt>notes_ext</dt>
+                                    <dd>Same as content_ext but for the solution notes of the question.</dd>
+                                    
+                                    <dt>setId</dt>
+                                    <dd>The set ID in which to edit the question. -1 to edit it in several sets at once.</dd>
+                                    
+                                    <dt>expectedDuration</dt>
+                                    <dd>Expected duration of the question.</dd>
+                                    
+                                    <dt>id</dt>
+                                    <dd>The ID of the question to be edited.</dd>
+                                    
+                                    <dt>minor</dt>
+                                    <dd>Whether this is a minor edit or not. (true/false).</dd>
+                                    
+                                    <dt>sets</dt>
+                                    <dd>A comma-separated list of set IDs in which to edit the question.</dd>
+                                </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>question</dt>
+                                    <dd>(If success is true). The updated question. Might be an entirely new one from the one initially
+                                    edited or it might be the same one if an in-place edit was performed.</dd>
+                                    
+                                    <dt>set</dt>
+                                    <dd>(If success is true and the parameter setId was not -1). The set inside which the question was edited.</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+						<li class="request post global">
+                            <input type="checkbox" id="req-q-addtags" />
+                            <label for="req-q-addtags">
+                                <h3>/q/addtags</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Add tags to a question</h4>
+                                <p class="description">Provides the possibility to add any number of tags to a question. Tags which don't already
+                                exist in the database will be created. Tags which are already associated with the question will not be added a
+                                second time.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tags</dt>
+	                                <dd>Comma-separated list of tags to be added.</dd>
+	                                 
+	                                <dt>qid</dt>
+	                                <dd>The id of the question to which to add the tags.</dd>
+	                            </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>tags</dt>
+                                    <dd>(If success is true). The tags which were newly added to the question. Does not contain any tags which
+                                    were already associated with the question.</dd>
+                                     
+                                    <dt>amount</dt>
+                                    <dd>(If success is true). The amount of tags newly added to the question.</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+						<li class="request post global">
+                            <input type="checkbox" id="req-q-deltag" />
+                            <label for="req-q-deltag">
+                                <h3>/q/deltag</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Delete a single tag from a question</h4>
+                                <p class="description">Provides the possibility to delete a single tag from a question.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+                                    <dt>tag</dt>
+	                                <dd>The tag to be deleted from the question.</dd>
+	                                 
+	                                <dt>qid</dt>
+	                                <dd>The id of the question from which to delete the tag.</dd>
+	                            </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>question</dt>
+                                    <dd>(If success is true). The updated question, now without the tag, which was deleted.</dd>
+                                </dl>
+                            </div>
+                        </li>
+
+						<li class="request post">
+                            <input type="checkbox" id="req-q-togglestar" />
+                            <label for="req-q-togglestar">
+                                <h3>/q/togglestar</h3>
+                            </label>
+
+                            <div class="content">
+                                <h4>Toggle if question is starred</h4>
+                                <p class="description">Provides the possibility for the owner to star/unstar a question.</p>
+
+                                <h5>Parameters</h5>
+                                <dl>
+	                                <dt>id</dt>
+	                                <dd>The id of the question of which to toggle the starred state.</dd>
+	                            </dl>
+
+                                <h5>Response</h5>
+                                <dl>
+                                    <dt>success</dt>
+                                    <dd>true/false</dd>
+                                    
+                                    <dt>error</dt>
+                                    <dd>(If success is false). An error message.</dd>
+                                    
+                                    <dt>id</dt>
+                                    <dd>(If success is true). The id of the question of which the star state was toggled.</dd>
+                                    
+                                    <dt>starred</dt>
+                                    <dd>(If success is true). Whether or not the question is now starred (true/false).</dd>
+                                </dl>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
