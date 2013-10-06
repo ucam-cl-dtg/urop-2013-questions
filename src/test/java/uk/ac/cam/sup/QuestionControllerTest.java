@@ -1,5 +1,19 @@
 package uk.ac.cam.sup;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Session;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,14 +29,6 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.util.HibernateUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class QuestionControllerTest {
