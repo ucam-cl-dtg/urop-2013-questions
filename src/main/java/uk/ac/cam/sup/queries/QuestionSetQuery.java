@@ -12,11 +12,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public class QuestionSetQuery extends Query<QuestionSet> {
 	//private static Logger log = LoggerFactory.getLogger(QuestionSetQuery.class);
@@ -34,7 +34,7 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 				.add(Projections.groupProperty("isStarred"))
 				.add(Projections.groupProperty("timeStamp"));
 			
-		Criteria c = HibernateUtil.getTransactionSession()
+		Criteria c = HibernateUtil.getInstance().getSession()
 				.createCriteria(QuestionSet.class)
 				.setProjection(projectionList)
 				.addOrder(Order.desc("isStarred"))
@@ -48,7 +48,7 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 	}
 	
 	public static QuestionSet get(int id) {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 
 		QuestionSet qs = (QuestionSet) session
 				.createQuery("from QuestionSet where id = :id")

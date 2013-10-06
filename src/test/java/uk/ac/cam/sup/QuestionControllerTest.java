@@ -21,14 +21,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.controllers.GeneralController;
 import uk.ac.cam.sup.controllers.QuestionEditController;
 import uk.ac.cam.sup.controllers.QuestionViewController;
 import uk.ac.cam.sup.form.QuestionAdd;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.util.HibernateUtil;
-
 
 @RunWith(JUnit4.class)
 public class QuestionControllerTest {
@@ -40,7 +40,7 @@ public class QuestionControllerTest {
 	
 	@BeforeClass
 	public static void createQuestionSetAndOwner() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		owner = new User("mojpc2");
 		owner.save();
 		qset = new QuestionSet(owner);
@@ -50,7 +50,7 @@ public class QuestionControllerTest {
 	
 	@AfterClass
 	public static void destroyStuff() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		qset.delete();
 		owner.delete();
 		session.getTransaction().commit();
@@ -58,6 +58,7 @@ public class QuestionControllerTest {
 	
 	@Before
 	public void setUp() throws NoSuchFieldException {
+		
 		// Mock HttpServletRequest and Session
 		HttpSession mock_sess = createMock(HttpSession.class);
 		expect(mock_sess.getAttribute("RavenRemoteUser")).andReturn("mojpc2");

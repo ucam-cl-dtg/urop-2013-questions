@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.Data;
 import uk.ac.cam.sup.models.Question;
@@ -19,7 +20,6 @@ import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.UserQuery;
 import uk.ac.cam.sup.util.DataType;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -33,7 +33,7 @@ public class DevelopmentController extends GeneralController {
 	@Produces("application/json")
 	public Map<String,String> commitDB(){
 		try{
-			HibernateUtil.commit();
+			HibernateUtil.getInstance().commit();
 			return ImmutableMap.of("status", "commited.");
 		} catch(Exception e) {
 			return ImmutableMap.of("status", "error. Message: " + e.getMessage());
@@ -42,22 +42,10 @@ public class DevelopmentController extends GeneralController {
 	}
 	
 	@GET
-	@Path("/rconf")
-	@Produces("application/json")
-	public Map<String,String> reconfigerDB(){
-		try{
-			HibernateUtil.reconfigure();
-			return ImmutableMap.of("status", "reconfigured");
-		} catch(Exception e) {
-			return ImmutableMap.of("status", "error. Message: " + e.getMessage());
-		}
-	}
-	
-	@GET
 	@Path("/addquestionstosets")
 	public void addQuestionsToSets(){
 		
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		User jcb = (User)session.createQuery("from User where id = ?").setString(0, "jcb98").uniqueResult();
 		
 		Question a = new Question(jcb);

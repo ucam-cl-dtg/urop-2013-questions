@@ -4,13 +4,13 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.cam.sup.util.HibernateUtil;
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 
 public class Model {
 	private static Logger log = LoggerFactory.getLogger(Model.class);
 	
 	public final void save() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		try {
 			log.debug("Trying to SAVE model " + this.getClass().toString());
 			session.save(this);
@@ -22,7 +22,7 @@ public class Model {
 	}
 
 	public final void update() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		try {
 			session.update(this);
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class Model {
 	}
 
 	public final void saveOrUpdate() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		try {
 			session.saveOrUpdate(this);
 		} catch (Exception e) {
@@ -42,7 +42,7 @@ public class Model {
 	}
 
 	public final void delete() {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		try {
 			session.delete(this);
 		} catch (Exception e) {

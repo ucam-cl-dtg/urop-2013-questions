@@ -11,9 +11,9 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.exceptions.ModelNotFoundException;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public class UserQuery {
 	
@@ -25,7 +25,7 @@ public class UserQuery {
 	}
 	
 	public static UserQuery all(){
-		UserQuery uq = new UserQuery(HibernateUtil.getTransactionSession()
+		UserQuery uq = new UserQuery(HibernateUtil.getInstance().getSession()
 				.createCriteria(User.class)	
 				.addOrder(Order.asc("id"))
 				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY));
@@ -34,7 +34,7 @@ public class UserQuery {
 	
 	
 	public static User get(String userID) throws ModelNotFoundException{
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		log.debug("Trying to get user with user ID " + userID);
 		User result = (User) session
 				.createQuery("from User where id = :id")

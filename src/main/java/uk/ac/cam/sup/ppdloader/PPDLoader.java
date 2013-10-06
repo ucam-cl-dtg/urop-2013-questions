@@ -8,11 +8,11 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.HashSet;
 import java.util.Set;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.TagQuery;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public class PPDLoader {
 	public static Set<Question> loadAllQuestions() throws Exception {
@@ -82,7 +82,7 @@ public class PPDLoader {
 				q.save();
 			}
 			
-			HibernateUtil.commit();
+			HibernateUtil.getInstance().commit();
 			
 			return;
 		}

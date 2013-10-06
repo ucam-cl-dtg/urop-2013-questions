@@ -13,10 +13,10 @@ import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.criterion.Restrictions;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.exceptions.QueryAlreadyOrderedException;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.util.HibernateUtil;
 import uk.ac.cam.sup.util.Identifiable;
 import uk.ac.cam.sup.util.Mappable;
 
@@ -47,7 +47,7 @@ public abstract class Query<T extends Mappable & Identifiable> {
 		}
 		final List<Integer> idList = new ArrayList<Integer>(ids);
 		
-		List<T> result = HibernateUtil.getTransactionSession()
+		List<T> result = HibernateUtil.getInstance().getSession()
 				.createCriteria(queriedClass)
 				.add(Restrictions.in("id", ids))
 				.list();

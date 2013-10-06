@@ -8,8 +8,8 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Tag;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public class TagQuery {
 	
@@ -26,7 +26,7 @@ public class TagQuery {
 	
 	public static TagQuery all() {
 		return new TagQuery (
-				HibernateUtil.getTransactionSession()
+				HibernateUtil.getInstance().getSession()
 					.createCriteria(Tag.class)
 					.addOrder(Order.asc("name"))
 		);

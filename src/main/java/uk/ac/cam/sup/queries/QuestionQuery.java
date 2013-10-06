@@ -15,10 +15,10 @@ import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public class QuestionQuery extends Query<Question> {
 	private static Logger log = LoggerFactory.getLogger(QuestionQuery.class);
@@ -31,7 +31,7 @@ public class QuestionQuery extends Query<Question> {
 	}
 
 	public static Question get(int id) {
-		Session session = HibernateUtil.getTransactionSession();
+		Session session = HibernateUtil.getInstance().getSession();
 		log.debug("Trying to get question with id " + id);
 		Question q = (Question) session
 				.createQuery("from Question where id = :id")
@@ -52,7 +52,7 @@ public class QuestionQuery extends Query<Question> {
 			.add(Projections.groupProperty("isStarred"))
 			.add(Projections.groupProperty("timeStamp"));
 		
-		Criteria c = HibernateUtil.getTransactionSession()
+		Criteria c = HibernateUtil.getInstance().getSession()
 			.createCriteria(Question.class)
 			.setProjection(projectionList)
 			.addOrder(Order.desc("isStarred"))

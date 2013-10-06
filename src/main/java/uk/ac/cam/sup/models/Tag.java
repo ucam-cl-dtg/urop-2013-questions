@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-import uk.ac.cam.sup.util.HibernateUtil;
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 
 @Entity
 @Table(name="Tags")
@@ -35,7 +35,7 @@ public class Tag extends Model implements Comparable<Tag>{
 	}
 	
 	public static Tag get(String name) {
-		Criteria criteria = HibernateUtil.getTransactionSession()
+		Criteria criteria = HibernateUtil.getInstance().getSession()
 			.createCriteria(Tag.class)
 			.add(Restrictions.eq("name", name).ignoreCase());
 		Tag t = (Tag) criteria.uniqueResult();

@@ -6,12 +6,12 @@ import org.hibernate.Session;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.models.Tag;
 import uk.ac.cam.sup.models.User;
 import uk.ac.cam.sup.queries.TagQuery;
-import uk.ac.cam.sup.util.HibernateUtil;
 
 public abstract class GenericTest {
 	protected static Session session;
@@ -25,7 +25,7 @@ public abstract class GenericTest {
 	static Question s;
 
 	private static void fillDB() {
-		session = HibernateUtil.getTransactionSession();
+		session = HibernateUtil.getInstance().getSession();
 		
 		a = new User("u1");
 		b = new User("u2");
@@ -94,7 +94,7 @@ public abstract class GenericTest {
 		session.save(rs);
 		session.getTransaction().commit();
 		
-		session = HibernateUtil.getTransactionSession();
+		session = HibernateUtil.getInstance().getSession();
 
 		p = (Question) session.createQuery("from Question where owner_id = ?")
 				.setString(0, "u1").list().get(0);
@@ -113,12 +113,11 @@ public abstract class GenericTest {
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
-		session = HibernateUtil.getTransactionSession();
+		session = HibernateUtil.getInstance().getSession();
 		session.getTransaction().commit();
 		
-		HibernateUtil.reconfigure();
 		fillDB();
-		session = HibernateUtil.getTransactionSession();
+		session = HibernateUtil.getInstance().getSession();
 	}
 	
 	@AfterClass

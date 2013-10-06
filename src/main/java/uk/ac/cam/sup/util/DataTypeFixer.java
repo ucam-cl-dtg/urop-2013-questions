@@ -2,6 +2,7 @@ package uk.ac.cam.sup.util;
 
 import java.util.List;
 
+import uk.ac.cam.cl.dtg.teaching.hibernate.HibernateUtil;
 import uk.ac.cam.sup.models.Question;
 import uk.ac.cam.sup.models.QuestionSet;
 import uk.ac.cam.sup.queries.QuestionQuery;
@@ -20,7 +21,7 @@ public class DataTypeFixer {
 			}
 			qs.update();
 		}
-		HibernateUtil.commit();
+		HibernateUtil.getInstance().commit();
 		
 		List<Question> qlist = QuestionQuery.all().list();
 		for (Question q: qlist) {
@@ -38,7 +39,7 @@ public class DataTypeFixer {
 			
 			q.update();
 		}
-		HibernateUtil.commit();
+		HibernateUtil.getInstance().commit();
 	}
 	
 }
