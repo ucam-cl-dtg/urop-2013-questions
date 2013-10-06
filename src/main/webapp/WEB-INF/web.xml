@@ -21,17 +21,17 @@
 		<param-name>cssFiles</param-name>
 		<param-value>/css/questions.css</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>apiKey</param-name>
 		<param-value>4870v534lmomthfssb27ho4vjtidhujlmmssasuf</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>excludeFromLogger</param-name>
 		<param-value>/dashboard/api/notifications</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>dashboardUrl</param-name>
 		<param-value>http://localhost:8080/dashboard</param-value>
@@ -45,29 +45,29 @@
 	<context-param>
 		<param-name>jsFiles</param-name>
 		<param-value>
-		  http://code.jquery.com/ui/1.10.3/jquery-ui.js,
-		  http://malsup.github.com/jquery.form.js,/js/showdown.js,
-		  http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,
-		  /js/search.js,
-		  /js/searchSet.js,
-		  /js/questionFull.js,
-		  /js/questionSet.js,
-		  /js/dataEditor.js,
-		  /js/dataRenderer.js,
-		  /js/user.js,
-		  /js/util.js,
-		  /js/addQuestionForm.js,
-		  /js/questions_inits.js,
-		  /soy/js/1/questions.js,
-		  /soy/js/1/questions.search.js,
-		  /soy/js/1/questions.form.question.js,
-		  /soy/js/1/questions.form.set.js,
-		  /soy/js/1/questions.view.set.tab.js,
-		  /soy/js/1/questions.view.set.js,
-		  /soy/js/1/questions.view.user.js,
-		  /soy/js/1/questions.view.question.tab.js,
-		  /soy/js/1/questions.view.question.js,
-		  /soy/js/1/questions.misc.js
+			http://code.jquery.com/ui/1.10.3/jquery-ui.js,
+			http://malsup.github.com/jquery.form.js,/js/showdown.js,
+			http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured,
+			/js/search.js,
+			/js/searchSet.js,
+			/js/questionFull.js,
+			/js/questionSet.js,
+			/js/dataEditor.js,
+			/js/dataRenderer.js,
+			/js/user.js,
+			/js/util.js,
+			/js/addQuestionForm.js,
+			/js/questions_inits.js,
+			/soy/js/1/questions.js,
+			/soy/js/1/questions.search.js,
+			/soy/js/1/questions.form.question.js,
+			/soy/js/1/questions.form.set.js,
+			/soy/js/1/questions.view.set.tab.js,
+			/soy/js/1/questions.view.set.js,
+			/soy/js/1/questions.view.user.js,
+			/soy/js/1/questions.view.question.tab.js,
+			/soy/js/1/questions.view.question.js,
+			/soy/js/1/questions.misc.js
 		</param-value>
 	</context-param>
 
@@ -76,7 +76,7 @@
 		<param-value>/api</param-value>
 	</context-param>
 
-    <filter>
+	<filter>
 		<filter-name>apiauth</filter-name>
 		<filter-class>uk.ac.cam.cl.dtg.teaching.APIFilter</filter-class>
 		<init-param>
@@ -100,7 +100,7 @@
 			<param-value>uk.ac.cam.sup.QuestionsApp</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>apiauth</filter-name>
 		<url-pattern>/api/*</url-pattern>
