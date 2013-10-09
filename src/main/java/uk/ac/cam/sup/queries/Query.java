@@ -114,7 +114,7 @@ public abstract class Query<T extends Mappable & Identifiable> {
 			int result = sr.getRowNumber() + 1;
 			return result;
 		} catch(HibernateException e) {
-			throw new QueryAlreadyOrderedException("Order was already applied to this QuestionQuery!",e);
+			throw new QueryAlreadyOrderedException("Error calculating size of result set",e);
 		}
 	}
 	
