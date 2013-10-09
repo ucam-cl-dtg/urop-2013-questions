@@ -52,18 +52,18 @@ class DatabaseOps:
         self.con = psycopg2.connect(dbname='questions', user='questions',password='questions',host='localhost') 
         self.cur = self.con.cursor()
     
-    def nextVal(self,table,column):
-        self.cur.execute("SELECT max(%s) from %s" % (column,table))
+    def nextVal(self,sequence):
+        self.cur.execute("SELECT nextval('%s')" % (sequence))
         ids = self.cur.fetchone()
         if ids and ids[0]:
-            return ids[0]+1
+            return ids[0]
         return 1
 
     def findTag(self,name):
         self.cur.execute("SELECT id from TAGS where name=%s",[name])
         ids = self.cur.fetchone()
         if not ids:
-            id = self.nextVal("tags","id")
+            id = self.nextVal("tag_seq")
             self.cur.execute("INSERT INTO TAGS(id,name) VALUES (%s,%s)",[id,name])
             return id
         else:
@@ -73,16 +73,16 @@ class DatabaseOps:
         return time.strftime("%Y-%m-%d %H:%M")
 
     def createQuestionSet(self,name,owner,tags):
-        id = self.nextVal("questionsets","id")
-        self.cur.execute("INSERT INTO QUESTIONSETS(id,isstarred,name,timestamp,owner_id) VALUES (%s,%s,%s,%s,%s)",[id,"false",name,self.now(),owner])
+        id = self.nextVal("set_seq")
+        self.cur.execute("INSERT INTO QUESTIONSETS(id,isstarred,name,timestamp,owner_id,plan_data,plan_type) VALUES (%s,%s,%s,%s,%s,'','PLAIN_TEXT')",[id,"true",name,self.now(),owner])
         for tag in tags:
             tagId = self.findTag(tag)
             self.cur.execute("INSERT INTO QUESTIONSETS_TAGS(questionsets_id,tags_id) VALUES (%s,%s)",[id,tagId])
         return id
 
     def insertQuestion(self,question,solution,owner):
-        id = self.nextVal("questions","id")
-        self.cur.execute("INSERT INTO QUESTIONS(id,content_data,content_type,expectedduration,isstarred,notes_data,notes_type,timestamp,usagecount,owner_id) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[id,question,"MARKDOWN",20,"false",solution,"MARKDOWN",self.now(),0,owner])
+        id = self.nextVal("question_seq")
+        self.cur.execute("INSERT INTO QUESTIONS(id,content_data,content_type,expectedduration,isstarred,notes_data,notes_type,timestamp,usagecount,owner_id) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[id,question,"MARKDOWN",20,"true",solution,"MARKDOWN",self.now(),0,owner])
         return id
 
     def createTags(self,questionId,tags):
@@ -91,7 +91,7 @@ class DatabaseOps:
             self.cur.execute("INSERT INTO QUESTIONS_TAGS(questions_id,tags_id) VALUES (%s,%s)",[questionId,tagid])
     
     def addToQuestionSet(self,questionId,questionSetId):
-        placementId = self.nextVal("placement","id")
+        placementId = self.nextVal("placement_seq")
         self.cur.execute("SELECT max(place) from placement,questionsets_placement where questionsets_placement.questions_id = placement.id and questionsets_placement.questionsets_id =%s",[questionSetId])
         r = self.cur.fetchone()
         nextPlacement = r[0]+1 if r and r[0] else 1
