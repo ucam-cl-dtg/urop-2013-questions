@@ -38,6 +38,7 @@ public class QuestionSetQuery extends Query<QuestionSet> {
 				.createCriteria(QuestionSet.class)
 				.setProjection(projectionList)
 				.addOrder(Order.desc("isStarred"))
+				.addOrder(Order.asc("name"))
 				.addOrder(Order.desc("count"))
 				.addOrder(Order.desc("timeStamp"))
 				.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
