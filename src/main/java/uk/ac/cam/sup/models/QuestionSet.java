@@ -2,6 +2,7 @@ package uk.ac.cam.sup.models;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -104,18 +107,17 @@ public class QuestionSet extends Model implements Mappable, Cloneable, Identifia
 		return result;
 	}
 	
-	public List<Question> getQuestions(){
-		List<Question> result = new ArrayList<Question>();
-		while (result.size() < questions.size()) { result.add(null); }
+	public Collection<Question> getQuestions(){
+		SortedMap<Integer,Question> result = new TreeMap<Integer,Question>();
 		log.debug("Trying to get questions of set " + id + " which has " + questions.size() + " questions...");
 		for(QuestionPlacement q: questions) {
 			log.debug("    -> trying to set question in place " + (q.getPlace()-1) + "...");
-			result.set(q.getPlace()-1, q.getQuestion());
+			result.put(q.getPlace()-1, q.getQuestion());
 		}
-		return result;
+		return result.values();
 	}
 	public List<Map<String,Object>> getQuestionsAsMaps(boolean shadow) {
-		List<Question> questions = getQuestions();
+		Collection<Question> questions = getQuestions();
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 		for (Question q: questions) {
 			result.add(q.toMap(shadow));
