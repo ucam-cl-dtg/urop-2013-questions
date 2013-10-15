@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class QuestionSetModelTest extends GenericTest {
 		QuestionSet qs = new QuestionSet(new User("abc123"));
 		Question q = new Question(new User("abc123"));
 		qs.addQuestion(q);
-		List<Question> questions = qs.getQuestions();
+		Collection<Question> questions = qs.getQuestions();
 		assertTrue(questions.contains(q));
 	}
 	
@@ -61,7 +62,7 @@ public class QuestionSetModelTest extends GenericTest {
 		Question q = new Question(new User("abc123"));
 		qs.addQuestion(q);
 		qs.removeQuestion(q);
-		List<Question> questions = qs.getQuestions();
+		Collection<Question> questions = qs.getQuestions();
 		assertFalse(questions.contains(q));
 	}
 	
@@ -70,7 +71,7 @@ public class QuestionSetModelTest extends GenericTest {
 		QuestionSet s = (QuestionSet) session
 				.createQuery("from QuestionSet where id=1")
 				.uniqueResult();
-		List<Question> qs = s.getQuestions();
+		Collection<Question> qs = s.getQuestions();
 		int sum = 0;
 		for (Question q: qs) {
 			sum += q.getExpectedDuration();
