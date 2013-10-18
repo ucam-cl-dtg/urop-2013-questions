@@ -82,7 +82,7 @@ public class PPDLoader {
 				q.save();
 			}
 			
-			HibernateUtil.getInstance().commit();
+			HibernateUtil.getInstance().getSession().getTransaction().commit();
 			
 			return;
 		}

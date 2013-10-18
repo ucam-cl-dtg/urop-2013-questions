@@ -33,7 +33,7 @@ public class DevelopmentController extends GeneralController {
 	@Produces("application/json")
 	public Map<String,String> commitDB(){
 		try{
-			HibernateUtil.getInstance().commit();
+			HibernateUtil.getInstance().getSession().getTransaction().commit();
 			return ImmutableMap.of("status", "commited.");
 		} catch(Exception e) {
 			return ImmutableMap.of("status", "error. Message: " + e.getMessage());

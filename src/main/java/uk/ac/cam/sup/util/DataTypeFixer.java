@@ -21,7 +21,7 @@ public class DataTypeFixer {
 			}
 			qs.update();
 		}
-		HibernateUtil.getInstance().commit();
+		HibernateUtil.getInstance().getSession().getTransaction().commit();
 		
 		List<Question> qlist = QuestionQuery.all().list();
 		for (Question q: qlist) {
@@ -39,7 +39,7 @@ public class DataTypeFixer {
 			
 			q.update();
 		}
-		HibernateUtil.getInstance().commit();
+		HibernateUtil.getInstance().getSession().getTransaction().commit();
 	}
 	
 }
