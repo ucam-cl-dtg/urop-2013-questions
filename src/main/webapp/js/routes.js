@@ -36,6 +36,8 @@ $(document).ready(function() {
     	
     	"fairytale" : "questions.misc.fairytale",
     	
+    	"overview" : "questions.overview",
+    	
     });
 	
 });
