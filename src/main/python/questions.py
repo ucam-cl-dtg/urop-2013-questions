@@ -98,3 +98,60 @@ class DatabaseOps:
         self.cur.execute("INSERT INTO placement(id,place,question_id) VALUES (%s,%s,%s)",[placementId,nextPlacement,questionId])
         self.cur.execute("INSERT INTO questionsets_placement(questionsets_id,questions_id) VALUES (%s,%s)",[questionSetId,placementId])
         
+    def lookupQuestionId(self,triposCode):
+        self.cur.execute("SELECT id from questions where content_data like '%s%%'" % (triposCode))
+        return self.cur.fetchone()[0]
+
+    def deleteQuestion(self,questionId):
+        # first we need to remove ourselves from the inheritance hierachy
+        # replace the parent_id of any questions which reference us to be our parent_id
+        self.cur.execute("SELECT parent_id from questions where id=%s",[questionId])
+        parent_id = self.cur.fetchone()[0]
+
+        # now update the parent_id of our chidren
+        self.cur.execute("UPDATE questions set parent_id = %s where parent_id = %s",[parent_id,questionId])
+
+        # now we need to remove our tags
+        self.cur.execute("DELETE from questions_tags where questions_id = %s",[questionId])
+
+        # now find out which question sets we are in
+        self.cur.execute("SELECT distinct questionsets_id from questionsets_placement, placement where questionsets_placement.questions_id = placement.id and placement.question_id = %s",[questionId])
+        ids = map(lambda x:x[0],self.cur.fetchall())
+
+        # remove ourselves from these sets
+        self.cur.execute("DELETE FROM questionsets_placement where questions_id in (select id from placement where question_id = %s)",[questionId])
+        self.cur.execute("DELETE FROM placement where question_id = %s",[questionId])
+
+        # now delete the question itself
+        self.cur.execute("DELETE FROM questions where id = %s",[questionId])
+
+        # now check questionsets - if we've removed all the questions from a question set then delete that too
+        for setid in ids:
+            self.cur.execute("SELECT count(*) from questionsets_placement where questionsets_id=%s",[setid])
+            count = int(self.cur.fetchone()[0])
+            if count == 0:
+                # remove the tags
+                self.cur.execute("DELETE from questionsets_tags where questionsets_id = %s",[setid])
+                # remove the set
+                self.cur.execute("DELETE from questionsets where id = %s",[setid])
+
+        
+    # delete all questions owned by this person which have these tags
+    def deleteAllQuestions(self,owner,tags):
+        tagids = []
+        for tag in tags:
+            tagids.append(self.findTag(tag))
+
+        self.cur.execute("select id from questions where owner_id = %s",[owner])
+        ids = map(lambda x:x[0],self.cur.fetchall())
+        for qid in ids:
+            if self.testTagIds(qid,tagids):                
+                self.deleteQuestion(qid)
+    
+    def testTagIds(self,qid,tagids):
+        for tagid in tagids:
+            self.cur.execute("select count(*) from questions_tags where questions_id = %s and tags_id = %s", [qid,tagid])
+            count = int(self.cur.fetchone()[0])
+            if count == 0:
+                return False
+        return True
