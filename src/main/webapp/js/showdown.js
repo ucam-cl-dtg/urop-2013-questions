@@ -223,6 +223,9 @@ this.makeHtml = function(text) {
 	for (var i = 0; i < maths.length; i++) {
 		text = text.replace(/~L/, maths[i]);
 	}
+	
+	// fix HTML entities
+	text = text.replace(/&amp;([a-z]+|#[0-9]+);/g,"&$1;");
 
 	return text;
 };
