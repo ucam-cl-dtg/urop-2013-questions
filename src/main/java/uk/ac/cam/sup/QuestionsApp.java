@@ -9,6 +9,7 @@ import uk.ac.cam.sup.controllers.DevelopmentController;
 import uk.ac.cam.sup.controllers.FileController;
 import uk.ac.cam.sup.controllers.MainController;
 import uk.ac.cam.sup.controllers.MiscController;
+import uk.ac.cam.sup.controllers.OverviewController;
 import uk.ac.cam.sup.controllers.QuestionEditController;
 import uk.ac.cam.sup.controllers.QuestionSetEditController;
 import uk.ac.cam.sup.controllers.QuestionSetViewController;
@@ -33,6 +34,7 @@ public class QuestionsApp extends Application {
 		myServices.add(MiscController.class);
 		myServices.add(UserController.class);
 		myServices.add(FileController.class);
+		myServices.add(OverviewController.class);
 		
 		myServices.add(UTF8Interceptor.class);
 		// Add Htmleasy Providers
