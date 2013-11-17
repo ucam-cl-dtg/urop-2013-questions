@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.cam.cl.dtg.ldap.LDAPObjectNotFoundException;
 import uk.ac.cam.cl.dtg.ldap.LDAPQueryManager;
 import uk.ac.cam.cl.dtg.ldap.LDAPUser;
 import uk.ac.cam.cl.dtg.teaching.api.DashboardApi.DashboardApiWrapper;
@@ -70,12 +71,10 @@ public class User extends Model {
 			try{
 				LDAPUser u = LDAPQueryManager.getUser(id);
 				name = u.getDisplayName();
-				if(name == null) throw new Exception("name was null!");
-			} catch(Exception e){
-				log.error("An error occurred while trying to retrieve the display name for " + id
-						+ ". Error class: " + e.getClass() + ". Message: " + e.getMessage());
-				name = id;
+			} catch (LDAPObjectNotFoundException e) {
+				log.debug("Failed to find user in LDAP when looking up display name.  Falling back to id ({})",id);
 			}
+			name = id;
 		}
 		return name;
 	}
