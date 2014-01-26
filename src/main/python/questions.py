@@ -37,11 +37,13 @@ class Question:
         self.solution = self._latexToMarkdown(self.solution)
 
     def _latexToMarkdown(self,latex):
+        latex = re.sub(r"\\includegraphics(.*?)\{(.*?)\}",r"\includegraphics\1{/questions/api/uploads/\2.png}",latex)
         p1 = subprocess.Popen(['echo', latex], stdout=subprocess.PIPE)
         p2 = subprocess.Popen(['pandoc','-f','latex','-t','markdown'], stdin=p1.stdout, stdout=subprocess.PIPE)
         p1.stdout.close()
         md = p2.communicate()[0]
         md = re.sub("\\\\ "," ",md)
+        md = re.sub(r"aligned\*","aligned",md)
         return md
 
 class DatabaseOps:
