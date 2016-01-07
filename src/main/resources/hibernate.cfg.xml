@@ -42,7 +42,7 @@
   		<property name="hibernate.c3p0.idle_test_period">3000</property>
 		<property name="hibernate.c3p0.unreturnedConnectionTimeout">0</property>
 		<property name="hibernate.c3p0.debugUnreturnedConnectionStackTraces">false</property>
-
+		<property name="hibernate.jdbc.use_scrollable_resultset">true</property>
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		
